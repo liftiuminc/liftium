@@ -1,6 +1,18 @@
 CREATE DATABASE IF NOT EXISTS liftium;
 USE liftium;
 
+CREATE TABLE `ad_slot` (
+  `as_id` smallint(5) unsigned NOT NULL auto_increment,
+  `slot` varchar(50) NOT NULL,
+  `skin` varchar(25) NOT NULL,
+  `size` varchar(25) default NULL,
+  `load_priority` tinyint(3) unsigned default NULL,
+  `default_provider_id` tinyint(3) unsigned NOT NULL,
+  `default_enabled` enum('Yes','No') default 'Yes',
+  PRIMARY KEY  (`as_id`),
+  UNIQUE KEY `slot` (`slot`,`skin`)
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 
+
 CREATE TABLE publisher (
 	pub_id int unsigned not null auto_increment,
 	contact_name varchar(255),
