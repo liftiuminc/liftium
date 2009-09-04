@@ -1,0 +1,692 @@
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (25.9ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (3.2ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (2.6ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.9ms)[0m   [0;1mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: no such table: tags: ALTER TABLE "tags" ADD "enabled" boolean DEFAULT 't'[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: no such table: tags: ALTER TABLE "tags" ADD "enabled" boolean DEFAULT 't'[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: no such table: tags: ALTER TABLE "tags" ADD "enabled" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.8ms)[0m   [0mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: no such table: tags: ALTER TABLE "tags" ADD "enabled" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "networks" ADD "enabled" boolean DEFAULT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "networks" ADD "supports_threshold" boolean DEFAULT 0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: duplicate column name: always_fill: ALTER TABLE "networks" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.8ms)[0m   [0mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "networks" ADD "enabled" boolean DEFAULT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "networks" ADD "supports_threshold" boolean DEFAULT 0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: duplicate column name: always_fill: ALTER TABLE "networks" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mALTER TABLE "networks" ADD "enabled" boolean DEFAULT 1[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mALTER TABLE "networks" ADD "supports_threshold" boolean DEFAULT 0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: duplicate column name: always_fill: ALTER TABLE "networks" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (2.2ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "always_fill" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "networks" ADD "enabled" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "networks" ADD "supports_threshold" boolean DEFAULT 0[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: duplicate column name: always_fill: ALTER TABLE "networks" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (1.6ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "pay_type" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "networks" ADD "enabled" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mALTER TABLE "networks" ADD "supports_threshold" boolean DEFAULT 0[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "networks" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090904211146')[0m
+Migrating to CreateTags (20090904211256)
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mCREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tag_name" varchar(255), "network_id" integer, "publisher_id" integer) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mALTER TABLE "tags" ADD "value" decimal(3,2)[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mALTER TABLE "tags" ADD "enabled" boolean DEFAULT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mALTER TABLE "tags" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "tags" ADD "sample_rate" integer(3)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mALTER TABLE "tags" ADD "tier" integer(3)[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "tags" ADD "freq_cap" integer(3)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "tags" ADD "rej_cap" integer(3)[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "tags" ADD "rej_time" integer(3)[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mALTER TABLE "tags" ADD "tag" text[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090904211256')[0m
+Migrating to CreatePublishers (20090904215518)
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TABLE "publishers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "publisher_name" varchar(255), "website" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090904215518')[0m
+  [4;35;1mSQL (0.6ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("networks")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("publishers")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("tags")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("networks")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("publishers")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("tags")[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-09-04 15:04:12) [GET]
+
+ActionController::RoutingError (No route matches "/networks" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing NetworksController#index (for 127.0.0.1 at 2009-09-04 15:05:20) [GET]
+  [4;36;1mNetwork Load (1.2ms)[0m   [0;1mSELECT * FROM "networks" [0m
+Rendering template within layouts/networks
+Rendering networks/index
+Completed in 225ms (View: 105, DB: 1) | 200 OK [http://localhost/networks]
+
+
+Processing NetworksController#new (for 127.0.0.1 at 2009-09-04 15:05:39) [GET]
+Rendering template within layouts/networks
+Rendering networks/new
+Completed in 21ms (View: 10, DB: 0) | 200 OK [http://localhost/networks/new]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:05:44) [GET]
+  [4;35;1mPublisher Load (0.5ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 19ms (View: 12, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing TagsController#index (for 127.0.0.1 at 2009-09-04 15:05:46) [GET]
+  [4;36;1mTag Load (0.7ms)[0m   [0;1mSELECT * FROM "tags" [0m
+Rendering template within layouts/tags
+Rendering tags/index
+Completed in 50ms (View: 15, DB: 1) | 200 OK [http://localhost/tags]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:06:28) [GET]
+  [4;35;1mPublisher Load (0.6ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 12ms (View: 6, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing NetworksController#index (for 127.0.0.1 at 2009-09-04 15:07:47) [GET]
+  [4;36;1mNetwork Load (0.6ms)[0m   [0;1mSELECT * FROM "networks" [0m
+Rendering template within layouts/networks
+Rendering networks/index
+Completed in 83ms (View: 6, DB: 1) | 200 OK [http://localhost/networks]
+
+
+Processing NetworksController#new (for 127.0.0.1 at 2009-09-04 15:07:49) [GET]
+Rendering template within layouts/networks
+Rendering networks/new
+Completed in 20ms (View: 11, DB: 0) | 200 OK [http://localhost/networks/new]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:09:28) [GET]
+  [4;35;1mPublisher Load (0.6ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 8ms (View: 1, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#new (for 127.0.0.1 at 2009-09-04 15:09:33) [GET]
+Rendering template within layouts/publishers
+Rendering publishers/new
+Completed in 19ms (View: 9, DB: 0) | 200 OK [http://localhost/publishers/new]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:09:42) [GET]
+  [4;36;1mPublisher Load (0.6ms)[0m   [0;1mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 9ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:09:43) [GET]
+  [4;35;1mPublisher Load (0.6ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 9ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:10:38) [GET]
+  [4;36;1mPublisher Load (0.6ms)[0m   [0;1mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 13ms (View: 6, DB: 1) | 200 OK [http://localhost/publishers]
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (1.6ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateNetworks (20090904211146)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "pay_type" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "networks" ADD "enabled" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "networks" ADD "supports_threshold" boolean DEFAULT 0[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mALTER TABLE "networks" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090904211146')[0m
+Migrating to CreateTags (20090904211256)
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mCREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tag_name" varchar(255), "network_id" integer, "publisher_id" integer) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "tags" ADD "value" decimal(3,2)[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "tags" ADD "enabled" boolean DEFAULT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "tags" ADD "always_fill" boolean DEFAULT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "tags" ADD "sample_rate" integer(3)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mALTER TABLE "tags" ADD "tier" integer(3)[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mALTER TABLE "tags" ADD "frequency_cap" integer(3)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "tags" ADD "rejection_cap" integer(3)[0m
+  [4;36;1mSQL (3.5ms)[0m   [0;1mALTER TABLE "tags" ADD "rejection_time" integer(3)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mALTER TABLE "tags" ADD "tag" text[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090904211256')[0m
+Migrating to CreatePublishers (20090904215518)
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TABLE "publishers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "publisher_name" varchar(255), "website" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090904215518')[0m
+  [4;35;1mSQL (0.6ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("networks")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("publishers")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("tags")[0m
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:23) [GET]
+  [4;35;1mPublisher Load (0.6ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 9ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:24) [GET]
+  [4;36;1mPublisher Load (0.6ms)[0m   [0;1mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 9ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:25) [GET]
+  [4;35;1mPublisher Load (0.6ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:37) [GET]
+  [4;36;1mPublisher Load (0.5ms)[0m   [0;1mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:39) [GET]
+  [4;35;1mPublisher Load (0.5ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 9ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:39) [GET]
+  [4;36;1mPublisher Load (0.9ms)[0m   [0;1mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 9ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:40) [GET]
+  [4;35;1mPublisher Load (1.6ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 16ms (View: 2, DB: 2) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:40) [GET]
+  [4;36;1mPublisher Load (0.6ms)[0m   [0;1mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 11ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:40) [GET]
+  [4;35;1mPublisher Load (0.5ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:40) [GET]
+  [4;36;1mPublisher Load (0.5ms)[0m   [0;1mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing PublishersController#new (for 127.0.0.1 at 2009-09-04 15:13:43) [GET]
+Rendering template within layouts/publishers
+Rendering publishers/new
+Completed in 18ms (View: 9, DB: 0) | 200 OK [http://localhost/publishers/new]
+
+
+Processing PublishersController#create (for 127.0.0.1 at 2009-09-04 15:13:54) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"hZefEOPknim0nB59Cs3CzMGdkZmcMCwIQ9+NDg9jQUo=", "publisher"=>{"publisher_name"=>"Wikia", "website"=>"http://www.wikia.com"}}
+  [4;35;1mPublisher Create (0.6ms)[0m   [0mINSERT INTO "publishers" ("updated_at", "publisher_name", "website", "created_at") VALUES('2009-09-04 22:13:54', 'Wikia', 'http://www.wikia.com', '2009-09-04 22:13:54')[0m
+Redirected to http://localhost:3000/publishers/1
+Completed in 25ms (DB: 1) | 302 Found [http://localhost/publishers]
+
+
+Processing PublishersController#show (for 127.0.0.1 at 2009-09-04 15:13:54) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPublisher Load (0.3ms)[0m   [0;1mSELECT * FROM "publishers" WHERE ("publishers"."id" = 1) [0m
+Rendering template within layouts/publishers
+Rendering publishers/show
+Completed in 16ms (View: 8, DB: 0) | 200 OK [http://localhost/publishers/1]
+
+
+Processing PublishersController#index (for 127.0.0.1 at 2009-09-04 15:13:57) [GET]
+  [4;35;1mPublisher Load (0.9ms)[0m   [0mSELECT * FROM "publishers" [0m
+Rendering template within layouts/publishers
+Rendering publishers/index
+Completed in 15ms (View: 6, DB: 1) | 200 OK [http://localhost/publishers]
+
+
+Processing NetworksController#index (for 127.0.0.1 at 2009-09-04 15:14:05) [GET]
+  [4;36;1mNetwork Load (0.5ms)[0m   [0;1mSELECT * FROM "networks" [0m
+Rendering template within layouts/networks
+Rendering networks/index
+Completed in 12ms (View: 6, DB: 1) | 200 OK [http://localhost/networks]
+
+
+Processing NetworksController#new (for 127.0.0.1 at 2009-09-04 15:14:07) [GET]
+Rendering template within layouts/networks
+Rendering networks/new
+Completed in 18ms (View: 10, DB: 0) | 200 OK [http://localhost/networks/new]
+
+
+Processing NetworksController#create (for 127.0.0.1 at 2009-09-04 15:14:26) [POST]
+  Parameters: {"commit"=>"Create", "network"=>{"always_fill"=>"1", "supports_threshold"=>"0", "enabled"=>"1", "pay_type"=>"Per Click", "network_name"=>"Google AdSense"}, "authenticity_token"=>"hZefEOPknim0nB59Cs3CzMGdkZmcMCwIQ9+NDg9jQUo="}
+  [4;35;1mNetwork Create (0.5ms)[0m   [0mINSERT INTO "networks" ("updated_at", "always_fill", "enabled", "supports_threshold", "network_name", "pay_type", "created_at") VALUES('2009-09-04 22:14:26', 't', 't', 'f', 'Google AdSense', 'Per Click', '2009-09-04 22:14:26')[0m
+Redirected to http://localhost:3000/networks/1
+Completed in 14ms (DB: 0) | 302 Found [http://localhost/networks]
+
+
+Processing NetworksController#show (for 127.0.0.1 at 2009-09-04 15:14:26) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mNetwork Load (0.4ms)[0m   [0;1mSELECT * FROM "networks" WHERE ("networks"."id" = 1) [0m
+Rendering template within layouts/networks
+Rendering networks/show
+Completed in 17ms (View: 8, DB: 0) | 200 OK [http://localhost/networks/1]
+
+
+Processing NetworksController#index (for 127.0.0.1 at 2009-09-04 15:14:31) [GET]
+  [4;35;1mNetwork Load (0.8ms)[0m   [0mSELECT * FROM "networks" [0m
+Rendering template within layouts/networks
+Rendering networks/index
+Completed in 93ms (View: 6, DB: 1) | 200 OK [http://localhost/networks]
+
+
+Processing NetworksController#new (for 127.0.0.1 at 2009-09-04 15:14:32) [GET]
+Rendering template within layouts/networks
+Rendering networks/new
+Completed in 14ms (View: 5, DB: 0) | 200 OK [http://localhost/networks/new]
+
+
+Processing NetworksController#create (for 127.0.0.1 at 2009-09-04 15:14:46) [POST]
+  Parameters: {"commit"=>"Create", "network"=>{"always_fill"=>"0", "supports_threshold"=>"1", "enabled"=>"1", "pay_type"=>"Per Impression", "network_name"=>"ValueClick"}, "authenticity_token"=>"hZefEOPknim0nB59Cs3CzMGdkZmcMCwIQ9+NDg9jQUo="}
+  [4;36;1mNetwork Create (0.5ms)[0m   [0;1mINSERT INTO "networks" ("updated_at", "always_fill", "enabled", "supports_threshold", "network_name", "pay_type", "created_at") VALUES('2009-09-04 22:14:46', 'f', 't', 't', 'ValueClick', 'Per Impression', '2009-09-04 22:14:46')[0m
+Redirected to http://localhost:3000/networks/2
+Completed in 14ms (DB: 1) | 302 Found [http://localhost/networks]
+
+
+Processing NetworksController#show (for 127.0.0.1 at 2009-09-04 15:14:47) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mNetwork Load (0.4ms)[0m   [0mSELECT * FROM "networks" WHERE ("networks"."id" = 2) [0m
+Rendering template within layouts/networks
+Rendering networks/show
+Completed in 13ms (View: 5, DB: 0) | 200 OK [http://localhost/networks/2]
+
+
+Processing NetworksController#edit (for 127.0.0.1 at 2009-09-04 15:15:00) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mNetwork Load (0.9ms)[0m   [0;1mSELECT * FROM "networks" WHERE ("networks"."id" = 2) [0m
+Rendering template within layouts/networks
+Rendering networks/edit
+Completed in 19ms (View: 10, DB: 1) | 200 OK [http://localhost/networks/2/edit]
+
+
+Processing TagsController#index (for 127.0.0.1 at 2009-09-04 15:15:07) [GET]
+  [4;35;1mTag Load (0.5ms)[0m   [0mSELECT * FROM "tags" [0m
+Rendering template within layouts/tags
+Rendering tags/index
+Completed in 12ms (View: 6, DB: 1) | 200 OK [http://localhost/tags]
+
+
+Processing TagsController#new (for 127.0.0.1 at 2009-09-04 15:15:08) [GET]
+Rendering template within layouts/tags
+Rendering tags/new
+
+ActionView::TemplateError (undefined method `freqency_cap' for #<Tag:0x23319e8>) on line #28 of app/views/tags/new.html.erb:
+25:   </p>
+26:   <p>
+27:     <%= f.label :freqency_cap %><br />
+28:     <%= f.text_field :freqency_cap %>
+29:   </p>
+30:   <p>
+31:     <%= f.label :rejection_cap %><br />
+
+    app/views/tags/new.html.erb:28
+    app/views/tags/new.html.erb:3
+    app/controllers/tags_controller.rb:29:in `new'
+
+Rendered rescues/_trace (158.0ms)
+Rendered rescues/_request_and_response (2.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.9ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+
+
+Processing TagsController#index (for 127.0.0.1 at 2009-09-04 15:16:10) [GET]
+  [4;36;1mTag Load (0.6ms)[0m   [0;1mSELECT * FROM "tags" [0m
+Rendering template within layouts/tags
+Rendering tags/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/tags]
+
+
+Processing TagsController#new (for 127.0.0.1 at 2009-09-04 15:16:11) [GET]
+Rendering template within layouts/tags
+Rendering tags/new
+
+ActionView::TemplateError (undefined method `freqency_cap' for #<Tag:0x247037c>) on line #28 of app/views/tags/new.html.erb:
+25:   </p>
+26:   <p>
+27:     <%= f.label :freqency_cap %><br />
+28:     <%= f.text_field :freqency_cap %>
+29:   </p>
+30:   <p>
+31:     <%= f.label :rejection_cap %><br />
+
+    app/views/tags/new.html.erb:28
+    app/views/tags/new.html.erb:3
+    app/controllers/tags_controller.rb:29:in `new'
+
+Rendered rescues/_trace (65.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.6ms)[0m   [0;1mCREATE TABLE "networks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "network_name" varchar(255), "pay_type" varchar(255), "created_at" datetime, "updated_at" datetime, "enabled" boolean DEFAULT 't', "supports_threshold" boolean DEFAULT 'f', "always_fill" boolean DEFAULT 't') [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1mCREATE TABLE "publishers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "publisher_name" varchar(255), "website" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.1ms)[0m   [0;1mCREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tag_name" varchar(255), "network_id" integer, "publisher_id" integer, "value" decimal(3,2), "enabled" boolean DEFAULT 't', "always_fill" boolean DEFAULT 't', "sample_rate" integer(3), "tier" integer(3), "frequency_cap" integer(3), "rejection_cap" integer(3), "rejection_time" integer(3), "tag" text) [0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.5ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (2.7ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (2.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20090904215518')[0m
+  [4;35;1mSQL (1.8ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20090904211146')[0m
+  [4;36;1mSQL (1.9ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20090904211256')[0m
+
+
+Processing TagsController#new (for 127.0.0.1 at 2009-09-04 15:16:32) [GET]
+Rendering template within layouts/tags
+Rendering tags/new
+
+ActionView::TemplateError (undefined method `freqency_cap' for #<Tag:0x22c7b9c>) on line #28 of app/views/tags/new.html.erb:
+25:   </p>
+26:   <p>
+27:     <%= f.label :freqency_cap %><br />
+28:     <%= f.text_field :freqency_cap %>
+29:   </p>
+30:   <p>
+31:     <%= f.label :rejection_cap %><br />
+
+    app/views/tags/new.html.erb:28
+    app/views/tags/new.html.erb:3
+    app/controllers/tags_controller.rb:29:in `new'
+
+Rendered rescues/_trace (151.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TagsController#new (for 127.0.0.1 at 2009-09-04 15:16:33) [GET]
+Rendering template within layouts/tags
+Rendering tags/new
+
+ActionView::TemplateError (undefined method `freqency_cap' for #<Tag:0x2414004>) on line #28 of app/views/tags/new.html.erb:
+25:   </p>
+26:   <p>
+27:     <%= f.label :freqency_cap %><br />
+28:     <%= f.text_field :freqency_cap %>
+29:   </p>
+30:   <p>
+31:     <%= f.label :rejection_cap %><br />
+
+    app/views/tags/new.html.erb:28
+    app/views/tags/new.html.erb:3
+    app/controllers/tags_controller.rb:29:in `new'
+
+Rendered rescues/_trace (65.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TagsController#new (for 127.0.0.1 at 2009-09-04 15:19:17) [GET]
+Rendering template within layouts/tags
+Rendering tags/new
+
+ActionView::TemplateError (undefined method `freqency_cap' for #<Tag:0x248851c>) on line #28 of app/views/tags/new.html.erb:
+25:   </p>
+26:   <p>
+27:     <%= f.label :freqency_cap %><br />
+28:     <%= f.text_field :freqency_cap %>
+29:   </p>
+30:   <p>
+31:     <%= f.label :rejection_cap %><br />
+
+    app/views/tags/new.html.erb:28
+    app/views/tags/new.html.erb:3
+    app/controllers/tags_controller.rb:29:in `new'
+
+Rendered rescues/_trace (65.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TagsController#new (for 127.0.0.1 at 2009-09-04 15:19:18) [GET]
+Rendering template within layouts/tags
+Rendering tags/new
+
+ActionView::TemplateError (undefined method `freqency_cap' for #<Tag:0x22fd6fc>) on line #28 of app/views/tags/new.html.erb:
+25:   </p>
+26:   <p>
+27:     <%= f.label :freqency_cap %><br />
+28:     <%= f.text_field :freqency_cap %>
+29:   </p>
+30:   <p>
+31:     <%= f.label :rejection_cap %><br />
+
+    app/views/tags/new.html.erb:28
+    app/views/tags/new.html.erb:3
+    app/controllers/tags_controller.rb:29:in `new'
+
+Rendered rescues/_trace (154.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TagsController#new (for 127.0.0.1 at 2009-09-04 15:20:01) [GET]
+Rendering template within layouts/tags
+Rendering tags/new
+Completed in 20ms (View: 12, DB: 0) | 200 OK [http://localhost/tags/new]
+
+
+Processing TagsController#create (for 127.0.0.1 at 2009-09-04 15:20:52) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"hZefEOPknim0nB59Cs3CzMGdkZmcMCwIQ9+NDg9jQUo=", "tag"=>{"always_fill"=>"1", "tier"=>"5", "sample_rate"=>"0", "tag"=>"<script>tag here</script>", "frequency_cap"=>"0", "enabled"=>"1", "tag_name"=>"AdSense Catch all ", "rejection_cap"=>"0", "rejection_time"=>"0"}}
+  [4;35;1mTag Create (0.9ms)[0m   [0mINSERT INTO "tags" ("network_id", "always_fill", "tier", "sample_rate", "frequency_cap", "tag", "tag_name", "enabled", "value", "rejection_cap", "rejection_time", "publisher_id") VALUES(NULL, 't', 5, 0, 0, '<script>tag here</script>', 'AdSense Catch all ', 't', NULL, 0, 0, NULL)[0m
+Redirected to http://localhost:3000/tags/1
+Completed in 16ms (DB: 1) | 302 Found [http://localhost/tags]
+
+
+Processing TagsController#show (for 127.0.0.1 at 2009-09-04 15:20:52) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT * FROM "tags" WHERE ("tags"."id" = 1) [0m
+Rendering template within layouts/tags
+Rendering tags/show
+Completed in 19ms (View: 10, DB: 0) | 200 OK [http://localhost/tags/1]
+
+
+Processing TagsController#index (for 127.0.0.1 at 2009-09-04 15:20:56) [GET]
+  [4;35;1mTag Load (0.9ms)[0m   [0mSELECT * FROM "tags" [0m
+Rendering template within layouts/tags
+Rendering tags/index
+Completed in 20ms (View: 13, DB: 1) | 200 OK [http://localhost/tags]

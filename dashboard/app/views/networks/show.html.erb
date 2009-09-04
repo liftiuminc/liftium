@@ -1,0 +1,28 @@
+<p>
+  <b>Network name:</b>
+  <%=h @network.network_name %>
+</p>
+
+<p>
+  <b>Enabled:</b>
+  <%=h @network.enabled %>
+</p>
+
+<p>
+  <b>Supports threshold:</b>
+  <%=h @network.supports_threshold %>
+</p>
+
+<p>
+  <b>Pay type:</b>
+  <%=h @network.pay_type %>
+</p>
+
+<p>
+  <b>Always fill:</b>
+  <%=h @network.always_fill %>
+</p>
+
+
+<%= link_to 'Edit', edit_network_path(@network) %> |
+<%= link_to 'Back', networks_path %>

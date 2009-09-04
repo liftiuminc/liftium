@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  network_name: MyString
+  enabled: false
+  supports_trheshold: false
+  pay_type: MyString
+  guaranteed_fill: false
+
+two:
+  network_name: MyString
+  enabled: false
+  supports_trheshold: false
+  pay_type: MyString
+  guaranteed_fill: false

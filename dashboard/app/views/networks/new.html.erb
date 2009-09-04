@@ -1,0 +1,31 @@
+<h1>New network</h1>
+
+<% form_for(@network) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :network_name %><br />
+    <%= f.text_field :network_name %>
+  </p>
+  <p>
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
+  </p>
+  <p>
+    <%= f.label :supports_threshold %><br />
+    <%= f.check_box :supports_threshold %>
+  </p>
+  <p>
+    <%= f.label :pay_type %><br />
+    <%= f.text_field :pay_type %>
+  </p>
+  <p>
+    <%= f.label :always_fill %><br />
+    <%= f.check_box :always_fill %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', networks_path %>

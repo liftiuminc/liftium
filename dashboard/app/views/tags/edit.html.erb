@@ -1,0 +1,48 @@
+<h1>Editing tag</h1>
+
+<% form_for(@tag) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :tag_name %><br />
+    <%= f.text_field :tag_name %>
+  </p>
+  <p>
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
+  </p>
+  <p>
+    <%= f.label :always_fill %><br />
+    <%= f.check_box :always_fill %>
+  </p>
+  <p>
+    <%= f.label :sample_rate %><br />
+    <%= f.text_field :sample_rate %>
+  </p>
+  <p>
+    <%= f.label :tier %><br />
+    <%= f.text_field :tier %>
+  </p>
+  <p>
+    <%= f.label :frequency_cap %><br />
+    <%= f.text_field :frequency_cap %>
+  </p>
+  <p>
+    <%= f.label :rejection_cap %><br />
+    <%= f.text_field :rejection_cap %>
+  </p>
+  <p>
+    <%= f.label :rejection_time %><br />
+    <%= f.text_field :rejection_time %>
+  </p>
+  <p>
+    <%= f.label :tag %><br />
+    <%= f.text_area :tag %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @tag %> |
+<%= link_to 'Back', tags_path %>
