@@ -1,4 +1,11 @@
 <h1>Editing tag</h1>
+<%
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
+
+    # Get a list of Ad formats
+    @adformats = Adformat.find :all, :order => :format_name
+%>
 
 <% form_for(@tag) do |f| %>
   <%= f.error_messages %>
@@ -6,6 +13,11 @@
   <p>
     <%= f.label :network %><br />
     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+  </p>
+  <p>
+    <%= f.label :ad_format %><br />
+    <%= select("tag", "adformat_id", Adformat.all.collect {|af| [ af.name_with_size, af.id ] }) %>
+
   </p>
   <p>
     <%= f.label :tag_name %><br />

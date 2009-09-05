@@ -4,8 +4,24 @@
 </p>
 
 <p>
+  <b>Ad Format:</b>
+  <% @adformat = Adformat.find(@tag.adformat_id) %>
+  <%=h @adformat.name_with_size %>
+</p>
+
+<p>
   <b>Tag name:</b>
   <%=h @tag.tag_name %>
+</p>
+
+<p>
+  <b>Tier:</b>
+  <%=h @tag.tier %>
+</p>
+
+<p>
+  <b>Value:</b>
+  $<%=h @tag.value %>
 </p>
 
 <p>
@@ -23,10 +39,6 @@
   <%=h @tag.sample_rate %>
 </p>
 
-<p>
-  <b>Tier:</b>
-  <%=h @tag.tier %>
-</p>
 
 <p>
   <b>Frequency cap:</b>
