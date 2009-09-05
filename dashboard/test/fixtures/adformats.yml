@@ -1,11 +1,58 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  format_name: MyString
-  width: 1
-  height: 1
 
-two:
-  format_name: MyString
-  width: 1
-  height: 1
+lb:
+  format_name: "Leaderboard"
+  width: 728
+  height: 90
+
+ws:
+  format_name: "Wide Skyscraper"
+  width: 160
+  height: 60
+
+mr:
+  format_name: "Medium Rectangle"
+  width: 300
+  height: 250
+
+lr:
+  format_name: "Large Rectangle"
+  width: 336
+  height: 280
+
+ss:
+  format_name: "Skyscraper"
+  width: 120
+  height: 60
+
+banner:
+  format_name: "Banner"
+  width: 468
+  height: 60
+
+halfb:
+  format_name: "Half Banner"
+  width: 234 
+  height: 60
+
+button:
+  format_name: "Button"
+  width: 125 
+  height: 125
+
+sr:
+  format_name: "Small Rectangle"
+  width: 180 
+  height: 150
+
+vb:
+  format_name: "Vertical Banner"
+  width: 120 
+  height: 240
+
+smalls:
+  format_name: "Small Square"
+  width: 200 
+  height: 200
+
