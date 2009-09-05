@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+
+
   # GET /tags
   # GET /tags.xml
   def index
@@ -25,6 +27,8 @@ class TagsController < ApplicationController
   # GET /tags/new.xml
   def new
     @tag = Tag.new
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,6 +38,8 @@ class TagsController < ApplicationController
 
   # GET /tags/1/edit
   def edit
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
     @tag = Tag.find(params[:id])
   end
 

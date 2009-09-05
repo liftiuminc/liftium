@@ -4,6 +4,10 @@
   <%= f.error_messages %>
 
   <p>
+    <%= f.label :network %><br />
+    <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+  </p>
+  <p>
     <%= f.label :tag_name %><br />
     <%= f.text_field :tag_name %>
   </p>
