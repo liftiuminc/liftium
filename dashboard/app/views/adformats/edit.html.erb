@@ -1,0 +1,24 @@
+<h1>Editing adformat</h1>
+
+<% form_for(@adformat) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :format_name %><br />
+    <%= f.text_field :format_name %>
+  </p>
+  <p>
+    <%= f.label :width %><br />
+    <%= f.text_field :width %>
+  </p>
+  <p>
+    <%= f.label :height %><br />
+    <%= f.text_field :height %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @adformat %> |
+<%= link_to 'Back', adformats_path %>

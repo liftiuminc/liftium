@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :adformats
+
   map.resources :tags
 
   map.resources :tags
