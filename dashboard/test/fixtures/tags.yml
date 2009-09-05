@@ -9,13 +9,3 @@ one:
   frequency_cap: 3
   rejection_cap: 1
   value: 1.5
-
-two:
-  tag_name: "My Tag #2"
-  network: "Tribal Fusion"
-  enabled: true
-  always_fill: false
-  tier: 10
-  frequency_cap: 3
-  rejection_cap: 1
-  value: 1.5
