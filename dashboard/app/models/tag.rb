@@ -13,7 +13,8 @@ class Tag < ActiveRecord::Base
   validates_inclusion_of :network, :in => @networks
   validates_numericality_of :tier, :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10, :allow_nil => true
   validates_numericality_of :sample_rate, :greater_than_or_equal_to => 0, :less_than => 100, :allow_nil => true
-  validates_numericality_of :frequency_cap, :greater_than_or_equal_to => 0, :less_than => 1000, :allow_nil => true
-  validates_numericality_of :rejection_cap, :greater_than_or_equal_to => 0, :less_than => 1000, :allow_nil => true
-  validates_numericality_of :rejection_time, :greater_than_or_equal_to => 0, :less_than => 1440, :allow_nil => true
+  validates_numericality_of :frequency_cap, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1000, :allow_nil => true
+  validates_numericality_of :rejection_cap, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1000, :allow_nil => true
+  validates_numericality_of :rejection_time, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1440, :allow_nil => true
+  validates_numericality_of :value, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 100 
 end
