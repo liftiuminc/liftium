@@ -1,4 +1,6 @@
 <h1>Editing network</h1>
+<% @paytypes = Array["Per Impression", "Per Click", "Affliate" ] %>
+
 
 <% form_for(@network) do |f| %>
   <%= f.error_messages %>
@@ -17,7 +19,8 @@
   </p>
   <p>
     <%= f.label :pay_type %><br />
-    <%= f.text_field :pay_type %>
+    <%= select("network", "pay_type", @paytypes) %>
+
   </p>
   <p>
     <%= f.label :always_fill %><br />
