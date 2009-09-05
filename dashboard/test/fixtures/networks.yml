@@ -3,13 +3,13 @@
 one:
   network_name: MyString
   enabled: false
-  supports_trheshold: false
+  supports_threshold: false
   pay_type: MyString
-  guaranteed_fill: false
+  always_fill: false
 
 two:
   network_name: MyString
   enabled: false
-  supports_trheshold: false
+  supports_threshold: false
   pay_type: MyString
-  guaranteed_fill: false
+  always_fill: false

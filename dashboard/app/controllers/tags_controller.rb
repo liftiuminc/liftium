@@ -47,6 +47,8 @@ class TagsController < ApplicationController
   # POST /tags.xml
   def create
     @tag = Tag.new(params[:tag])
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
 
     respond_to do |format|
       if @tag.save

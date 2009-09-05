@@ -1,0 +1,442 @@
+Script started on Fri Sep  4 18:30:38 2009
+macbook-air:fixtures $ script/generate
+bash: script/generate: No such file or directory
+macbook-air:fixtures $ script
+macbook-air:fixtures $ cd ..
+macbook-air:test $ ls
+fixtures	functional	integration	performance	test_helper.rb	unit
+macbook-air:test $ cd ..
+macbook-air:dashboard $ script/generate 
+Usage: script/generate generator [options] [args]
+
+Rails Info:
+    -v, --version                    Show the Rails version number and quit.
+    -h, --help                       Show this help message and quit.
+
+General Options:
+    -p, --pretend                    Run but do not make any changes.
+    -f, --force                      Overwrite files that already exist.
+    -s, --skip                       Skip files that already exist.
+    -q, --quiet                      Suppress normal output.
+    -t, --backtrace                  Debugging: show backtrace on errors.
+    -c, --svn                        Modify files with subversion. (Note: svn must be in path)
+    -g, --git                        Modify files with git. (Note: git must be in path)
+
+
+Installed Generators
+  Rubygems: session
+  Builtin: controller, helper, integration_test, mailer, metal, migration, model, observer, performance_test, plugin, resource, scaffold, session_migration
+
+More are available at http://wiki.rubyonrails.org/rails/pages/AvailableGenerators
+  1. Download, for example, login_generator.zip
+  2. Unzip to directory /Users/nick/.rails/generators/login
+     to use the generator with all your Rails apps
+     or to /Users/nick/src/liftium/dashboard/lib/generators/login
+     to use with this app only.
+  3. Run generate with no arguments for usage information
+       script/generate login
+
+Generator gems are also available:
+  1. gem search -r generator
+  2. gem install login_generator
+  3. script/generate login
+
+macbook-air:dashboard $ k[K
+macbook-air:dashboard $ 
+macbook-air:dashboard $ rake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.06817 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F.....FFEE..EEFEE..EE
+Finished in 0.237138 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_update_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  3) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<1> expected but was
+<0>.
+
+  4) Error:
+test_should_destroy_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:40:in `test_should_destroy_publisher'
+    /test/functional/publishers_controller_test.rb:39:in `test_should_destroy_publisher'
+
+  5) Error:
+test_should_get_edit(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:29:in `test_should_get_edit'
+
+  6) Error:
+test_should_show_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:24:in `test_should_show_publisher'
+
+  7) Error:
+test_should_update_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:34:in `test_should_update_publisher'
+
+  8) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<1> expected but was
+<0>.
+
+  9) Error:
+test_should_destroy_tag(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:40:in `test_should_destroy_tag'
+    /test/functional/tags_controller_test.rb:39:in `test_should_destroy_tag'
+
+ 10) Error:
+test_should_get_edit(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:29:in `test_should_get_edit'
+
+ 11) Error:
+test_should_show_tag(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+
+ 12) Error:
+test_should_update_tag(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+
+21 tests, 17 assertions, 4 failures, 8 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.066858 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ d 
+macbook-air:dashboard $ cd rake
+bash: cd: rake: No such file or directory
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ cd config
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ cd 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ [H[2Jmacbook-air:dashboard $ s
+bash: s: command not found
+macbook-air:dashboard $ 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ cd 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ script/generate 
+README    app/      db/       log/      script/   tmp/      
+Rakefile  config/   doc/      public/   test/     
+macbook-air:dashboard $ script/generate test[K[K[K[K
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ cd 
+macbook-air:dashboard $ vim app/models/
+network.rb    publisher.rb  tag.rb        
+macbook-air:dashboard $ vim app/models/*
+3 files to edit
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"app/models/network.rb" "app/models/network.rb" 10L, 498C[>c[1;1H[1m[34mclass[m [1m[32mNetwork[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  [1m[36m@paytypes[m = [1m[32mArray[m[[1m[31m"[m[1m[35mPer Click[m[1m[31m"[m, [1m[31m"[m[1m[35mPer Impression[m[1m[31m"[m, [1m[31m"[m[1m[35mAffliate[m[1m[31m"[m ]
+  has_many [1m[35m:tags[m
+  validates_uniqueness_of [1m[35m:network_name[m
+  validates_presence_of [1m[35m:network_name[m
+  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:supports_threshold[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:pay_type[m, [1m[35m:in[m => [1m[36m@paytypes[m, [1m[35m:message[m => [1m[31m"[m[1m[35mPay type must be one of: [m[1m[31m"[m + [1m[36m@payy[10;1Htypes[m.join([1m[31m'[m[1m[35m, [m[1m[31m'[m)
+[1m[34mend
+~                                                                                                   [13;1H~                                                                                                   [14;1H~                                                                                                   [15;1H~                                                                                                   [16;1H~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;network.rb (~/src/liftium/dashboard/app/models) (1 of 3) - VIM[1;1H[?25h
+
+
+
+
+
+
+
+[?25l[m[50;1H[K[50;1H:[?25hw[?25l"app/models/network.rb" "app/models/network.rb" 10L, 498C written
+:!ruby -c app/models/network.rb
+[?25hSyntax OK
+]2;network.rb (~/src/liftium/dashboard/app/models) (1 of 3) - VIM[m
+[1m[32mPress ENTER or type command to continue[27m[m[H[2J[?25l[1;1H[1m[34mclass[m [1m[32mNetwork[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  [1m[36m@paytypes[m = [1m[32mArray[m[[1m[31m"[m[1m[35mPer Click[m[1m[31m"[m, [1m[31m"[m[1m[35mPer Impression[m[1m[31m"[m, [1m[31m"[m[1m[35mAffliate[m[1m[31m"[m ]
+  has_many [1m[35m:tags[m
+  validates_uniqueness_of [1m[35m:network_name[m
+  validates_presence_of [1m[35m:network_name[m
+  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:supports_threshold[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:pay_type[m, [1m[35m:in[m => [1m[36m@paytypes[m, [1m[35m:message[m => [1m[31m"[m[1m[35mPay type must be one of: [m[1m[31m"[m + [1m[36m@payy[10;1Htypes[m.join([1m[31m'[m[1m[35m, [m[1m[31m'[m)
+[1m[34mend
+~                                                                                                   [13;1H~                                                                                                   [14;1H~                                                                                                   [15;1H~                                                                                                   [16;1H~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   [9;1H[?25h[?25l[50;1H[m:[?25hn[?25l"app/models/publisher.rb" "app/models/publisher.rb" 7L, 269C[1;6H [1m[32mPublisher[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  has_many [1m[35m:tags[m[2;17H[K[3;2H validates_uniqueness_of [1m[35m:publisher_name[m[4;12H_presence_of [1m[35m:publisher_name[5;25H:website[m[5;33H[K[6;12H_format_of [1m[35m:website[m, [1m[35m:with[m => [1m[31m/^[m[1m[35mhttps[m[1m[31m*[m[1m[35m:[m[1m[31m\/\/[[m[1m[35ma-z\-A-Z0-9.[m[1m[31m]{5,}/[m, [1m[35m:allow_blank[m => [1m[35mtrue[m
+[1m[34mend[m[7;4H[K[8;1H[1m[34m~                                                                                                   [9;1H~                                                                                                   [10;1H~                                                                                                   [11;1H~                                                                                                   ]2;publisher.rb (~/src/liftium/dashboard/app/models) (2 of 3) - VIM[1;1H[?25h
+
+
+
+[?25l[m[50;1H[K[50;1H:[?25hw[?25l"app/models/publisher.rb" "app/models/publisher.rb" 7L, 269C written
+:!ruby -c app/models/publisher.rb
+[?25hSyntax OK
+]2;publisher.rb (~/src/liftium/dashboard/app/models) (2 of 3) - VIM[m
+[1m[32mPress ENTER or type command to continue[27m[m[H[2J[?25l[1;1H[1m[34mclass[m [1m[32mPublisher[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  has_many [1m[35m:tags[m
+  validates_uniqueness_of [1m[35m:publisher_name[m
+  validates_presence_of [1m[35m:publisher_name[m
+  validates_presence_of [1m[35m:website[m
+  validates_format_of [1m[35m:website[m, [1m[35m:with[m => [1m[31m/^[m[1m[35mhttps[m[1m[31m*[m[1m[35m:[m[1m[31m\/\/[[m[1m[35ma-z\-A-Z0-9.[m[1m[31m]{5,}/[m, [1m[35m:allow_blank[m => [1m[35mtrue[m
+[1m[34mend
+~                                                                                                   [9;1H~                                                                                                   [10;1H~                                                                                                   [11;1H~                                                                                                   [12;1H~                                                                                                   [13;1H~                                                                                                   [14;1H~                                                                                                   [15;1H~                                                                                                   [16;1H~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   [5;1H[?25h[?25l[50;1H[m:[?25h[?25l[5;1H[?25h
+[?25l[50;1H[K[50;1H:[?25hn[?25l"app/models/tag.rb" "app/models/tag.rb" 11L, 600C[1;6H [1m[32mTag[m < [1m[32mActiveRecord[m::[1m[32mBase[m[1;31H[K[2;2H belongs_to [1m[35m:network[m
+  belongs_to [1m[35m:publisher[m[3;24H[K[4;12H_associated [1m[35m:network[m, [1m[35m:publisher[m[5;12H_uniqueness_of [1m[35m:tag_name[m, [1m[35m:scope[m => [1m[35m:publisher_id[m[6;12H_presence_of [1m[35m:tag_name[m, [1m[35m:network_id[m[6;47H[K[7;1H  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][8;60H[K[9;1H  validates_numericality_of [1m[35m:tier[m, [1m[35m:only_integer[m => [1m[35mtrue[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_thann[10;1H_or_equal_to[m => [1m[35m10[m, [1m[35m:allow_nil[m => [1m[35mtrue[m[10;39H[K[11;1H  validates_numericality_of [1m[35m:sample_rate[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[12;1Hnil[m => [1m[35mtrue[m[12;12H[K[13;1H[1m[34mend[m[13;4H[K]2;tag.rb (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+[11;1H  validates_numer[?25l[13;49r[13;1H[2L[1;50r[13;2H validates_numericality_of [1m[35m:sample_rate[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[14;1Hnil[m => [1m[35mtrue[m[50;1H[K]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[13;3H[?25hvalidates_numericality_of [1C[1C[?25l[50;1H[1m-- INSERT --[13;49r[m[49;1H
+[1;50r[13;1H  validates_numericality_of :, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtrue[m[49;1H[1m[34m~                                                                                                   [m[50;1H[1m-- INSERT --[13;30H[?25h[?25l[14;49r[m[14;1H[L[1;50r[13;29H[1m[35m:r[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtruu[14;1He[m[50;1H[1m-- INSERT --[13;31H[?25h[?25l[m[1m[35mre[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtrr[14;1Hue[13;32H[?25h[?25lej[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtt[14;1Hrue[13;33H[?25h[?25lje[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m =>  [14;1H[1m[35mtrue[13;34H[?25h[?25lec[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m =>>[14;1H [1m[35mtrue[13;35H[?25h[?25lct[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m ==[14;1H> [1m[35mtrue[13;36H[?25h[?25lti[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m  [14;1H=> [1m[35mtrue[13;37H[?25h[?25lio[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nill[m[14;1H => [1m[35mtrue[13;38H[?25h[?25lon[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nii[14;1Hl[m => [1m[35mtrue[13;39H[?25h[?25ln_[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nn[14;1Hil[m => [1m[35mtrue[13;40H[?25h[?25l_c[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[14;1Hnil[m => [1m[35mtrue[13;41H[?25h[?25lca[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:alloww[14;1H_nil[m => [1m[35mtrue[13;42H[?25h[?25lap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:alloo[14;1Hw_nil[m => [1m[35mtrue[13;43H[?25h[m[50;1H[K[13;42H[?25l[?25h[?25l[15;49r[15;1H[2L[1;50r[15;2H validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:alloo[16;1Hw_nil[m => [1m[35mtrue[15;3H[?25h[mvalidates_numericality_of [1C[?25l[50;1H[1m-- INSERT --[15;49r[m[49;1H
+[1;50r[15;1H  validates_numericality_of :, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtrue[m[49;1H[1m[34m~                                                                                                   [m[50;1H[1m-- INSERT --[15;30H[?25h[?25l[16;49r[m[16;1H[L[1;50r[15;29H[1m[35m:r[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtruu[16;1He[m[50;1H[1m-- INSERT --[15;31H[?25h[?25l[m[1m[35mre[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtrr[16;1Hue[15;32H[?25h[?25leq[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtt[16;1Hrue[15;33H[?25h[?25le[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtrr[16;1Hue[m[16;3H[K[15;32H[?25h[?25l[1m[35mr[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtruu[16;1He[m[16;2H[K[15;31H[?25h[?25l[15;49r[49;1H
+[1;50r[15;1H  validates_numericality_of :, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtrue[m[49;1H[1m[34m~                                                                                                   [m[50;1H[1m-- INSERT --[15;30H[?25h[?25l[16;49r[m[16;1H[L[1;50r[15;29H[1m[35m:f[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtruu[16;1He[m[50;1H[1m-- INSERT --[15;31H[?25h[?25l[m[1m[35mfr[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtrr[16;1Hue[15;32H[?25h[?25lre[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m => [1m[35mtt[16;1Hrue[15;33H[?25h[?25leq[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m =>  [16;1H[1m[35mtrue[15;34H[?25h[?25lqu[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m =>>[16;1H [1m[35mtrue[15;35H[?25h[?25lue[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m ==[16;1H> [1m[35mtrue[15;36H[?25h[?25len[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nil[m  [16;1H=> [1m[35mtrue[15;37H[?25h[?25lnc[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nill[m[16;1H => [1m[35mtrue[15;38H[?25h[?25lcy[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nii[16;1Hl[m => [1m[35mtrue[15;39H[?25h[?25ly_[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow_nn[16;1Hil[m => [1m[35mtrue[15;40H[?25h[?25l_c[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[16;1Hnil[m => [1m[35mtrue[15;41H[?25h[?25lca[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:alloww[16;1H_nil[m => [1m[35mtrue[15;42H[?25h[?25lap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:alloo[16;1Hw_nil[m => [1m[35mtrue[15;43H[?25h[m[50;1H[K[15;42H[?25l[?25h[?25l[15;49r[15;1H[2M[1;50r[48;1H[1m[34m~                                                                                                   [49;1H~                                                                                                   [15;1H[?25h[13;1H[11;1H[?25l[13;49r[m[13;1H[2L[1;50r[13;2H validates_numericality_of [1m[35m:frequency_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:alloo[14;1Hw_nil[m => [1m[35mtrue[13;3H[?25h[mvalidates_numericality_of [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C, [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C => [1C, [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C => [1C[1C> [1C[1C[1C[?25l[50;1H[1m-- INSERT --[13;94H[?25h[?25l[m[1m[35m00[m, [1m[35m:alll[14;1How_nil[m => [1m[35mtrue[13;95H[?25h[?25l0[m, [1m[35m:alloo[14;1Hw_nil[m => [1m[35mtrue[m[14;14H[K[13;94H[?25h[50;1H[K[13;93H[?25l[?25h[15;93H[?25l[17;49r[17;1H[2L[1;50r[17;2H validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:alloo[18;1Hw_nil[m => [1m[35mtrue[17;3H[?25h[mvalidates_numericality_of [15;29H[17;29H[?25l[17;49r[17;1H[2M[1;50r[48;1H[1m[34m~                                                                                                   [49;1H~                                                                                                   [17;1H[?25h[15;1H[16;13H[15;100H[1C[?25l[m[50;1H[1m-- INSERT --[15;92H[?25h[?25l[m[1C[1m[35m00[m, [1m[35m:alll[16;1How_nil[m => [1m[35mtrue[15;93H[?25h[m[50;1H[K[15;92H[?25l[?25h[13;92H[?25l[50;1H[1m-- INSERT --[13;92H[?25h[?25l[m[1C[1m[35m00[m, [1m[35m:alll[14;1How_nil[m => [1m[35mtrue[13;93H[?25h[m[50;1H[K[13;92H[?25l[?25h[15;92H[?25l[17;49r[17;1H[2L[1;50r[17;2H validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[18;1How_nil[m => [1m[35mtrue[17;3H[?25h[mvalidates_numericality_of [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[17;39H[1m[35m_[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:allow__[18;1Hnil[m => [1m[35mtrue[m[18;12H[K[17;40H[?25h[?25l[1m[35m_w[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alloww[18;1H_nil[m => [1m[35mtrue[17;41H[?25h[?25l_[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:allow__[18;1Hnil[m => [1m[35mtrue[m[18;12H[K[17;40H[?25h[?25l[1m[35m_t[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alloww[18;1H_nil[m => [1m[35mtrue[17;41H[?25h[?25lti[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alloo[18;1Hw_nil[m => [1m[35mtrue[17;42H[?25h[?25lim[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[18;1How_nil[m => [1m[35mtrue[17;43H[?25h[?25lme[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:all[18;1Hlow_nil[m => [1m[35mtrue[17;44H[?25h[m[50;1H[K[17;43H[?25l[?25h[1C, [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C => [1C, [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C => [1C[?25l[50;1H[1m-- INSERT --[m[17;91H , [1m[35m:allow__[18;1Hnil[m => [1m[35mtrue[m[18;12H[K[17;92H[?25h[?25l [1m[35m1[m, [1m[35m:alloww[18;1H_nil[m => [1m[35mtrue[17;93H[?25h[?25l14[m, [1m[35m:alloo[18;1Hw_nil[m => [1m[35mtrue[17;94H[?25h[?25l44[m, [1m[35m:alll[18;1How_nil[m => [1m[35mtrue[17;95H[?25h[?25l40[m, [1m[35m:all[18;1Hlow_nil[m => [1m[35mtrue[17;96H[?25h[m[50;1H[K[17;95H[?25l[?25h[?25l[50;1H:[?25hw[?25l"app/models/tag.rb" "app/models/tag.rb" 14L, 946C written
+:!ruby -c app/models/tag.rb
+[?25hSyntax OK
+]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[m
+[1m[32mPress ENTER or type command to continue[27m[m[H[2J[?25l[1;1H[1m[34mclass[m [1m[32mTag[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  belongs_to [1m[35m:network[m
+  belongs_to [1m[35m:publisher[m
+  validates_associated [1m[35m:network[m, [1m[35m:publisher[m
+  validates_uniqueness_of [1m[35m:tag_name[m, [1m[35m:scope[m => [1m[35m:publisher_id[m
+  validates_presence_of [1m[35m:tag_name[m, [1m[35m:network_id[m
+  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_numericality_of [1m[35m:tier[m, [1m[35m:only_integer[m => [1m[35mtrue[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_thann[10;1H_or_equal_to[m => [1m[35m10[m, [1m[35m:allow_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:sample_rate[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[12;1Hnil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:frequency_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[14;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[16;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_time[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1440[m, [1m[35m:all[18;1Hlow_nil[m => [1m[35mtrue[m
+[1m[34mend
+~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;tag.rb (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[17;95H[?25h[m => [1C, [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C => [1C[1C[1C[1C, [1C[1C
+[1C[1C[1C[1C[1C[1C[1C => [1C[1C[1C[19;3H[?25l[50;1H:[?25hw[?25l"app/models/tag.rb" "app/models/tag.rb" 14L, 946C written
+:!ruby -c app/models/tag.rb
+[?25hSyntax OK
+]2;tag.rb (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[m
+[1m[32mPress ENTER or type command to continue[27m[m[H[2J[?25l[1;1H[1m[34mclass[m [1m[32mTag[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  belongs_to [1m[35m:network[m
+  belongs_to [1m[35m:publisher[m
+  validates_associated [1m[35m:network[m, [1m[35m:publisher[m
+  validates_uniqueness_of [1m[35m:tag_name[m, [1m[35m:scope[m => [1m[35m:publisher_id[m
+  validates_presence_of [1m[35m:tag_name[m, [1m[35m:network_id[m
+  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_numericality_of [1m[35m:tier[m, [1m[35m:only_integer[m => [1m[35mtrue[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_thann[10;1H_or_equal_to[m => [1m[35m10[m, [1m[35m:allow_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:sample_rate[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[12;1Hnil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:frequency_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[14;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[16;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_time[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1440[m, [1m[35m:all[18;1Hlow_nil[m => [1m[35mtrue[m
+[1m[34mend
+~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   [19;3H[?25h[18;15H[16;14H[14;14H[12;11H[10;15H[?25l[m[8;47H[46m[[11C][?25h[?25l[7;43H[[11C][m[8;47H[[11C][7;55H[?25h[?25l[7;43H[[11C][6;46H[?25h[5;60H[4;43H[3;23H[2;21H[3;23H[4;43H[5;60H[6;46H[?25l[7;43H[46m[[11C][?25h[?25l[m[7;43H[[11C][8;47H[46m[[11C][?25h[?25l[7;43H[[11C][m[8;47H[[11C][7;55H[?25h[?25l[7;43H[[11C][6;46H[?25h[?25l[7;43H[46m[[11C][?25h[?25l[m[7;43H[[11C][8;47H[46m[[11C][?25h[?25l[m[8;47H[[11C][10;15H[?25h[?25l[8;47H[46m[[11C][?25h[?25l[7;43H[[11C][m[8;47H[[11C][7;55H[?25h[?25l[7;43H[[11C][6;46H[?25h[5;60H[4;43H[3;23H[2;21H[1;30H[?25l[50;1H[1m-- INSERT --[2;49r[m[2;1H[L[1;50r[50;1H[1m-- INSERT --]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[2;1H[?25h[?25l[m [?25h[?25l [?25h[?25l @[?25h[50;1H[K[2;3H[?25l[?25h[?25l[2;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [2;3H[?25h[1;3H[?25l[m[50;1H[1m-- INSERT --[2;49r[m[2;1H[L[1;50r[50;1H[1m-- INSERT --[2;1H[?25h[?25l[3;49r[m[3;1H[2L[1;50r[2;4H [1m[36m# Get a list of enabled networks[m
+    [1m[36m#     @networks = Network.find :all, :conditions => {:enabled => true}[m
+    [1m[36m#     [m[50;1H[1m-- INSERT --[4;11H[?25h[m[50;1H[K[4;5H[?25l[4;6H[K[4;5H[?25h[?25l[50;1H3 fewer lines; before #17  1 seconds ago[2;49r[2;1H[3M[1;50r[47;1H[1m[34m~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   [m[50;1H[K[1;1H[?25h
+
+[?25l[50;1H[1m-- INSERT --[4;49r[m[4;1H[L[1;50r[50;1H[1m-- INSERT --[4;1H[?25h[?25l[5;49r[m[5;1H[L[1;50r[50;1H[1m-- INSERT --[5;1H[?25h[m[50;1H[K[5;1H[?25l[?25h[?25l[50;1H[1m-- INSERT --[5;1H[?25h[?25l[6;49r[m[6;1H[2L[1;50r[5;4H [1m[36m# Get a list of enabled networks[m
+    [1m[36m#     @networks = Network.find :all, :conditions => {:enabled => true}[m
+    [1m[36m#     [m[50;1H[1m-- INSERT --[7;11H[?25h[m[50;1H[K[7;5H[?25l[7;6H[K[7;5H[?25h[?25l[7;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [7;3H[?25h[6;3H[?25l[m [1m[36m#     @networks = Network.find :all, :conditions => {:enabled => true}[m[6;74H[K[6;3H[?25h[?25l [1m[36m#     @networks = Network.find :all, :conditions => {:enabled => true}[m[6;73H[K[6;3H[?25h[?25l      [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}[6;72H[K[6;3H[?25h[?25l    [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}[6;71H[K[6;3H[?25h[?25l   [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}[6;70H[K[6;3H[?25h[?25l  [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}[6;69H[K[6;3H[?25h[?25l [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}[6;68H[K[6;3H[?25h[?25l [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}[6;67H[K[6;3H[?25h[5;3H[?25l [1m[36m# Get a list of enabled networks[m[5;36H[K[5;3H[?25h[?25l [1m[36m# Get a list of enabled networks[m[5;35H[K[5;3H[?25h
+  [?25l[50;1H[1m-- INSERT --[7;49r[m[7;1H[L[1;50r[50;1H[1m-- INSERT --[7;1H[?25h[m[50;1H[K[7;1H[?25l[?25h
+
+
+  validates_presence_of [1C[1C[1C[1C[1C[1C[1C[1C[1C, [1C[1C[1C[11;39H[12;39H [?25l[13;49r[13;1H[L[1;50r[13;2H validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]  [?25hvalidates_inclusion_of [1C[1C[1C[1C[1C[1C[1C[12;33H[11;33H[10;33H[9;33H[8;33H[?25l[8;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [8;3H[?25h[?25l[m[50;1H1 more line; before #33  2 seconds ago[8;49r[8;1H[L[1;50r[8;2H validates_associated [1m[35m:network[m, [1m[35m:publisher[m[50;1H[K[8;3H[?25h[?25l[8;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [8;3H[?25h
+[m  [?25l[10;49r[10;1H[L[1;50r[10;2H validates_presence_of [1m[35m:tag_name[m, [1m[35m:network_id[m  [?25hv[?25l[10;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [10;3H[?25h[9;3H[43C[?25l[m[50;1H[1m-- INSERT --[9;47H[?25h[?25l[m[1m[35md[m,[?25h[?25l [?25h[?25l :[?25h[?25l[1m[35m:p[?25h[?25lpu[?25h[?25lub[?25h[?25lbl[?25h[?25lli[?25h[?25lis[?25h[?25lsh[?25h[?25lhe[?25h[?25ler[?25h[?25lr_[?25h[?25l_i[?25h[?25lid[?25h[m[50;1H[K[9;61H[?25l[?25h[?25l[10;43H[46m[[11C][?25h[?25l[m[10;43H[[11C][11;47H[46m[[11C][?25h[?25l[m[11;47H[[11C][12;47H[46m[[11C][?25h[?25l[m[12;47H[[11C][13;61H[?25h[15;61H[13;61H[?25l[12;47H[46m[[11C][?25h[?25l[11;47H[[11C][m[12;47H[[11C][11;59H[?25h[?25l[10;43H[46m[[11C][m[11;47H[[11C][10;55H[?25h[?25l[10;43H[[11C][9;61H[?25h[?25l[10;43H[46m[[11C][10;43H[?25h[?25l[m[[11C][11;43H[?25h[12;43H[13;43H[12;43H[1C[?25l[50;1H[1m-- INSERT --[m[12;27H[1m[35ma[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;50H[K[12;28H[?25h[?25l:, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;49H[K[12;27H[?25h[?25l[1m[35m:n[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;28H[?25h[?25l[1m[35mne[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;29H[?25h[?25l[1m[35met[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;30H[?25h[?25l[1m[35mtw[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;31H[?25h[?25l[1m[35mwo[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;32H[?25h[?25l[1m[35mor[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;33H[?25h[?25l[1m[35mrk[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;34H[?25h[?25l[1m[35mks[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;35H[?25h[50;1H[K[12;34H[?25l[?25h[1C[1C[1C[1C[1C[1C[1C[1C[1C[?25l[1m[35mk[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m][12;56H[K[12;34H[?25h, [1C[1C[1C =>[?25l [46m[[11C][12;43H[?25h[?25l[m [1m[35mtrue[m, [1m[35mfalse[m][12;55H[K[12;43H[?25h[?25l rue, [1m[35mfalse[m][12;54H[K[12;43H[?25h[?25l ue, [1m[35mfalse[m][12;53H[K[12;43H[?25h[?25l e, [1m[35mfalse[m][12;52H[K[12;43H[?25h[?25l , [1m[35mfalse[m][12;51H[K[12;43H[?25h[?25l  [1m[35mfalse[m][12;50H[K[12;43H[?25h[?25l [1m[35mfalse[m][12;49H[K[12;43H[?25h[?25l alse][12;48H[K[12;43H[?25h[?25l lse][12;47H[K[12;43H[?25h[?25l se][12;46H[K[12;43H[?25h[?25l e][12;45H[K[12;43H[?25h[?25l ][12;44H[K[12;43H[?25h[?25l[12;43H[K[12;42H[?25h[?25l[50;1H[1m-- INSERT --[12;43H[?25h[?25l[m $[?25h[?25l[1m[36m$n[?25h[?25lne[?25h[?25let[?25h[?25ltw[?25h[?25lwo[?25h[?25lor[?25h[?25lrk[?25h[?25lks[?25h[m[50;1H[K[12;51H[?25l[?25h[1C[?25l networks[12;51H[K[12;43H[?25h[?25l[50;1H[1m-- INSERT --[12;43H[?25h[?25l[m !networks[12;44H[?25h[?25l networks[12;51H[K[12;43H[?25h[?25l [1m[36m@networks[12;44H[?25h[m[50;1H[K[12;43H[?25l[?25h[?25l[50;1H:[?25hw[?25l"app/models/tag.rb" "app/models/tag.rb" 18L, 1073C written
+:!ruby -c app/models/tag.rb
+[?25hSyntax OK
+]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[m
+[1m[32mPress ENTER or type command to continue[27m[m[H[2J[?25l[1;1H[1m[34mclass[m [1m[32mTag[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  belongs_to [1m[35m:network[m
+  belongs_to [1m[35m:publisher[m
+
+  [1m[36m# Get a list of enabled networks[m
+  [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}
+
+  validates_uniqueness_of [1m[35m:tag_name[m, [1m[35m:scope[m => [1m[35m:publisher_id[m
+  validates_presence_of [1m[35m:tag_name[m, [1m[35m:network_id[m, [1m[35m:publisher_id[m
+  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:network[m, [1m[35m:in[m => [1m[36m@networks[m
+  validates_numericality_of [1m[35m:tier[m, [1m[35m:only_integer[m => [1m[35mtrue[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_thann[14;1H_or_equal_to[m => [1m[35m10[m, [1m[35m:allow_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:sample_rate[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[16;1Hnil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:frequency_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[18;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[20;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_time[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1440[m, [1m[35m:all[22;1Hlow_nil[m => [1m[35mtrue[m
+[1m[34mend
+~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;tag.rb (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[12;43H[?25h[11;43H[?25l[m[10;43H[46m[[11C][10;43H[?25h[?25l[m[[11C][9;43H[?25h[1C[1C[1C[1C, [?25l[9;49H[K]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[9;48H[?25h[?25l[?25h[?25l[9;47H[K[9;46H[?25h[?25l[50;1H:[?25hw[?25l"app/models/tag.rb" "app/models/tag.rb" 18L, 1058C written
+:!ruby -c app/models/tag.rb
+[?25hSyntax OK
+]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[m
+[1m[32mPress ENTER or type command to continue[27m[m[H[2J[?25l[1;1H[1m[34mclass[m [1m[32mTag[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  belongs_to [1m[35m:network[m
+  belongs_to [1m[35m:publisher[m
+
+  [1m[36m# Get a list of enabled networks[m
+  [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}
+
+  validates_uniqueness_of [1m[35m:tag_name[m, [1m[35m:scope[m => [1m[35m:publisher_id[m
+  validates_presence_of [1m[35m:tag_name[m, [1m[35m:network_id[m
+  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:network[m, [1m[35m:in[m => [1m[36m@networks[m
+  validates_numericality_of [1m[35m:tier[m, [1m[35m:only_integer[m => [1m[35mtrue[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_thann[14;1H_or_equal_to[m => [1m[35m10[m, [1m[35m:allow_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:sample_rate[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[16;1Hnil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:frequency_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[18;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[20;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_time[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1440[m, [1m[35m:all[22;1Hlow_nil[m => [1m[35mtrue[m
+[1m[34mend
+~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;tag.rb (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[9;46H[?25h[10;46H[9;46H[8;46H[7;1H[6;46H[5;34H[6;46H
+[8;46H[9;46H[10;46H[11;46H[10;46H[9;46H[8;46H[7;1H[?25l[m[50;1H[1m-- INSERT --[8;49r[m[8;1H[L[1;50r[50;1H[1m-- INSERT --]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[8;1H[?25h[?25l[m [?25h[?25l [?25h[?25l [1m[36m#[?25h[?25l#T[?25h[?25lTO[?25h[?25lOD[?25h[?25l[m[30m[43mTODO[?25h[?25lO[m[1m[36m:[?25h[?25l [?25h[?25l v[?25h[?25lva[?25h[?25lal[?25h[?25lli[?25h[?25lid[?25h[?25lda[?25h[?25lae[?25h[?25l[m[8;16H[K[8;16H[?25h[?25l[8;15H[K[8;15H[?25h[?25l[1m[36mdt[?25h[?25lte[?25h[?25l[m[8;16H[K[8;16H[?25h[?25l[8;15H[K[8;15H[?25h[?25l[1m[36mda[?25h[?25lat[?25h[?25lte[?25h[?25l [?25h[?25l p[?25h[?25lpu[?25h[?25lub[?25h[?25lbl[?25h[?25lli[?25h[?25lis[?25h[?25lsh[?25h[?25lhe[?25h[?25ler[?25h[?25lri[?25h[?25lid[?25h[m[50;1H[K[8;29H[?25l[?25h[?25l[50;1H:[?25h[?25l[50;1H[K[8;29H[?25h[?25l[50;1H[1m-- INSERT --[8;30H[?25h[?25l[m[1m[36m [?25h[?25l o[?25h[?25lon[?25h[?25lnc[?25h[?25lce[?25h[?25l [?25h[?25l a[?25h[?25lac[?25h[?25lcc[?25h[?25lco[?25h[?25lou[?25h[?25lun[?25h[?25lnt[?25h[?25lts[?25h[?25l [?25h[?25l a[?25h[?25lar[?25h[?25lre[?25h[?25l [?25h[?25l s[?25h[?25lse[?25h[?25let[?25h[?25l [?25h[?25l u[?25h[?25lup[?25h[m[50;1H[K[8;54H[?25l[?25h[?25l[50;1H:[?25hw[?25l"app/models/tag.rb" "app/models/tag.rb" 19L, 1113C written
+:!ruby -c app/models/tag.rb
+[?25hSyntax OK
+]2;tag.rb + (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[m
+[1m[32mPress ENTER or type command to continue[27m[m[H[2J[?25l[1;1H[1m[34mclass[m [1m[32mTag[m < [1m[32mActiveRecord[m::[1m[32mBase[m
+  belongs_to [1m[35m:network[m
+  belongs_to [1m[35m:publisher[m
+
+  [1m[36m# Get a list of enabled networks[m
+  [1m[36m@networks[m = [1m[32mNetwork[m.find [1m[35m:all[m, [1m[35m:conditions[m => {[1m[35m:enabled[m => [1m[35mtrue[m}
+
+  [1m[36m#[m[30m[43mTODO[m[1m[36m: validate publisherid once accounts are set up[m
+  validates_uniqueness_of [1m[35m:tag_name[m, [1m[35m:scope[m => [1m[35m:publisher_id[m
+  validates_presence_of [1m[35m:tag_name[m, [1m[35m:network_id[m
+  validates_inclusion_of [1m[35m:enabled[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:always_fill[m, [1m[35m:in[m => [[1m[35mtrue[m, [1m[35mfalse[m]
+  validates_inclusion_of [1m[35m:network[m, [1m[35m:in[m => [1m[36m@networks[m
+  validates_numericality_of [1m[35m:tier[m, [1m[35m:only_integer[m => [1m[35mtrue[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_thann[15;1H_or_equal_to[m => [1m[35m10[m, [1m[35m:allow_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:sample_rate[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m100[m, [1m[35m:allow__[17;1Hnil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:frequency_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[19;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_cap[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1000[m, [1m[35m:alll[21;1How_nil[m => [1m[35mtrue[m
+  validates_numericality_of [1m[35m:rejection_time[m, [1m[35m:greater_than_or_equal_to[m => [1m[35m0[m, [1m[35m:less_than[m => [1m[35m1440[m, [1m[35m:all[23;1Hlow_nil[m => [1m[35mtrue[m
+[1m[34mend
+~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;tag.rb (~/src/liftium/dashboard/app/models) (3 of 3) - VIM[8;54H[?25h[?25l[50;1H[m:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ git status
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   app/controllers/tags_controller.rb[m
+#	[31mmodified:   app/models/network.rb[m
+#	[31mmodified:   app/models/publisher.rb[m
+#	[31mmodified:   app/models/tag.rb[m
+#	[31mmodified:   app/views/networks/edit.html.erb[m
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#	[31mmodified:   test/fixtures/networks.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mapp/controllers/.tags_controller.rb.swp[m
+#	[31mdb/test.sqlite3[m
+#	[31mtest/fixtures/generate[m
+#	[31mtest/integration/[m
+no changes added to commit (use "git add" and/or "git commit -a")
+macbook-air:dashboard $ git commit
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   app/controllers/tags_controller.rb[m
+#	[31mmodified:   app/models/network.rb[m
+#	[31mmodified:   app/models/publisher.rb[m
+#	[31mmodified:   app/models/tag.rb[m
+#	[31mmodified:   app/views/networks/edit.html.erb[m
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#	[31mmodified:   test/fixtures/networks.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mapp/controllers/.tags_controller.rb.swp[m
+#	[31mdb/test.sqlite3[m
+#	[31mtest/fixtures/generate[m
+#	[31mtest/integration/[m
+no changes added to commit (use "git add" and/or "git commit -a")
+macbook-air:dashboard $ git add app/models/[K[K[K[K[K[K[K[K/[K[K[K[K[K[K[Ks[K[Kstatus
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   app/controllers/tags_controller.rb[m
+#	[31mmodified:   app/models/network.rb[m
+#	[31mmodified:   app/models/publisher.rb[m
+#	[31mmodified:   app/models/tag.rb[m
+#	[31mmodified:   app/views/networks/edit.html.erb[m
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#	[31mmodified:   test/fixtures/networks.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mdb/test.sqlite3[m
+#	[31mtest/fixtures/generate[m
+#	[31mtest/integration/[m
+no changes added to commit (use "git add" and/or "git commit -a")
+macbook-air:dashboard $ git add app
+macbook-air:dashboard $ 
