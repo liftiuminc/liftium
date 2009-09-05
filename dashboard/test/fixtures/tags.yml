@@ -1,7 +1,21 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+one:
+  tag_name: "AdSense Tag"
+  network: "Google AdSense"
+  enabled: true
+  always_fill: false
+  tier: 10
+  frequency_cap: 3
+  rejection_cap: 1
+  value: 1.5
+
+two:
+  tag_name: "My Tag #2"
+  network: "Tribal Fusion"
+  enabled: true
+  always_fill: false
+  tier: 10
+  frequency_cap: 3
+  rejection_cap: 1
+  value: 1.5

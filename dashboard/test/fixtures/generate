@@ -439,4 +439,2296 @@ macbook-air:dashboard $ git add app/models/[K[K[K[K[K[K[K[K/[K
 #	[31mtest/integration/[m
 no changes added to commit (use "git add" and/or "git commit -a")
 macbook-air:dashboard $ git add app
+macbook-air:dashboard $ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	[32mmodified:   app/controllers/tags_controller.rb[m
+#	[32mmodified:   app/models/network.rb[m
+#	[32mmodified:   app/models/publisher.rb[m
+#	[32mmodified:   app/models/tag.rb[m
+#	[32mmodified:   app/views/networks/edit.html.erb[m
+#
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#	[31mmodified:   test/fixtures/networks.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mdb/test.sqlite3[m
+#	[31mtest/fixtures/generate[m
+#	[31mtest/integration/[m
+macbook-air:dashboard $ git add test/fixtures/
+macbook-air:dashboard $ git add [K[K[K[Ksttut[K[K[Katus
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	[32mmodified:   app/controllers/tags_controller.rb[m
+#	[32mmodified:   app/models/network.rb[m
+#	[32mmodified:   app/models/publisher.rb[m
+#	[32mmodified:   app/models/tag.rb[m
+#	[32mmodified:   app/views/networks/edit.html.erb[m
+#	[32mnew file:   test/fixtures/generate[m
+#	[32mmodified:   test/fixtures/networks.yml[m
+#
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mdb/test.sqlite3[m
+#	[31mtest/integration/[m
+macbook-air:dashboard $ git commit
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H".git/COMMIT_EDITMSG" ".git/COMMIT_EDITMSG" 32L, 1002C[>c[2;1H[1m[36m# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Committer: nick@sullivanflock.com <nick@macbook-air.local>
+#
+# On branch [m[1m[31mmaster[m
+[1m[36m# [m[1m[34mChanges to be committed:[m
+[1m[36m#   (use "git reset HEAD <file>..." to unstage)
+#
+#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  app/controllers/tags_controller.rb[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  app/models/network.rb[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  app/models/publisher.rb[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  app/models/tag.rb[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  app/views/networks/edit.html.erb[m
+[1m[36m#       [m[1m[32mnew file[m[1m[36m: [m[1m[35m  test/fixtures/generate[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  test/fixtures/networks.yml[m
+[1m[36m#
+# [m[1m[34mChanged but not updated:[m
+[1m[36m#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  db/development.sqlite3[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  db/schema.rb[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  log/development.log[m
+[1m[36m#       [m[1m[32mmodified[m[1m[36m: [m[1m[35m  log/test.log[m
+[1m[36m#
+# [m[1m[34mUntracked files:[m
+[1m[36m#   (use "git add <file>..." to include in what will be committed)
+#
+#       db/test.sqlite3
+#       test/integration/[m
+[1m[34m~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;COMMIT_EDITMSG (~/src/liftium/.git) - VIM[1;1H[?25h[?25l[m[50;1H[1m-- INSERT --[m[50;13H[K[1;1H[?25h[?25l[1m[33mE]2;COMMIT_EDITMSG + (~/src/liftium/.git) - VIM[?25h[?25lEr[?25h[?25lrr[?25h[?25lro[?25h[?25lor[?25h[?25l [?25h[?25l c[?25h[?25lch[?25h[?25lhe[?25h[?25lec[?25h[?25lck[?25h[?25lki[?25h[?25lin[?25h[?25lng[?25h[?25l[2;49r[m[2;1H[L[1;50r[50;1H[1m-- INSERT --[2;1H[?25h[m[50;1H[K[2;1H[?25l[?25h[?25l[50;1H:[?25hw[?25l".git/COMMIT_EDITMSG" ".git/COMMIT_EDITMSG" 33L, 1017C written]2;COMMIT_EDITMSG (~/src/liftium/.git) - VIM".git/COMMIT_EDITMSG" 33L, 1017C written[2;1H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8[master 07a235d] Error checking
+ 7 files changed, 476 insertions(+), 5 deletions(-)
+ create mode 100644 dashboard/test/fixtures/generate
+macbook-air:dashboard $ git push
+Counting objects: 32, done.
+Delta compression using up to 2 threads.
+Compressing objects:   5% (1/17)   Compressing objects:  11% (2/17)   Compressing objects:  17% (3/17)   Compressing objects:  23% (4/17)   Compressing objects:  29% (5/17)   Compressing objects:  35% (6/17)   Compressing objects:  41% (7/17)   Compressing objects:  47% (8/17)   Compressing objects:  52% (9/17)   Compressing objects:  58% (10/17)   Compressing objects:  64% (11/17)   Compressing objects:  70% (12/17)   Compressing objects:  76% (13/17)   Compressing objects:  82% (14/17)   Compressing objects:  88% (15/17)   Compressing objects:  94% (16/17)   Compressing objects: 100% (17/17)   Compressing objects: 100% (17/17), done.
+Writing objects:   5% (1/17)   Writing objects:  11% (2/17)   Writing objects:  17% (3/17)   Writing objects:  23% (4/17)   Writing objects:  29% (5/17)   Writing objects:  35% (6/17)   Writing objects:  41% (7/17)   Writing objects:  47% (8/17)   Writing objects:  52% (9/17)   Writing objects:  58% (10/17)   Writing objects:  64% (11/17)   Writing objects:  70% (12/17)   Writing objects:  76% (13/17)   Writing objects:  82% (14/17)   Writing objects:  88% (15/17)   Writing objects:  94% (16/17)   Writing objects: 100% (17/17)   Writing objects: 100% (17/17), 8.25 KiB, done.
+Total 17 (delta 8), reused 0 (delta 0)
+To nick.dev.liftium.com:/home/src/liftium.git
+   45e43cd..07a235d  master -> master
+macbook-air:dashboard $ 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ s
+bash: s: command not found
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ c
+macbook-air:dashboard $ cd fi
+macbook-air:dashboard $ rake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.011739 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F.....FFEE..EEFEE..EE
+Finished in 0.231467 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_update_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  3) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<1> expected but was
+<0>.
+
+  4) Error:
+test_should_destroy_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:40:in `test_should_destroy_publisher'
+    /test/functional/publishers_controller_test.rb:39:in `test_should_destroy_publisher'
+
+  5) Error:
+test_should_get_edit(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:29:in `test_should_get_edit'
+
+  6) Error:
+test_should_show_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:24:in `test_should_show_publisher'
+
+  7) Error:
+test_should_update_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:34:in `test_should_update_publisher'
+
+  8) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<1> expected but was
+<0>.
+
+  9) Error:
+test_should_destroy_tag(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:40:in `test_should_destroy_tag'
+    /test/functional/tags_controller_test.rb:39:in `test_should_destroy_tag'
+
+ 10) Error:
+test_should_get_edit(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:29:in `test_should_get_edit'
+
+ 11) Error:
+test_should_show_tag(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+
+ 12) Error:
+test_should_update_tag(TagsControllerTest):
+StandardError: No fixture with name 'one' found for table 'tags'
+    /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+
+21 tests, 17 assertions, 4 failures, 8 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.012238 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ cd testf
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ cd test
+macbook-air:test $ ls
+fixtures	functional	integration	performance	test_helper.rb	unit
+macbook-air:test $ cd fixtures/
+macbook-air:fixtures $ ls
+generate	networks.yml	publishers.yml	tags.yml
+macbook-air:fixtures $ vim *yml
+3 files to edit
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"networks.yml" "networks.yml" 15L, 309C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m MyString
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m MyString
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m MyString
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m MyString
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+[1m[34m~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;networks.yml (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+[m  [1C[1C[1C[1C[1C[1C[1C[1C[1C [?25l[50;1H[1m-- INSERT --[m[50;13H[K[14;13H[K]2;networks.yml + (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM[14;13H[?25h[?25l P[?25h[?25lPe[?25h[?25ler[?25h[?25l [?25h[?25l C[?25h[?25lCl[?25h[?25lli[?25h[?25lic[?25h[?25lck[?25h[50;1H[K[14;21H[?25l[?25h[13;21H[12;16H[11;21H[10;4H[9;1H[8;20H[7;20H [?25l[50;1H[1m-- INSERT --[m[7;13H[K[7;13H[?25h[?25l P[?25h[?25lPe[?25h[?25ler[?25h[?25l [?25h[?25l I[?25h[?25lIm[?25h[?25lmp[?25h[?25lpr[?25h[?25lre[?25h[?25les[?25h[?25lss[?25h[?25lsi[?25h[?25lio[?25h[?25lon[?25h[50;1H[K[7;26H[?25l[?25h[?25l[50;1H:[?25hw[?25l"networks.yml" "networks.yml" 15L, 316C written]2;networks.yml (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM"networks.yml" 15L, 316C written[7;26H[?25h[?25l[50;1H[1m-- INSERT --[m[50;13H[K[7;27H[?25h[?25ln[1m[35m"
+  always_fill: 
+
+two:
+  network_name: MyString
+  enabled: 
+  supports_threshold: 
+  pay_type: Per Click
+  always_fill: ]2;networks.yml + (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM[7;28H[?25h[m[50;1H[K[7;27H[?25l[?25h[?25l[50;1H[1m-- INSERT --[7;13H[?25h[?25l[m [1m[35m"Per Impression"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m MyString
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m Per Click
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[7;14H[?25h[m[50;1H[K[7;13H[?25l[?25h[8;13H
+[10;4H[11;13H[12;13H[13;13H[14;13H[?25l[50;1H[1m-- INSERT --[14;13H[?25h[?25l[m [1m[35m"Per Click
+  always_fill: [14;14H[?25h[m[50;1H[K[14;13H[?25l[?25h[9C[?25l[50;1H[1m-- INSERT --[14;23H[?25h[?25l[m[1m[35mk"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[14;24H[?25h[m[50;1H[K[14;23H[?25l[?25h[?25l[50;1H:[?25hw[?25l"networks.yml" "networks.yml" 15L, 320C written]2;networks.yml (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM"networks.yml" 15L, 320C written[14;23H[?25h[15;20H[14;23H[13;23H[12;16H[11;23H[10;4H[9;1H[8;1H [7;2H [1C[1C[1C[1C[1C[1C[1C[1C[1C [1C[1C[1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[50;13H[K[7;17H[1m[35m "[m[7;19H[K]2;networks.yml + (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM[7;18H[?25h[?25l[1m[35m C"[?25h[?25lCl"[?25h[?25lli"[?25h[?25lic"[?25h[?25lck"[?25h[m[50;1H[K[7;22H[?25l[?25h[?25l[50;1H:[?25hw[?25l"networks.yml" "networks.yml" 15L, 315C written]2;networks.yml (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM"networks.yml" 15L, 315C written[7;22H[?25h[?25l[50;1H[K[50;1H:[?25hn[?25l"publishers.yml" "publishers.yml" 7L, 126C[3;1H[1m[36m# one:
+#   column: value[m[4;18H[K[5;1H[1m[36m#[m[5;3H[K[6;1H[1m[36m# two:[m[6;7H[K[7;1H[1m[36m#   column: value[m[7;18H[K[8;1H[1m[34m~                                                                                                   [9;1H~                                                                                                   [10;1H~                                                                                                   [11;1H~                                                                                                   [12;1H~                                                                                                   [13;1H~                                                                                                   [14;1H~                                                                                                   [15;1H~                                                                                                   ]2;publishers.yml (~/src/liftium/dashboard/test/fixtures) (2 of 3) - VIM[1;1H[?25h
+
+[?25l[m [1m[36mone[m[1m[31m:[m[3;6H[K]2;publishers.yml + (~/src/liftium/dashboard/test/fixtures) (2 of 3) - VIM[3;1H[?25h
+[?25l   [1m[36mcolumn[m[1m[31m:[m value[4;17H[K[4;1H[?25h[3;1H[?25l[1m[36mone[m[1m[31m:[m[3;5H[K[3;1H[?25h
+   [?25l[50;1H[1m-- INSERT --[m[50;13H[K[4;3H [1m[31m:[m value[4;12H[K[4;4H[?25h[?25l [1m[36mp[m[1m[31m:[m value[4;5H[?25h[?25l[1m[36mpu[m[1m[31m:[m value[4;6H[?25h[?25l[1m[36mub[m[1m[31m:[m value[4;7H[?25h[?25l[1m[36mbl[m[1m[31m:[m value[4;8H[?25h[?25l[1m[36mli[m[1m[31m:[m value[4;9H[?25h[?25l[1m[36mis[m[1m[31m:[m value[4;10H[?25h[?25l[1m[36msh[m[1m[31m:[m value[4;11H[?25h[?25l[1m[36mhe[m[1m[31m:[m value[4;12H[?25h[?25l[1m[36mer[m[1m[31m:[m value[4;13H[?25h[?25l[1m[36mr_[m[1m[31m:[m value[4;14H[?25h[?25l[1m[36m_n[m[1m[31m:[m value[4;15H[?25h[?25l[1m[36mna[m[1m[31m:[m value[4;16H[?25h[?25l[1m[36mam[m[1m[31m:[m value[4;17H[?25h[?25l[1m[36mme[m[1m[31m:[m value[4;18H[?25h[50;1H[K[4;17H[?25l[?25h[1C[1C v[?25l[50;1H[1m-- INSERT --[m[4;21H[K[4;21H[?25h[?25l[4;20H[K[4;20H[?25h[?25l P[?25h[?25lPu[?25h[?25lub[?25h[?25lbl[?25h[?25lli[?25h[?25lis[?25h[?25lsh[?25h[?25lhe[?25h[?25ler[?25h[50;1H[K[4;28H[?25l[?25h[?25l[5;49r[5;1H[L[1;50r[5;3H [1m[36mpublisher_name[m[1m[31m:[m Publisher   [?25h[?25l[50;1H[1m-- INSERT --[m[5;3H [1m[31m:[m Publisher[5;15H[K[5;4H[?25h[?25l [1m[36mw[m[1m[31m:[m Publisher[5;5H[?25h[?25l[1m[36mwe[m[1m[31m:[m Publisher[5;6H[?25h[?25l[1m[36meb[m[1m[31m:[m Publisher[5;7H[?25h[?25l[1m[36mbs[m[1m[31m:[m Publisher[5;8H[?25h[?25l[1m[36msi[m[1m[31m:[m Publisher[5;9H[?25h[?25l[1m[36mit[m[1m[31m:[m Publisher[5;10H[?25h[?25l[1m[36mte[m[1m[31m:[m Publisher[5;11H[?25h[50;1H[K[5;10H[?25l[?25h[1C[1C [?25l[50;1H[1m-- INSERT --[m[5;13H[K[5;13H[?25h[?25l h[?25h[?25lht[?25h[?25ltt[?25h[?25ltp[?25h[?25l[1m[36mhttp[m[1m[31m:[?25h[?25l:[m/[?25h[?25l//[?25h[?25l/w[?25h[?25lww[?25h[?25lww[?25h[?25lw.[?25h[?25l.w[?25h[?25lwi[?25h[?25lik[?25h[?25lki[?25h[?25lia[?25h[?25la.[?25h[?25l.c[?25h[?25lco[?25h[?25lom[?25h[?25lm[1m[35m"
+#
+# two:
+#   column: value[5;34H[?25h[m[50;1H[K[5;33H[?25l[?25h[?25l[50;1H[1m-- INSERT --[5;13H[?25h[?25l[m [1m[35m"http://www.wikia.com"[m
+[1m[36m#
+# two:
+#   column: value[5;14H[?25h[m[50;1H[K[5;13H[?25l[?25h[4;13H[5;13H
+[7;6H[6;1H[?25l[6;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [6;1H[?25h
+[6;1H[?25l[m [1m[36mtwo[m[1m[31m:[m[6;6H[K[6;1H[?25h
+[6;1H[?25l[1m[36mtwo[m[1m[31m:[m[6;5H[K[6;1H[?25h
+[?25l   [1m[36mcolumn[m[1m[31m:[m value[7;17H[K[7;1H[?25h[6;1H[5;1H[?25l[50;1H[1m-- INSERT --[6;49r[m[6;1H[L[1;50r[50;1H[1m-- INSERT --[6;1H[?25h[m[50;1H[K[6;1H[?25l[?25h[5;1H[4;1H[3;1H[?25l[50;1H3 lines yanked[3;1H[?25h
+
+
+
+
+[7;1H[?25l[50;1H3 more lines[50;13H[K[8;49r[8;1H[3L[1;50r[8;1H[1m[36mone[m[1m[31m:[m
+   [1m[36mpublisher_name[m[1m[31m:[m Publisher
+   [1m[36mwebsite[m[1m[31m:[m [1m[35m"http://www.wikia.com"[m[50;1H[K[50;1H3 more lines[8;1H[?25h
+[8;1H[7;1H[?25l[50;1H[1m-- INSERT --[m[7;1H[1m[31m:[m[7;2H[K[7;1H[?25h[50;1H[K[7;1H[?25l[?25h[?25l[7;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [7;1H[?25h[?25l[m[50;1H[1m-- INSERT --[m[7;1H[1m[31m:[m[7;2H[K[7;1H[?25h[?25l[1m[36mt[m[1m[31m:[?25h[?25l[m[1m[36mtw[m[1m[31m:[?25h[?25l[m[1m[36mwo[m[1m[31m:[?25h[m[50;1H[K[7;3H[?25l[?25h[?25l[50;1H:[?25hw[?25l"publishers.yml" "publishers.yml" 10L, 230C written]2;publishers.yml (~/src/liftium/dashboard/test/fixtures) (2 of 3) - VIM"publishers.yml" 10L, 230C written[7;3H[?25h
+  
+  
+  [?25l[1m[34m~                                                                                                   ]2;publishers.yml + (~/src/liftium/dashboard/test/fixtures) (2 of 3) - VIM[9;4H[?25h[8;4H[?25l[m[50;1H[K[50;1H:[?25hw[?25l"publishers.yml" "publishers.yml" 9L, 213C written]2;publishers.yml (~/src/liftium/dashboard/test/fixtures) (2 of 3) - VIM"publishers.yml" 9L, 213C written[8;4H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l[1m[37m[41mE173: 1 more file to edit[8;4H[?25h[?25l[m[50;1H[K[50;1H:[?25hn[?25l"tags.yml" "tags.yml" 7L, 126C[3;1H[1m[36m# one:
+#   column: value[m[4;18H[K[5;1H[1m[36m#[m[5;4H[K[6;1H[1m[36m# two:
+#   column: value[m
+[1m[34m~                                                                                                   [9;1H~                                                                                                   ]2;tags.yml (~/src/liftium/dashboard/test/fixtures) (3 of 3) - VIM[1;1H[?25h
+
+[?25l[3;49r[m[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [m[50;1H[K]2;tags.yml + (~/src/liftium/dashboard/test/fixtures) (3 of 3) - VIM[3;1H[?25h[?25l[3;49r[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [3;1H[?25h[?25l[3;49r[m[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [3;1H[?25h[?25l[3;49r[m[49;1H
+[1;50r[49;1H[1m[34m~                                                                                                   [3;1H[?25h[?25l~                                                                                                   [2;1H[?25h[?25l[m[50;1H[1m-- INSERT --[m[3;1H[K[3;1H[?25h[?25lo[?25h[?25l[1m[35mon[?25h[?25l[mone[?25h[?25l[1m[36mone[m[1m[31m:[?25h[?25l[m[4;1H[K[4;1H[?25h[?25l [?25h[?25l [?25h[?25l[?25h[?25l[?25h[?25l [?25h[?25l [?25h[?25l [1m[35m"[?25h[?25l[m[4;3H[K[4;3H[?25h[?25l t[?25h[?25lta[?25h[?25lag[?25h[?25lg_[?25h[?25l_n[?25h[?25lna[?25h[?25lam[?25h[?25lme[?25h[?25le[1m[35m"[?25h[?25l[m[4;11H[K[4;11H[?25h[?25l  [1m[36mtag_name[m[1m[31m:[?25h[?25l[m [?25h[?25l [1m[35m"[?25h[?25l"M[?25h[?25lMy[?25h[?25l [?25h[?25l T[?25h[?25lTa[?25h[?25lag[?25h[?25lg"[?25h[m[50;1H[K[4;20H[?25l[?25h[?25l[50;1H[1m-- INSERT --[m[5;1H[K[5;1H[?25h[?25l [?25h[?25l [?25h[?25l e[?25h[?25len[?25h[?25lna[?25h[?25lab[?25h[?25lbl[?25h[?25lle[?25h[?25led[?25h[?25l  [1m[36menabled[m[1m[31m:[?25h[?25l[m [?25h[?25l [1m[35m"[?25h[?25l[m[5;12H[K[5;12H[?25h[?25l t[?25h[?25ltr[?25h[?25lru[?25h[?25l[1m[35mtrue[?25h[m[50;1H[K[5;15H[?25l[?25h[?25l
+  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m[6;16H[K[6;3H[?25h[?25l[50;1H[1m-- INSERT --[m[6;2H [1m[31m:[m [1m[35mtrue[m[6;9H[K[6;3H[?25h[?25l [1m[36ma[m[1m[31m:[m [1m[35mtrue[6;4H[?25h[?25l[m[1m[36mal[m[1m[31m:[m [1m[35mtrue[6;5H[?25h[?25l[m[1m[36mlw[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36mwa[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36may[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36mys[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36ms_[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36m_f[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36mfi[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36mil[m[1m[31m:[m [1m[35mtrue[?25h[?25l[m[1m[36mll[m[1m[31m:[m [1m[35mtrue[?25h[m[50;1H[K[6;13H[?25l[?25h[1C[1C [?25l[50;1H[1m-- INSERT --[m[6;16H[K[6;16H[?25h[?25l f[?25h[?25lfa[?25h[?25lal[?25h[?25lls[?25h[?25l[1m[35mfalse[?25h[m[50;1H[K[6;20H[?25l[?25h[?25l
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m[7;21H[K[7;3H[?25h[1C[1C[1C[1C[1C [?25l[50;1H[1m-- INSERT --[m[7;2H [1m[31m:[m [1m[35mfalse[m[7;10H[K[7;3H[?25h[?25l [1m[36mt[m[1m[31m:[m [1m[35mfalse[7;4H[?25h[?25l[m[1m[36mti[m[1m[31m:[m [1m[35mfalse[7;5H[?25h[?25l[m[1m[36mie[m[1m[31m:[m [1m[35mfalse[7;6H[?25h[?25l[m[1m[36mer[m[1m[31m:[m [1m[35mfalse[7;7H[?25h[m[50;1H[K[7;6H[?25l[?25h[1C[1C [?25l[50;1H[1m-- INSERT --[m[7;9H[K[7;9H[?25h[?25l [1m[35m1[?25h[?25l10[?25h[m[50;1H[K[7;10H[?25l[?25h[?25l
+  [1m[36mtier[m[1m[31m:[m [1m[35m10[m[8;11H[K[8;3H[?25h[1C[?25l[50;1H[1m-- INSERT --[m[8;2H [1m[31m:[m [1m[35m10[m[8;7H[K[8;3H[?25h[?25l [1m[36mf[m[1m[31m:[m [1m[35m10[?25h[?25l[m[1m[36mfr[m[1m[31m:[m [1m[35m10[?25h[?25l[m[1m[36mre[m[1m[31m:[m [1m[35m10[?25h[?25l[m[1m[36meq[m[1m[31m:[m [1m[35m10[?25h[?25l[m[1m[36mq_[m[1m[31m:[m [1m[35m10[?25h[?25l[m[1m[36m_c[m[1m[31m:[m [1m[35m10[?25h[?25l[m[1m[36mca[m[1m[31m:[m [1m[35m10[?25h[?25l[m[1m[36map[m[1m[31m:[m [1m[35m10[?25h[m[50;1H[K[8;10H[?25l[?25h[1C[1C [1C[?25l[50;1H[1m-- INSERT --[m[8;14H[K[8;14H[?25h[?25l[8;13H[K[8;13H[?25h[?25l [1m[35m3[?25h[?25l30[?25h[?25l[m[8;14H[K[8;14H[?25h[50;1H[K[8;13H[?25l[?25h[?25l
+  [1m[36mfreq_cap[m[1m[31m:[m [1m[35m3[m[9;14H[K[9;3H[?25h[1C[?25l[50;1H[1m-- INSERT --[m[9;2H [1m[31m:[m [1m[35m3[m[9;6H[K[9;3H[?25h[?25l [1m[36mr[m[1m[31m:[m [1m[35m3[?25h[?25l[m[1m[36mre[m[1m[31m:[m [1m[35m3[?25h[?25l[m[1m[36mej[m[1m[31m:[m [1m[35m3[?25h[?25l[m[1m[36mj_[m[1m[31m:[m [1m[35m3[?25h[?25l[m[1m[36m_c[m[1m[31m:[m [1m[35m3[?25h[?25l[m[1m[36mca[m[1m[31m:[m [1m[35m3[?25h[?25l[m[1m[36map[m[1m[31m:[m [1m[35m3[?25h[m[50;1H[K[9;9H[?25l[?25h[1C[1C [?25l[9;12H[K[9;11H[?25h[?25l[50;1H[1m-- INSERT --[9;12H[?25h[?25l[m [1m[35m1[?25h[m[50;1H[K[9;12H[?25l[?25h[?25l
+  [1m[36mrej_cap[m[1m[31m:[m [1m[35m1[m[10;13H[K[10;3H[?25h[1C[1C[1C[1C[1C[1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[10;6H[1m[36m_[m[1m[31m:[m [1m[35m1[m[10;10H[K[10;7H[?25h[?25l[1m[36m_t[m[1m[31m:[m [1m[35m1[?25h[?25l[m[1m[36mti[m[1m[31m:[m [1m[35m1[?25h[?25l[m[1m[36mim[m[1m[31m:[m [1m[35m1[?25h[?25l[m[1m[36mme[m[1m[31m:[m [1m[35m1[?25h[m[50;1H[K[10;10H[?25l[?25h[1C[1C [?25l[10;13H[K[10;12H[?25h[?25l[50;1H[1m-- INSERT --[10;13H[?25h[?25l[m [1m[35m0[?25h[m[50;1H[K[10;13H[?25l[?25h[?25l[10;13H[K[10;12H[?25h[?25l[1m[34m~                                                                                                   [9;3H[?25h[8;3H
+[m  [?25l[50;1H[1m-- INSERT --[m[10;1H[K[10;1H[?25h[?25l [?25h[?25l [?25h[?25l v[?25h[?25lva[?25h[?25lal[?25h[?25llu[?25h[?25lue[?25h[?25l [?25h[?25l[?25h[?25l  [1m[36mvalue[m[1m[31m:[?25h[?25l[m [?25h[?25l [1m[35m0[?25h[?25l01[?25h[?25l[m[10;11H[K[10;11H[?25h[?25l[10;10H[K[10;10H[?25h[?25l [1m[35m1[?25h[?25l10[?25h[?25l[m[10;11H[K[10;11H[?25h[?25l[10;10H[K[10;10H[?25h[?25l [1m[35m1[?25h[?25l1[m.[?25h[?25l[1m[35m.5[?25h[m[50;1H[K[10;12H[?25l[?25h[9;12H[8;12H[7;10H[6;12H[5;12H[4;3H[3;1H[?25l[50;1H[1m-- VISUAL --[3;1H[?25h[?25l[m[1m[7m[36mone[m[1m[7m[31m:[m[7m 
+[?25h[?25l  [m[1m[7m[36mtag_name[m[1m[7m[31m:[m[7m [m[1m[7m[35m"My Tag"[m[7m 
+[?25h[?25l  [m[1m[7m[36menabled[m[1m[7m[31m:[m[7m [m[1m[7m[35mtrue[m[7m 
+[?25h[?25l  [m[1m[7m[36malways_fill[m[1m[7m[31m:[m[7m [m[1m[7m[35mfalse[m[7m 
+[?25h[?25l  [m[1m[7m[36mtier[m[1m[7m[31m:[m[7m [m[1m[7m[35m10[m[7m 
+[?25h[?25l [?25h[?25l [?25h[?25l[m[1m[7m[36mf[m[1m[36mreq_cap[m[1m[31m:[m [8;4H[?25h[?25l[1m[7m[36mr[m[1m[36meq_cap[m[1m[31m:[m [8;5H[?25h[?25l[1m[7m[36me[m[1m[36mq_cap[m[1m[31m:[m [8;6H[?25h[?25l[1m[7m[36mq[m[1m[36m_cap[m[1m[31m:[m [?25h[?25l[1m[7m[36m_[m[1m[36mcap[m[1m[31m:[m [?25h[?25l[1m[7m[36mc[m[1m[36map[m[1m[31m:[m [?25h[?25l[1m[7m[36ma[m[1m[36mp[m[1m[31m:[m [?25h[?25l[1m[7m[36mp[m[1m[31m:[m [?25h[?25l[1m[7m[31m:[m [?25h[?25l[7m [?25h[?25l[m[1m[7m[35m3[?25h[?25l[?25h[?25l[m[7m 
+  [m[1m[7m[36mrej_cap[m[1m[7m[31m:[m[7m [m[1m[7m[35m1[?25h[?25l[?25h[?25l[m[7m 
+  [m[1m[7m[36mvalue[m[1m[7m[31m:[m[7m [m[1m[7m[35m1.5[?25h[?25l[?25h[?25l[m[3;1H[1m[36mone[m[1m[31m:[m[3;5H[K[4;1H  [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m[4;21H[K[5;1H  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m[5;16H[K[6;1H  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m[6;21H[K[7;1H  [1m[36mtier[m[1m[31m:[m [1m[35m10[m[7;11H[K[8;1H  [1m[36mfreq_cap[m[1m[31m:[m [1m[35m3[m[8;14H[K[9;1H  [1m[36mrej_cap[m[1m[31m:[m [1m[35m1[m[9;13H[K[10;1H  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m[50;1H[K[50;1H8 lines yanked[3;1H[?25h
+
+
+
+
+
+
+[?25l[50;1H8 more lines[50;13H[K[11;1H[1m[36mone[m[1m[31m:[m[11;5H[K[12;1H  [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m[12;21H[K[13;1H  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m[13;16H[K[14;1H  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m[14;21H[K[15;1H  [1m[36mtier[m[1m[31m:[m [1m[35m10[m[15;11H[K[16;1H  [1m[36mfreq_cap[m[1m[31m:[m [1m[35m3[m[16;14H[K[17;1H  [1m[36mrej_cap[m[1m[31m:[m [1m[35m1[m[17;13H[K[18;1H  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m[18;13H[K[50;1H8 more lines[11;1H[?25h[10;1H[?25l[50;1H[1m-- INSERT --[11;49r[m[11;1H[L[1;50r[50;1H[1m-- INSERT --[11;1H[?25h[m[50;1H[K[11;1H[?25l[?25h
+[1C[?25l[50;1H[1m-- INSERT --[m[12;1H[1m[31m:[m[12;2H[K[12;1H[?25h[?25l[1m[36mt[m[1m[31m:[?25h[?25l[m[1m[36mto[m[1m[31m:[?25h[?25l[m[1m[36mt[m[1m[31m:[m[12;3H[K[12;2H[?25h[?25l[1m[36mtw[m[1m[31m:[?25h[?25l[m[1m[36mwo[m[1m[31m:[?25h[m[50;1H[K[12;3H[?25l[?25h[?25l[50;1H:[?25hw[?25l"tags.yml" "tags.yml" 19L, 303C written]2;tags.yml (~/src/liftium/dashboard/test/fixtures) (3 of 3) - VIM"tags.yml" 19L, 303C written[12;3H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:fixtures $ rake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+EEE
+Finished in 0.0973200000000001 seconds.
+
+  1) Error:
+test_the_truth(NetworkTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  2) Error:
+test_the_truth(PublisherTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  3) Error:
+test_the_truth(TagTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+3 tests, 0 assertions, 0 failures, 3 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+EEEEEEEEEEEEEEEEEEEEE
+Finished in 0.338999 seconds.
+
+  1) Error:
+test_should_create_network(NetworksControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  2) Error:
+test_should_destroy_network(NetworksControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  3) Error:
+test_should_get_edit(NetworksControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  4) Error:
+test_should_get_index(NetworksControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  5) Error:
+test_should_get_new(NetworksControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  6) Error:
+test_should_show_network(NetworksControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  7) Error:
+test_should_update_network(NetworksControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  8) Error:
+test_should_create_publisher(PublishersControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  9) Error:
+test_should_destroy_publisher(PublishersControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 10) Error:
+test_should_get_edit(PublishersControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 11) Error:
+test_should_get_index(PublishersControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 12) Error:
+test_should_get_new(PublishersControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 13) Error:
+test_should_show_publisher(PublishersControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 14) Error:
+test_should_update_publisher(PublishersControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 15) Error:
+test_should_create_tag(TagsControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 16) Error:
+test_should_destroy_tag(TagsControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 17) Error:
+test_should_get_edit(TagsControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 18) Error:
+test_should_get_index(TagsControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 19) Error:
+test_should_get_new(TagsControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 20) Error:
+test_should_show_tag(TagsControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+ 21) Error:
+test_should_update_tag(TagsControllerTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+21 tests, 0 assertions, 0 failures, 21 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+EEE
+Finished in 0.096073 seconds.
+
+  1) Error:
+test_the_truth(NetworkTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  2) Error:
+test_the_truth(PublisherTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+  3) Error:
+test_the_truth(TagTest):
+ActiveRecord::StatementInvalid: SQLite3::SQLException: table tags has no column named rej_cap: INSERT INTO "tags" ("always_fill", "tier", "rej_cap", "freq_cap", "id", "enabled", "tag_name", "value") VALUES ('f', 10, 1, 3, 298486374, 't', 'My Tag', 1.5)
+    
+
+3 tests, 0 assertions, 0 failures, 3 errors
+Errors running test:units, test:functionals, and test:integration!
+macbook-air:fixtures $ rakevim *ymlls[Kvim *yml
+3 files to edit
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"networks.yml" "networks.yml" 15L, 315C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m MyString
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m MyString
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+[1m[34m~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;networks.yml (~/src/liftium/dashboard/test/fixtures) (1 of 3) - VIM[1;1H[?25h
+
+
+
+
+
+[m 
+ 
+[?25l[50;1H[K[50;1H:[?25hn[?25l"publishers.yml" "publishers.yml" 9L, 213C[4;2H  [1m[36mpublisher_name[m[1m[31m:[m Publisher
+   [1m[36mwebsite[m[1m[31m:[m [1m[35m"http://www.wikia.com"[m[6;3H[K[7;1H[1m[36mtwo[m[1m[31m:[m[7;5H[K[8;2H  [1m[36mpublisher_name[m[1m[31m:[m Publisher
+   [1m[36mwebsite[m[1m[31m:[m [1m[35m"http://www.wikia.com"[m
+[1m[34m~                                                                                                   [11;1H~                                                                                                   [12;1H~                                                                                                   [13;1H~                                                                                                   [14;1H~                                                                                                   [15;1H~                                                                                                   ]2;publishers.yml (~/src/liftium/dashboard/test/fixtures) (2 of 3) - VIM[1;1H[?25h
+
+
+
+
+[?25l[m[50;1H[K[50;1H:[?25hn[?25l"tags.yml" "tags.yml" 19L, 303C[4;2H [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m[4;21H[K[5;2H [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m[5;16H[K[6;2H [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mtier[m[1m[31m:[m [1m[35m10[m
+  [1m[36mfreq_cap[m[1m[31m:[m [1m[35m3[m[8;14H[K[9;2H [1m[36mrej_cap[m[1m[31m:[m [1m[35m1[m[9;13H[K[10;1H  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m[10;13H[K[11;1H[K[12;1H[1m[36mtwo[m[1m[31m:[m[12;5H[K[13;1H  [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m[13;21H[K[14;1H  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m[14;16H[K[15;1H  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m[15;21H[K[16;1H  [1m[36mtier[m[1m[31m:[m [1m[35m10[m[16;11H[K[17;1H  [1m[36mfreq_cap[m[1m[31m:[m [1m[35m3[m[17;14H[K[18;1H  [1m[36mrej_cap[m[1m[31m:[m [1m[35m1[m[18;13H[K[19;1H  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m[19;13H[K]2;tags.yml (~/src/liftium/dashboard/test/fixtures) (3 of 3) - VIM[1;1H[?25h
+
+
+
+
+
+
+  [1C[1C[1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[50;13H[K[8;7H[?25h[?25l[1m[36mqu_cap[m[1m[31m:[m [1m[35m3]2;tags.yml + (~/src/liftium/dashboard/test/fixtures) (3 of 3) - VIM[8;8H[?25h[?25l[m[1m[36mue_cap[m[1m[31m:[m [1m[35m3[8;9H[?25h[?25l[m[1m[36men_cap[m[1m[31m:[m [1m[35m3[8;10H[?25h[?25l[m[1m[36mnc_cap[m[1m[31m:[m [1m[35m3[8;11H[?25h[?25l[m[1m[36mcy_cap[m[1m[31m:[m [1m[35m3[8;12H[?25h[m[50;1H[K[8;11H[?25l[?25h[9;11H[10;11H
+[12;4H[13;11H[14;11H[15;11H[16;10H[17;8H[?25l[50;1H[1m-- INSERT --[m[50;1H[K[17;6H[1m[36mquency_cap[m[1m[31m:[m [1m[35m3[17;11H[?25h[18;11H[?25l[m[50;1H[1m-- INSERT --[18;6H[?25h[?25l[m[1m[36mje_cap[m[1m[31m:[m [1m[35m1[18;7H[?25h[?25l[m[1m[36mec_cap[m[1m[31m:[m [1m[35m1[18;8H[?25h[?25l[m[1m[36mct_cap[m[1m[31m:[m [1m[35m1[18;9H[?25h[?25l[m[1m[36mti_cap[m[1m[31m:[m [1m[35m1[18;10H[?25h[?25l[m[1m[36mio_cap[m[1m[31m:[m [1m[35m1[18;11H[?25h[?25l[m[1m[36mon_cap[m[1m[31m:[m [1m[35m1[18;12H[?25h[m[50;1H[K[18;11H[?25l[?25h[17;11H[16;10H[15;11H[14;11H[13;11H[12;4H[11;1H[10;11H[9;11H[8;11H
+  [1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[50;1H[K[9;5H[1m[36mjection_cap[m[1m[31m:[m [1m[35m1[9;11H[?25h[?25l[50;1H[m:[?25hw[?25l"tags.yml" "tags.yml" 19L, 325C written]2;tags.yml (~/src/liftium/dashboard/test/fixtures) (3 of 3) - VIM"tags.yml" 19L, 325C written[9;11H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:fixtures $ vim *ymlrake[K
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.022756 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F.....FF.....FF....EE
+Finished in 0.353778 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_update_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  3) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  4) Failure:
+test_should_update_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  5) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  6) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+  7) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 25 assertions, 5 failures, 2 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.022834 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:fixtures $ rake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.023656 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F.....FF.....FF....EE
+Finished in 0.345895 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_update_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  3) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  4) Failure:
+test_should_update_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  5) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  6) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+  7) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 25 assertions, 5 failures, 2 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.023536 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:fixtures $ 
+macbook-air:fixtures $ git status
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   ../../db/development.sqlite3[m
+#	[31mmodified:   ../../db/schema.rb[m
+#	[31mmodified:   ../../log/development.log[m
+#	[31mmodified:   ../../log/test.log[m
+#	[31mmodified:   generate[m
+#	[31mmodified:   networks.yml[m
+#	[31mmodified:   publishers.yml[m
+#	[31mmodified:   tags.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31m../../db/test.sqlite3[m
+#	[31m../integration/[m
+no changes added to commit (use "git add" and/or "git commit -a")
+macbook-air:fixtures $ cd ..
+macbook-air:test $ ls
+fixtures	functional	integration	performance	test_helper.rb	unit
+macbook-air:test $ cd ..
+macbook-air:dashboard $ s[Kls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ gits tatus
+bash: gits: command not found
+macbook-air:dashboard $ git status
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#	[31mmodified:   test/fixtures/generate[m
+#	[31mmodified:   test/fixtures/networks.yml[m
+#	[31mmodified:   test/fixtures/publishers.yml[m
+#	[31mmodified:   test/fixtures/tags.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mdb/test.sqlite3[m
+#	[31mtest/integration/[m
+no changes added to commit (use "git add" and/or "git commit -a")
+macbook-air:dashboard $ test/fixtures/gene[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ktest/f
+fixtures/   functional/ 
+macbook-air:dashboard $ test/f
+fixtures/   functional/ 
+macbook-air:dashboard $ test/fixtures/v[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kvim get[K[K[Ktest/if[K[Kfixtures/generate 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/generate" "test/fixtures/generate" [noeol] 1248L, 148854C[>c[1;1HScript started on Fri Sep  4 18:30:38 2009
+macbook-air:fixtures $ script/gen[1m[34m^G[merate[1m[34m^M[m
+bash: script/generate: No such file or directory[1m[34m^M[m
+macbook-air:fixtures $ script[1m[34m^M[m
+macbook-air:fixtures $ cd ..[1m[34m^M[m
+macbook-air:test $ ls[1m[34m^M[m
+fixtures[7C functional      integration     performance     test_helper.rb  unit[1m[34m^M[m
+macbook-air:test $ cd ..[1m[34m^M[m
+macbook-air:dashboard $ script/generate [1m[34m^M[m
+Usage: script/generate generator [options] [args][1m[34m^M
+^M[m
+Rails Info:[1m[34m^M[m
+    -v, --version[19C Show the Rails version number and quit.[1m[34m^M[m
+    -h, --help[22C Show this help message and quit.[1m[34m^M
+^M[m
+General Options:[1m[34m^M[m
+    -p, --pretend[19C Run but do not make any changes.[1m[34m^M[m
+    -f, --force[21C Overwrite files that already exist.[1m[34m^M[m
+    -s, --skip[22C Skip files that already exist.[1m[34m^M[m
+    -q, --quiet[21C Suppress normal output.[1m[34m^M[m
+    -t, --backtrace[17C Debugging: show backtrace on errors.[1m[34m^M[m
+    -c, --svn[23C Modify files with subversion. (Note: svn must be in path)[1m[34m^M[m
+    -g, --git[23C Modify files with git. (Note: git must be in path)[1m[34m^M
+^M
+^M[m
+Installed Generators[1m[34m^M[m
+  Rubygems: session[1m[34m^M[m
+  Builtin: controller, helper, integration_test, mailer, metal, migration, model, observer, performaa[29;1Hnce_test, plugin, resource, scaffold, session_migration[1m[34m^M
+^M[m
+More are available at http://wiki.rubyonrails.org/rails/pages/AvailableGenerators[1m[34m^M[m
+  1. Download, for example, login_generator.zip[1m[34m^M[m
+  2. Unzip to directory /Users/nick/.rails/generators/login[1m[34m^M[m
+     to use the generator with all your Rails apps[1m[34m^M[m
+     or to /Users/nick/src/liftium/dashboard/lib/generators/login[1m[34m^M[m
+     to use with this app only.[1m[34m^M[m
+  3. Run generate with no arguments for usage information[1m[34m^M[m[38;7H script/generate login[1m[34m^M
+^M[m
+Generator gems are also available:[1m[34m^M[m
+  1. gem search -r generator[1m[34m^M[m
+  2. gem install login_generator[1m[34m^M[m
+  3. script/generate login[1m[34m^M
+^M[m
+macbook-air:dashboard $ k[1m[34m^H^[[m[K[1m[34m^G^M[m
+macbook-air:dashboard $ [1m[34m^M[m
+macbook-air:dashboard $ rake[1m[34m^M[m
+(in /Users/nick/src/liftium/dashboard)[1m[34m^M[m
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems[49;1H[1m[34m@                                                                                                   ]2;generate (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[?25l[m
+[46m([36C)[?25h[?25l[1;49r[m[1;1H[3M[1;50r[45;1H([36C)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gemss[47;1H/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "testt[48;1H/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network__[49;1Htest.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" [1m[34m^M[m[50;1H[K[46;1H[?25h[?25l[1;49r[49;1H
+[1;50r[49;1HLoaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1HStarted[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H...[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1HFinished in 0.06817 seconds.[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H3 tests, 3 assertions, 0 failures, 0 errors[1m[34m^M[?25h[?25l[1;49r[m[1;1H[3M[1;50r[47;1H/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gemss[48;1H/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "tee[49;1Hst/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" [1m[34m^M[47;1H[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1HLoaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1HStarted[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1HF.....FFEE..EEFEE..EE[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1HFinished in 0.237138 seconds.[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;2H 1) Failure:[1m[34m^M[?25h[?25l[1;49r[m[1;1H[2M[1;50r[48;1Htest_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]][49;1H:[1m[34m^M[48;1H[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H"Network.count" didn't change by 1.[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H<3> expected but was[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H<2>.[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;2H 2) Failure:[1m[34m^M[?25h[?25l[1;49r[m[1;1H[2M[1;50r[48;1Htest_should_update_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:35]][49;1H:[1m[34m^M[48;1H[?25h[?25l[1;49r[m[1;1H[2M[1;50r[48;1HExpected response to be a <:redirect>, but was <200>[1m[34m^M
+^M[48;1H[?25h
+[?25l[1;49r[m[49;1H
+[1;50r[49;2H 3) Failure:[1m[34m^M[?25h[?25l[1;49r[m[1;1H[2M[1;50r[48;1Htest_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test..[49;1Hrb:16]:[1m[34m^M[48;1H[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H"Publisher.count" didn't change by 1.[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H<1> expected but was[1m[34m^M[?25h[?25l[1;49r[m[49;1H
+[1;50r[49;1H<0>.[1m[34m^M[?25h[48;1H[47;1H[45;1H[44;1H[?25l[50;1H[m:[?25h1[?25l[1;49r[1;1H[35L[1;50r[1;1HScript started on Fri Sep  4 18:30:38 2009
+macbook-air:fixtures $ script/gen[1m[34m^G[merate[1m[34m^M[m
+bash: script/generate: No such file or directory[1m[34m^M[m
+macbook-air:fixtures $ script[1m[34m^M[m
+macbook-air:fixtures $ cd ..[1m[34m^M[m
+macbook-air:test $ ls[1m[34m^M[m
+fixtures[7C functional      integration     performance     test_helper.rb  unit[1m[34m^M[m
+macbook-air:test $ cd ..[1m[34m^M[m
+macbook-air:dashboard $ script/generate [1m[34m^M[m
+Usage: script/generate generator [options] [args][1m[34m^M
+^M[m
+Rails Info:[1m[34m^M[m
+    -v, --version[19C Show the Rails version number and quit.[1m[34m^M[m
+    -h, --help[22C Show this help message and quit.[1m[34m^M
+^M[m
+General Options:[1m[34m^M[m
+    -p, --pretend[19C Run but do not make any changes.[1m[34m^M[m
+    -f, --force[21C Overwrite files that already exist.[1m[34m^M[m
+    -s, --skip[22C Skip files that already exist.[1m[34m^M[m
+    -q, --quiet[21C Suppress normal output.[1m[34m^M[m
+    -t, --backtrace[17C Debugging: show backtrace on errors.[1m[34m^M[m
+    -c, --svn[23C Modify files with subversion. (Note: svn must be in path)[1m[34m^M[m
+    -g, --git[23C Modify files with git. (Note: git must be in path)[1m[34m^M
+^M
+^M[m
+Installed Generators[1m[34m^M[m
+  Rubygems: session[1m[34m^M[m
+  Builtin: controller, helper, integration_test, mailer, metal, migration, model, observer, performaa[29;1Hnce_test, plugin, resource, scaffold, session_migration[1m[34m^M
+^M[m
+More are available at http://wiki.rubyonrails.org/rails/pages/AvailableGenerators[1m[34m^M[m
+  1. Download, for example, login_generator.zip[1m[34m^M[m
+  2. Unzip to directory /Users/nick/.rails/generators/login[1m[34m^M[m
+     to use the generator with all your Rails apps[1m[34m^M[m
+     or to /Users/nick/src/liftium/dashboard/lib/generators/login[1m[34m^M[49;1H@                                                                                                   [m[50;1H[K[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[?25l[27m[m[H[2J[1;1H#       [1m[34m^[[m[31mmodified:   ../../log/development.log[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   ../../log/test.log[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   generate[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   networks.yml[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   publishers.yml[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   tags.yml[1m[34m^[[m[m[1m[34m^M[m
+#[1m[34m^M[m
+# Untracked files:[1m[34m^M[m
+#   (use "git add <file>..." to include in what will be committed)[1m[34m^M[m
+#[1m[34m^M[m
+#       [1m[34m^[[m[31m../../db/test.sqlite3[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31m../integration/[1m[34m^[[m[m[1m[34m^M[m
+no changes added to commit (use "git add" and/or "git commit -a")[1m[34m^M[m
+macbook-air:fixtures $ cd ..[1m[34m^M[m
+macbook-air:test $ ls[1m[34m^M[m
+fixtures[7C functional      integration     performance     test_helper.rb  unit[1m[34m^M[m
+macbook-air:test $ cd ..[1m[34m^M[m
+macbook-air:dashboard $ s[1m[34m^H^[[m[Kls[1m[34m^M[m
+README[9C app[12C db[13C log[12C script[9C tmp[1m[34m^M[m
+Rakefile[7C config[9C doc[12C public[9C test[1m[34m^M[m
+macbook-air:dashboard $ gits tatus[1m[34m^M[m
+bash: gits: command not found[1m[34m^M[m
+macbook-air:dashboard $ git status[1m[34m^M[m
+# On branch master[1m[34m^M[m
+# Changed but not updated:[1m[34m^M[m
+#   (use "git add <file>..." to update what will be committed)[1m[34m^M[m
+#   (use "git checkout -- <file>..." to discard changes in working directory)[1m[34m^M[m
+#[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   db/development.sqlite3[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   db/schema.rb[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   log/development.log[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   log/test.log[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   test/fixtures/generate[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   test/fixtures/networks.yml[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   test/fixtures/publishers.yml[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mmodified:   test/fixtures/tags.yml[1m[34m^[[m[m[1m[34m^M[m
+#[1m[34m^M[m
+# Untracked files:[1m[34m^M[m
+#   (use "git add <file>..." to include in what will be committed)[1m[34m^M[m
+#[1m[34m^M[m
+#       [1m[34m^[[m[31mdb/test.sqlite3[1m[34m^[[m[m[1m[34m^M[m
+#       [1m[34m^[[m[31mtest/integration/[1m[34m^[[m[m[1m[34m^M[m
+no changes added to commit (use "git add" and/or "git commit -a")[1m[34m^M[m
+macbook-air:dashboard $ test/f[1m[34m^G[mixtures/gen[1m[34m^G^G[me[1m[34m^G^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^G^G^G^G^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[KK[45;1H[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^H^[[m[K[1m[34m^G^G^G^G^G^G^G^G^G^G[mtest/f[1m[34m^G^M[m
+fixtures/   functional/ [1m[34m^M[m
+macbook-air:dashboard $ test/f[1m[34m^M[m
+fixtures/   functional/ [1m[34m^M[m
+macbook-air:dashboard $ test/f[?25h[48;1H[47;1H[46;1H[44;1H[43;1H[42;1H[41;1H[40;1H[39;1H
+
+
+
+
+
+
+
+
+
+[?25l
+:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ rm test/fixtures/generate 
+macbook-air:dashboard $ test[K[K[K[Kscript/generate model publishers[K[K[K[K[K[K[K[K[K[K[K Publisher
+      exists  app/models/
+      exists  test/unit/
+      exists  test/fixtures/
+overwrite app/models/publisher.rb? (enter "h" for help) [Ynaqdh] n
+        skip  app/models/publisher.rb
+   identical  test/unit/publisher_test.rb
+overwrite test/fixtures/publishers.yml? (enter "h" for help) [Ynaqdh] y
+       force  test/fixtures/publishers.yml
+      exists  db/migrate
+Another migration is already named create_publishers: db/migrate/20090904215518_create_publishers.rb
+macbook-air:dashboard $ rake
+macbook-air:dashboard $ vim test/fixtures/publishers.yml 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/publishers.yml" "test/fixtures/publishers.yml" 7L, 126C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value[m
+[1m[34m~                                                                                                   [9;1H~                                                                                                   [10;1H~                                                                                                   [11;1H~                                                                                                   [12;1H~                                                                                                   [13;1H~                                                                                                   [14;1H~                                                                                                   [15;1H~                                                                                                   [16;1H~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;publishers.yml (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h[?25l[m[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ vim test
+macbook-air:dashboard $ rake db:reset
+(in /Users/nick/src/liftium/dashboard)
+-- create_table("networks", {:force=>true})
+   -> 0.0190s
+-- create_table("publishers", {:force=>true})
+   -> 0.0035s
+-- create_table("tags", {:force=>true})
+   -> 0.0056s
+-- add_index("tags", ["network_id"], {:name=>"index_tags_on_network_id"})
+   -> 0.0019s
+-- add_index("tags", ["publisher_id"], {:name=>"index_tags_on_publisher_id"})
+   -> 0.0023s
+-- initialize_schema_migrations_table()
+   -> 0.0165s
+-- assume_migrated_upto_version(20090904235430)
+   -> 0.0090s
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ vim db/mo
+macbook-air:dashboard $ vim db/model
+macbook-air:dashboard $ r[Krake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.019998 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F.....FFEE..EEF....EE
+Finished in 0.308209 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_update_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  3) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<1> expected but was
+<0>.
+
+  4) Error:
+test_should_destroy_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:40:in `test_should_destroy_publisher'
+    /test/functional/publishers_controller_test.rb:39:in `test_should_destroy_publisher'
+
+  5) Error:
+test_should_get_edit(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:29:in `test_should_get_edit'
+
+  6) Error:
+test_should_show_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:24:in `test_should_show_publisher'
+
+  7) Error:
+test_should_update_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:34:in `test_should_update_publisher'
+
+  8) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  9) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+ 10) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 20 assertions, 4 failures, 6 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.019919 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:dashboard $ 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ git status
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#	[31mmodified:   test/fixtures/generate[m
+#	[31mmodified:   test/fixtures/networks.yml[m
+#	[31mmodified:   test/fixtures/tags.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mdb/test.sqlite3[m
+#	[31mtest/integration/[m
+no changes added to commit (use "git add" and/or "git commit -a")
+macbook-air:dashboard $ vim test/fixtures/networks.yml 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 315C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m MyString
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m MyString
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+[1m[34m~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;networks.yml (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+[14;1H[13;1H[12;1H[11;1H[10;1H[9;1H[8;1H[7;1H[6;1H[5;1H[m  [1C[1C[1C[1C[1C[1C[1C[1C [1C[1C[1C[1C[4;16H [?25l[50;1H[1m-- INSERT --[m[50;13H[K[4;17H[K]2;networks.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[4;17H[?25h[?25l G[?25h[?25lGo[?25h[?25loo[?25h[?25log[?25h[?25lgl[?25h[?25lle[?25h[50;1H[K[4;22H[?25l[?25h[5;16H[6;22H[7;22H[8;20H
+[10;4H[11;22H[12;16H[13;22H[12;16H[1C[11;15H[1C [?25l[50;1H[1m-- INSERT --[m[11;17H[K[11;17H[?25h[?25l G[?25h[?25lGo[?25h[?25loo[?25h[?25log[?25h[?25lgl[?25h[?25lle[?25h[?25l [?25h[?25l A[?25h[?25lAd[?25h[?25ldS[?25h[?25lSe[?25h[?25len[?25h[?25lns[?25h[?25lse[?25h[?25le[1m[35m"
+  enabled: 
+  supports_threshold: 
+  pay_type: [m[1CPer Click[1m[35m"
+  always_fill: [11;32H[?25h[m[50;1H[K[11;31H[?25l[?25h[?25l[50;1H[1m-- INSERT --[11;17H[?25h[?25l[m [1m[35m"Google AdSense"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[11;18H[?25h[m[50;1H[K[11;17H[?25l[?25h[10;4H[9;1H[8;17H[7;17H[6;17H[5;16H[4;17H[?25l[50;1H[1m-- INSERT --[m[4;17H[K[4;17H[?25h[?25l [1m[35m"
+  enabled: 
+  supports_threshold: 
+  pay_type: [m[1CPer Click[1m[35m"
+  always_fill: 
+
+two:
+  network_name: [m[1CGoogle AdSense[1m[35m"
+  enabled: 
+  supports_threshold: 
+  pay_type: [m[1CPer Click[1m[35m"
+  always_fill: [4;18H[?25h[?25l"G[?25h[?25lGo[?25h[?25loo[?25h[?25log[?25h[?25lgl[?25h[?25lle[?25h[?25l [?25h[?25l A[?25h[?25lAd[?25h[?25ldS[?25h[?25lSe[?25h[?25len[?25h[?25lns[?25h[?25lse[?25h[?25le"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m [1m[35m"Google AdSense[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[4;33H[?25h[m[50;1H[K[4;32H[?25l[?25h[?25l[50;1H:[?25hw[?25l"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 331C written]2;networks.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/networks.yml" 15L, 331C written[4;32H[?25h[5;16H[6;27H[7;23H[?25l[50;1H[K[50;1H:[?25hn[?25l[1m[37m[41mE163: There is only one file to edit[7;23H[?25h[?25l[m[50;1H[K[50;1H:[?25hw[?25l"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 331C written"test/fixtures/networks.yml" 15L, 331C written[7;23H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ vim test/fixtures/networks.yml [K[K[K[K[K[K[K[K[K[K[K[K[Kte[Kags.yml 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/tags.yml" "test/fixtures/tags.yml" 19L, 325C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one[m[1m[31m:[m
+  [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mtier[m[1m[31m:[m [1m[35m10[m
+  [1m[36mfrequency_cap[m[1m[31m:[m [1m[35m3[m
+  [1m[36mrejection_cap[m[1m[31m:[m [1m[35m1[m
+  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mtier[m[1m[31m:[m [1m[35m10[m
+  [1m[36mfrequency_cap[m[1m[31m:[m [1m[35m3[m
+  [1m[36mrejection_cap[m[1m[31m:[m [1m[35m1[m
+  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m
+[1m[34m~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;tags.yml (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h
+
+
+
+[m  [1C[1C[1C[1C[1C[1C[6;9H[7;9H[8;9H[9;9H[10;9H[9;9H[8;9H[7;9H[6;9H[5;9H[4;9H[3;4H[4;9H[1C[?25l[5;49r[5;1H[L[1;50r[5;2H [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m[50;1H[K]2;tags.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[5;3H[?25h[?25l[50;1H[1m-- INSERT --[m[5;2H [1m[31m:[m [1m[35m"My Tag"[m[5;13H[K[5;3H[?25h[?25l [1m[35mn[m[1m[31m:[m [1m[35m"My Tag"[5;4H[?25h[?25l[m[1m[36mne[m[1m[31m:[m [1m[35m"My Tag"[5;5H[?25h[?25l[m[1m[36met[m[1m[31m:[m [1m[35m"My Tag"[5;6H[?25h[?25l[m[1m[36mtw[m[1m[31m:[m [1m[35m"My Tag"[5;7H[?25h[?25l[m[1m[36mwo[m[1m[31m:[m [1m[35m"My Tag"[5;8H[?25h[?25l[m[1m[36mor[m[1m[31m:[m [1m[35m"My Tag"[5;9H[?25h[?25l[m[1m[36mrk[m[1m[31m:[m [1m[35m"My Tag"[5;10H[?25h[m[50;1H[K[5;9H[?25l[?25h[1C[1C [1C[1C[?25l[1m[35m"y Tag"[m[5;19H[K[5;13H[?25h[?25l[1m[35m" Tag"[m[5;18H[K[5;13H[?25h[?25l[1m[35m"Tag"[m[5;17H[K[5;13H[?25h[?25l[1m[35m"ag"[m[5;16H[K[5;13H[?25h[?25l[1m[35m"g"[m[5;15H[K[5;13H[?25h[?25l[1m[35m""[m[5;14H[K[5;13H[?25h[?25l[50;1H[1m-- INSERT --[5;13H[?25h[?25l[m[1m[35m"G"[?25h[?25lGo"[?25h[?25loo"[?25h[?25log"[?25h[?25lgl"[?25h[?25lle"[?25h[?25le "[?25h[?25l A"[?25h[?25lAd"[?25h[?25ldS"[?25h[?25lSe"[?25h[?25len"[?25h[?25lns"[?25h[?25lse"[?25h[m[50;1H[K[5;26H[?25l[?25h[6;15H[5;26H[6;15H[7;20H[8;10H[9;18H[10;18H[11;12H
+[13;4H[14;20H[?25l[15;49r[15;1H[L[1;50r[15;2H [1m[36mnetwork[m[1m[31m:[m [1m[35m"Google AdSense"[m  [?25h[?25l[50;1H:[?25hw[?25l"test/fixtures/tags.yml" "test/fixtures/tags.yml" 21L, 381C written]2;tags.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/tags.yml" 21L, 381C written[15;3H[?25h
+  [15;3H[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ vim p[Ktest
+macbook-air:dashboard $ rake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.020201 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F.....FFEE..EEF....EE
+Finished in 0.304032 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_update_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:35]:
+Expected response to be a <:redirect>, but was <200>
+
+  3) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<1> expected but was
+<0>.
+
+  4) Error:
+test_should_destroy_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:40:in `test_should_destroy_publisher'
+    /test/functional/publishers_controller_test.rb:39:in `test_should_destroy_publisher'
+
+  5) Error:
+test_should_get_edit(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:29:in `test_should_get_edit'
+
+  6) Error:
+test_should_show_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:24:in `test_should_show_publisher'
+
+  7) Error:
+test_should_update_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:34:in `test_should_update_publisher'
+
+  8) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  9) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+ 10) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 20 assertions, 4 failures, 6 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.01971 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:dashboard $ rakevim test/fixtures/tags.yml 
+macbook-air:dashboard $ vim test/fixtures/networks.yml 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 331C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m [1m[35m"Google AdSense"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m [1m[35m"Google AdSense"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+[1m[34m~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;networks.yml (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h
+
+
+
+[m  [1C[1C[1C[1C[1C[6;8H[7;8H[8;8H
+[10;4H[11;8H[12;8H[13;8H[14;8H[15;8H[14;8H[1C[13;9H[12;9H[11;9H[10;4H[9;1H[8;9H[7;9H[6;9H[7;9H[8;9H
+[10;4H[11;9H[1C[1C[1C[1C[1C[1C[1C [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[50;13H[K[11;32H[?25h[?25l[1m[35me2"]2;networks.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[?25h[?25l2 "[?25h[m[50;1H[K[11;33H[?25l[?25h[?25l[1m[35me "[m[11;34H[K[11;32H[?25h[?25l[1m[35m"oogle AdSense "[m[11;33H[K[11;18H[?25h[?25l[1m[35mogle AdSense "[m[11;32H[K[11;18H[?25h[?25l[1m[35m"gle AdSense "[m[11;31H[K[11;18H[?25h[?25l[1m[35m"le AdSense "[m[11;30H[K[11;18H[?25h[?25l[1m[35m"e AdSense "[m[11;29H[K[11;18H[?25h[?25l[1m[35m" AdSense "[m[11;28H[K[11;18H[?25h[?25l[1m[35m"AdSense "[m[11;27H[K[11;18H[?25h[?25l[1m[35m"dSense "[m[11;26H[K[11;18H[?25h[?25l[1m[35m"Sense "[m[11;25H[K[11;18H[?25h[?25l[1m[35m"ense "[m[11;24H[K[11;18H[?25h[?25l[1m[35m"nse "[m[11;23H[K[11;18H[?25h[?25l[1m[35m"se "[m[11;22H[K[11;18H[?25h[?25l[1m[35m"e "[m[11;21H[K[11;18H[?25h[?25l[1m[35m" "[m[11;20H[K[11;18H[?25h[?25l[1m[35m""[m[11;19H[K[11;18H[?25h[?25l[50;1H[1m-- INSERT --[11;18H[?25h[m[50;1H[K[11;17H[?25l[?25h[1C[1C[?25l[50;1H[1m-- INSERT --[11;18H[?25h[?25l[m[1m[35m"T"[?25h[?25lTr"[?25h[?25lri"[?25h[?25lib"[?25h[?25lba"[?25h[?25lal"[?25h[?25llF"[?25h[?25ll"[m[11;25H[K[11;24H[?25h[?25l[1m[35ml "[?25h[?25l F"[?25h[?25lFu"[?25h[?25lus"[?25h[?25lsi"[?25h[?25lio"[?25h[?25lon"[?25h[m[50;1H[K[11;30H[?25l[?25h[12;16H[?25l[50;1H:[?25hw[?25l"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 330C written]2;networks.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/networks.yml" 15L, 330C written[12;16H[?25h[13;27H[14;23H[1C[?25l[50;1H[1m-- INSERT --[m[50;13H[K[14;17H[1m[35m "[m[14;19H[K]2;networks.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[14;18H[?25h[?25l[1m[35m I"[?25h[?25lIm"[?25h[?25lmp"[?25h[?25lpr"[?25h[?25lre"[?25h[?25les"[?25h[?25lss"[?25h[?25lsi"[?25h[?25lio"[?25h[?25lon"[?25h[m[50;1H[K[14;27H[?25l[?25h[15;20H[14;12H[13;12H[12;12H[11;12H[10;4H[9;1H[8;12H[1C[1C[1C [?25l[50;1H[1m-- INSERT --[m[8;16H[K[8;16H[?25h[?25l t[?25h[?25ltr[?25h[?25lru[?25h[?25l[1m[35mtrue[?25h[m[50;1H[K[8;19H[?25l[?25h
+[10;4H[11;19H[12;16H[13;19H[14;19H[15;19H[14;19H[13;19H[12;16H[?25l[50;1H[1m-- INSERT --[m[12;12H[K[12;12H[?25h[?25l t[?25h[?25ltr[?25h[?25lru[?25h[?25l[1m[35mtrue[?25h[m[50;1H[K[12;15H[?25l[?25h[11;15H[10;4H[9;1H[8;15H[7;15H[6;15H[5;15H[4;15H[5;11H [?25l[50;1H[1m-- INSERT --[m[50;1H[K[5;11H [1m[35mtrue[m[5;16H[K[5;15H[?25h[?25l[50;1H:[?25hw[?25l"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 332C written]2;networks.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/networks.yml" 15L, 332C written[5;15H[?25h[6;15H[1C[1C[1C[1C[1C[1C[1C [1C[7;23H[8;19H
+[10;4H[11;24H[12;15H[13;24H[?25l[50;1H[1m-- INSERT --[m[50;13H[K[13;23H[K]2;networks.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[13;23H[?25h[?25l t[?25h[?25ltr[?25h[?25lru[?25h[?25l[1m[35mtrue[?25h[m[50;1H[K[13;26H[?25l[?25h[?25l[50;1H:[?25hw[?25l"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 331C written]2;networks.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/networks.yml" 15L, 331C written[13;26H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ vim test/fixtures/networks.yml [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Crake[K
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.019521 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F......FEE..EEF....EE
+Finished in 0.306906 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<1> expected but was
+<0>.
+
+  3) Error:
+test_should_destroy_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:40:in `test_should_destroy_publisher'
+    /test/functional/publishers_controller_test.rb:39:in `test_should_destroy_publisher'
+
+  4) Error:
+test_should_get_edit(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:29:in `test_should_get_edit'
+
+  5) Error:
+test_should_show_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:24:in `test_should_show_publisher'
+
+  6) Error:
+test_should_update_publisher(PublishersControllerTest):
+StandardError: No fixture with name 'one' found for table 'publishers'
+    /test/functional/publishers_controller_test.rb:34:in `test_should_update_publisher'
+
+  7) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  8) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+  9) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 20 assertions, 3 failures, 6 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.019342 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:dashboard $ rakevim test/fixtures/networks.yml 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/networks.yml" "test/fixtures/networks.yml" 15L, 331C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m [1m[35m"Google AdSense"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Click"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mtrue[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mnetwork_name[m[1m[31m:[m [1m[35m"Tribal Fusion"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m
+  [1m[36msupports_threshold[m[1m[31m:[m [1m[35mtrue[m
+  [1m[36mpay_type[m[1m[31m:[m [1m[35m"Per Impression"[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+[1m[34m~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;networks.yml (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h[?25l[m[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ vim test/fixtures/networks.yml [K[K[K[K[K[K[K[K[K[K[K[K[Kpublishers.yml 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/publishers.yml" "test/fixtures/publishers.yml" 7L, 126C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value[m
+[1m[34m~                                                                                                   [9;1H~                                                                                                   [10;1H~                                                                                                   [11;1H~                                                                                                   [12;1H~                                                                                                   [13;1H~                                                                                                   [14;1H~                                                                                                   [15;1H~                                                                                                   [16;1H~                                                                                                   [17;1H~                                                                                                   [18;1H~                                                                                                   [19;1H~                                                                                                   [20;1H~                                                                                                   [21;1H~                                                                                                   [22;1H~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;publishers.yml (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h
+
+
+
+[4;1H[3;1H[?25l[m [1m[36mone[m[1m[31m:[m[3;6H[K]2;publishers.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[3;1H[?25h
+[?25l   [1m[36mcolumn[m[1m[31m:[m value[4;17H[K[4;1H[?25h
+[4;1H[3;1H[?25l[1m[36mone[m[1m[31m:[m[3;5H[K[3;1H[?25h
+
+[?25l[5;1H[K[5;1H[?25h
+[?25l [1m[36mtwo[m[1m[31m:[m[6;6H[K[6;1H[?25h
+[?25l   [1m[36mcolumn[m[1m[31m:[m value[7;17H[K[7;1H[?25h[6;1H[?25l[1m[36mtwo[m[1m[31m:[m[6;5H[K[6;1H[?25h[1C[5;1H[4;2H[3;2H[2;1H[3;2H
+   [1C[1C[?25l[50;1H[1m-- INSERT --[m[50;13H[K[4;3H [1m[31m:[m value[4;12H[K[4;4H[?25h[?25l [1m[36mp[m[1m[31m:[m value[4;5H[?25h[?25l[1m[36mpu[m[1m[31m:[m value[4;6H[?25h[?25l[1m[36mub[m[1m[31m:[m value[4;7H[?25h[?25l[1m[36mbl[m[1m[31m:[m value[4;8H[?25h[?25l[1m[36mli[m[1m[31m:[m value[4;9H[?25h[?25l[1m[36mis[m[1m[31m:[m value[4;10H[?25h[?25l[1m[36msh[m[1m[31m:[m value[4;11H[?25h[?25l[1m[36mhe[m[1m[31m:[m value[4;12H[?25h[?25l[1m[36mer[m[1m[31m:[m value[4;13H[?25h[?25l[1m[36mr_[m[1m[31m:[m value[4;14H[?25h[?25l[1m[36m_n[m[1m[31m:[m value[4;15H[?25h[?25l[1m[36mna[m[1m[31m:[m value[4;16H[?25h[?25l[1m[36mam[m[1m[31m:[m value[4;17H[?25h[?25l[1m[36mme[m[1m[31m:[m value[4;18H[?25h[50;1H[K[4;17H[?25l[?25h[1C[1C [?25l[50;1H[1m-- INSERT --[m[4;20H[K[4;20H[?25h[?25l [1m[35m"
+
+two:
+   column: value[4;21H[?25h[?25l"W[?25h[?25lWi[?25h[?25lik[?25h[?25lki[?25h[?25lia[?25h[?25la"[m
+
+[1m[36mtwo[m[1m[31m:[m
+   [1m[36mcolumn[m[1m[31m:[m value[4;27H[?25h[50;1H[K[4;26H[?25l[?25h[?25l[5;49r[5;1H[L[1;50r[5;3H [1m[36mpublisher_name[m[1m[31m:[m [1m[35m"Wikia"[m   [?25h[1C[?25l[50;1H[1m-- INSERT --[m[5;3H [1m[31m:[m [1m[35m"Wikia"[m[5;13H[K[5;4H[?25h[?25l [1m[36mw[m[1m[31m:[m [1m[35m"Wikia"[5;5H[?25h[?25l[m[1m[36mwe[m[1m[31m:[m [1m[35m"Wikia"[5;6H[?25h[?25l[m[1m[36meb[m[1m[31m:[m [1m[35m"Wikia"[5;7H[?25h[?25l[m[1m[36mbs[m[1m[31m:[m [1m[35m"Wikia"[5;8H[?25h[?25l[m[1m[36msi[m[1m[31m:[m [1m[35m"Wikia"[5;9H[?25h[?25l[m[1m[36mit[m[1m[31m:[m [1m[35m"Wikia"[5;10H[?25h[?25l[m[1m[36mte[m[1m[31m:[m [1m[35m"Wikia"[5;11H[?25h[m[50;1H[K[5;10H[?25l[?25h[1C[1C [1C[?25l[50;1H[1m-- INSERT --[m[5;13H[1m[35m""[m[5;15H[K[5;14H[?25h[?25l[1m[35m"h"[?25h[?25lht"[?25h[?25ltt"[?25h[?25ltp"[?25h[?25lp:"[?25h[?25l:/"[?25h[?25l//"[?25h[?25l/w"[?25h[?25lww"[?25h[?25lww"[?25h[?25lw."[?25h[?25l.w"[?25h[?25lwi"[?25h[?25lik"[?25h[?25lki"[?25h[?25lia"[?25h[?25la."[?25h[?25l.c"[?25h[?25lco"[?25h[?25lom"[?25h[m[50;1H[K[5;33H[?25l[?25h
+[7;4H[8;16H[?25l[8;16H[K[8;15H[?25h[?25l[8;15H[K[8;14H[?25h[?25l[8;14H[K[8;13H[?25h[?25l[8;13H[K[8;12H[?25h[?25l[1m[34m~                                                                                                   [7;1H[?25h[6;1H[5;1H[4;1H
+
+
+[?25l[m
+   [1m[36mpublisher_name[m[1m[31m:[m [1m[35m"Wikia"[m[8;27H[K[9;1H   [1m[36mwebsite[m[1m[31m:[m [1m[35m"http://www.wikia.com"[m[9;35H[K[8;4H[?25h
+   [1C[1C[1C[1C[1C[1C[1C[1C [1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[8;23H[?25l[50;1H[1m-- INSERT --[m[8;20H[1m[35m""[m[8;22H[K[8;21H[?25h[?25l[1m[35m"D"[?25h[?25lDo"[?25h[?25log"[?25h[?25lgs"[?25h[?25lst"[?25h[?25lte"[?25h[?25ler"[?25h[m[50;1H[K[8;27H[?25l[?25h[9;27H[?25l[50;1H[1m-- INSERT --[m[9;24H[1m[35m..com"[m[9;30H[K[9;25H[?25h[?25l[1m[35m.d.com"[?25h[?25ldo.com"[?25h[?25log.com"[?25h[?25lgs.com"[?25h[?25lst.com"[?25h[?25lte.com"[?25h[?25ler.com"[?25h[m[50;1H[K[9;31H[?25l[?25h[?25l[50;1H:[?25hw[?25l"test/fixtures/publishers.yml" "test/fixtures/publishers.yml" 9L, 213C written]2;publishers.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/publishers.yml" 9L, 213C written[9;31H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ publisher
+macbook-air:dashboard $ rake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.0239250000000001 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F......F......F....EE
+Finished in 0.345236 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  3) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  4) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+  5) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 25 assertions, 3 failures, 2 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.024313 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:dashboard $ rakevim test/fixtures/publishers.yml [K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ktags.yml 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/fixtures/tags.yml" "test/fixtures/tags.yml" 21L, 381C[>c[1;1H[1m[36m# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one[m[1m[31m:[m
+  [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m
+  [1m[36mnetwork[m[1m[31m:[m [1m[35m"Google AdSense"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mtier[m[1m[31m:[m [1m[35m10[m
+  [1m[36mfrequency_cap[m[1m[31m:[m [1m[35m3[m
+  [1m[36mrejection_cap[m[1m[31m:[m [1m[35m1[m
+  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m
+
+[1m[36mtwo[m[1m[31m:[m
+  [1m[36mtag_name[m[1m[31m:[m [1m[35m"My Tag"[m
+  [1m[36mnetwork[m[1m[31m:[m [1m[35m"Google AdSense"[m
+  [1m[36menabled[m[1m[31m:[m [1m[35mtrue[m
+  [1m[36malways_fill[m[1m[31m:[m [1m[35mfalse[m
+  [1m[36mtier[m[1m[31m:[m [1m[35m10[m
+  [1m[36mfrequency_cap[m[1m[31m:[m [1m[35m3[m
+  [1m[36mrejection_cap[m[1m[31m:[m [1m[35m1[m
+  [1m[36mvalue[m[1m[31m:[m [1m[35m1.5[m
+[1m[34m~                                                                                                   [23;1H~                                                                                                   [24;1H~                                                                                                   [25;1H~                                                                                                   [26;1H~                                                                                                   [27;1H~                                                                                                   [28;1H~                                                                                                   [29;1H~                                                                                                   [30;1H~                                                                                                   [31;1H~                                                                                                   [32;1H~                                                                                                   [33;1H~                                                                                                   [34;1H~                                                                                                   [35;1H~                                                                                                   [36;1H~                                                                                                   [37;1H~                                                                                                   [38;1H~                                                                                                   [39;1H~                                                                                                   [40;1H~                                                                                                   [41;1H~                                                                                                   [42;1H~                                                                                                   [43;1H~                                                                                                   [44;1H~                                                                                                   [45;1H~                                                                                                   [46;1H~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;tags.yml (~/src/liftium/dashboard/test/fixtures) - VIM[1;1H[?25h
+
+
+
+
+
+[m  [1C[1C[1C[1C[1C[1C[8;9H[9;9H[10;9H[11;9H
+[13;4H[14;9H[15;9H[16;9H[17;9H[16;9H[15;9H[14;9H[13;4H[14;9H[1C[1C[1C [1C[1C[1C[1C[1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[50;13H[K[14;20H[?25h[?25l[1m[35mg "]2;tags.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[?25h[?25l @"[?25h[m[50;1H[K[14;21H[?25l[?25h[15;21H[14;21H[?25l[1m[35mg@"[m[14;22H[K[14;20H[?25h[?25l[1m[35mg"[m[14;21H[K[14;20H[?25h[?25l[50;1H[1m-- INSERT --[14;20H[?25h[?25l[m[1m[35mg "[?25h[?25l 2"[?25h[?25l "[m[14;22H[K[14;21H[?25h[?25l[1m[35m @"[?25h[?25l@2"[?25h[?25l@"[m[14;23H[K[14;22H[?25h[?25l[1m[35m "[m[14;22H[K[14;21H[?25h[?25l[1m[35m #"[?25h[?25l#2"[?25h[m[50;1H[K[14;22H[?25l[?25h[15;22H[?25l[50;1H[1m-- INSERT --[m[15;19H[1m[35m "[m[15;21H[K[15;20H[?25h[?25l[1m[35m T"[?25h[?25lTa"[?25h[?25lag"[?25h[m[50;1H[K[15;22H[?25l[?25h[14;22H[13;4H[12;1H[11;12H[10;18H[9;18H[10;18H[11;12H
+[13;4H[14;22H[15;18H[1C[?25l[50;1H:[?25hw[?25l"test/fixtures/tags.yml" "test/fixtures/tags.yml" 21L, 380C written]2;tags.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/tags.yml" 21L, 380C written[15;19H[?25h[1C[1C[1C[1C[?25l[50;1H[1m-- INSERT --[m[50;13H[K[15;23H[?25h[?25l[1m[35mg "]2;tags.yml + (~/src/liftium/dashboard/test/fixtures) - VIM[?25h[?25l #"[?25h[?25l "[m[15;25H[K[15;24H[?25h[?25l[1m[35mg"[m[15;24H[K[15;23H[?25h[?25l[1m[35ma"[m[15;23H[K[15;22H[?25h[?25l[1m[35mT"[m[15;22H[K[15;21H[?25h[?25l[1m[35m "[m[15;21H[K[15;20H[?25h[?25l[1m[35me"[m[15;20H[K[15;19H[?25h[?25l[1m[35ml"[m[15;19H[K[15;18H[?25h[?25l[1m[35mg"[m[15;18H[K[15;17H[?25h[?25l[1m[35mo"[m[15;17H[K[15;16H[?25h[?25l[1m[35mo"[m[15;16H[K[15;15H[?25h[?25l[1m[35mG"[m[15;15H[K[15;14H[?25h[?25l[1m[35m""[m[15;14H[K[15;13H[?25h[?25l[1m[35m"T"[?25h[?25lTr"[?25h[?25lri"[?25h[?25lib"[?25h[?25lba"[?25h[?25lal"[?25h[?25ll "[?25h[?25l F"[?25h[?25lFu"[?25h[?25lus"[?25h[?25lsi"[?25h[?25lio"[?25h[?25lon"[?25h[m[50;1H[K[15;25H[?25l[?25h[16;15H[15;25H[14;23H[13;4H[12;1H[11;12H[10;18H[9;18H[8;10H[7;20H[8;10H[9;18H[10;18H[11;12H
+[11;12H[10;18H[9;18H[8;10H[7;20H[6;15H[5;25H[4;20H[3;4H[2;1H[3;4H[4;20H[?25l[1m[35m"y Tag"[m[4;20H[K[4;14H[?25h[?25l[1m[35m" Tag"[m[4;19H[K[4;14H[?25h[?25l[1m[35m"Tag"[m[4;18H[K[4;14H[?25h[?25l[1m[35m"ag"[m[4;17H[K[4;14H[?25h[?25l[1m[35m"g"[m[4;16H[K[4;14H[?25h[?25l[1m[35m""[m[4;15H[K[4;14H[?25h[?25l[50;1H[1m-- INSERT --[4;14H[?25h[?25l[m[1m[35m"A"[?25h[?25lAd"[?25h[?25ld "[?25h[?25l S"[?25h[?25l "[m[4;18H[K[4;17H[?25h[?25l[1m[35md"[m[4;17H[K[4;16H[?25h[?25l[1m[35mdS"[?25h[?25lSe"[?25h[?25len"[?25h[?25lns"[?25h[?25lse"[?25h[?25le "[?25h[?25l T"[?25h[?25lTa"[?25h[?25lag"[?25h[m[50;1H[K[4;24H[?25l[?25h[5;24H[6;15H[7;20H[8;10H[9;18H[10;18H[11;12H
+[13;4H[14;23H[?25l[50;1H:[?25hw[?25l"test/fixtures/tags.yml" "test/fixtures/tags.yml" 21L, 388C written]2;tags.yml (~/src/liftium/dashboard/test/fixtures) - VIM"test/fixtures/tags.yml" 21L, 388C written[14;22H[?25h[13;4H[12;1H[11;12H[1C[1C[?25l[50;1H[K[50;1H:[?25hw[?25l"test/fixtures/tags.yml" "test/fixtures/tags.yml" 21L, 388C written"test/fixtures/tags.yml" 21L, 388C written[11;12H[?25h[?25l[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ vim test/fixtures/tags.yml [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Crake[K
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.023303 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F......F......F....EE
+Finished in 0.339975 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  3) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  4) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+  5) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 25 assertions, 3 failures, 2 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/integration/network_test.rb" "test/integration/publisher_test.rb" "test/integration/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.023565 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+Errors running test:functionals!
+macbook-air:dashboard $ 
+macbook-air:dashboard $ vim test/functional/
+networks_controller_test.rb    publishers_controller_test.rb  tags_controller_test.rb
+macbook-air:dashboard $ vim test/functional/publishers_controller_test.rb 
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/functional/publishers_controller_test.rb" "test/functional/publishers_controller_test.rb" 45L, 1078C[>c[1;1H[1m[34mrequire[m [1m[31m'[m[1m[35mtest_helper[m[1m[31m'[m
+
+[1m[34mclass[m [1m[32mPublishersControllerTest[m < [1m[32mActionController[m::[1m[32mTestCase[m
+  test [1m[31m"[m[1m[35mshould get index[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:index[m
+    assert_response [1m[35m:success[m
+    assert_not_nil assigns([1m[35m:publishers[m)
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould get new[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:new[m
+    assert_response [1m[35m:success[m
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould create publisher[m[1m[31m"[m [1m[33mdo[m
+    assert_difference([1m[31m'[m[1m[35mPublisher.count[m[1m[31m'[m) [1m[33mdo[m[17;6H post [1m[35m:create[m, [1m[35m:publisher[m => { }
+    [1m[33mend[m[20;4H assert_redirected_to publisher_path(assigns([1m[35m:publisher[m))
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould show publisher[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:show[m, [1m[35m:id[m => publishers([1m[35m:one[m).to_param
+    assert_response [1m[35m:success[m
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould get edit[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:edit[m, [1m[35m:id[m => publishers([1m[35m:one[m).to_param
+    assert_response [1m[35m:success[m
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould update publisher[m[1m[31m"[m [1m[33mdo[m
+    put [1m[35m:update[m, [1m[35m:id[m => publishers([1m[35m:one[m).to_param, [1m[35m:publisher[m => { }
+    assert_redirected_to publisher_path(assigns([1m[35m:publisher[m))
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould destroy publisher[m[1m[31m"[m [1m[33mdo[m
+    assert_difference([1m[31m'[m[1m[35mPublisher.count[m[1m[31m'[m, -[1m[35m1[m) [1m[33mdo[m[40;6H delete [1m[35m:destroy[m, [1m[35m:id[m => publishers([1m[35m:one[m).to_param
+    [1m[33mend[m[43;4H assert_redirected_to publishers_path
+  [1m[33mend[m
+[1m[34mend
+~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;publishers_controller_test.rb (~/src/liftium/dashboard/test/functional) - VIM[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;1H[37;1H[36;1H[35;1H[34;1H[33;1H[32;1H[31;1H
+
+
+
+
+
+
+
+
+
+
+
+
+[43;1H[42;1H[41;1H[40;1H[?25l[m[50;1H[K[50;1H:[?25hw[?25l"test/functional/publishers_controller_test.rb" "test/functional/publishers_controller_test.rb" 45L, 1078C written
+:!ruby -c test/functional/publishers_controller_test.rb
+[?25hSyntax OK
+]2;publishers_controller_test.rb (~/src/liftium/dashboard/test/functional) - VIM[m
+[1m[32mPress ENTER or type command to continue[?25l[m[50;1H[K[50;1H:[?25hq[?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ script/generate
+Usage: script/generate generator [options] [args]
+
+Rails Info:
+    -v, --version                    Show the Rails version number and quit.
+    -h, --help                       Show this help message and quit.
+
+General Options:
+    -p, --pretend                    Run but do not make any changes.
+    -f, --force                      Overwrite files that already exist.
+    -s, --skip                       Skip files that already exist.
+    -q, --quiet                      Suppress normal output.
+    -t, --backtrace                  Debugging: show backtrace on errors.
+    -c, --svn                        Modify files with subversion. (Note: svn must be in path)
+    -g, --git                        Modify files with git. (Note: git must be in path)
+
+
+Installed Generators
+  Rubygems: session
+  Builtin: controller, helper, integration_test, mailer, metal, migration, model, observer, performance_test, plugin, resource, scaffold, session_migration
+
+More are available at http://wiki.rubyonrails.org/rails/pages/AvailableGenerators
+  1. Download, for example, login_generator.zip
+  2. Unzip to directory /Users/nick/.rails/generators/login
+     to use the generator with all your Rails apps
+     or to /Users/nick/src/liftium/dashboard/lib/generators/login
+     to use with this app only.
+  3. Run generate with no arguments for usage information
+       script/generate login
+
+Generator gems are also available:
+  1. gem search -r generator
+  2. gem install login_generator
+  3. script/generate login
+
+macbook-air:dashboard $ script/generate integration_test
+Usage: script/generate integration_test IntegrationTestName [options]
+
+Rails Info:
+    -v, --version                    Show the Rails version number and quit.
+    -h, --help                       Show this help message and quit.
+
+General Options:
+    -p, --pretend                    Run but do not make any changes.
+    -f, --force                      Overwrite files that already exist.
+    -s, --skip                       Skip files that already exist.
+    -q, --quiet                      Suppress normal output.
+    -t, --backtrace                  Debugging: show backtrace on errors.
+    -c, --svn                        Modify files with subversion. (Note: svn must be in path)
+    -g, --git                        Modify files with git. (Note: git must be in path)
+
+Description:
+    Stubs out a new integration test. Pass the name of the test, either
+    CamelCased or under_scored, as an argument. The new test class is
+    generated in test/integration/testname_test.rb
+
+Example:
+    `./script/generate integration_test GeneralStories` creates a GeneralStories
+    integration test in test/integration/general_stories_test.rb
+macbook-air:dashboard $ script/generate integration_test Publisher
+      exists  test/integration/
+   identical  test/integration/publisher_test.rb
+macbook-air:dashboard $ script/generate integration_test Publisher[K[K[K[K[K[K[K[K[K[K Tag
+      exists  test/integration/
+   identical  test/integration/tag_test.rb
+macbook-air:dashboard $ script/generate integration_test Tag[K[K[KNetwork
+      exists  test/integration/
+   identical  test/integration/network_test.rb
+macbook-air:dashboard $ rm tst[K[Kest/integration/
+network_test.rb    publisher_test.rb  tag_test.rb        
+macbook-air:dashboard $ rm test/integration/*
+macbook-air:dashboard $ rm test/integration/*script/generate integration_test NetworkTag[K
+macbook-air:dashboard $ rake
+(in /Users/nick/src/liftium/dashboard)
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/unit/helpers/networks_helper_test.rb" "test/unit/helpers/publishers_helper_test.rb" "test/unit/helpers/tags_helper_test.rb" "test/unit/network_test.rb" "test/unit/publisher_test.rb" "test/unit/tag_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+...
+Finished in 0.024376 seconds.
+
+3 tests, 3 assertions, 0 failures, 0 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/functional/networks_controller_test.rb" "test/functional/publishers_controller_test.rb" "test/functional/tags_controller_test.rb" 
+Loaded suite /Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+F......F......F....EE
+Finished in 0.327628 seconds.
+
+  1) Failure:
+test_should_create_network(NetworksControllerTest) [/test/functional/networks_controller_test.rb:16]:
+"Network.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  2) Failure:
+test_should_create_publisher(PublishersControllerTest) [/test/functional/publishers_controller_test.rb:16]:
+"Publisher.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  3) Failure:
+test_should_create_tag(TagsControllerTest) [/test/functional/tags_controller_test.rb:16]:
+"Tag.count" didn't change by 1.
+<3> expected but was
+<2>.
+
+  4) Error:
+test_should_show_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.network_name
+    On line #3 of app/views/tags/show.html.erb
+    
+        1: <p>
+        2:   <b>Network:</b>
+        3:   <%=h @tag.network.network_name %>
+        4: </p>
+        5: 
+        6: <p>
+    
+        app/views/tags/show.html.erb:3
+        app/controllers/tags_controller.rb:20:in `show'
+        /test/functional/tags_controller_test.rb:24:in `test_should_show_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+  5) Error:
+test_should_update_tag(TagsControllerTest):
+ActionView::TemplateError: You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map
+    On line #8 of app/views/tags/edit.html.erb
+    
+        5: 
+        6:   <p>
+        7:     <%= f.label :network %><br />
+        8:     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+        9:   </p>
+        10:   <p>
+        11:     <%= f.label :tag_name %><br />
+    
+        app/views/tags/edit.html.erb:8
+        app/views/tags/edit.html.erb:3
+        app/controllers/tags_controller.rb:76:in `update'
+        app/controllers/tags_controller.rb:70:in `update'
+        /test/functional/tags_controller_test.rb:34:in `test_should_update_tag'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:34:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `each'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/testsuite.rb:33:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnermediator.rb:46:in `run_suite'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:67:in `start_mediator'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/console/testrunner.rb:41:in `start'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/ui/testrunnerutilities.rb:29:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:216:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/autorunner.rb:12:in `run'
+        /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit.rb:278
+        rake (0.8.7) lib/rake/rake_test_loader.rb:5
+
+21 tests, 25 assertions, 3 failures, 2 errors
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I"lib:test" "/Library/Ruby/Gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb"  
+Errors running test:functionals!
+macbook-air:dashboard $ vim test/functional/
+networks_controller_test.rb    publishers_controller_test.rb  tags_controller_test.rb
+macbook-air:dashboard $ vim test/functional/
+macbook-air:dashboard $ rm test/functional/
+macbook-air:dashboard $ vim test/functional/*
+3 files to edit
+7[?47h[?1h=[1;50r[27m[m[H[2J[?25l[50;1H"test/functional/networks_controller_test.rb" "test/functional/networks_controller_test.rb" 45L, 1040C[>c[1;1H[1m[34mrequire[m [1m[31m'[m[1m[35mtest_helper[m[1m[31m'[m
+
+[1m[34mclass[m [1m[32mNetworksControllerTest[m < [1m[32mActionController[m::[1m[32mTestCase[m
+  test [1m[31m"[m[1m[35mshould get index[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:index[m
+    assert_response [1m[35m:success[m
+    assert_not_nil assigns([1m[35m:networks[m)
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould get new[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:new[m
+    assert_response [1m[35m:success[m
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould create network[m[1m[31m"[m [1m[33mdo[m
+    assert_difference([1m[31m'[m[1m[35mNetwork.count[m[1m[31m'[m) [1m[33mdo[m[17;6H post [1m[35m:create[m, [1m[35m:network[m => { }
+    [1m[33mend[m[20;4H assert_redirected_to network_path(assigns([1m[35m:network[m))
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould show network[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:show[m, [1m[35m:id[m => networks([1m[35m:one[m).to_param
+    assert_response [1m[35m:success[m
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould get edit[m[1m[31m"[m [1m[33mdo[m
+    get [1m[35m:edit[m, [1m[35m:id[m => networks([1m[35m:one[m).to_param
+    assert_response [1m[35m:success[m
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould update network[m[1m[31m"[m [1m[33mdo[m
+    put [1m[35m:update[m, [1m[35m:id[m => networks([1m[35m:one[m).to_param, [1m[35m:network[m => { }
+    assert_redirected_to network_path(assigns([1m[35m:network[m))
+  [1m[33mend[m
+
+  test [1m[31m"[m[1m[35mshould destroy network[m[1m[31m"[m [1m[33mdo[m
+    assert_difference([1m[31m'[m[1m[35mNetwork.count[m[1m[31m'[m, -[1m[35m1[m) [1m[33mdo[m[40;6H delete [1m[35m:destroy[m, [1m[35m:id[m => networks([1m[35m:one[m).to_param
+    [1m[33mend[m[43;4H assert_redirected_to networks_path
+  [1m[33mend[m
+[1m[34mend
+~                                                                                                   [47;1H~                                                                                                   [48;1H~                                                                                                   [49;1H~                                                                                                   ]2;networks_controller_test.rb (~/src/liftium/dashboard/test/functional) (1 of 3) - VIM[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[16;1H[15;1H[14;1H[13;1H[12;1H[11;1H[10;1H[9;1H[8;1H[7;1H[6;1H[5;1H[4;1H[3;1H[2;1H[1;1H
+
+
+
+
+
+
+
+
+
+
+
+[12;1H[11;1H[10;1H[9;1H[8;1H[7;1H[6;1H
+
+
+
+
+
+
+
+
+[?25l[m[50;1H[K[50;1H:[?25hq[?25l[1m[37m[41mE173: 2 more files to edit[15;1H[?25h[?25l[m[50;1H[K[50;1H:[?25hq![?25l]2;Thanks for flying Vim[50;1H[K[50;1H[?1l>[?25h[2J[?47l8macbook-air:dashboard $ 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ 
+macbook-air:dashboard $ ls
+README		app		db		log		script		tmp
+Rakefile	config		doc		public		test
+macbook-air:dashboard $ svnst[K[K status
+svn: warning: '.' is not a working copy
+macbook-air:dashboard $ git t[Kstatus
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   db/development.sqlite3[m
+#	[31mmodified:   db/schema.rb[m
+#	[31mmodified:   log/development.log[m
+#	[31mmodified:   log/test.log[m
+#	[31mmodified:   test/fixtures/generate[m
+#	[31mmodified:   test/fixtures/networks.yml[m
+#	[31mmodified:   test/fixtures/publishers.yml[m
+#	[31mmodified:   test/fixtures/tags.yml[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mdb/test.sqlite3[m
+no changes added to commit (use "git add" and/or "git commit -a")
 macbook-air:dashboard $ 

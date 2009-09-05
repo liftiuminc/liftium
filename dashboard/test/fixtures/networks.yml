@@ -1,15 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  network_name: MyString
-  enabled: false
+  network_name: "Google AdSense"
+  enabled: true
   supports_threshold: false
-  pay_type: MyString
-  always_fill: false
+  pay_type: "Per Click"
+  always_fill: true
 
 two:
-  network_name: MyString
-  enabled: false
-  supports_threshold: false
-  pay_type: MyString
+  network_name: "Tribal Fusion"
+  enabled: true
+  supports_threshold: true
+  pay_type: "Per Impression"
   always_fill: false
