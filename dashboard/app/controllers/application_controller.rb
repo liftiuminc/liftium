@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # E-mail upon an exception http://github.com/rails/exception_notification/tree/master
-  include ExceptionNotifiable
+#  include ExceptionNotifiable
 
 
   # Scrub sensitive parameters from your log
