@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags
   map.resources :networks
   map.resources :publishers
+  map.resources :password_resets
 
   # Auth logic
   map.resource :user_session
