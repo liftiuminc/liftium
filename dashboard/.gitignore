@@ -1,0 +1,6 @@
+*.sqlite3
+config/deploy.rb
+db/schema.rb
+tmp/*
+log/*
+public/cache/*
