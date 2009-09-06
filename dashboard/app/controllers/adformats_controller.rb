@@ -1,4 +1,6 @@
 class AdformatsController < ApplicationController
+  before_filter :require_user
+
   # GET /adformats
   # GET /adformats.xml
   def index

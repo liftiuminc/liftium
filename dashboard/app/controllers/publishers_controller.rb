@@ -1,4 +1,6 @@
 class PublishersController < ApplicationController
+  before_filter :require_user
+
   # GET /publishers
   # GET /publishers.xml
   def index
