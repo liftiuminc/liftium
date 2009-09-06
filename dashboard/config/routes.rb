@@ -3,12 +3,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags
   map.resources :networks
   map.resources :publishers
+
+  # Auth logic
   map.resource :user_session
   map.resource :account, :controller => "users"
   map.resources :users
 
 
-  # map.root :controller => "welcome"
+  map.root :controller => "welcome"
 
   # See how all your routes lay out with "rake routes"
 
