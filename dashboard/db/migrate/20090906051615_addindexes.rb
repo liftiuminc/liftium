@@ -12,5 +12,8 @@ class Addindexes < ActiveRecord::Migration
     remove_index(:networks, :network_name);
     remove_index(:adformats, :format_name);
     remove_index(:publishers, :publisher_name);
+    remove_index(:users, :email);
+    remove_index(:tags, [:publisher_id, :tag_name]);
+    add_index(:tags, :publisher_id);
   end
 end
