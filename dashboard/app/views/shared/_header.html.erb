@@ -9,3 +9,15 @@
   <%= javascript_include_tag :defaults %>
 </head>
 <body>
+<span style="float:right; text-align:right;">
+<% if !current_user %>
+  <%= link_to "Register", new_account_path %> |
+  <%= link_to "Log In", new_user_session_path %> 
+<% else %>
+  <%= link_to "My Account", account_path %> |
+  <%= link_to "Logout", user_session_path, :method => :delete %>
+<% end %>
+</span>
+
+<p style="color: green"><%= flash[:notice] %></p>
+
