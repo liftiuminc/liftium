@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :adformats
+
+  map.resources :adformats, :active_scaffold => true
   map.resources :tags
   map.resources :networks
   map.resources :publishers
