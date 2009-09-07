@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :adformats, :active_scaffold => true
   map.resources :tags
-  map.resources :networks
+  map.resources :networks, :active_scaffold => true
   map.resources :publishers
   map.resources :password_resets
 
