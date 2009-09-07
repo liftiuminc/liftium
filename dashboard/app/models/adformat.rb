@@ -14,4 +14,8 @@ class Adformat < ActiveRecord::Base
       "#{format_name} (#{size})" 
     end
 
+    def name
+      "Ad Format"
+    end
+
 end
