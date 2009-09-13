@@ -29,6 +29,25 @@ Lift.beaconCall = function (url){
         img.src = url + '&cb=' + Math.random().toString().substring(2,8);
 };
 
+
+/* By default, javascript passes by value, UNLESS you are passing a javascript
+ * object, then it passes by reference.
+ * Yes, I could have extended object prototype, but I hate it when people do that */
+Lift.clone = function (obj){
+        if (typeof obj == "object"){
+                var t = new obj.constructor();
+                for(var key in obj) {
+                        t[key] = Lift.clone(obj[key]);
+                }
+
+                return t;
+        } else {
+                // Some other type (null, undefined, string, number)
+                return obj;
+        }
+};
+
+
 /* Emulate php's empty(). Thanks to:
  * http://kevin.vanzonneveld.net/techblog/article/javascript_equivalent_for_phps_empty/
  * Nick wrote: added the check for empty arrays
