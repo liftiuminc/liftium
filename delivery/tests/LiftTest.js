@@ -3,7 +3,8 @@
 var LiftTest = {
         testsRun : 0,
         testsPassed : 0,
-        testsFailed : 0
+        testsFailed : 0,
+	errors : []
 };
 
 LiftTest.testPassed = function(){
@@ -32,5 +33,6 @@ LiftTest.updateTestStatus = function(){
 
 window.onerror = function (e){
 	alert("Error running test: " + window.Lift.print_r(e));
+	LiftTest.errors.push(e);
 	LiftTest.testFailed();
 };

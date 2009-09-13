@@ -29,7 +29,7 @@ if (empty($_GET['liftium_debug'])){
 <script type="text/javascript" src="LiftTest.js"></script>
 <style type="text/css">
 .adunit {
-        border: 1px solid black;
+	border: 1px dashed black;
         margin: 10px;
 }       
 </style>
