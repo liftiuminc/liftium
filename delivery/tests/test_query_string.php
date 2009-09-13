@@ -1,5 +1,5 @@
 <?php require 'header.php'?>
-This page is for testing Liftium.parseQueryString.
+This page is for testing Liftium.parseQueryString and Liftium.buildQueryString.
 <p>
 <script>
 var nvpairs;
@@ -8,6 +8,12 @@ var nvpairs;
 nvpairs = Liftium.parseQueryString("var1=val1&var2=%22val%20encoded%22");
 
 if (nvpairs.var1 == "val1" && nvpairs.var2 == '"val encoded"') {
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+
+if (Liftium.buildQueryString(nvpairs) == "var1=val1&var2=%22val%20encoded%22"){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
@@ -28,6 +34,12 @@ if (nvpairs.var1 == "val1" && nvpairs.var2 == '"val encoded"') {
 } else {
 	LiftiumTest.testFailed();
 }
+if (Liftium.buildQueryString(nvpairs, ";") == "var1=val1;var2=%22val%20encoded%22"){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+
 
 // With empty value
 nvpairs = Liftium.parseQueryString("var1;var2=%22val%20encoded%22");
@@ -55,6 +67,12 @@ if (nvpairs.$var1 == "val1" && nvpairs.var2 == '"val encoded"') {
 } else {
 	LiftiumTest.testFailed();
 }
+if (Liftium.buildQueryString(nvpairs, ";") == "%24var1=val1;var2=%22val%20encoded%22"){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+
 </script>
 
 <?php require 'footer.php'?>
