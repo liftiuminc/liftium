@@ -1,13 +1,13 @@
 /* Unit test helper */
 
-var LiftTest = {
+var LiftiumTest = {
         testsRun : 0,
         testsPassed : 0,
         testsFailed : 0,
 	errors : []
 };
 
-LiftTest.testPassed = function(){
+LiftiumTest.testPassed = function(){
         if (this.testsFailed === 0){
                 document.body.bgColor = "green";
         }
@@ -16,23 +16,23 @@ LiftTest.testPassed = function(){
         this.updateTestStatus();
 };
 
-LiftTest.testFailed = function(){
+LiftiumTest.testFailed = function(){
         document.body.bgColor = "red";
         this.testsRun++;
         this.testsFailed++;
         this.updateTestStatus();
 };
 
-LiftTest.updateTestStatus = function(){
-        window.Lift._("test_results").innerHTML = this.testsRun + " tests ran, " +
+LiftiumTest.updateTestStatus = function(){
+        window.Liftium._("test_results").innerHTML = this.testsRun + " tests ran, " +
 		this.testsPassed + " tests passed, " +
 		this.testsFailed + " tests failed";
-        window.Lift._("test_results").style.display = "block";
+        window.Liftium._("test_results").style.display = "block";
 };
 
 
 window.onerror = function (e){
-	alert("Error running test: " + window.Lift.print_r(e));
-	LiftTest.errors.push(e);
-	LiftTest.testFailed();
+	alert("Error running test: " + window.Liftium.print_r(e));
+	LiftiumTest.errors.push(e);
+	LiftiumTest.testFailed();
 };

@@ -1,26 +1,26 @@
 <?php require 'header.php'?>
-This page is for testing Lift.empty.
+This page is for testing Liftium.empty.
 <p>
 <script>
 // Truthies
-Lift.empty(false) ? LiftTest.testPassed() : LiftTest.testFailed();
-Lift.empty(parseInt("blah")) ? LiftTest.testPassed() : LiftTest.testFailed(); 
-Lift.empty(parseFloat("blah")) ? LiftTest.testPassed() : LiftTest.testFailed();
-Lift.empty("") ? LiftTest.testPassed() : LiftTest.testFailed();
-Lift.empty(null) ? LiftTest.testPassed() : LiftTest.testFailed();
-Lift.empty({}) ? LiftTest.testPassed() : LiftTest.testFailed();
-Lift.empty([]) ? LiftTest.testPassed() : LiftTest.testFailed();
-Lift.empty(0) ? LiftTest.testPassed() : LiftTest.testFailed();
+Liftium.empty(false) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+Liftium.empty(parseInt("blah")) ? LiftiumTest.testPassed() : LiftiumTest.testFailed(); 
+Liftium.empty(parseFloat("blah")) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+Liftium.empty("") ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+Liftium.empty(null) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+Liftium.empty({}) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+Liftium.empty([]) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+Liftium.empty(0) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
 
 // Falsies
-!Lift.empty(true) ? LiftTest.testPassed() : LiftTest.testFailed();
-!Lift.empty(parseInt("23")) ? LiftTest.testPassed() : LiftTest.testFailed();
-!Lift.empty(parseFloat("3.14159")) ? LiftTest.testPassed() : LiftTest.testFailed();
-!Lift.empty("string") ? LiftTest.testPassed() : LiftTest.testFailed();
-!Lift.empty(Array(1,2,3)) ? LiftTest.testPassed() : LiftTest.testFailed();
-!Lift.empty({"foo":"bar"}) ? LiftTest.testPassed() : LiftTest.testFailed();
-!Lift.empty("0") ? LiftTest.testPassed() : LiftTest.testFailed();
-!Lift.empty(Lift) ? LiftTest.testPassed() : LiftTest.testFailed();
+!Liftium.empty(true) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+!Liftium.empty(parseInt("23")) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+!Liftium.empty(parseFloat("3.14159")) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+!Liftium.empty("string") ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+!Liftium.empty(Array(1,2,3)) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+!Liftium.empty({"foo":"bar"}) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+!Liftium.empty("0") ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
+!Liftium.empty(Liftium) ? LiftiumTest.testPassed() : LiftiumTest.testFailed();
 </script>
 
 <?php require 'footer.php'?>

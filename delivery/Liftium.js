@@ -1,19 +1,19 @@
 /* Ad Network Optimizer written in Javascript */
 
-var Lift = {
+var Liftium = {
 
 };
 
 /* ####### Methods are in alphabetical order. ####### */
 
 /* Simple convenience function for getElementById */
-Lift._ = function(id){
+Liftium._ = function(id){
         return document.getElementById(id);
 };
 
 
 /* Simple abstraction layer for event handling across browsers */
-Lift.addEventListener = function(item, eventName, callback){
+Liftium.addEventListener = function(item, eventName, callback){
         // TODO: use jQuery if it's available
         if (window.addEventListener) { // W3C
                 return item.addEventListener(eventName, callback, false);
@@ -22,7 +22,7 @@ Lift.addEventListener = function(item, eventName, callback){
         }
 };
 
-Lift.beaconCall = function (url){
+Liftium.beaconCall = function (url){
         // Create an image and call the beacon
         var img = new Image(0, 0);
         // Append a cache buster
@@ -33,11 +33,11 @@ Lift.beaconCall = function (url){
 /* By default, javascript passes by value, UNLESS you are passing a javascript
  * object, then it passes by reference.
  * Yes, I could have extended object prototype, but I hate it when people do that */
-Lift.clone = function (obj){
+Liftium.clone = function (obj){
         if (typeof obj == "object"){
                 var t = new obj.constructor();
                 for(var key in obj) {
-                        t[key] = Lift.clone(obj[key]);
+                        t[key] = Liftium.clone(obj[key]);
                 }
 
                 return t;
@@ -48,10 +48,10 @@ Lift.clone = function (obj){
 };
 
 
-Lift.cookie = function(name, value, options) {
+Liftium.cookie = function(name, value, options) {
     if (arguments.length > 1) { // name and value given, set cookie
         options = options || {};
-        if (Lift.e(value)) {
+        if (Liftium.e(value)) {
             value = '';
             options.expires = -1;
         }
@@ -75,7 +75,7 @@ Lift.cookie = function(name, value, options) {
         return document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
     } else { // only name given, get cookie
         var cookieValue = null;
-        if (!Lift.e(document.cookie)){
+        if (!Liftium.e(document.cookie)){
             var cookies = document.cookie.split(';');
             for (var i = 0, l = cookies.length; i < l; i++) {
                 var cookie = cookies[i].replace( /^\s+|\s+$/g, "");
@@ -96,7 +96,7 @@ Lift.cookie = function(name, value, options) {
  * Nick wrote: added the check for empty arrays
  * Nick wrote: added the check for number that is NaN
  */
-Lift.empty = function ( v ) {
+Liftium.empty = function ( v ) {
     if (v === "" ||
         v === 0 ||
         v === null ||
@@ -114,13 +114,13 @@ Lift.empty = function ( v ) {
     }
     return false;
 };
-Lift.e = Lift.empty; // Shortcut to make the Javascript smaller
+Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
 
 
 /* Javascript equivalent of php's print_r. 
  * http://www.openjs.com/scripts/others/dump_function_php_print_r.php
  */
-Lift.print_r = function (arr,level) {
+Liftium.print_r = function (arr,level) {
         var text = ["\n"], padding = "";
         if(!level) { level = 0; }
 
@@ -138,7 +138,7 @@ Lift.print_r = function (arr,level) {
 
                         if(typeof value == 'object') { //If it is an array,
                                 text.join(padding + "'" + item + "' ...");
-                                text.join(Lift.print_r(value,level+1));
+                                text.join(Liftium.print_r(value,level+1));
                         } else {
                                 text.join(padding + "'" + item + "' => \"" + value + "\"\n");
                         }
@@ -148,5 +148,3 @@ Lift.print_r = function (arr,level) {
         }
         return text.join("");
 };
-
-

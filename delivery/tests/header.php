@@ -7,7 +7,7 @@ if (empty($wgDBname)){
 ?>
 <html>
 <head>
-<title>Liftium Test</title>
+<title>Liftiumium Test</title>
 <?php
 if (!empty($refresh)){
         echo "<meta http-equiv='refresh' content='$refresh;url={$_SERVER['REQUEST_URI']}'/>\n";
@@ -25,8 +25,8 @@ if (empty($_GET['liftium_debug'])){
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/logger/assets/skins/sam/logger.css"/>
   <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/logger/logger-min.js"></script>
 <?php } ?>
-<script type="text/javascript" src="../Lift.js?<?php echo mt_rand()?>"></script>
-<script type="text/javascript" src="LiftTest.js"></script>
+<script type="text/javascript" src="../Liftium.js?<?php echo mt_rand()?>"></script>
+<script type="text/javascript" src="LiftiumTest.js"></script>
 <style type="text/css">
 .adunit {
 	border: 1px dashed black;
