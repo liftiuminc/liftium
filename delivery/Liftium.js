@@ -3,10 +3,12 @@
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
-
+	chain 		: [],
+	errors 		: []
 };
 
-/* ####### Methods are in alphabetical order. ####### */
+/* ##### Methods are in alphabetical order, with a call to Liftium.init at the bottom */
+
 
 /* Simple convenience function for getElementById */
 Liftium._ = function(id){
@@ -32,9 +34,67 @@ Liftium.beaconCall = function (url){
 };
 
 
-Liftium.callAd = function (slotname) {
-	document.write("
+/* Do the work of calling the ad tag */
+Liftium.callAd = function (slotname, iframe) {
+	Liftium.d("Calling ad for " + slotname, 1);
 	document.write("This is my rifle: " + slotname);
+};
+
+
+/* Send a message to the debug console if available, otherwise alert */
+Liftium.debug = function (msg, level){
+        if (Liftium.e(Liftium.debugLevel)){
+                return false;
+        } else if (level > Liftium.debugLevel){
+                return false;
+        }
+
+        // Firebug enabled
+        if (typeof console == "object" && console.firebug){
+                console.log("Liftium: " + msg);
+                if (arguments.length > 2){
+                        console.dir(Liftium.d.arguments[2]);
+                }
+        // Yahoo logging console
+        } else if (typeof YAHOO == "object" && YAHOO.log){
+                YAHOO.log(msg, "info", "Liftium");
+                if (arguments.length > 2){
+                        YAHOO.log(Liftium.print_r(Liftium.d.arguments[2]), "info", "Liftium");
+                }
+	// Default console, available on IE 8+, FF 3+ Safari 4+
+        } else if (typeof console == "object" && console.log){
+                console.log("Liftium: " + msg);
+                if (arguments.length > 2){
+                        console.log(Liftium.print_r(Liftium.d.arguments[2]));
+                }
+        } else {
+                alert("Liftium debug: " + msg);
+        }
+
+        return true;
+};
+Liftium.d = Liftium.debug; // Shortcut to reduce size of JS
+
+Liftium.getRequestVal = function(varName, defaultVal, qstring){
+        var nvpairs = Liftium.parseQueryString(qstring || document.location.search);
+        if (typeof nvpairs[varName] != "undefined"){
+                return nvpairs[varName];
+        } else if (typeof defaultVal != "undefined" ) {
+                return defaultVal;
+        } else {
+                return '';
+        }
+};
+
+
+Liftium.getUniqueSlotname = function(slotname) {
+	for (var i = 0; i < 10; i++ ) {
+		if (Liftium._(slotname + "_" + i) === null){
+			return slotname + "_" + i;
+		}
+	}
+
+	throw ("Error in Liftium.getUniqueSlotname. More than 10 ads of the same size?");
 };
 
 /* By default, javascript passes by value, UNLESS you are passing a javascript
@@ -123,38 +183,50 @@ Liftium.empty = function ( v ) {
 };
 Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
 
-
-/* Javascript equivalent of php's print_r. 
- * http://www.openjs.com/scripts/others/dump_function_php_print_r.php
- */
-Liftium.print_r = function (arr,level) {
-        var text = ["\n"], padding = "";
-        if(!level) { level = 0; }
-
-        // saving a crash if you try to do something silly like print_r(top);
-        if (level > 6) { return false; }
-
-        //The padding given at the beginning of the line.
-        for(var j = 0; j < level+1 ; j++) {
-                padding += "    ";
-        }
-
-        if(typeof arr  == 'object') { //Array/Hashes/Objects 
-                for(var item in arr) {
-                        var value = arr[item];
-
-                        if(typeof value == 'object') { //If it is an array,
-                                text.join(padding + "'" + item + "' ...");
-                                text.join(Liftium.print_r(value,level+1));
-                        } else {
-                                text.join(padding + "'" + item + "' => \"" + value + "\"\n");
-                        }
-                }
-        } else { //Stings/Chars/Numbers etc.
-                text = ["===>"+arr+"<===("+typeof(arr)+")"];
-        }
-        return text.join("");
+Liftium.init = function () {
+        Liftium.now = new Date();
+        Liftium.startTime = Liftium.now.getTime();
+        Liftium.debugLevel = Liftium.getRequestVal('liftium_debug', 0);
 };
 
+
+/* This code looks at the supplied query string and parses it.
+ * It returns an associative array of url decoded name value pairs
+ */
+Liftium.parseQueryString = function (qs){
+        var ret = [];
+        if (Liftium.e(qs)) { return ret; }
+
+        if (qs.charAt(0) === '?') { qs = qs.substr(1); }
+
+
+        qs=qs.replace(/\;/g, '&', qs);
+
+        var nvpairs=qs.split('&');
+
+        for (var i = 0, intIndex; i < nvpairs.length; i++){
+                if (nvpairs[i].length === 0){
+                        continue;
+                }
+
+                var varName = '', varValue = '';
+                if ((intIndex = nvpairs[i].indexOf('=')) != -1) {
+                        varName = decodeURIComponent(nvpairs[i].substr(0, intIndex));
+                        varValue = decodeURIComponent(nvpairs[i].substr(intIndex + 1));
+                } else {
+			// No value, but it's there
+                        varName = nvpairs[i];
+                        varValue = true;
+                }
+
+                ret[varName] = varValue;
+        }
+
+        return ret;
+};      
+
+
+// Start your optimization!
+Liftium.init();
 
 } // \if (typeof Liftium == "undefined" ) 
