@@ -160,7 +160,6 @@ Liftium.cookie = function(name, value, options) {
 
 /* Emulate php's empty(). Thanks to:
  * http://kevin.vanzonneveld.net/techblog/article/javascript_equivalent_for_phps_empty/
- * Nick wrote: added the check for empty arrays
  * Nick wrote: added the check for number that is NaN
  */
 Liftium.empty = function ( v ) {
@@ -175,8 +174,6 @@ Liftium.empty = function ( v ) {
         for (var key in v) {
               return false;
         }
-        return true;
-    } else if (typeof v === 'array' && v.length === 0) {
         return true;
     }
     return false;
@@ -225,6 +222,45 @@ Liftium.parseQueryString = function (qs){
         return ret;
 };      
 
+Liftium.print_r = function (data, level) {
+	
+	if (data === null) { return "<<null>>"; }
+
+        // Sanity check against too much recursion
+	level = level || 0;
+        if (level > 6) { return false; }
+
+        //The padding given at the beginning of the line.
+	var padding = '';
+        for(var j = 1; j < level+1 ; j++) {
+                padding += "    ";
+        }
+	switch (typeof data) {
+	  case "string" : return data === "" ? "<<empty string>>" : data;
+	  case "undefined" : return "<<undefined>>";
+	  case "boolean" : return data === true ? "<<true>>" : "<<false>>";
+	  case "function" : return "<<" + "function" + ">>";
+	  case "object" : // The fun one
+
+		var out = [];
+                for(var item in data) {
+
+                        if(typeof data[item] == 'object') { 
+                                out.push(padding + "'" + item + "' ..." + "\n");
+                                out.push(Liftium.print_r(data[item],level+1));
+                        } else {
+                                out.push(padding + "'" + item + "' => \"" + Liftium.print_r(data[item]) + "\"\n");
+                        }
+                }
+		if (Liftium.e(out)){
+			return "<<empty object>>";
+		} else {
+			return out.join("");
+		}
+
+	  default : return data.toString();
+	}
+};
 
 // Start your optimization!
 Liftium.init();
