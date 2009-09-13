@@ -48,6 +48,49 @@ Lift.clone = function (obj){
 };
 
 
+Lift.cookie = function(name, value, options) {
+    if (arguments.length > 1) { // name and value given, set cookie
+        options = options || {};
+        if (Lift.e(value)) {
+            value = '';
+            options.expires = -1;
+        }
+        var expires = '';
+        if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+            var d;
+            if (typeof options.expires == 'number') {
+                d = new Date();
+                d.setTime(d.getTime() + (options.expires));
+            } else {
+                d = options.expires;
+            }
+            expires = '; expires=' + d.toUTCString(); // use expires attribute, max-age is not supported by IE
+        }
+        // CAUTION: Needed to parenthesize options.path and options.domain
+        // in the following expressions, otherwise they evaluate to undefined
+        // in the packed version for some reason...
+        var path = options.path ? '; path=' + (options.path) : '';
+        var domain = options.domain ? '; domain=' + (options.domain) : '';
+        var secure = options.secure ? '; secure' : '';
+        return document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+    } else { // only name given, get cookie
+        var cookieValue = null;
+        if (!Lift.e(document.cookie)){
+            var cookies = document.cookie.split(';');
+            for (var i = 0, l = cookies.length; i < l; i++) {
+                var cookie = cookies[i].replace( /^\s+|\s+$/g, "");
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+};
+
+
 /* Emulate php's empty(). Thanks to:
  * http://kevin.vanzonneveld.net/techblog/article/javascript_equivalent_for_phps_empty/
  * Nick wrote: added the check for empty arrays
