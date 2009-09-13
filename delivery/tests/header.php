@@ -7,7 +7,7 @@ if (empty($wgDBname)){
 ?>
 <html>
 <head>
-<title>Liftiumium Test</title>
+<title>Liftium Test</title>
 <?php
 if (!empty($refresh)){
         echo "<meta http-equiv='refresh' content='$refresh;url={$_SERVER['REQUEST_URI']}'/>\n";

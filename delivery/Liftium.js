@@ -1,5 +1,7 @@
 /* Ad Network Optimizer written in Javascript */
 
+if (typeof Liftium == "undefined" ) { // No need to do this twice
+
 var Liftium = {
 
 };
@@ -29,6 +31,11 @@ Liftium.beaconCall = function (url){
         img.src = url + '&cb=' + Math.random().toString().substring(2,8);
 };
 
+
+Liftium.callAd = function (slotname) {
+	document.write("
+	document.write("This is my rifle: " + slotname);
+};
 
 /* By default, javascript passes by value, UNLESS you are passing a javascript
  * object, then it passes by reference.
@@ -148,3 +155,6 @@ Liftium.print_r = function (arr,level) {
         }
         return text.join("");
 };
+
+
+} // \if (typeof Liftium == "undefined" ) 
