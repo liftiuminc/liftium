@@ -880,7 +880,6 @@ Liftium.sendBeacon = function (){
 
 
 // Gentlemen, Start your optimization!
-var Athena = Liftium;
 Liftium.init();
 
 } // \if (typeof Liftium == "undefined" ) 

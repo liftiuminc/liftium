@@ -32,7 +32,12 @@ LiftiumTest.updateTestStatus = function(){
 
 
 window.onerror = function (e){
-	alert("Error running test: " + window.Liftium.print_r(e));
-	LiftiumTest.errors.push(e);
-	LiftiumTest.testFailed();
+	try {
+		alert("Error running test: " + window.Liftium.print_r(e));
+		LiftiumTest.errors.push(e);
+		LiftiumTest.testFailed();
+	} catch (e){
+		// Avoid infinite recursion
+		alert("Yikes. Error function is producing an error");
+	}
 };
