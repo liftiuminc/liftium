@@ -1,36 +1,25 @@
 <?php
+require_once dirname(__FILE__) . '/CommonSettings.php';
+
 // F U Symfony
-define('MYSQL_DATE_FORMAT', 'Y-m-d H:i:s');
-date_default_timezone_set('UTC'); // This suppresses E_STRICT notices when strtotime is called
-
-// Be strict and loud in dev environments, and prudent in production
-if (in_array(getHostname(), $DEV_HOSTS)){
-	error_reporting(E_STRICT | E_ALL);
-	// error_reporting(E_ALL);
-	ini_set('display_errors', true);
-} else {
-	error_reporting(E_ALL ^ E_NOTICE);
-	ini_set('display_errors', false);
-}
-ini_set('log_errors', true);
-$DEV_HOSTS = array();
-
 class Framework {
 
 	// I'd like to see a SERVICECLASS variable here instead of hard coded hostnames. Later.
 
 	static public function getDB ($connType = "master"){
 		global $DEV_HOSTS;
-		if (in_array(getHostname(), $DEV_HOSTS)){
+		if (in_array(self::getHostname(), $DEV_HOSTS)){
 			$masterhost = 'localhost';
 			$slavehosts = array('localhost');
 			$username = 'liftiumdev';
 			$password = 'monkey';
+			$dbname = "liftium";
 		} else {
 			$masterhost = 'liftiumdb1';
 			$slavehosts = array('liftiumdb1', 'liftiumdb2');
 			$username = 'liftiumprod';
 			$password = 'gorilla';
+			$dbname = "liftium";
 		}
 
 		// Randomly choose between slave hosts
@@ -38,8 +27,8 @@ class Framework {
 		$slavehost = $slavehosts[0];
 
 		switch ($connType){
-		  case 'master': $dsn = "mysql:dbname=liftium;host=$masterhost"; break;
-		  case 'slave': $dsn = "mysql:dbname=liftium;host=$slavehost"; break;
+		  case 'master': $dsn = "mysql:dbname=$dbname;host=$masterhost"; break;
+		  case 'slave': $dsn = "mysql:dbname=$dbname;host=$slavehost"; break;
 		  default: return false;
 		}
 
@@ -52,6 +41,7 @@ class Framework {
 
 		return $cons[$connType];
 	}
+
 
 	// We can't always count on ENV('HOSTNAME') being set
 	static public function getHostname(){
@@ -187,5 +177,31 @@ class Framework {
 		}
 	}
 
-}
 
+	/* Look for the request val in GET and POST data, returning [optional] defaultVal if not found. 
+         * If $type is supplied, data will be sanitized appropriately.
+         * See * http://us2.php.net/manual/en/filter.constants.php for a list of filters
+         */
+	static public function getRequestVal($name, $defaultVal = null, $filterType = null){
+		if (isset($_GET[$name])){
+			$val = $_GET[$name];
+		} else if (isset($_POST[$name])){
+			$val = $_POST[$name];
+		} else {
+			$val = $defaultVal;
+		}
+		if (is_null($filterType)){
+		  	return $val; // no filtering
+		} else if (!in_array($filterType, filter_list())){
+			trigger_error("No such filterType " . $filterType, E_USER_WARNING);
+		  	return $val; 
+		} else {
+			if (filter_var($val, $filterType)){
+				return $val;	
+			} else {
+				trigger_error("Invalid data supplied for $name", E_USER_NOTICE);
+				return $defaultVal;
+			}
+		}
+	}
+}
