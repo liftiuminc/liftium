@@ -192,7 +192,7 @@ class Framework {
 		}
 		if (is_null($filterType)){
 		  	return $val; // no filtering
-		} else if (!in_array($filterType, filter_list())){
+		} else if ($filterType < 1){
 			trigger_error("No such filterType " . $filterType, E_USER_WARNING);
 		  	return $val; 
 		} else {

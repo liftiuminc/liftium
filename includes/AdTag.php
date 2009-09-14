@@ -202,10 +202,12 @@ class AdTag {
 		$out = array();
 
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT distinct(size) FROM ad_slot WHERE size NOT IN ('" . implode("','", $excludedSizes) . "')
-			AND skin='monaco' ORDER BY size";
+		$sql = "SELECT width, height FROM adformats";
 		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
-			$out[] = $row['size'];
+			$s = $row['width'] . 'x' . $row['height'];
+			if (!in_array($s, $excludedSizes)){
+				$out[] = $s;
+			}
 		}
 
 		return $out;
@@ -217,7 +219,7 @@ class AdTag {
 		$out = array();
 
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT slot, size FROM ad_slot WHERE default_enabled='Yes'
+		$sql = "SELECT slot, size FROM ad_slot WHERE default_enabled = 1
 			AND size NOT IN ('" . implode("','", $excludedSizes) . "')
 			AND skin='monaco' ORDER BY size, slot";
 		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
@@ -302,9 +304,9 @@ class AdTag {
 		 * But we also want to favor the higher paying ads
 		 */
 		$sql = "SELECT SQL_SMALL_RESULT /* Tell mysql to use in memory temp tables */
-			tag_id, (threshold + estimated_cpm) AS value,
-			(rand() * (0.1 * (threshold + estimated_cpm))) AS weighted_random_value
-			FROM tag WHERE 1=1";
+			tag_id, value,
+			(rand() * (0.1 * value)) AS weighted_random_value
+			FROM tags WHERE 1=1";
 		if (!empty($criteria['name_search'])){
 			$search = '%' . $criteria['name_search'] . '%';
 			$sql .= "\n\tAND tag_name like " . $dbr->quote($search) . " ";
@@ -312,7 +314,7 @@ class AdTag {
 
 		if (!empty($criteria['enabled'])){
 			$sql .= "\n\tAND enabled = " . $dbr->quote($criteria['enabled']) . " ";
-			$sql .= "\n\tAND network_id in (SELECT network_id from network where enabled='Yes')";
+			$sql .= "\n\tAND network_id in (SELECT network_id from networks where enabled = 1)";
 		}
 
 		if (!empty($criteria['network_id'])){
