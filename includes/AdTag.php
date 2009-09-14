@@ -17,7 +17,7 @@ class AdTag {
 
 	public function loadFromId($tag_id){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT * FROM tag WHERE tag_id=" . $dbr->quote($tag_id);
+		$sql = "SELECT * FROM tag WHERE id=" . $dbr->quote($tag_id);
 		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			foreach($row as $column => $data){
 				$this->$column = $data;
@@ -31,119 +31,6 @@ class AdTag {
 		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			$this->options[$row['option_name']] = $row['option_value'];
 		}
-	}
-
-	public function scrub(){
-		if ($this->tier < 0){
-			$this->tier = 0;
-		} else if ($this->tier > 10) {
-			$this->tier = 10;
-		}
-
-		// Keep the prices in sync with reported ecpm
-                if ($this->auto_update_ecpm == 'Yes' && $before->reported_ecpm != $this->reported_ecpm){
-			$AdNetwork = new AdNetwork($this->network_id);
-                        if ($AdNetwork->supports_threshold == 'Yes'){
-                                $this->threshold = $this->reported_ecpm;
-                        } else {
-                                $this->estimated_cpm = $this->reported_ecpm;
-                        }
-                }
-
-	}
-
-	public function save(){
-
-		// Save the current state for comparison later
-		$before = new AdTag($this->tag_id);
-
-		$columns = array('tag_name', 'notes', 'enabled', 'network_id', 'estimated_cpm',
-			'threshold', 'tier', 'tag', 'sample_rate', 'guaranteed_fill', 'freq_cap',
-			'rej_cap', 'rej_time', 'auto_update_ecpm', 'reported_ecpm', 'reported_date');
-
-		$this->scrub($before);
-
-		$set = '';
-		$dbw = Framework::getDB("master");
-
-		foreach ($columns as $col){
-			if ($set != ''){
-				$set .= ",\n";
-			}
-			$set .= "\t$col = " . $dbw->quote($this->$col);
-		}
-
-
-		if (!empty($this->tag_id)){
-			$doUpdate = true;
-		} else {
-			$doUpdate = false;
-		}
-
-	
-		if ($doUpdate){
-			$sql = "UPDATE tag SET $set WHERE tag_id = " . $dbw->quote($this->tag_id);
-			$ret = $dbw->exec($sql);
-			$this->saveSlots();
-			$this->saveOptions();
-			$this->loadFromId($this->tag_id);
-			$change_type = "Update";
-			$change_desc = "Ad Tag " . $this->tag_name . ' Updated';
-		} else {
-			$sql = "INSERT INTO tag SET tag_id = NULL, $set";
-			$ret = $dbw->exec($sql);
-			$this->tag_id = $dbw->lastInsertId();
-			$this->saveSlots();
-			$this->saveOptions();
-			$this->loadFromId($this->tag_id);
-			$change_type = "Create";
-			$change_desc = "Ad Tag " . $this->tag_name . ' Created';
-		}
-
-		// Change log
-		$ChangeLog = new ChangeLog();
-		$ChangeLog->setUser();
-		$diff = $ChangeLog->getDiff($before, $this);
-		if (!empty($diff)){
-			$ChangeLog->recordChange($change_type, 'Tag', $this->tag_id,
-				json_encode($diff), $change_desc);
-
-		}
-
-
-		LiftiumConfig::clearCache();
-		return $ret;
-
-	}
-
-
-	public function delete(){
-		if (empty($this->tag_id)){
-			trigger_error("tag_id must be specified for delete", E_USER_WARNING);
-			return false;
-		}
-
-		$dbw  = Framework::getDB("master");
-		$dbw->exec("BEGIN");
-		$dbw->exec("DELETE FROM tag_option WHERE tag_id = " . $dbw->quote($this->tag_id));
-		$dbw->exec("DELETE FROM target_tag_linking WHERE tag_id = " . $dbw->quote($this->tag_id));
-		$dbw->exec("DELETE FROM tag_slot_linking WHERE tag_id = " . $dbw->quote($this->tag_id));
-		$dbw->exec("DELETE FROM fills_minute WHERE tag_id = " . $dbw->quote($this->tag_id));
-		$ret = $dbw->exec("DELETE FROM tag WHERE tag_id = " . $dbw->quote($this->tag_id) . " LIMIT 1");
-
-		$dbw->exec("COMMIT");
-
-		// Change log
-		$ChangeLog = new ChangeLog();
-		$ChangeLog->setUser();
-		$diff = $ChangeLog->getDiff($this, new AdTag());
-		if (!empty($diff)){
-			$ChangeLog->recordChange('Delete', 'Tag', $this->tag_id,
-				json_encode($diff), 'Ad Tag Deleted');
-
-		}
-
-		return $ret;
 	}
 
 	public function getCurrentSizes($tag_id = null){
@@ -163,40 +50,16 @@ class AdTag {
 		return $out;
 	}
 
-	public static function getSlotsForSize($size){
-		$out = array();
-
-		$dbr = Framework::getDB("slave");
-		$sql = "SELECT as_id, slot AS slotname FROM ad_slot WHERE size=" . $dbr->quote($size) . " AND skin='monaco' ORDER BY slotname";
-
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
-			$out[$row['as_id']] = $row['slotname'];
-		}
-
-		return $out;
-	}
-
-	public function getSizesAndSlots(){
-		$out = array();
-
-		foreach (self::getSizes() as $size){
-			$out[$size] = self::getSlotsForSize($size);
-		}
-
-		return $out;
-	}
-
 	public function getSizes(){
 		$excludedSizes = array('200x75', '125x125');
 
 		$out = array();
 
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT width, height FROM adformats";
+		$sql = "SELECT size FROM adformats";
 		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
-			$s = $row['width'] . 'x' . $row['height'];
-			if (!in_array($s, $excludedSizes)){
-				$out[] = $s;
+			if (!in_array($row['size'], $excludedSizes)){
+				$out[] = $row['size'];
 			}
 		}
 
@@ -294,7 +157,7 @@ class AdTag {
 		 * But we also want to favor the higher paying ads
 		 */
 		$sql = "SELECT SQL_SMALL_RESULT /* Tell mysql to use in memory temp tables */
-			tag_id, value,
+			id AS tag_id,
 			(rand() * (0.1 * value)) AS weighted_random_value
 			FROM tags WHERE 1=1";
 		if (!empty($criteria['name_search'])){
@@ -310,6 +173,11 @@ class AdTag {
 		if (!empty($criteria['network_id'])){
 			$sql .= "\n\tAND network_id = " . $dbr->quote($criteria['network_id']) . " ";
 		}
+
+		if (!empty($criteria['size'])){
+			$sql .= "\n\tAND size = " . $dbr->quote($criteria['size']) . " ";
+		}
+
 		if (!empty($criteria['auto_update_ecpm'])){
 			$sql .= "\n\tAND auto_update_ecpm = " . $dbr->quote($criteria['auto_update_ecpm']) . " ";
 		}
@@ -396,12 +264,6 @@ class AdTag {
 					INNER JOIN target_value
 					ON target_tag_linking.target_value_id = target_value.target_value_id
 				  WHERE target_key_id IN (3,4))";
-		}
-
-		if (!empty($criteria['size'])){
-			$dim=AdTag::getHeightWidthFromSize($criteria['size']);
-			$sql.= "\n\tAND adformat_id IN (
-				  SELECT id FROM adformats AND ad_slot.width = " . $dbr->quote($dim['width']) .  ")";
 		}
 
 		if (!empty($criteria['slotname'])){

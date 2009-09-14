@@ -24,19 +24,12 @@ class LiftiumConfig{
 		$object = new stdClass();
 
 		// Pull tags
-		$criteria['enabled'] = 'Yes';
+		$criteria['enabled'] = 1;
 		foreach ($AdTag->getSizes() as $size){
 			$criteria['size'] = $size;
 			$tags = AdTag::searchTags($criteria, false);
 			foreach($tags as $tag_id){
 				$object->sizes[$size][] = $this->loadTagFromId($tag_id, $size);
-			}
-		}
-
-		// Pass a map of slotnames/sizes
-		foreach ($AdTag->getSizesAndSlots() as $size => $slots){
-			foreach ($slots as $slot){
-				$object->slotnames[$slot] = $size;
 			}
 		}
 
@@ -48,7 +41,7 @@ class LiftiumConfig{
 
 	public function loadTagFromId($tag_id, $size, $slotname = null){
                 $cache = LiftiumCache::getInstance();
-		$cacheKey = __CLASS__ . ':' . __METHOD__ . ':' . self::cacheVersion . ":$tag_id:$size:$slotname";
+		$cacheKey = __CLASS__ . ':' . __METHOD__ . ':' . self::getCacheVersion() . ":$tag_id:$size:$slotname";
 
 		$out = $cache->get($cacheKey);
 		if (!empty($out) && empty($_GET['purge'])){
@@ -58,15 +51,12 @@ class LiftiumConfig{
 		// Cache miss, get from DB
 		$dbr = Framework::getDB("slave");
 		// TODO: Make these prepared statements for performance
-		$sql = "SELECT network.network_name, tag.tag_id, tag.network_id, tag.tag,
-			tag.guaranteed_fill, tag.sample_rate, tag.freq_cap, tag.rej_cap,
-			tag.rej_time, tag.tier, tag.value
+		$sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id, tags.tag,
+			tags.always_fill, tags.sample_rate, tags.frequency_cap AS freq_cap, tags.rejection_cap AS rej_cap,
+			tags.rejection_time as rej_time, tags.tier, tags.value
 			FROM tags
 			INNER JOIN networks ON tags.network_id = networks.id
-			INNER JOIN adformats ON tags.adformat_id = adformat.id
-			  AND adformats.width = " . $dbr->quote($size) . "
-			WHERE tag.tag_id = " . $dbr->quote($tag_id) . " LIMIT 1;";
-		echo $sql;
+			WHERE tags.id = " . $dbr->quote($tag_id) . " LIMIT 1;";
 		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			$out = $row;
 		}
@@ -75,13 +65,16 @@ class LiftiumConfig{
 		}
 
 		// Get the network options
+		/*
 		$sql = "SELECT option_name, option_value
 			FROM tag_option WHERE tag_id =" . $dbr->quote($tag_id) . ";";
 		$network_options = array();
 		foreach ($dbr->query($sql) as $row){
 			$network_options[$row['option_name']]=$row['option_value'];
 		}
+		*/
 
+		/*
 		// Get the slot names
 		$sql = "SELECT slot FROM ad_slot
 			INNER JOIN tag_slot_linking ON ad_slot.as_id = tag_slot_linking.as_id
@@ -90,6 +83,7 @@ class LiftiumConfig{
 		foreach ($dbr->query($sql) as $row){
 			$out['slotnames'][] = $row['slot'];
 		}
+		*/
 
 		$out['size'] = $size;
 		$out['value'] = round($out['value'], 2);
@@ -111,7 +105,7 @@ class LiftiumConfig{
 		$out['tag'] = preg_replace('/^[ \t]+/m', '', $out['tag']);
 
 		// Get the Targeting criteria
-		$out['criteria'] = TargetingCriteria::getThinCriteriaForTag($tag_id);
+		//$out['criteria'] = TargetingCriteria::getThinCriteriaForTag($tag_id);
 
 
 		// Slim it down for compactness
