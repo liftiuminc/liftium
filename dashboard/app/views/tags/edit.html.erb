@@ -16,7 +16,7 @@
   </p>
   <p>
     <%= f.label :ad_format %><br />
-    <%= select("tag", "adformat_id", Adformat.all.collect {|af| [ af.name_with_size, af.id ] }) %>
+    <%= select("tag", "size", Adformat.all.collect {|af| [ af.name_with_size, af.size ] }) %>
 
   </p>
   <p>

@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>Tag name</th>
+    <th>Size</th>
     <th>Enabled</th>
     <th>Always fill</th>
     <th>Sample rate</th>
@@ -16,6 +17,7 @@
 <% @tags.each do |tag| %>
   <tr>
     <td><%=h tag.tag_name %></td>
+    <td><%=h tag.size %></td>
     <td><%=h tag.enabled %></td>
     <td><%=h tag.always_fill %></td>
     <td><%=h tag.sample_rate %></td>
