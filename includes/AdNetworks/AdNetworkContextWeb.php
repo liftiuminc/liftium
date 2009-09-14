@@ -12,7 +12,7 @@ class AdNetworkContextWeb extends AdNetwork {
 
         public function getAd($slotname, $size, $network_options=array()){
 
-                $dim = Athena::getHeightWidthFromSize($size);
+                $dim = AdTag::getHeightWidthFromSize($size);
 		$slotgroup = Athena::getSlotGroup($size);
 		$chain = $this->getCWChain($slotgroup);
 

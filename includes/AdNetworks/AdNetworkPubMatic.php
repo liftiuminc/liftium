@@ -20,7 +20,7 @@ class AdNetworkPubMatic extends AdNetwork {
 			return $NullAd->getAd($slotname, $size, $network_options);
 		}
 
-                $dim=Athena::getHeightWidthFromSize($size);
+                $dim=AdTag::getHeightWidthFromSize($size);
 
                 $out .= '<script type="text/javascript">
 			var pubId="' . addslashes($this->pubId) . '";

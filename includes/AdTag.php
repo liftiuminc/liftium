@@ -17,22 +17,12 @@ class AdTag {
 
 	public function loadFromId($tag_id){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT *, (threshold + estimated_cpm) AS value FROM tag WHERE tag_id=" . $dbr->quote($tag_id);
+		$sql = "SELECT * FROM tag WHERE tag_id=" . $dbr->quote($tag_id);
 		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			foreach($row as $column => $data){
 				$this->$column = $data;
 			}
 			$this->value = round($row['value'], 2);
-		}
-
-
-		$sql = "SELECT tag_slot_linking.as_id, slot as slotname
-			FROM tag_slot_linking
-			INNER JOIN ad_slot ON ad_slot.as_id = tag_slot_linking.as_id
-			 WHERE tag_id = " . $dbr->quote($tag_id);
-		$this->as_ids = null;
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
-			$this->as_ids[] = $row['as_id'];
 		}
 
 
@@ -409,10 +399,9 @@ class AdTag {
 		}
 
 		if (!empty($criteria['size'])){
-			$sql.= "\n\tAND tag_id IN (
-				  SELECT DISTINCT tag_id FROM tag_slot_linking
-					INNER JOIN ad_slot ON tag_slot_linking.as_id = ad_slot.as_id
-					 AND ad_slot.size = " . $dbr->quote($criteria['size']) .  ")";
+			$dim=AdTag::getHeightWidthFromSize($criteria['size']);
+			$sql.= "\n\tAND adformat_id IN (
+				  SELECT id FROM adformats AND ad_slot.width = " . $dbr->quote($dim['width']) .  ")";
 		}
 
 		if (!empty($criteria['slotname'])){
@@ -420,15 +409,6 @@ class AdTag {
 				  SELECT DISTINCT tag_id FROM tag_slot_linking
 					INNER JOIN ad_slot ON tag_slot_linking.as_id = ad_slot.as_id
 					 AND ad_slot.slot = " . $dbr->quote($criteria['slotname']) .  ")";
-		}
-
-		global $SLOTGROUPS;
-
-		if (!empty($criteria['slotgroup'])){
-			$sql.= "\n\tAND tag_id IN (
-				  SELECT DISTINCT tag_id FROM tag_slot_linking
-					INNER JOIN ad_slot ON tag_slot_linking.as_id = ad_slot.as_id
-					 AND ad_slot.slot IN ('" .implode("','", @$SLOTGROUPS[$criteria['slotgroup']]). "'))";
 		}
 
 		switch (@$criteria['sort']){
@@ -492,5 +472,23 @@ class AdTag {
 
 	}
 
+        /* Size is stored as $widthx$size character column. Split here.
+         * You may be asking, why not just store it as separate values to be begin with?
+         * Because size is not always height/width. Possible values for size include:
+         * 728x60
+         * 300x250,300x600
+         * 728x*
+         *
+         * Do the best you can to return a height/width
+         */
+        public static function getHeightWidthFromSize($size){
+                if (preg_match('/^([0-9]{2,4})x([0-9]{2,4})/', $size, $matches)){
+                        return array('width'=>$matches[1], 'height'=>$matches[2]);
+                } else if (preg_match('/^([0-9]{2,4})x\*/', $size, $matches)){
+                        return array('width'=>$matches[1], 'height'=>'*');
+                } else {
+                        return false;
+                }
+        }
 }
 

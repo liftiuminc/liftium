@@ -8,7 +8,7 @@ class AdNetworkA4 extends AdNetwork {
 
         public function getAd($slotname, $size, $network_options = array()){
 
-                $dim=Athena::getHeightWidthFromSize($size);
+                $dim=AdTag::getHeightWidthFromSize($size);
                 switch ($size){
                   case '728x90': $adid = 405609; $dimid = 388861; break;
                   case '300x250': $adid = 409928; $dimid = 389637; break;

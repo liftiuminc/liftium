@@ -15,7 +15,7 @@ class AdNetworkAmazon extends AdNetwork {
 			$network_options['tracking_id'] = "wikia0b-20";
 		}
 
-                $dim=Athena::getHeightWidthFromSize($size);
+                $dim=AdTag::getHeightWidthFromSize($size);
 		
 
 		$url = 'http://rcm.amazon.com/e/cm?' . 

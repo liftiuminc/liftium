@@ -8,7 +8,7 @@ class AdNetworkZujo extends AdNetwork {
 
         public function getAd($slotname, $size, $network_options = array()){
 
-		$dim=Athena::getHeightWidthFromSize($size);
+		$dim=AdTag::getHeightWidthFromSize($size);
 
 		$url = "http://ads.zujo.com/banners.php?size=" . $size;
 

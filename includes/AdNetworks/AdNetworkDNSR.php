@@ -8,7 +8,7 @@ class AdNetworkDNSR extends AdNetwork {
 
         public function getAd($slotname, $size, $network_options = array()){
 
-		$dim=Athena::getHeightWidthFromSize($size);
+		$dim=AdTag::getHeightWidthFromSize($size);
 
 		$url = "http://ad.z5x.net/st?ad_type=iframe&ad_size=$size&section=592776";
 

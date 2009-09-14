@@ -188,7 +188,7 @@ class Framework {
 		} else if (isset($_POST[$name])){
 			$val = $_POST[$name];
 		} else {
-			$val = $defaultVal;
+			return $defaultVal;
 		}
 		if (is_null($filterType)){
 		  	return $val; // no filtering

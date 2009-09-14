@@ -3,7 +3,6 @@
 class LiftiumConfig{
 
 	const cacheTimeout = 15;
-	const cacheVersion = "1.0r";
 	const cacheTimeout_tag = 30;
 
 	function __construct(){
@@ -14,7 +13,7 @@ class LiftiumConfig{
 
 		$cache = LiftiumCache::getInstance();
 		$AdTag = new AdTag();
-		$cacheKey = __CLASS__ . ':' . __METHOD__ . ":" . md5(serialize($criteria)) . self::cacheVersion;
+		$cacheKey = __CLASS__ . ':' . __METHOD__ . ":" . md5(serialize($criteria)) . self::getCacheVersion();
 
 		$object = $cache->get($cacheKey);
 		if (!empty($object) && empty($_GET['purge'])){
@@ -61,12 +60,11 @@ class LiftiumConfig{
 		// TODO: Make these prepared statements for performance
 		$sql = "SELECT network.network_name, tag.tag_id, tag.network_id, tag.tag,
 			tag.guaranteed_fill, tag.sample_rate, tag.freq_cap, tag.rej_cap,
-			tag.rej_time, tag.tier, (tag.threshold + tag.estimated_cpm) AS value
-			FROM tag
-			INNER JOIN network ON tag.network_id = network.network_id
-			INNER JOIN tag_slot_linking ON tag.tag_id = tag_slot_linking.tag_id
-			INNER JOIN ad_slot ON ad_slot.as_id = tag_slot_linking.as_id
-			  AND ad_slot.size = " . $dbr->quote($size) . "
+			tag.rej_time, tag.tier, tag.value
+			FROM tags
+			INNER JOIN networks ON tags.network_id = networks.id
+			INNER JOIN adformats ON tags.adformat_id = adformat.id
+			  AND adformats.width = " . $dbr->quote($size) . "
 			WHERE tag.tag_id = " . $dbr->quote($tag_id) . " LIMIT 1;";
 		echo $sql;
 		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
@@ -193,5 +191,10 @@ class LiftiumConfig{
 		//file_get_contents("http://athena-ads.wikia.com/athena/config/?purge=1&cb=" . mt_rand());
 	}
 
+
+	static private function getCacheVersion(){
+		return mt_rand();
+		return "1.0r";
+	}
 }
 ?>

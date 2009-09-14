@@ -6,7 +6,7 @@ class AdNetworkOpenXExchange extends AdNetwork {
 
         public function getAd($slotname, $size, $network_options = array()){
 
-		$dim=Athena::getHeightWidthFromSize($size);
+		$dim=AdTag::getHeightWidthFromSize($size);
 
 		if (empty($network_options['price'])){
 			$network_options['price'] = "0.35";

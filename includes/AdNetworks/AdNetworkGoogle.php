@@ -8,7 +8,7 @@ class AdNetworkGoogle extends AdNetwork {
         public function getTagOptions(){ return array('channel', 'pub_id', 'ad_slot', 'ad_type' ); }
 
         public function getAd($slotname, $size, $network_options = array()){
-                $dim=Athena::getHeightWidthFromSize($size);
+                $dim=AdTag::getHeightWidthFromSize($size);
 
 		if (empty($network_options['pub_id'])) {
 			$network_options['pub_id'] = $this->default_pub_id;

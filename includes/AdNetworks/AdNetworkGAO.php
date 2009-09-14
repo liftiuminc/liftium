@@ -9,7 +9,7 @@ class AdNetworkGAO extends AdNetwork {
         public function getAd($slotname, $size, $network_options = array()){
 
 
-		$dim=Athena::getHeightWidthFromSize($size);
+		$dim=AdTag::getHeightWidthFromSize($size);
 	        // The id changs based on size
                 switch ($size){
                   case '728x90': $id = 435; break;

@@ -8,7 +8,7 @@ class AdNetworkVizi extends AdNetwork {
 
         public function getAd($slotname, $size, $network_options = array()){
 
-		$dim=Athena::getHeightWidthFromSize($size);
+		$dim=AdTag::getHeightWidthFromSize($size);
 
 		$url = "http://ad.iconadserver.com/st?ad_type=iframe&ad_size=$size&section=572473";
 
