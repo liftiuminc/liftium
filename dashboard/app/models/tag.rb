@@ -6,6 +6,7 @@ class Tag < ActiveRecord::Base
   @networks = Network.find :all, :conditions => {:enabled => true}
 
   #TODO: validate publisherid once accounts are set up
+  validates_format_of :size, :with => /[0-9]{1,3}x[0-9]{1,3}/
   validates_uniqueness_of :tag_name, :scope => :publisher_id
   validates_presence_of :tag_name, :network_id, :adformat_id
   validates_inclusion_of :enabled, :in => [true, false]

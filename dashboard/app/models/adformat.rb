@@ -1,12 +1,7 @@
 class Adformat < ActiveRecord::Base
-  validates_presence_of :format_name, :height, :width
+  validates_presence_of :format_name, :size
   validates_uniqueness_of :format_name 
-  validates_numericality_of :height, :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 1500
-  validates_numericality_of :width, :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 1500
-
-    def size
-      "#{width}x#{height}"
-    end
+  validates_format_of :size, :with => /^[0-9]{1,3}x[0-9]{1,3}$/
 
     def name_with_size
       "#{format_name} (#{size})" 

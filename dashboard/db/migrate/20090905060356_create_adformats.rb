@@ -2,10 +2,7 @@ class CreateAdformats < ActiveRecord::Migration
   def self.up
     create_table :adformats do |t|
       t.string :format_name
-      t.integer :width
-      t.integer :height
-
-      t.timestamps
+      t.string :size
     end
   end
 

@@ -16,6 +16,7 @@ class CreateTags < ActiveRecord::Migration
     add_column :tags, :frequency_cap, :integer, {:limit => 3}
     add_column :tags, :rejection_cap, :integer, {:limit => 3}
     add_column :tags, :rejection_time, :integer, {:limit => 3}
+    add_column :tags, :size, :string
     add_column :tags, :tag, :text
     
   end

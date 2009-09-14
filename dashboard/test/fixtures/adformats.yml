@@ -3,56 +3,45 @@
 
 lb:
   format_name: "Leaderboard"
-  width: 728
-  height: 90
+  size: "728x90"
 
 ws:
   format_name: "Wide Skyscraper"
-  width: 160
-  height: 60
+  size: "160x600"
 
 mr:
   format_name: "Medium Rectangle"
-  width: 300
-  height: 250
+  size: "300x250"
 
 lr:
   format_name: "Large Rectangle"
-  width: 336
-  height: 280
+  size: "336x280"
 
 ss:
   format_name: "Skyscraper"
-  width: 120
-  height: 60
+  size: "120x600"
 
 banner:
   format_name: "Banner"
-  width: 468
-  height: 60
+  size: "468x60"
 
 halfb:
   format_name: "Half Banner"
-  width: 234 
-  height: 60
+  size: "234x60"
 
 button:
   format_name: "Button"
-  width: 125 
-  height: 125
+  size: "125x125"
 
 sr:
   format_name: "Small Rectangle"
-  width: 180 
-  height: 150
+  size: "180x150"
 
 vb:
   format_name: "Vertical Banner"
-  width: 120 
-  height: 240
+  size: "120x240"
 
 smalls:
   format_name: "Small Square"
-  width: 200 
-  height: 200
+  size: "200x200"
 

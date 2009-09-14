@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
 
   # Use jQuery instead of $, since we are using no conflict due to prototype
   # http://crnixon.org/log/2009/05/14/today.html
-  before_filter :jquery_noconflict
-  def jquery_noconflict
-    ActionView::Helpers::PrototypeHelper.const_set(:JQUERY_VAR, 'jQuery')
-  end
+#  before_filter :jquery_noconflict
+#  def jquery_noconflict
+#    ActionView::Helpers::PrototypeHelper.const_set(:JQUERY_VAR, 'jQuery')
+#  end
 
   
   private
