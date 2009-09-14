@@ -25,6 +25,12 @@ if (empty($_GET['liftium_debug'])){
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/logger/assets/skins/sam/logger.css"/>
   <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/logger/logger-min.js"></script>
 <?php } ?>
+<script>
+LiftiumOptions = {
+        pubid: "1",
+        kv_hub: "gaming"
+}
+</script>
 <script type="text/javascript" src="LiftiumTest.js"></script>
 <script type="text/javascript" src="../Liftium.js?<?php echo mt_rand()?>"></script>
 <style type="text/css">

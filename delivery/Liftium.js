@@ -3,8 +3,10 @@
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
+	baseurl		: "http://delivery.liftium.com/",
 	chain 		: [],
 	errors 		: [],
+	geoUrl 		: "http://geoiplookup.wikia.com/",
         loadDelay       : 250
 };
 
@@ -222,6 +224,12 @@ Liftium.init = function () {
         Liftium.startTime = Liftium.now.getTime();
         Liftium.debugLevel = Liftium.getRequestVal('liftium_debug', 0);
 
+	if (Liftium.e(window.LiftiumOptions) || Liftium.e(window.LiftiumOptions.pubid)){
+		throw("LiftiumOptions.pubid must be set");
+	}
+
+	Liftium.pullConfig();
+	
 	// Call the beacon on page load. Exclude browsers that we don't care about that misbehave
         //if (window.navigator.vendor != "Camino" && Liftium.getBrowser() != "opera") {
 	Liftium.addEventListener(window, "load", Liftium.onLoadHandler);
@@ -266,6 +274,19 @@ Liftium.isCompletelyLoaded = function(e){
 };
 
 
+/* Load the supplied url inside a script tag  */
+Liftium.loadScript = function(url, noblock) {
+        if (typeof noblock == "undefined"){
+                // This method blocks
+                document.write('\x3Cscript type="text/javascript" src="' + url + '">\x3C\/sc' + 'ript>');
+        } else {
+                // This method does not block
+                var h = document.getElementsByTagName("head").item(0);
+                var s = document.createElement("script");
+                s.src = url;
+                h.appendChild(s);
+        }
+};
 
 
 /* This code looks at the supplied query string and parses it.
@@ -320,6 +341,31 @@ Liftium.onLoadHandler = function (){
         }
 };
 
+
+/* Pull the configuration data from our servers */
+Liftium.pullConfig = function (){
+
+        var p = {
+		"pubid" : window.LiftiumOptions.pubid,
+                "v": 1.2 // versioning for config
+        };
+
+        // Allow for us to work in a dev environment
+        if (! Liftium.e(Liftium.getRequestVal('liftium_dev_hosts') ||
+              window.location.hostname.indexOf("delivery.dev.liftium.com") > -1)){
+                // overwrite
+                Liftium.baseUrl = "http://delivery.dev.liftium.com/";
+        }
+
+        var u = Liftium.baseUrl  + 'config?' + Liftium.buildQueryString(p);
+        Liftium.d("Loading config from " + u, 2);
+        Liftium.loadScript(u);
+
+
+        Liftium.d("Loading geo data from " + Liftium.geoUrl, 3);
+        Liftium.loadScript(Liftium.geoUrl);
+};
+
 /* Javascript equivalent of php's print_r.  */
 Liftium.print_r = function (data, level) {
 	
@@ -364,13 +410,11 @@ Liftium.print_r = function (data, level) {
 
 /* Send a beacon back to our server so we know if it worked */
 Liftium.sendBeacon = function (){
-
+	// TODO
 };
 
 
-
-
-// Start your optimization!
+// Gentlemen, Start your optimization!
 Liftium.init();
 
 } // \if (typeof Liftium == "undefined" ) 

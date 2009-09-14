@@ -1,14 +1,6 @@
 <?php require 'header.php'?>
 This page is for testing Liftium ad calls, emulating a sample customer with 4 ads.
 <p>
-<!-- Liftium set up code -->
-<script>
-LiftiumOptions = {
-	pubid: "athena test"
-}
-</script>
-<script src="/Liftium.js?<?php echo mt_rand()?>"></script>
-<!-- End Liftium setup code -->
 
 <!-- sample page -->
 <div class="pagesection" style="width:950px;">
