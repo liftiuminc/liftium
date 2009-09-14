@@ -1,5 +1,5 @@
 <?php require 'header.php'?>
-This page is for testing Liftium ad calls, emulating a sample customer with 4 ads.
+This page is for testing Liftium ad calls, emulating a sample customer with 3 ads.
 <p>
 
 <!-- sample page -->
@@ -25,9 +25,11 @@ This page is for testing Liftium ad calls, emulating a sample customer with 4 ad
 	<p>
 	<br clear="right">
 	<hr />
+<!--
   	<div class="adunit" style="width:728px; height: 90px;">
 		<script>Liftium.callAd("728x90")</script>
 	</div>
+-->
   </div>
 </div>
 <script>

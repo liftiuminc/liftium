@@ -68,9 +68,6 @@ Liftium.buildChain = function(slotname) {
 	// Build the chain
         for (var i = 0, l = Liftium.config.sizes[size].length; i < l; i++){
                 var t = Liftium.clone(Liftium.config.sizes[size][i]);
-                if (!Liftium.in_array(slotname, t.slotnames)){
-                        continue;
-                }
 
                 if (Liftium.isValidCriteria(t)){
                         Liftium.config.sizes[size][i]['inChain'] = true;
