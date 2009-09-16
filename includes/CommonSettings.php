@@ -1,7 +1,7 @@
 <?php
 
 // *** Error handling. Be strict and loud in dev environments, and prudent in production
-$DEV_HOSTS = array("beer");
+$DEV_HOSTS = array("beer", "testubuntu.liftium.com");
 if (in_array(Framework::getHostname(), $DEV_HOSTS)){
         error_reporting(E_STRICT | E_ALL);
         ini_set('display_errors', true);
