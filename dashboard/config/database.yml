@@ -21,3 +21,4 @@ production:
   username: rails_dashboard
   password: liftium
   host: localhost
+  encoding: utf8
