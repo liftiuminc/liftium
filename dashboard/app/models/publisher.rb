@@ -1,5 +1,4 @@
 class Publisher < ActiveRecord::Base
-  has_many :tags
   validates_uniqueness_of :publisher_name
   validates_presence_of :publisher_name
   validates_presence_of :website

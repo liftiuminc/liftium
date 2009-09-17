@@ -14,16 +14,30 @@ tf:
   pay_type: "Per Impression"
   always_fill: false
 
-a4:
-  network_name: "A4"
-  enabled: true
-  supports_threshold: false
-  pay_type: "Per Click"
-  always_fill: true
-
 Ad:
   network_name: "Ad.com"
   enabled: true
+  supports_threshold: true
+  pay_type: "Per Impression"
+  always_fill: false
+
+AdBrite:
+  network_name: "AdBrite"
+  enabled: true
+  supports_threshold: true
+  pay_type: "Per Impression"
+  always_fill: false
+
+ContextWeb:
+  network_name: "ContextWeb"
+  enabled: true
+  supports_threshold: true
+  pay_type: "Per Impression"
+  always_fill: false
+
+GAO:
+  network_name: "Game Advertising Online"
+  enabled: true
   supports_threshold: false
-  pay_type: "Per Click"
-  always_fill: true
+  pay_type: "Per Impression"
+  always_fill: false
