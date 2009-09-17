@@ -11,8 +11,8 @@ class CreateUsers < ActiveRecord::Migration
 
       # Magic columns, just like ActiveRecord's created_at and updated_at. These are automatically maintained by Authlogic if they are present.
       # see Authlogic::Session::MagicColumns
-      t.integer   :login_count,         :null => false, :default => 0 
-      t.integer   :failed_login_count,  :null => false, :default => 0 
+      t.integer   :login_count,         :null => false, :default => 0, :limit => 2
+      t.integer   :failed_login_count,  :null => false, :default => 0, :limit => 2
       t.datetime  :last_request_at
       t.datetime  :current_login_at
       t.datetime  :last_login_at
