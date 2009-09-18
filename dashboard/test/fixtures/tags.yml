@@ -11,7 +11,7 @@ lb_reject:
   tier: 9
   value: 1.5
   size: "728x90"
-  tag: '<script src="http://delivery.dev.liftium.com/hop.js"></script>'
+  tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
 lb_reject_2:
   id: 2
@@ -23,7 +23,7 @@ lb_reject_2:
   tier: 8
   value: 1.25
   size: "728x90"
-  tag: '<script src="http://delivery.dev.liftium.com/hop.js"></script>'
+  tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
 lb_fill:
   id: 3
@@ -47,7 +47,7 @@ mr_reject:
   tier: 9
   value: 1.75
   size: "300x250"
-  tag: '<script src="http://delivery.dev.liftium.com/hop.js"></script>'
+  tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
 mr_fill:
   id: 5
