@@ -4,13 +4,13 @@ This page is for testing Liftium ad calls, emulating a sample customer with 3 ad
 
 <!-- sample page -->
 <div class="pagesection" style="width:950px;">
- <div style="width:180px; float:left; border: 1px orange solid; padding:5px; font-size:10pt">
+ <div style="position: absolute; width:180px; float:left; border: 1px orange solid; padding:5px; font-size:10pt">
 <h2>Left nav</h2>
   	<div id="slot1" class="adunit" style="width:160px; height: 600px">
   		<script>Liftium.callAd("160x600")</script>
 	</div>
   </div>
- <div style="padding:5px; margin-left: 200px">
+ <div style="position: absolute; padding:5px; margin-left: 200px">
   	<div id="slot2" class="adunit" style="width:728px; height: 90px;">
 		<script>Liftium.callAd("728x90")</script> 
 	</div>

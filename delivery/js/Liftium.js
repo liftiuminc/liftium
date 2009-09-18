@@ -7,7 +7,8 @@ var Liftium = {
 	chain 		: [],
 	errors 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
-        loadDelay       : 250
+        loadDelay       : 250,
+	calledSlots 	: []
 };
 
 /* ##### Methods are in alphabetical order, with a call to Liftium.init at the bottom */
@@ -129,6 +130,8 @@ Liftium.buildQueryString = function(nvpairs, sep){
 
 Liftium.callAd = function (slotname, iframe) {
 	
+	Liftium.lastSlot = slotname;
+
 	// Catch config errors
         if (Liftium.config.error){
                 Liftium.debug("Config error" + Liftium.config.error);
@@ -431,54 +434,6 @@ Liftium.getSlotLoadDiv = function (slotname){
 };
 
 
-/* Get the current slotname by looking at the DOM.
- * Supported scenarios
- * 1) NO starting element. If this is the case, then a startign element is created for you
- * 2) Starting Element passed as a string
- *
- * Tip: If you are inside an iframe, assign an "id" to the current 
- *      iframe with window.frameElement.id, then pass this id in as a string
- *
- * Nested iframes are not currently supported. Soon.
- */
-Liftium.getSlotnameFromDom = function (e){
-        var tempElement, slotdiv = '';
-
-        // Determine the starting point.
-        if (typeof e == "string"){
-                // Get the id from a string that is passed in
-                Liftium.d("Determined slotname for hop using string method", 7);
-                tempElement = Liftium._(e);
-        } else if (typeof e == "undefined" || typeof e.parentNode == "undefined"){
-                // HACK: couldn't determine e's parent (or it wasn't passed in)
-                // Write out a dummy div as a starting point. 
-                var dummydivid = "dummydiv_" + Math.random();
-                Liftium.d("Determined slotname for hop by writing fake div", 7);
-                document.write('<div style="display:none" id="' + dummydivid + '"></div>');
-                // TODO remove the dummy div when done with it.
-                tempElement = Liftium._(dummydivid);
-        } else if (typeof e == "object"){
-                Liftium.d("Determined slotname for hop by using element", 7);
-                tempElement = e;
-        }
-
-        var slots = Liftium.getSlotNames();
-        while (tempElement !== null) {
-                for (var s = 0, l = slots.length; s < l; s++){
-                        var reg = new RegExp("^Liftium_" + slots[s] + "_");
-                        if (!Liftium.e(tempElement.id) && reg.test(tempElement.id)){
-                                Liftium.d("Current slotname = " + slots[s], 5);
-                                return slots[s];
-                        }
-                }
-                tempElement = tempElement.parentNode;
-        }
-
-        return false;
-};
-
-
-
 /* Return the available slots called on this page */
 Liftium.getSlotNames = function (){
         var out = [];
@@ -592,11 +547,12 @@ Liftium.getUniqueSlotId = function(slotname) {
 /* This is the backup tag used to go to the next ad in the configuration */
 Liftium.hop = function (slotname){
         if (Liftium.e(slotname)){
-                slotname = Liftium.getSlotnameFromDom();
+		// Last slotname. This won't work for iframes
+                slotname = Liftium.lastSlot;
         }
         Liftium.d("Liftium.hop() called for " + slotname);
 
-        return Liftium.callAd(slotname);
+        return Liftium._callAd(slotname);
 };
 
 
