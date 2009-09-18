@@ -174,6 +174,10 @@ class AdTag {
 			$sql .= "\n\tAND network_id = " . $dbr->quote($criteria['network_id']) . " ";
 		}
 
+		if (!empty($criteria['pubid'])){
+			$sql .= "\n\tAND publisher_id = " . $dbr->quote($criteria['pubid']) . " ";
+		}
+
 		if (!empty($criteria['size'])){
 			$sql .= "\n\tAND size = " . $dbr->quote($criteria['size']) . " ";
 		}

@@ -1,10 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 wikia:
-   # The answer to everything.
-   id: 1042 
+   id: 1000
    publisher_name: "Wikia"
    website: "http://www.wikia.com"
+
+test:
+   # The answer to everything.
+   id: 1042 
+   publisher_name: "Test Publisher"
+   website: "http://www.example.com"
 
 slide:
    id: 1043

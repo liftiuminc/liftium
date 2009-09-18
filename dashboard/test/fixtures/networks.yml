@@ -49,7 +49,7 @@ GAO:
   always_fill: false
 
 test:
-  id: 7
+  id: 42
   network_name: "Test"
   enabled: true
   supports_threshold: true

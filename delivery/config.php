@@ -11,6 +11,11 @@ require dirname(__FILE__) . '/../includes/LiftiumConfig.php';
 
 $LiftiumConfig = new LiftiumConfig();
 
+$pubid = Framework::getRequestVal("pubid", null, FILTER_VALIDATE_INT);
+if (empty($pubid)){
+	trigger_error("Missing pubid from " . @$_SERVER['HTTP_REFERER'], E_USER_WARNING);
+	exit;
+}
 $config = $LiftiumConfig->getConfig($_GET);
 
 // Check to see if we can use the Etag to return a 304.

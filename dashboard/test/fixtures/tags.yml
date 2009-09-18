@@ -3,8 +3,9 @@
 # Set up test chains
 lb_reject:
   id: 1
+  publisher_id: 1042
   tag_name: "Test: LB, reject"
-  network: "Test"
+  network_id: 42
   enabled: true
   always_fill: false
   tier: 9
@@ -14,8 +15,9 @@ lb_reject:
 
 lb_reject_2:
   id: 2
+  publisher_id: 1042
   tag_name: "Test: LB, reject 2"
-  network: "Test"
+  network_id: 42
   enabled: true
   always_fill: false
   tier: 8
@@ -25,8 +27,9 @@ lb_reject_2:
 
 lb_fill:
   id: 3
+  publisher_id: 1042
   tag_name: "Test: LB, fill" 
-  network: "Test"
+  network_id: 42
   enabled: true
   always_fill: false
   tier: 7 
@@ -36,8 +39,9 @@ lb_fill:
 
 mr_reject:
   id: 4
+  publisher_id: 1042
   tag_name: "Test: MR, reject"
-  network: "Test"
+  network_id: 42
   enabled: true
   always_fill: true
   tier: 9
@@ -47,8 +51,9 @@ mr_reject:
 
 mr_fill:
   id: 5
+  publisher_id: 1042
   tag_name: "Test: MR, fill" 
-  network: "Test"
+  network_id: 42
   enabled: true
   always_fill: true
   tier: 7 
@@ -58,8 +63,9 @@ mr_fill:
 
 ws_fill:
   id: 6
+  publisher_id: 1042
   tag_name: "Test: WS, fill"
-  network: "Test"
+  network_id: 42
   enabled: true
   always_fill: false
   tier: 9
@@ -70,7 +76,7 @@ ws_fill:
 ws_always_fill:
   id: 7
   tag_name: "Test: WS, Always Fill" 
-  network: "Test"
+  network_id: 42
   enabled: true
   always_fill: true
   tier: 1
