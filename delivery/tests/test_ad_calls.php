@@ -33,17 +33,17 @@ This page is for testing Liftium ad calls, emulating a sample customer with 3 ad
   </div>
 </div>
 <script>
-if (document.getElementById("slot1").innerHTML.match(/This is a fill/)){
+if (document.getElementById("slot1").innerHTML.toString().match(/This is a fill/)){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
 }
-if (document.getElementById("slot2").innerHTML.match(/This is a fill/)){
+if (document.getElementById("slot2").innerHTML.toString().match(/This is a fill/)){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
 }
-if (document.getElementById("slot3").innerHTML.match(/This is a fill/)){
+if (document.getElementById("slot3").innerHTML.toString().match(/This is a fill/)){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
