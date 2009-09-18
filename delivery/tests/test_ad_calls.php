@@ -6,16 +6,16 @@ This page is for testing Liftium ad calls, emulating a sample customer with 3 ad
 <div class="pagesection" style="width:950px;">
  <div style="width:180px; float:left; border: 1px orange solid; padding:5px; font-size:10pt">
 <h2>Left nav</h2>
-  	<div class="adunit" style="width:160px; height: 600px">
+  	<div id="slot1" class="adunit" style="width:160px; height: 600px">
   		<script>Liftium.callAd("160x600")</script>
 	</div>
   </div>
  <div style="padding:5px; margin-left: 200px">
-  	<div class="adunit" style="width:728px; height: 90px;">
+  	<div id="slot2" class="adunit" style="width:728px; height: 90px;">
 		<script>Liftium.callAd("728x90")</script> 
 	</div>
 	<h2> Content</h2>
-  	<div class="adunit" style="width:300px; height: 250px;float:right">
+  	<div id="slot3" class="adunit" style="width:300px; height: 250px;float:right">
 		<script>Liftium.callAd("300x250")</script>
 	</div>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
@@ -26,14 +26,28 @@ This page is for testing Liftium ad calls, emulating a sample customer with 3 ad
 	<br clear="right">
 	<hr />
 <!--
-  	<div class="adunit" style="width:728px; height: 90px;">
+  	<div id="slot4" class="adunit" style="width:728px; height: 90px;">
 		<script>Liftium.callAd("728x90")</script>
 	</div>
 -->
   </div>
 </div>
 <script>
-LiftiumTest.testPassed();
+if (document.getElementById("slot1").innerHTML.match(/This is a fill/)){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+if (document.getElementById("slot2").innerHTML.match(/This is a fill/)){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+if (document.getElementById("slot3").innerHTML.match(/This is a fill/)){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
 </script>
 
 <?php require 'footer.php'?>
