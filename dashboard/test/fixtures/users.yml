@@ -1,6 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 nick:
+   id: 42
    email: nick@liftium.com
    crypted_password: 45b6e98b65f752bae02d0545237ea50b46b849da253117db6b2789f748d983b0f40ac03ca53a76a47f83adb192212850621ca75eb89a750cbadb613dc1b1a127
    password_salt: QwX2fPJnUVmDoemEqosZ

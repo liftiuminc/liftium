@@ -1,11 +1,79 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  tag_name: "AdSense Tag"
-  network: "Google AdSense"
+# Set up test chains
+lb_reject:
+  id: 1
+  tag_name: "Test: LB, reject"
+  network: "Test"
   enabled: true
   always_fill: false
-  tier: 10
-  frequency_cap: 3
-  rejection_cap: 1
+  tier: 9
   value: 1.5
+  size: "728x90"
+  tag: '<script src="http://delivery.dev.liftium.com/hop.js"></script>'
+
+lb_reject_2:
+  id: 2
+  tag_name: "Test: LB, reject 2"
+  network: "Test"
+  enabled: true
+  always_fill: false
+  tier: 8
+  value: 1.25
+  size: "728x90"
+  tag: '<script src="http://delivery.dev.liftium.com/hop.js"></script>'
+
+lb_fill:
+  id: 3
+  tag_name: "Test: LB, fill" 
+  network: "Test"
+  enabled: true
+  always_fill: false
+  tier: 7 
+  value: 1.25
+  size: "728x90"
+  tag: 'This is a fill from "Test: LB, fill" (tag 3)'
+
+mr_reject:
+  id: 4
+  tag_name: "Test: MR, reject"
+  network: "Test"
+  enabled: true
+  always_fill: true
+  tier: 9
+  value: 1.75
+  size: "300x250"
+  tag: '<script src="http://delivery.dev.liftium.com/hop.js"></script>'
+
+mr_fill:
+  id: 5
+  tag_name: "Test: MR, fill" 
+  network: "Test"
+  enabled: true
+  always_fill: true
+  tier: 7 
+  value: 0.99
+  size: "300x250"
+  tag: 'This is a fill from "Test: MR, fill" (tag 5)'
+
+ws_fill:
+  id: 6
+  tag_name: "Test: WS, fill"
+  network: "Test"
+  enabled: true
+  always_fill: false
+  tier: 9
+  value: 1.75
+  size: "160x600"
+  tag: 'This is a fill from "Test: MR, fill" (tag 6)'
+
+ws_always_fill:
+  id: 7
+  tag_name: "Test: WS, Always Fill" 
+  network: "Test"
+  enabled: true
+  always_fill: true
+  tier: 1
+  value: 0.10
+  size: "160x600"
+  tag: 'This is a fill that comes after another fill fill (tag 7)'

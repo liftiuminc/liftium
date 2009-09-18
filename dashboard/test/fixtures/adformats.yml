@@ -2,46 +2,57 @@
 
 
 lb:
+  id: 1
   format_name: "Leaderboard"
   size: "728x90"
 
 ws:
+  id: 2
   format_name: "Wide Skyscraper"
   size: "160x600"
 
 mr:
+  id: 3
   format_name: "Medium Rectangle"
   size: "300x250"
 
 lr:
+  id: 4
   format_name: "Large Rectangle"
   size: "336x280"
 
 ss:
+  id: 5
   format_name: "Skyscraper"
   size: "120x600"
 
 banner:
+  id: 6
   format_name: "Banner"
   size: "468x60"
 
 halfb:
+  id: 7
   format_name: "Half Banner"
   size: "234x60"
 
 button:
+  id: 8
   format_name: "Button"
   size: "125x125"
 
 sr:
+  id: 9
   format_name: "Small Rectangle"
   size: "180x150"
 
 vb:
+  id: 10
   format_name: "Vertical Banner"
   size: "120x240"
 
 smalls:
+  id: 11
   format_name: "Small Square"
   size: "200x200"
 

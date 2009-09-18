@@ -1,6 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 Adsense:
+  id: 1
   network_name: "Google AdSense"
   enabled: true
   supports_threshold: false
@@ -8,6 +9,7 @@ Adsense:
   always_fill: true
 
 tf:
+  id: 2
   network_name: "Tribal Fusion"
   enabled: true
   supports_threshold: true
@@ -15,6 +17,7 @@ tf:
   always_fill: false
 
 Ad:
+  id: 3
   network_name: "Ad.com"
   enabled: true
   supports_threshold: true
@@ -22,6 +25,7 @@ Ad:
   always_fill: false
 
 AdBrite:
+  id: 4
   network_name: "AdBrite"
   enabled: true
   supports_threshold: true
@@ -29,6 +33,7 @@ AdBrite:
   always_fill: false
 
 ContextWeb:
+  id: 5
   network_name: "ContextWeb"
   enabled: true
   supports_threshold: true
@@ -36,8 +41,17 @@ ContextWeb:
   always_fill: false
 
 GAO:
+  id: 6
   network_name: "Game Advertising Online"
   enabled: true
   supports_threshold: false
+  pay_type: "Per Impression"
+  always_fill: false
+
+test:
+  id: 7
+  network_name: "Test"
+  enabled: true
+  supports_threshold: true
   pay_type: "Per Impression"
   always_fill: false
