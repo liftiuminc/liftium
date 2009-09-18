@@ -38,6 +38,6 @@ window.onerror = function (e){
 		LiftiumTest.testFailed();
 	} catch (e){
 		// Avoid infinite recursion
-		alert("Yikes. Error function is producing an error");
+		alert("Yikes. Error function is producing an error:" + e.message);
 	}
 };

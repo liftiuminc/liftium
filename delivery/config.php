@@ -13,10 +13,16 @@ $LiftiumConfig = new LiftiumConfig();
 
 $pubid = Framework::getRequestVal("pubid", null, FILTER_VALIDATE_INT);
 if (empty($pubid)){
+	echo "/*";
 	trigger_error("Missing pubid from " . @$_SERVER['HTTP_REFERER'], E_USER_WARNING);
-	exit;
+	echo "*/";
+	$config = array('error'=>"Missing pubid");
+} else {
+	$config = $LiftiumConfig->getConfig($_GET);
+	if (empty($config->sizes)){
+		$config = array('error'=>"No tags for this publisher");
+	}
 }
-$config = $LiftiumConfig->getConfig($_GET);
 
 // Check to see if we can use the Etag to return a 304.
 $checksum = md5(serialize($config));
