@@ -8,10 +8,13 @@ var Liftium = {
 	errors 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
         loadDelay       : 250,
-	calledSlots 	: []
+	calledSlots 	: [],
+        rejTags         : []
+
 };
 
-/* ##### Methods are in alphabetical order, with a call to Liftium.init at the bottom */
+
+/* ##### Methods are in alphabetical order, call to Liftium.init at the bottom */
 
 
 /* Simple convenience function for getElementById */
@@ -43,7 +46,7 @@ Liftium.beaconCall = function (url){
  *    a) See if there is a "sampled ad" to try
  *    b) Check against targeting criteria
  *    c) Check against frequency/rejection capping criteria
- *    d) Consider the maximum number of hops, have the last one be a garaunteed fill
+ *    d) Consider the maximum number of hops, have the last one be a always_fill
  */
 Liftium.buildChain = function(slotname) {
 
@@ -75,8 +78,8 @@ Liftium.buildChain = function(slotname) {
                         Liftium.chain[slotname].push(t);
                         networks.push(t["network_name"] + ", #" + t["tag_id"]);
 
-                        if (t['guaranteed_fill'] === 'Yes'){
-                                Liftium.d("Chain complete - last ad is garaunteed.", 2, networks);
+                        if (t['always_fill'] == 1){
+                                Liftium.d("Chain complete - last ad is always_fill", 2, networks);
                                 return true;
                         } else if (Liftium.chain[slotname].length == Liftium.maxHops - 1){
                                 // Chain is full
@@ -168,7 +171,8 @@ Liftium._callAd = function (slotname, iframe) {
                 if (!Liftium.e(iframe)){
                         Liftium.callIframeAd(slotname, t);
                 } else {
-                        Liftium.slotname = slotname; // Capture this for ads that need the slotname
+			// Capture this for ads that need the slotname
+                        Liftium.slotname = slotname;
                         document.write('<div id="' + loadDivId + '">' + t["tag"] + "</div>");
                 }
         } catch (e) {
@@ -337,13 +341,14 @@ Liftium.empty = function ( v ) {
 };
 Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
 
-/* Look through the list of ads in the potential chain, and return the best guaranteed fill */
+
+/* Look through the list of ads in the potential chain, and return the best always_fill */
 Liftium.getAlwaysFillAd = function(size){
 
         for (var i = 0, l = Liftium.config.sizes[size].length; i < l; i++){
                 var t = Liftium.config.sizes[size][i];
 
-                if (t['guaranteed_fill'] === 'Yes' && Liftium.isValidCriteria(t)){
+                if (t['always_fill'] == 1 && Liftium.isValidCriteria(t)){
                         return Liftium.clone(t);
                 }
         }
@@ -351,6 +356,59 @@ Liftium.getAlwaysFillAd = function(size){
         // Rut roh
         return false;
 };
+
+
+/* Get the users country */
+Liftium.getCountry = function(){
+        if (!Liftium.e(Liftium.getCountryFound)){
+                return Liftium.getCountryFound;
+        }
+
+        var ac;
+        if (!Liftium.e(Liftium.getRequestVal('athena_country'))){
+                ac = Liftium.getRequestVal('athena_country');
+                Liftium.d("Using athena_country for geo targeting (" + ac + ")", 8);
+        } else if (typeof top.Geo == "undefined") {
+                // sometimes Geo isn't available because geoiplookup hasn't returned
+                Liftium.d("Geo country not downloaded properly, defaulting to US for now");
+                return "us"; // Bail here so Liftium.getCountryFound doesn't get set
+        } else if (typeof top.Geo.country == "undefined" ) {
+                // It downloaded, but it's empty, because we were unable to determine the country
+                Liftium.d("Unable to find a country for this IP, defaulting to US");
+                ac = "us";
+        } else {
+                // Everything worked
+                ac = top.Geo.country.toLowerCase();
+        }
+
+        if (ac === "gb"){
+                // Wankers.
+                ac = "uk";
+        }
+
+        Liftium.getCountryFound = ac;
+        return ac;
+};
+
+
+/* Returns the number of minutes that have elapsed since midnight, according to the users clock */
+Liftium.getMinutesSinceMidnight = function(){
+        var now = new Date();
+        return (now.getHours() * 60) + now.getMinutes();
+};
+
+/* Return the number of minutes since the last reject for the supplied tag id.
+ * null if there hasn't been a reject
+ */
+Liftium.getMinutesSinceReject = function(tag_id){
+        var m = Liftium.getTagStat(tag_id, "m");
+        if (m === null){
+                return null;
+        } else {
+                return Liftium.getMinutesSinceMidnight() - m;
+        }
+};
+
 
 
 /* Iterate through the chain and deliver the next ad tag to be called */
@@ -369,20 +427,26 @@ Liftium.getNextTag = function(slotname){
                         continue;
                 // Do we have enough time left?
                 } else if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
-                        Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the guaranteed fill", 2);
-                        Liftium.slotTimer[slotname] = "exceeded";
+                        Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
+			
+			// Mark this one as exceeded
+			Liftium.chain[slotname][Liftium.chain[slotname].current]['exceeded'] = true;
+
+			// Return the always_fill
                         var lastOne = l-1;
-                        Liftium.chain[slotname][i]['started'] = now.getTime();
+			Liftium.chain[slotname].current = lastOne;
+                        Liftium.chain[slotname][lastOne]['started'] = now.getTime();
                         return Liftium.chain[slotname][lastOne];
                 } else {
                         // Win nah!
                         Liftium.chain[slotname][i]['started'] = now.getTime();
+			Liftium.chain[slotname].current = i;
                         return Liftium.chain[slotname][i];
                 }
 
         }
         // Rut roh
-        Liftium.d("Something went wrong, using the garaunteed ad for " + slotname);
+        Liftium.d("Something went wrong, using always_fill ad for " + slotname);
         return Liftium.getAlwaysFillAd(Liftium.getSizeForSlotname(slotname));
 };
 
@@ -427,10 +491,9 @@ Liftium.getSampledAd = function(size){
 };
 
 
-
-
 Liftium.getSlotLoadDiv = function (slotname){
-        return Liftium._(slotname + '_load') || Liftium._(slotname);
+	// FIXME. Won't work if more than one ad size called per page
+        return Liftium._("Liftium_" + slotname + "_0");
 };
 
 
@@ -598,9 +661,6 @@ Liftium.init = function () {
 	Liftium.addEventListener(window, "load", Liftium.onLoadHandler);
 
         if (typeof document.readyState != "undefined") {
-                // onunload only works reliably on browsers that have document.readyState, because we can't check to see if iframes are loaded
-                Liftium.addEventListener(window, "unload", Liftium.sendBeacon);
-        } else {
                 // Fire an event when the iframe content loads for browsers that support it (firefox)
                 Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
 
@@ -777,6 +837,39 @@ Liftium.loadScript = function(url, noblock) {
 };
 
 
+/* Clean up the chain. Mark loads/rejects where we know what happened. */
+Liftium.markChain = function (slotname){
+        var attemptFound = false, len = Liftium.chain[slotname].length;
+        // If an attempt was found, then everything else "started" was rejected
+        Liftium.d("Marking chain for " + slotname, 5);
+        for (var i = len - 1; i >= 0; i--){
+                if (attemptFound && !Liftium.e(Liftium.chain[slotname][i]['started'])){
+                        Liftium.chain[slotname][i]['rejected'] = true;
+                        Liftium.chain[slotname][i]['loaded'] = false;
+                        Liftium.rejTags.push(Liftium.chain[slotname][i]['tag_id']);
+                } else if (!Liftium.e(Liftium.chain[slotname][i]['started'])){
+                        attemptFound = true;
+                }
+        }
+
+        // If a garaunteed ad was filled, mark it as loaded
+        for (var j = 0 ; j < len; j++){
+                if (!Liftium.e(Liftium.chain[slotname][j]['started']) &&
+                     Liftium.chain[slotname][j]['guaranteed_fill'] == 'Yes' ){
+                        Liftium.chain[slotname][j]['loaded'] = true;
+                        return true;
+                }
+        }
+
+        // If the slot/document is completely loaded, the last one called must be the one loaded
+	var k = Liftium.chain[slotname].current;
+	Liftium.chain[slotname][k]['loaded'] = true;
+        return true;
+
+};
+
+
+
 /* This code looks at the supplied query string and parses it.
  * It returns an associative array of url decoded name value pairs
  */
@@ -883,7 +976,8 @@ Liftium.print_r = function (data, level) {
                                 out.push(padding + "'" + item + "' ..." + "\n");
                                 out.push(Liftium.print_r(data[item],level+1));
                         } else {
-                                out.push(padding + "'" + item + "' => \"" + Liftium.print_r(data[item]) + "\"\n");
+                                out.push(padding + "'" + item + "' => \"" +
+					Liftium.print_r(data[item]) + "\"\n");
                         }
                 }
 		if (Liftium.e(out)){
@@ -896,10 +990,192 @@ Liftium.print_r = function (data, level) {
 	}
 };
 
+/* Record the loads/rejects, and return a string of events to be sent by the beacon */
+Liftium.recordEvents = function(slotname){
+
+        var e = '';
+        for (var i = 0, l = Liftium.chain[slotname].length; i < l; i++){
+                var t = Liftium.chain[slotname][i];
+                if ( Liftium.e(t['started'])){
+                        // There can't be a load or a reject if it wasn't started.
+                        continue;
+                }
+
+                var loads = Liftium.getTagStat(t['tag_id'], "l");
+
+                // Load
+                if (!Liftium.e(Liftium.chain[slotname][i]['loaded'])){
+                        Liftium.d("Recording Load for " + t["network_name"] + ", #" + t["tag_id"] + " in " + slotname, 4);
+                        Liftium.setTagStat(t['tag_id'], "l");
+                        e += ',l' + t['tag_id'] + 'pl' + loads;
+
+                // Reject
+                } else if (! Liftium.e(t['rejected'])){
+                        e += ',r' + t['tag_id'] + 'pl' + loads;
+                        Liftium.d("Recording Reject for " + t["network_name"] + ", #" + t["tag_id"] + " in " + slotname, 5);
+                        Liftium.setTagStat(t['tag_id'], "r");
+                        continue;
+
+                }
+        }
+
+        return e.replace(/^,/, ''); // Strip off first comma
+};
+
+
 
 /* Send a beacon back to our server so we know if it worked */
 Liftium.sendBeacon = function (){
-	// TODO
+
+	// This is called a second time from the *un*load handler, so make sure we don't call the beacon twice.
+        if (!Liftium.e(Liftium.beaconCalled)){
+                return true;
+        }
+        Liftium.beaconCalled = true;
+
+
+	var events = '', numSlots = 0;
+        for(var slotname in Liftium.chain){
+                if (typeof Liftium.chain[slotname] == "function"){
+                        // Prototype js library overwrites the array handler and adds crap. EVIL.
+                        continue;
+                }
+                numSlots++;
+                // Clean up the chain
+                Liftium.markChain(slotname);
+                // Set tag stats and get a string of events
+                events += ',' + Liftium.recordEvents(slotname);
+        }
+
+        events = events.replace(/^,/, ''); // Strip off first comma
+
+        Liftium.storeTagStats();
+
+        var b = {};
+        b.numSlots = numSlots;
+        b.events = events;
+
+	var now = new Date();
+
+        // Ad Time
+        var ms = (now.getTime() - Liftium.startTime) / 1000;
+        b.adTime = ms - parseFloat(Liftium.loadDelay/1000); // subtract delayTime
+        b.adTime = Math.floor(b.adTime * 10) / 10; // Round to 1 decimal
+
+        // Page Time
+        if (typeof window.wgNow == "object" ){
+              ms = (now.getTime() - window.wgNow.getTime()) / 1000;
+              b.pageTime = b.adTime - parseFloat(Liftium.loadDelay/1000); // subtract delayTime
+              b.pageTime = Math.floor(b.pageTime * 10) / 10; // Round to 1 decimal
+              Liftium.d ("Page loaded in " + b.pageTime + " seconds");
+        }
+
+        // Errors
+        if (! Liftium.e(Liftium.errors)){
+              // Send javascript errors back with the beacon
+              Liftium.d("sendBeacon() errors: ", 0, Liftium.errors);
+              b.errors = Liftium.errors;
+        }
+
+
+        // Tag Errors
+        if (! Liftium.e(Liftium.tagErrors)){
+              // Send tag errors back with the beacon
+              Liftium.d("sendBeacon() tagErrors: ", 0, Liftium.tagErrors);
+              b.tagErrors = Liftium.tagErrors;
+        }
+
+        // Pass along other goodies
+        b.country = Liftium.getCountry();
+        if (!Liftium.e(window.wgUserName)){
+              b.loggedIn = true;
+        }
+
+        // Timeouts
+        var slotTimeouts = 0;
+        for (var s in Liftium.slotTimer){
+              if (typeof Liftium.slotTimer[s] == "function"){
+                      // Prototype js library overwrites the array handler and adds crap. EVIL.
+                      continue;
+              }
+              if (Liftium.slotTimer[s] == "exceeded"){
+                      slotTimeouts++;
+              }
+        }
+        if (slotTimeouts > 0) {
+                b.slotTimeouts = slotTimeouts;
+        }
+
+        Liftium.d ("Beacon: ", 7, b);
+
+        Liftium.beaconCall(Liftium.baseUrl + '/beacon/?beacon=' + encodeURIComponent(window.JSON.stringify(b)));
+
+        Liftium.d ("Liftium done, beacon sent, ads loaded in " + b.adTime + " seconds");
+
+
+        // Call the unit tests
+        if (window.LiftiumTest && typeof window.LiftiumTest.afterBeacon == "function"){
+                window.LiftiumTest.afterBeacon();
+        }
+	return true;
+};
+
+/* Set loads/rejects for a tag. type is "l" or "r" */
+Liftium.setTagStat = function (tag_id, type){
+        Liftium.d("Setting a " + type + " stat for " + tag_id, 6);
+
+        var pieces = Liftium.tagStats.split(','), holder = [], found=false;
+        if (pieces.length > Liftium.statMax){
+                // If too may, take off the first one
+                pieces.shift();
+        }
+
+        // Get the current stats and rebuild
+        var loads = Liftium.getTagStat(tag_id, "l");
+        var rejects = Liftium.getTagStat(tag_id, "r");
+        var rejectMinutes = 0;
+
+        if (type === "l"){
+                loads++;
+                rejectMinutes = Liftium.getTagStat(tag_id, "m") || 0;
+        } else if (type === "r"){
+                rejects++;
+                rejectMinutes = Liftium.getMinutesSinceMidnight();
+        }
+
+        // Tack on the rejects/rejectMinutes
+        var piece = Liftium.now.getDay() + '_' + tag_id + "l" + loads;
+        if (rejects > 0){
+                piece = piece + "r" + rejects;
+                piece = piece + "m" + rejectMinutes;
+        }
+
+        var ts = Liftium.tagStats.replace(Liftium.getStatRegExp(tag_id), piece);
+        if (ts === Liftium.tagStats){
+                // tagid not found in stats, Append it to the end.
+                Liftium.tagStats = Liftium.tagStats + ',' + piece;
+        } else {
+                Liftium.tagStats = ts;
+        }
+
+        Liftium.tagStats = Liftium.tagStats.replace(/^,/, ''); // Strip off first comma
+
+        Liftium.d("Tag Stats After Set = " + Liftium.tagStats, 6);
+};
+
+
+/* Store accepts/rejections in a cookie
+ * Keep this as small as possible! 
+ */
+Liftium.storeTagStats = function (){
+        Liftium.d("Stored Tag Stats = " + Liftium.tagStats, 4);
+        Liftium.cookie("ATS", Liftium.tagStats, {
+		  // FIXME for Wikia
+                  //domain: Liftium.getCookieDomain(),
+                  path: "/",
+                  expires: Liftium.now.getTime() + 86400
+                 }
+        );
 };
 
 
