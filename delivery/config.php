@@ -7,6 +7,7 @@ ini_set('html_errors', false);
 header('Cache-Control: public, max-age=90, s-maxage=10');
 
 require dirname(__FILE__) . '/../includes/Framework.php';
+require dirname(__FILE__) . '/../includes/LiftiumConfig.php';
 
 $LiftiumConfig = new LiftiumConfig();
 
