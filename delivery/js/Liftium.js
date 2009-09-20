@@ -420,6 +420,15 @@ Liftium.getNextTag = function(slotname){
                 }
         }
 
+	// Belt and suspenders to prevent too many hops
+	Liftium.chain[slotname].numHops = Liftium.chain[slotname].numHops || 0;
+	Liftium.chain[slotname].numHops++;
+	if (Liftium.chain[slotname].numHops > 10){
+		throw ("Maximnum number of hops exceeded: 10");
+	}
+	
+	// \suspenders
+
         var now = new Date();
 
         for (var i = 0, l = Liftium.chain[slotname].length; i < l; i++){
@@ -447,7 +456,7 @@ Liftium.getNextTag = function(slotname){
         }
         // Rut roh
         Liftium.d("Something went wrong, using always_fill ad for " + slotname);
-        return Liftium.getAlwaysFillAd(Liftium.getSizeForSlotname(slotname));
+	return false; // TODO: put a PSA in here
 };
 
 
@@ -564,7 +573,8 @@ Liftium.getSizeForSlotname = function (slotname){
 Liftium.getTagStat = function (tag_id, type){
         var stat = null;
 
-        var statMatch = Liftium.tagStats.toString().match(Liftium.getStatRegExp(tag_id));
+	Liftium.tagStats = Liftium.tagStats || "";
+        var statMatch = Liftium.tagStats.match(Liftium.getStatRegExp(tag_id));
         if (!Liftium.e(statMatch)){
                 var len = statMatch.length;
                 if (type === "l" && len >= 2){
@@ -628,7 +638,10 @@ Liftium.iframeOnload = function(e) {
                 if (typeof iframe.readyState == "undefined" ) {
                         iframe.readyState = "complete";
                 }
-        } catch (e) {}
+        } catch (e) {
+		// iframe onload
+		alert ("iframe onload");
+	}
 };
 
 
@@ -1110,10 +1123,11 @@ Liftium.sendBeacon = function (){
 
        
         // Not all browsers support JSON
+        var p;
         if (! window.JSON) {
-                var p = { "events": b.events };
+		p = { "events": b.events };
         } else {
-               var p = { "beacon": window.JSON.stringify(b) };
+		p = { "beacon": window.JSON.stringify(b) };
         }
  
         Liftium.beaconCall(Liftium.baseUrl + 'beacon?' + Liftium.buildQueryString(p));
