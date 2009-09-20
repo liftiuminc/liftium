@@ -4,7 +4,14 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.xml
   def index
-    @tags = Tag.all
+   @foo = "bar"
+   @foo2 = @current_user
+   @foo3 = current_user
+   if current_user.admin?
+      @tags = Tag.all
+   else 
+      @tags = Tag.find(:all, :conditions => { :publisher_id => current_user.publisher_id })
+   end 
 
     respond_to do |format|
       format.html # index.html.erb
