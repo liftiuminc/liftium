@@ -4,6 +4,15 @@
 </p>
 
 <p>
+  <b>Publisher:</b>
+<% if @user.publisher.nil? %>
+  All (admin)
+<% else %>
+  <%=h @user.publisher.publisher_name %>
+<% end %>
+</p>
+
+<p>
   <b>Login count:</b>
   <%=h @user.login_count %>
 </p>
