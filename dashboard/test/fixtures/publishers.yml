@@ -20,3 +20,8 @@ yes:
    id: 1044
    publisher_name: "Yes"
    website: "http://www.yes.com"
+
+nicksblog:
+   id: 1045
+   publisher_name: "Nick's blog"
+   website: "http://www.techyouruniverse.com"

@@ -75,6 +75,7 @@ ws_fill:
 
 ws_always_fill:
   id: 7
+  publisher_id: 1042
   tag_name: "Test: WS, Always Fill" 
   network_id: 42
   enabled: true

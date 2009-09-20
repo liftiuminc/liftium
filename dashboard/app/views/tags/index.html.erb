@@ -1,21 +1,22 @@
 <h1>Listing tags</h1>
 
-<table>
+<table border="1">
   <tr>
+    <th>Publisher</th>
     <th>Tag name</th>
     <th>Size</th>
     <th>Enabled</th>
     <th>Always fill</th>
     <th>Sample rate</th>
     <th>Tier</th>
-    <th>Frequency cap</th>
-    <th>Rejection cap</th>
-    <th>Rejection time</th>
-    <th>Tag</th>
+    <th>Freq cap</th>
+    <th>Rej cap</th>
+    <th>Rej time</th>
   </tr>
 
 <% @tags.each do |tag| %>
   <tr>
+    <td><%=h tag.publisher.publisher_name %></td>
     <td><%=h tag.tag_name %></td>
     <td><%=h tag.size %></td>
     <td><%=h tag.enabled %></td>
@@ -25,7 +26,6 @@
     <td><%=h tag.frequency_cap %></td>
     <td><%=h tag.rejection_cap %></td>
     <td><%=h tag.rejection_time %></td>
-    <td><%=h tag.tag %></td>
     <td><%= link_to 'Show', tag %></td>
     <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
     <td><%= link_to 'Destroy', tag, :confirm => 'Are you sure?', :method => :delete %></td>
