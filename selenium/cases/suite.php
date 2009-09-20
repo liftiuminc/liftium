@@ -31,7 +31,8 @@ $newWindows = array(
 	"test_leaderboard.php",
 	"test_top_right_boxad.php",
 	"test_stats.php",
-	"test_iframe_clearing.php"
+	"test_iframe_clearing.php",
+	"test_stats_noiframe.php"
 );
 foreach ($generics as $generic ){
 	$g = basename($generic);
