@@ -1108,8 +1108,16 @@ Liftium.sendBeacon = function (){
 
         Liftium.d ("Beacon: ", 7, b);
 
-        Liftium.beaconCall(Liftium.baseUrl + '/beacon/?beacon=' + encodeURIComponent(window.JSON.stringify(b)));
-
+       
+        // Not all browsers support JSON
+        if (! window.JSON) {
+                var p = { "events": b.events };
+        } else {
+               var p = { "beacon": window.JSON.stringify(b) };
+        }
+ 
+        Liftium.beaconCall(Liftium.baseUrl + 'beacon?' + Liftium.buildQueryString(p));
+ 
         Liftium.d ("Liftium done, beacon sent, ads loaded in " + b.adTime + " seconds");
 
 
