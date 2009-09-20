@@ -3,7 +3,7 @@
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
-	baseurl		: "http://delivery.liftium.com/",
+	baseUrl		: "http://delivery.liftium.com/",
 	chain 		: [],
 	errors 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
@@ -946,9 +946,9 @@ Liftium.pullConfig = function (){
 
         // Allow for us to work in a dev environment
         if (! Liftium.e(Liftium.getRequestVal('liftium_dev_hosts') ||
-              window.location.hostname.indexOf("delivery.dev.liftium.com") > -1)){
+              window.location.hostname.indexOf(".dev.liftium.com") > -1)){
                 // overwrite
-                Liftium.baseUrl = "http://delivery.dev.liftium.com/";
+                Liftium.baseUrl = '/';
         }
 
         var u = Liftium.baseUrl  + 'config?' + Liftium.buildQueryString(p);
