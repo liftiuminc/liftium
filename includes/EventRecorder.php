@@ -18,7 +18,7 @@ class EventRecorder {
 		$key = self::serializeKey($event, $rotation);
 
 		$ret = $cache->increment($key);
-		if ($ret === false){
+		if (empty($ret)){
 			// Increment does not create the key if it does not exist. Retarded.
 			if ($timeout === null){
 				$timeout = self::getTimeOut($rotation);
