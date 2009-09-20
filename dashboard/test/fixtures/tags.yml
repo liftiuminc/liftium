@@ -71,7 +71,7 @@ ws_fill:
   tier: 9
   value: 1.75
   size: "160x600"
-  tag: 'This is a fill from "Test: WS, fill" (tag 6)'
+  tag: 'This is a fill from "Test: MR, fill" (tag 6)'
 
 ws_always_fill:
   id: 7
