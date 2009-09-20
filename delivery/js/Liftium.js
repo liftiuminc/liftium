@@ -3,7 +3,7 @@
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
-	baseUrl		: "http://delivery.liftium.com/",
+	baseUrl		: "http://delivery.dev.liftium.com/", // FIXME
 	chain 		: [],
 	errors 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
