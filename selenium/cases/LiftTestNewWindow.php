@@ -37,9 +37,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 	<td></td>
 </tr>
 <tr>
-        <td>waitForText</td>
-        <td>id=page_loaded</td>
-        <td>glob:*Page Loaded*</td>
+	<td>waitForText</td>
+	<td>id=test_results</td>
+	<td>glob:*tests ran*</td>
 </tr>
 <tr>
 	<td>verifyText</td>
