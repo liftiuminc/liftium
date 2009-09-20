@@ -27,8 +27,8 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 </tr>
 <tr>
 	<td>waitForText</td>
-	<td>id=test_results</td>
-	<td>glob:*tests ran*</td>
+	<td>id=page_loaded</td>
+	<td>glob:*Page Loaded*</td>
 </tr>
 <tr>
 	<td>verifyText</td>
