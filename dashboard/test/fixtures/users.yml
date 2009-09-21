@@ -12,3 +12,14 @@ nick:
    failed_login_count: 0
    created_at: 2009-09-17 20:58:34
 
+martel:
+  id                 : 43
+  email              : mduvigneaud@gmail.com
+  crypted_password   : 66f68fe709444f4ad8d77b986c10a55eb4bebdb9592beed58205b0b8a844f56298a6b5095a10c5140fd5a53cfeb2a09620bc23b66ec741359eabc5b17283d2eb
+  password_salt      : q7WsuyI3hc6G0n6bciS0
+  persistence_token  : 28bd42fafd3750a82ba0bcb524999386976fdae9df589fd4d1fa28b70f8814f4b8c5250c7d71f3f624c1c957edd9d3835dfa55c48fddf5883bafc40e7ccb0169
+  single_access_token: uJMLms6FZNWdx9nZf7qA
+  perishable_token   : QflmYarl67PXFYKcHU9L
+  created_at         : 2009-09-21 00:48:57
+  publisher_id       : NULL
+
