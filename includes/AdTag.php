@@ -17,7 +17,7 @@ class AdTag {
 
 	public function loadFromId($tag_id){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT * FROM tag WHERE id=" . $dbr->quote($tag_id);
+		$sql = "SELECT *, id AS tag_id FROM tags WHERE id=" . $dbr->quote($tag_id);
 		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			foreach($row as $column => $data){
 				$this->$column = $data;
@@ -26,11 +26,13 @@ class AdTag {
 		}
 
 
+		/*
 		$sql = "SELECT option_name, option_value FROM tag_option WHERE tag_id=" . $dbr->quote($tag_id);
 		$this->options = null;
 		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			$this->options[$row['option_name']] = $row['option_value'];
 		}
+		*/
 	}
 
 	public function getCurrentSizes($tag_id = null){

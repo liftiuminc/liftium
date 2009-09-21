@@ -342,6 +342,24 @@ Liftium.empty = function ( v ) {
 Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
 
 
+/* Filler ad when we don't have anything better to display. Usually means an error, either with the code
+ * or the chain 
+ * http://www.peacecorps.gov/index.cfm?shell=resources.media.psa.webbanners
+ */
+Liftium.fillerAd = function(size, message){
+	// Pull the height/width out of size
+	size = size || "300x250";
+	if (size.match(/300x250/)){
+		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa15" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/300x250_legacy.gif" width="300" height="250" border="0"/></a>');
+	} else if (size.match(/728x90/)){
+                document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa1" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/728x90_thinklocal.gif" width="728" height="90" border="0"/></a>');
+	} else if (size.match(/160x600/)){
+		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0"/></a>');
+	} else {
+		document.write('<a href="http://www.liftium.com/"><img src="http://cdn.liftium.com/logo.gif"></a>');
+	}
+};
+
 /* Look through the list of ads in the potential chain, and return the best always_fill */
 Liftium.getAlwaysFillAd = function(size){
 
