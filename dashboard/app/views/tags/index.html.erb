@@ -12,6 +12,8 @@
     <th>Freq cap</th>
     <th>Rej cap</th>
     <th>Rej time</th>
+    <th colspan="3">Actions</th>
+    <th>Fill Rate Graph</th>
   </tr>
 
 <% @tags.each do |tag| %>
@@ -29,6 +31,7 @@
     <td><%= link_to 'Show', tag %></td>
     <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
     <td><%= link_to 'Destroy', tag, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><img src="http://dev.liftium.com:4567/sparkline?net=<%=tag.network_id%>&tag=<%=tag.id%>&range=3h&width=100&height=50">
   </tr>
 <% end %>
 </table>
