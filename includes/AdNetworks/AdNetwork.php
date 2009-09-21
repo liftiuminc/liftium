@@ -28,8 +28,8 @@ class AdNetwork {
 	}
 
 	public function loadFromId($network_id){
-		$dbr = getDB("slave");
-		$sql = "SELECT * FROM network WHERE network_id=" . $dbr->quote($network_id);
+		$dbr = Framework::getDB("slave");
+		$sql = "SELECT *, id AS network_id FROM networks WHERE id=" . $dbr->quote($network_id);
 		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			foreach($row as $column => $data){
 				$this->$column = $data;
@@ -38,8 +38,8 @@ class AdNetwork {
 	}
 
 	public function loadFromName($network_name){
-		$dbr = getDB("slave");
-		$sql = "SELECT * FROM network WHERE network_name=" . $dbr->quote($network_name);
+		$dbr = Framework::getDB("slave");
+		$sql = "SELECT * FROM networks WHERE network_name=" . $dbr->quote($network_name);
 		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			foreach($row as $column => $data){
 				$this->$column = $data;
@@ -59,7 +59,7 @@ class AdNetwork {
 		$columns = array('network_name', 'notes', 'enabled', 'supports_threshold', 'pay_type',
 			'guaranteed_fill', 'webui_login_url', 'webui_username', 'webui_password');
 		$set = '';
-		$dbw = getDB("master");
+		$dbw = Framework::getDB("master");
 		foreach ($columns as $col){
 			if ($set != ''){
 				$set .=",\n";
@@ -110,8 +110,8 @@ class AdNetwork {
 	}
 
 	public function delete(){
-		$dbw = getDB('master');
-		$sql = "DELETE FROM network WHERE network_id = " . $dbw->quote($this->network_id);
+		$dbw = Framework::getDB('master');
+		$sql = "DELETE FROM networks WHERE network_id = " . $dbw->quote($this->network_id);
 		$ret = $dbw->exec($sql);
 
                 // Change log
@@ -129,8 +129,8 @@ class AdNetwork {
 
 
 	static public function searchNetworks($criteria=array()){
-		$dbr = getDB("slave");
-		$sql = "SELECT network_id FROM network WHERE 1=1";
+		$dbr = Framework::getDB("slave");
+		$sql = "SELECT id AS network_id FROM networks WHERE 1=1";
 		if (!empty($criteria['name_search'])){
 			$search = '%' . $criteria['name_search'] . '%';
 			$sql.= "\n\tAND network_name like " . $dbr->quote($search) . " ";
@@ -228,7 +228,7 @@ class AdNetwork {
 		$this->login();
 
 		$network = new AdNetwork($this->network_id);
-		$tags = AdTag::searchTags(array('network_id'=>$this->network_id, 'enabled'=>'Yes'));
+		$tags = AdTag::searchTags(array('network_id'=>$this->network_id, 'enabled'=>1));
 
 		$updates = 0;
 		foreach ($tags as $tag){
