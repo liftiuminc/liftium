@@ -4,6 +4,11 @@
 </p>
 
 <p>
+  <b>Is Admin:</b>
+  <%=h @user.admin? ? "Yes" : "No" %>
+</p>
+
+<p>
   <b>Publisher:</b>
 <% if @user.publisher.nil? %>
   All (admin)
