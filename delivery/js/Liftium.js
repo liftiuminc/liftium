@@ -349,6 +349,7 @@ Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
 Liftium.fillerAd = function(size, message){
 	// Pull the height/width out of size
 	size = size || "300x250";
+	var t = {tag_id: 'psa', tag: 'Public Service Announement', size: size};
 	if (size.match(/300x250/)){
 		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa15" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/300x250_legacy.gif" width="300" height="250" border="0"/></a>');
 	} else if (size.match(/728x90/)){
@@ -358,6 +359,7 @@ Liftium.fillerAd = function(size, message){
 	} else {
 		document.write('<a href="http://www.liftium.com/"><img src="http://cdn.liftium.com/logo.gif"></a>');
 	}
+	return t;
 };
 
 /* Look through the list of ads in the potential chain, and return the best always_fill */
@@ -449,32 +451,37 @@ Liftium.getNextTag = function(slotname){
 
         var now = new Date();
 
-        for (var i = 0, l = Liftium.chain[slotname].length; i < l; i++){
-                if (!Liftium.e(Liftium.chain[slotname][i]['started'])){
-                        continue;
-                // Do we have enough time left?
-                } else if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
-                        Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
-			
-			// Mark this one as exceeded
-			Liftium.chain[slotname][Liftium.chain[slotname].current]['exceeded'] = true;
+        var length = Liftium.chain[slotname].length;
+        var current = Liftium.chain[slotname].current = Liftium.chain[slotname].current || 0;
+        
+        if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
+                // Maximum fill time has been exceeded, jump to the always_fill
+                Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
+                Liftium.chain[slotname][current]['exceeded'] = true;
+                
+                // Return the always_fill
+                var lastOne = length - 1;
+                Liftium.chain[slotname].current = lastOne;
+                Liftium.chain[slotname][lastOne]['started'] = now.getTime();
+                return Liftium.chain[slotname][lastOne];
+        } else {
+                for (var i = current + 1, l = length; i < l; i++){
+                        if (!Liftium.e(Liftium.chain[slotname][i]['started'])){
+                                continue;
+                        } else {
+                                // Win nah!
+                                Liftium.chain[slotname][i]['started'] = now.getTime();
+                                Liftium.chain[slotname].current = i;
+                                return Liftium.chain[slotname][i];
+                        }
 
-			// Return the always_fill
-                        var lastOne = l-1;
-			Liftium.chain[slotname].current = lastOne;
-                        Liftium.chain[slotname][lastOne]['started'] = now.getTime();
-                        return Liftium.chain[slotname][lastOne];
-                } else {
-                        // Win nah!
-                        Liftium.chain[slotname][i]['started'] = now.getTime();
-			Liftium.chain[slotname].current = i;
-                        return Liftium.chain[slotname][i];
                 }
-
         }
         // Rut roh
-        Liftium.d("Something went wrong, using always_fill ad for " + slotname);
-	return false; // TODO: put a PSA in here
+        Liftium.d("No always_fill for " + slotname);
+        
+        // FIXME: Passing the slotname for the size will break when multiple slotnames are supported and are no longer named after the size. -Martel DuVigneaud 2009-09-22
+        return Liftium.fillerAd(slotname);
 };
 
 

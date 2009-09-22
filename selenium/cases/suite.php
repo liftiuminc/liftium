@@ -23,6 +23,7 @@ $excludes = array(
 // Certain tests need to be run in a new window
 $newWindows = array(
 	"test_ad_calls.php",
+	"test_ad_psa.php",
 	"test_ads_in_content.php",
 	"test_adunits.php",
 	"test_cross_domain.php",

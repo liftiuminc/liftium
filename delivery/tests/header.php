@@ -27,7 +27,7 @@ if (empty($_GET['liftium_debug'])){
 <?php } ?>
 <script>
 LiftiumOptions = {
-        pubid: "1042",
+        pubid: "<?php print empty($pubid) ? 1042 : $pubid; ?>",
         kv_hub: "gaming"
 }
 </script>

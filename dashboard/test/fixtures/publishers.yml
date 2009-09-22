@@ -25,3 +25,10 @@ nicksblog:
    id: 1045
    publisher_name: "Nick's blog"
    website: "http://www.techyouruniverse.com"
+
+test2:
+   # The answer to everything else.
+   id: 1046
+   publisher_name: "Test Publisher 2"
+   website: "http://www.example.com"
+
