@@ -27,7 +27,7 @@ $packed = $packer->pack();
 
 $t2 = microtime(true);
 $time = sprintf('%.4f', ($t2 - $t1) );
-echo 'script ', $src, ' packed in ' , $out, ', in ', $time, ' s.', "\n";
+echo "$out script minified/obfuscated in $time seconds\n";
 
 file_put_contents($out, $packed);
 ?>
