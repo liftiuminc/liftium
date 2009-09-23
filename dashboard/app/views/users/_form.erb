@@ -6,13 +6,13 @@
 <% if @current_user.admin? %>
 <%= form.check_box :admin %>
 <%= form.label :admin %><br />
-<% end %>
 
   <p>
     <% @publishers = Publisher.find :all %>
     <%= form.label :publisher %><br />
     <%= collection_select(:user, :publisher_id, @publishers, :id, :publisher_name, :include_blank => true) %>
   </p>
+<% end %>
 
 <br />
 <%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />

@@ -50,6 +50,9 @@ class TagsController < ApplicationController
   # POST /tags.xml
   def create
     @tag = Tag.new(params[:tag])
+    if !@current_user.admin?
+        @tag.publisher_id = @current_user.publisher_id
+    end
     respond_to do |format|
       if @tag.save
         flash[:notice] = 'Tag was successfully created.'

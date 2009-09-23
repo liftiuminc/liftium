@@ -2,7 +2,9 @@
 <%
     # Get a list of enabled networks
     @networks = Network.find :all, :conditions => {:enabled => true}
-    @publishers = Publisher.find :all;
+    if @current_user.admin?
+        @publishers = Publisher.find :all;
+    end
 
     # Get a list of Ad formats
     @adformats = Adformat.find :all, :order => :format_name
@@ -11,9 +13,11 @@
 <% form_for(@tag) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :publisher %><br />    <%= collection_select(:tag, :publisher_id, @publishers, :id, :publisher_name, :include_blank => true) %>
-  </p>
+  <% if @current_user.admin? %>
+    <p>
+      <%= f.label :publisher %><br />    <%= collection_select(:tag, :publisher_id, @publishers, :id, :publisher_name, :include_blank => true) %>
+    </p>
+  <% end %>
   <p>
     <%= f.label :network %><br />
     <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
