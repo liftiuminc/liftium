@@ -15,8 +15,8 @@ class Framework {
 			$password = 'monkey';
 			$dbname = "liftium";
 		} else {
-			$masterhost = 'liftiumdb1';
-			$slavehosts = array('liftiumdb1', 'liftiumdb2');
+			$masterhost = 'masterdb';
+			$slavehosts = array('masterdb', 'slavedb1');
 			$username = 'liftiumprod';
 			$password = 'gorilla';
 			$dbname = "liftium";
