@@ -3,7 +3,7 @@
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
-	baseUrl		: "http://delivery.dev.liftium.com/", // FIXME
+	baseUrl		: "http://delivery.liftium.com/", // FIXME
 	chain 		: [],
 	errors 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
@@ -137,7 +137,7 @@ Liftium.callAd = function (slotname, iframe) {
 
 	// Catch config errors
         if (Liftium.config.error){
-                Liftium.debug("Config error" + Liftium.config.error);
+                Liftium.debug("Config error " + Liftium.config.error);
 		document.write('<div style="display:none">');
                 document.write('Liftium config error: ' + Liftium.config.error);
 		document.write("</div>");
