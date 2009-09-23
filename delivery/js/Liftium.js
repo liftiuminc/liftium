@@ -465,7 +465,7 @@ Liftium.getNextTag = function(slotname){
                 Liftium.chain[slotname][lastOne]['started'] = now.getTime();
                 return Liftium.chain[slotname][lastOne];
         } else {
-                for (var i = current + 1, l = length; i < l; i++){
+                for (var i = current, l = length; i < l; i++){
                         if (!Liftium.e(Liftium.chain[slotname][i]['started'])){
                                 continue;
                         } else {
