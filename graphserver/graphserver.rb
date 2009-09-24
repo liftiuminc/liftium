@@ -80,7 +80,9 @@ get '/sparkline' do
     if item[0].to_s == "NaN"
       results << 0
     else
-      results << item[0].to_i.round
+      # Convert rrds sci notation to decimal
+      value = "%4.2f" % item[0]
+      results << value.to_i
     end
   end
   image = Sparklines.plot(results, :type => 'area',
