@@ -138,9 +138,7 @@ Liftium.callAd = function (slotname, iframe) {
 	// Catch config errors
         if (Liftium.config.error){
                 Liftium.debug("Config error " + Liftium.config.error);
-		document.write('<div style="display:none">');
-                document.write('Liftium config error: ' + Liftium.config.error);
-		document.write("</div>");
+		Liftium.fillerAd(slotname, Liftium.config.error);
                 return false;
         }
 
@@ -348,17 +346,21 @@ Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
  */
 Liftium.fillerAd = function(size, message){
 	// Pull the height/width out of size
-	size = size || "300x250";
-	var t = {tag_id: 'psa', tag: 'Public Service Announement', size: size};
-	if (size.match(/300x250/)){
-		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa15" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/300x250_legacy.gif" width="300" height="250" border="0"/></a>');
-	} else if (size.match(/728x90/)){
-                document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa1" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/728x90_thinklocal.gif" width="728" height="90" border="0"/></a>');
-	} else if (size.match(/160x600/)){
-		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0"/></a>');
-	} else {
-		document.write('<a href="http://www.liftium.com/"><img src="http://cdn.liftium.com/logo.gif"></a>');
+	size = size || "300x250"; // TODO/FIXME: figure out size by looking at containing div
+	if (!Liftium.e(message)){
+                document.write('<div class="LiftiumError" style="display:none">');
+                document.write('Liftium message: ' + message);
+                document.write("</div>");
 	}
+
+	if (size.match(/300x250/)){
+		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa15" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/300x250_legacy.gif" width="300" height="250" border="0" alt="Public Service Announcement"/></a>');
+	} else if (size.match(/728x90/)){
+                document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa1" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/728x90_thinklocal.gif" width="728" height="90" border="0" alt="Public Service Announcement"/></a>');
+	} else if (size.match(/160x600/)){
+		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0" alt="Public Service Announcement"/></a>');
+	}
+	var t = {tag_id: 'psa', tag: 'Public Service Announcement', size: size};
 	return t;
 };
 
