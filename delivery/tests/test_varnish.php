@@ -1,6 +1,5 @@
-<?php require 'header.php'?>
-This page is for testing that varnish is caching properly
-<p>
+<?php header("Cache-Control: max-age=5");?>
+<?php require 'header.php'?> This page is for testing that varnish is caching properly. It should stay the same for 5 seconds. Varnish should strip the cookie. <p>
 <?php 
 if (empty($_SERVER['HTTP_X_VARNISH'])){
 	echo "<b>Script not being called through varnish.</b>";
@@ -10,8 +9,11 @@ if (empty($_SERVER['HTTP_X_VARNISH'])){
 }
 ?>
 <p>
-Cookie:
-<xmp><?php print_r($_COOKIE)?></xmp>
+Cookie (should be empty because varnish strips it):
+<pre><?php print_r($_COOKIE)?></pre>
+Orig cookie:
+<pre><?php echo str_replace(';', ';<br />', $_SERVER['HTTP_X_ORIG_COOKIE'])?></pre>
+<hr>
 <hr>
 <br />
 echo date: <?php echo date('r')?><br />
