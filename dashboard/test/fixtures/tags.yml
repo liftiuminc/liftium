@@ -109,3 +109,15 @@ test2_ws_always_fill_bad:
   size: "160x600"
   tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
+test2_lb_fill:
+  id: 10
+  publisher_id: 1046
+  tag_name: "Test2: LB, Always Fill"
+  network_id: 42
+  enabled: true
+  always_fill: true
+  tier: 9
+  value: 1.75
+  size: "728x90"
+  tag: 'This is a fill from a chain with a single tag'
+
