@@ -24,6 +24,7 @@ $excludes = array(
 $newWindows = array(
 	"test_ad_calls.php",
 	"test_ad_psa.php",
+	"test_ad_single_chain.php",
 	"test_ads_in_content.php",
 	"test_adunits.php",
 	"test_cross_domain.php",
