@@ -1,0 +1,7 @@
+start/stop
+
+sudo /var/lib/gems/1.8/bin/thin -C /var/www/liftium/graphserver/thin.yml start
+
+
+log
+//var/log/thin.4567.log
