@@ -2,11 +2,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :network_options
 
 
-  map.resources :adformats, :active_scaffold => true
+  map.resources :adformats
   map.resources :tags
-  map.resources :networks, :active_scaffold => true
+  map.resources :networks
   map.resources :publishers
   map.resources :password_resets
+  map.resources :userlist
 
   # Auth logic
   map.resource :user_session

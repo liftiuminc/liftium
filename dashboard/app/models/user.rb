@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
     Notifier.deliver_password_reset_instructions(self)
   end
 
+  def name
+    "#{email}"
+  end
+
 end
