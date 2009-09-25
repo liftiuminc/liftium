@@ -1,4 +1,5 @@
 class NetworkOption < ActiveRecord::Base
+  belongs_to :network
   validates_uniqueness_of :option_name, { :scope => :network_id }
   validates_presence_of :network_id
   validates_numericality_of :network_id
