@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :network_options
+
 
   map.resources :adformats, :active_scaffold => true
   map.resources :tags

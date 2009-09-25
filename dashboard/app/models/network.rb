@@ -1,4 +1,5 @@
 class Network < ActiveRecord::Base
+  has_many :network_options
   @paytypes = Array["Per Click", "Per Impression", "Affliate" ]
   validates_uniqueness_of :network_name
   validates_presence_of :network_name, :pay_type
@@ -7,7 +8,7 @@ class Network < ActiveRecord::Base
   validates_inclusion_of :supports_threshold, :in => [true, false]
   validates_inclusion_of :pay_type, :in => @paytypes, :message => "Pay type must be one of: " + @paytypes.join(', ')
 
-  # So that Active record displays the correct name
+  # So that Active Scaffolde displays the correct name
   def name
     "#{network_name}"
   end
