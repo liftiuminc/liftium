@@ -1,7 +1,10 @@
-<% if current_user %>
 <span style="float:right; text-align:right;">
+<% if !current_user %>
+  <%= link_to "Log In", new_user_session_path %> 
+<% else %>
   <%= link_to "My Account", account_path %> |
   <%= link_to "Logout", user_session_path, :method => :delete %>
+<% end %>
 </span>
 
 [ <a href="/networks">Networks</a> ]
@@ -9,7 +12,6 @@
 [ <a href="/publishers">Publishers</a> ]
 [ <a href="/adformats">Ad Formats</a> ]
 [ <a href="/userlist">Users</a> ]
-<% end %>
 </body>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
