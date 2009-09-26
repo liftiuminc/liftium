@@ -8,7 +8,7 @@ class TagsController < ApplicationController
     config.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :size, :always_fill, :frequency_cap, :rejection_time ]
     config.create.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :size, :always_fill, :frequency_cap, :rejection_time, :tag ]
     config.update.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :size, :always_fill, :frequency_cap, :rejection_time, :tag ]
-    list.sorting = {:tier => 'DESC', :value => 'DESC'}
+    config.list.sorting = [{:publisher_id => :asc}, {:tier => :desc}, {:value => :desc}]
 
     config.columns[:always_fill].form_ui = :checkbox
     config.columns[:enabled].form_ui = :checkbox
