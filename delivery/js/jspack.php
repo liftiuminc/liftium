@@ -31,4 +31,3 @@ echo "$out script minified/obfuscated in $time seconds\n";
 
 file_put_contents($out, $packed);
 ?>
-
