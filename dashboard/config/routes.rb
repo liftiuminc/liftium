@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
 
 
-  map.root :controller => "welcome"
+  map.root :controller => "account"
 
   # See how all your routes lay out with "rake routes"
 
