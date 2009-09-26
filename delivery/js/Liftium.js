@@ -136,7 +136,11 @@ Liftium.callAd = function (slotname, iframe) {
 	Liftium.lastSlot = slotname;
 
 	// Catch config errors
-        if (Liftium.config.error){
+        if (Liftium.e(Liftium.config)){
+                Liftium.debug("Error downloading config");
+		Liftium.fillerAd(slotname, "Error downloading config");
+                return false;
+        } else if (Liftium.config.error){
                 Liftium.debug("Config error " + Liftium.config.error);
 		Liftium.fillerAd(slotname, Liftium.config.error);
                 return false;
