@@ -1,7 +1,6 @@
 dashboard/db/*.sqlite3
 dashboard/config/deploy.rb
 dashboard/db/schema.rb
-dashboard/tmp/*
 dashboard/log/*
 dashboard/public/cache/*
 .*.swp
