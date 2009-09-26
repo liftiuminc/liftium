@@ -3,7 +3,7 @@
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
-	baseUrl		: "http://delivery.liftium.com/", // FIXME
+	baseUrl		: "http://delivery.liftium.com/",
 	chain 		: [],
 	errors 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
@@ -25,7 +25,6 @@ Liftium._ = function(id){
 
 /* Simple abstraction layer for event handling across browsers */
 Liftium.addEventListener = function(item, eventName, callback){
-        // TODO: use jQuery if it's available
         if (window.addEventListener) { // W3C
                 return item.addEventListener(eventName, callback, false);
         } else if (window.attachEvent){ // IE 
@@ -1068,6 +1067,49 @@ Liftium.recordEvents = function(slotname){
 
 
 
+Liftium.reportError = function (e, severity) {
+  try { 
+	// wrapped in a try catch block because if this function is reporting an error, all hell breaks loose
+	if (Liftium.errorCount > 5){
+		// Don't overwhelm our servers if the browser is stuck in a loop.
+		return;
+	}
+
+	// Note that the Unit tests also track the number of errors
+	if (Liftium.errorCount) {
+		Liftium.errorCount++;
+	} else {
+		Liftium.errorCount = 1;
+	}
+
+	var p = [];
+	p['message'] = Liftium.errorMessage(e);
+	p['severity'] = severity || "Unknown";
+
+	Liftium.beaconCall(Liftium.baseUrl + "error?" + Liftium.buildQueryString(p));
+	// If being called from the unit testing suite, mark it as a failed test
+	if (window.LiftiumTest) {
+		window.LiftiumTest.testFailed();
+	}
+
+  } catch (e) {
+	Liftium.d("Yikes. Liftium.reportError has an error");
+  }
+};
+window.onerror = Liftium.reportError;
+
+
+Liftium.errorMessage = function (e) {
+	// e can be a native javascript error or a message. Figure out which
+	if (typeof e == "object" ){
+		// For now, so I can see what the format is for all browsers
+		return Liftium.print_r(e);
+	} else if (typeof e == "string"){
+		return e;
+	}
+};
+
+
 /* Send a beacon back to our server so we know if it worked */
 Liftium.sendBeacon = function (){
 
@@ -1231,6 +1273,11 @@ Liftium.storeTagStats = function (){
         );
 };
 
+
+/* Why do we even have this lever!? Because we need to test error handling (see test_jserror.php) */
+Liftium.throwError = function () {
+	return window.LiftiumthrowError.UndefinedVar;
+};
 
 // Gentlemen, Start your optimization!
 Liftium.init();
