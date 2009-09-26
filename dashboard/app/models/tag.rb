@@ -18,4 +18,9 @@ class Tag < ActiveRecord::Base
   validates_numericality_of :rejection_cap, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1000, :allow_nil => true
   validates_numericality_of :rejection_time, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1440, :allow_nil => true
   validates_numericality_of :value, :greater_than_or_equal_to => 0, :less_than => 100 
+
+
+  def name 
+    "#{tag_name}"
+  end
 end
