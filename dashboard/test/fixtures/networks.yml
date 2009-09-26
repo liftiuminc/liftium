@@ -7,6 +7,13 @@ Adsense:
   supports_threshold: false
   pay_type: "Per Click"
   always_fill: true
+  tag_template: '<script type="text/javascript">
+google_ad_client = "%@pubid@%";
+google_ad_slot = "%@ad_slot@%";
+google_ad_width = %@width@%;
+google_ad_height = %@height@%;
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>'
 
 tf:
   id: 2
