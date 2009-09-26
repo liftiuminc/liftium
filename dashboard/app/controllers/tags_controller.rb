@@ -1,25 +1,37 @@
 class TagsController < ApplicationController
 
-  # TODO search
-
+  # search
+  def conditions_for_collection
+    if current_user.admin?
+    else 
+      ['publisher_id = (?)', current_user.publisher_id]
+    end
+  end
+  
   before_filter :require_user
   active_scaffold
   active_scaffold :tag do |config|
     config.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :size, :always_fill, :frequency_cap, :rejection_time ]
-    config.create.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :size, :always_fill, :frequency_cap, :rejection_time, :tag ]
-    config.update.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :size, :always_fill, :frequency_cap, :rejection_time, :tag ]
+    config.create.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :always_fill, :size, :frequency_cap, :rejection_time, :tag ]
+    config.update.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :always_fill, :size, :frequency_cap, :rejection_time, :tag ]
     config.list.sorting = [{:publisher_id => :asc}, {:tier => :desc}, {:value => :desc}]
 
     config.columns[:always_fill].form_ui = :checkbox
     config.columns[:enabled].form_ui = :checkbox
-    config.columns[:network].ui_type = :select
-    config.columns[:publisher].ui_type = :select
+    config.columns[:network].form_ui = :select
+    config.columns[:publisher].form_ui = :select
+
+    config.columns[:tier].description = "0-10";
+    config.columns[:frequency_cap].description = "Number, Per 24 hours";
+    config.columns[:rejection_time].description = "Wait this many minutes after a rejection before trying again";
+    config.columns[:value].label = "Value ($)";
+
+    # TODO : Make the tag textarea a more suitable size
   end
+end
 
-#   if current_user.admin?
-      @tags = Tag.all
-#   else 
-#      @tags = Tag.find(:all, :conditions => { :publisher_id => current_user.publisher_id })
-#   end 
-
+module NetworksHelper
+  def size_form_column (record, input_name)
+     select("", input_name, Adformat.all.collect {|af| [ af.name_with_size, af.size ] }, { :selected => record.size, :include_blank => true })
+  end
 end

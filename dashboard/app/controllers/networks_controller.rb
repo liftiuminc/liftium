@@ -15,10 +15,16 @@ class NetworksController < ApplicationController
     config.columns[:supports_threshold].form_ui = :checkbox
 
     config.columns[:tag_template].description = "<br />Copy Paste tag here. Note that you may use macros of <b>%@width@%, %@height@%, %@size@%</b>.<br />Macros also available one for each network option. Ie. %@account_id@%"
-    config.columns[:pay_type].description = "Per Click or Per Impression"
     config.columns[:supports_threshold].description = "Default tags allowed?"
     config.nested.add_link("Network Options", [:network_options])
 
   end
-
 end
+
+module NetworksHelper
+  # PUll this list from Networks.
+  def pay_type_form_column (record, input_name)
+     select("", input_name, ["Per Impression", "Per Click", "Affliate"], { :selected => record.pay_type, :include_blank => true })
+  end
+end
+
