@@ -4,8 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= controller.controller_name.gsub(/\b\w/){$&.upcase} %>: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <title>Liftium Dashboard - <%= controller.controller_name.gsub(/\b\w/){$&.upcase} %>: <%= controller.action_name %></title>
+  <link rel="stylesheet" href="/stylesheets/dashboard.css" type="text/css" media="all" />
   <%= javascript_include_tag 'prototype', 'effects' %>
   <%= javascript_include_tag 'jquery', 'jrails' -%> 
   <script type="text/javascript">
@@ -13,5 +13,10 @@
   </script>
 </head>
 <body>
+<div id="header">
+        <div class="shell">
+                <h1 id="logo"><a href="/">Liftium</a></h1>
+        </div>
+</div>
 <p style="color: green"><%= flash[:notice] %></p>
 
