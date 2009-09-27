@@ -1,5 +1,7 @@
 /* Unit test helper */
 
+window.failTestOnError = true;
+
 var LiftiumTest = {
         testsRun : 0,
         testsPassed : 0,

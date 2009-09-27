@@ -137,45 +137,5 @@ if (!empty($beacon['slotTimeouts'])){
 	}
 }
 
-// Javascript Errors
-if ( !empty($beacon['errors'])){
-        if (!is_array($beacon['errors'])){
-                $beacon['errors'] = json_decode($beacon['errors'], true);
-        }
-
-	EventRecorder::record(array('JavascriptErrors'), "minute");
-	$counter++;
-	if (empty($_SERVER['HTTP_REFERER'])){
-		$referer= '-';
-	} else {
-		$referer = $_SERVER['HTTP_REFERER'];
-	}
-	foreach($beacon['errors'] as $err){
-		$line = "{$err[1]} {$err[2]} \"{$err[0]}\" $referer \"{$_SERVER['HTTP_USER_AGENT']}\"\n";
-		echo "Error: $line";
-		file_put_contents("/var/log/javascript_errors/error_log", $line, FILE_APPEND);
-	}
-
-	// Track errors by browser.
-	EventRecorder::record(array("JavascriptErrors$browser"), "minute");
-}
-
-
-// Tag Errors
-if ( !empty($beacon['tagErrors'])){
-	EventRecorder::record(array('TagErrors'), "minute");
-	$counter++;
-	if (empty($_SERVER['HTTP_REFERER'])){
-		$referer= '-';
-	} else {
-		$referer = $_SERVER['HTTP_REFERER'];
-	}
-	foreach($beacon['tagErrors'] as $err){
-		$line = "{$err[0]} \"{$err[1]}\" $referer";
-		$line = preg_replace('/\s+/', ' ', $line) . "\n";
-		echo "Tag Error: $line";
-		file_put_contents("/var/log/javascript_errors/tag_error_log", $line, FILE_APPEND);
-	}
-}
 echo $counter;
 ?>

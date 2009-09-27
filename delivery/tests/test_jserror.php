@@ -1,9 +1,14 @@
-<?php $pubid  ?>
+<?php $pubid = 1046 ?>
 <?php require 'header.php'?>
+
+<!-- For this test, we are testing errors, so turn the default error catching off -->
+<script>window.failTestOnError = false;</script>
+
 This page is for testing how we catch and deal with javascript errors.
-1) An error on the page
-2) An error in the Athena javascript 
-3) An error in a tag
+<ol>
+<li>An error on the page
+<li>An error in the Athena javascript 
+<li>An error in a tag
 <p>
 <pre>
 <!-- Error on the page -->
@@ -13,7 +18,7 @@ try { // Should fail on call to undefinedVar
 		code();
 	}
 } catch (e) {
-	var msg = Liftium.errorMessage(e));
+	var msg = Liftium.errorMessage(e);
 	if (Liftium.e(msg)){
 		LiftiumTest.testFailed();
 		document.write("msg is empty!");
