@@ -354,5 +354,24 @@ class AdTag {
                         return false;
                 }
         }
+
+
+	public static function expandMacros($tag, $tag_options){
+		// EWW. Got a better idea?
+		global $expandMacrosTagOptions;
+		$expandMacrosTagOptions = $tag_options;
+		return preg_replace_callback("/%@([a-z0-9A-Z_]+)@%/", "AdTag::expandMacrosCallback", $tag);
+	}
+
+	public static function expandMacrosCallback($matches){
+		global $expandMacrosTagOptions;
+		if (isset($expandMacrosTagOptions[$matches[1]])){
+			return $expandMacrosTagOptions[$matches[1]];
+		} else {
+			trigger_error("Invalid macro in tag - {$matches[1]}", E_USER_NOTICE);
+			return null;
+		}
+	}
+	
 }
 
