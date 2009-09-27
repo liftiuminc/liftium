@@ -62,6 +62,20 @@ class LiftiumConfig{
 			return false;
 		}
 
+                // Get the tag options
+		$dim = AdTag::getHeightWidthFromSize($size);
+		$tag_options = array(
+			'size' => $size,
+			'width' => $dim['width'],
+			'height' => $dim['height']
+		);
+                $sql = "SELECT option_name, option_value
+                        FROM tag_options WHERE tag_id =" . $dbr->quote($tag_id) . ";";
+                foreach ($dbr->query($sql) as $row){
+                        $tag_options[$row['option_name']]=$row['option_value'];
+                }
+
+
 		/*
 		// Get the slot names
 		$sql = "SELECT slot FROM ad_slot
@@ -73,22 +87,19 @@ class LiftiumConfig{
 		}
 		*/
 
-		$out['size'] = $size;
-		$out['value'] = round($out['value'], 2);
-		// TODO Pull the other tag_options from the table
-		$dim = AdTag::getHeightWidthFromSize($size);
-		$tag_options = array(
-			'size' => $size,
-			'width' => $dim['width'],
-			'height' => $dim['height']
-		);
-		print_r($out);
+		if (!empty($_GET['debug'])){
+			print_r($out);
+			print_r($tag_options);
+		}
 
 		// If the tag exists already, pass it through the expander 
-		if (!empty($out['tag_template'])){
+		if (!empty($out['tag'])){
+			$out['tag'] = AdTag::expandMacros($out['tag'], $tag_options);
+			unset($out['tag_template']);
+		} else if (!empty($out['tag_template'])){
 			$out['tag'] = AdTag::expandMacros($out['tag_template'], $tag_options);
 			unset($out['tag_template']);
-		} else if (empty($out['tag'])){
+		} else {
 			$class = AdNetwork::getNetworkClass($out['network_id']);
 			if ($class === false){
 				$msg = "Error finding Network Class and no tag for tagid #{$out['tag_id']}";
@@ -155,7 +166,11 @@ class LiftiumConfig{
 
 
 	static private function getCacheVersion(){
-		return "1.0r";
+		if (Framework::isDev()) {
+			return mt_rand();
+		} else {
+			return "1.0r";
+		}
 	}
 }
 ?>

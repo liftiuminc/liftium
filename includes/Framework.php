@@ -204,4 +204,10 @@ class Framework {
 			}
 		}
 	}
+
+	static public function isDev() {
+		global $DEV_HOSTS;
+		return in_array(Framework::getHostname(), $DEV_HOSTS);
+	}
+
 }
