@@ -4,7 +4,6 @@ ini_set('display_errors', true);
 ini_set('error_prepend_string', '/*');
 ini_set('error_append_string', '*/');
 ini_set('html_errors', false);
-header('Cache-Control: public, max-age=90, s-maxage=10');
 
 require dirname(__FILE__) . '/../includes/Framework.php';
 
