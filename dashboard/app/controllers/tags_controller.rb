@@ -12,8 +12,8 @@ class TagsController < ApplicationController
   active_scaffold
   active_scaffold :tag do |config|
     config.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :size, :always_fill, :frequency_cap, :rejection_time ]
-    config.create.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :always_fill, :size, :frequency_cap, :rejection_time, :tag ]
-    config.update.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :always_fill, :size, :frequency_cap, :rejection_time, :tag ]
+    config.create.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :always_fill, :size, :frequency_cap, :rejection_time, :tag, :tag_options ]
+    config.update.columns = [:publisher, :network, :tag_name, :tier, :value, :enabled, :always_fill, :size, :frequency_cap, :rejection_time, :tag , :tag_options]
     config.list.sorting = [{:publisher_id => :asc}, {:tier => :desc}, {:value => :desc}]
 
     config.columns[:always_fill].form_ui = :checkbox
