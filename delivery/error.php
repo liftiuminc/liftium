@@ -8,7 +8,9 @@ echo "</pre>";
 $browser = Framework::getBrowser();
 
 ini_set('error_log', '/home/tempfiles/10days/jserrors.' . @$_GET['type'] . '.' . date('Y-m-d'));
-error_log("Pubid: " .  @$_GET['pubid'] . "|" . $_GET['msg'] . '|' . @$_SERVER['HTTP_REFERER'] . '|' . $browser);
+$message = "Pubid: " .  @$_GET['pubid'] . "|" . $_GET['msg'] . '|' . @$_SERVER['HTTP_REFERER'] . '|' . $browser;
+error_log($message);
+mail("nick@liftium.com", "Liftium Error", $message);
 
 EventRecorder::record(array('JavascriptErrors', $browser), "minute");
 EventRecorder::record(array('JavascriptErrors'), "minute");
