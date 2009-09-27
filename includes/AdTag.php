@@ -53,16 +53,12 @@ class AdTag {
 	}
 
 	public function getSizes(){
-		$excludedSizes = array('200x75', '125x125');
-
 		$out = array();
 
 		$dbr = Framework::getDB("slave");
 		$sql = "SELECT size FROM adformats";
 		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
-			if (!in_array($row['size'], $excludedSizes)){
-				$out[] = $row['size'];
-			}
+			$out[] = $row['size'];
 		}
 
 		return $out;
