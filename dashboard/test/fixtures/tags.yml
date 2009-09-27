@@ -121,3 +121,15 @@ test2_lb_fill:
   size: "728x90"
   tag: 'This is a fill from a chain with a single tag'
 
+malformedjs:
+  id: 11
+  publisher_id: 1046
+  tag_name: "Bad Javascript 125x125"
+  network_id: 42
+  enabled: true
+  always_fill: true
+  tier: 8
+  value: 1.69
+  size: "125x125"
+  tag: 'This is a tag with bad javascript that should throw an error. <script>badjavascript.tag11()</script>'
+

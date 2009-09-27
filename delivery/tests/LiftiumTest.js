@@ -1,5 +1,8 @@
 /* Unit test helper */
 
+// Tell Liftium to throw a LiftiumTest.testFailed when it has a js error
+window.failTestOnError = true;
+
 var LiftiumTest = {
         testsRun : 0,
         testsPassed : 0,
@@ -38,15 +41,4 @@ LiftiumTest.getTagStats = function(tag_id){
         text += "&nbsp; - Attempts = " + window.Liftium.getTagStat(tag_id, "a") + "<br />";
         text += "&nbsp; - Last Rejection = " + window.Liftium.getMinutesSinceReject(tag_id) + " minutes ago<br />";
         return text;
-};
-
-window.onerror = function (e){
-	try {
-		alert("Error running test: " + window.Liftium.print_r(e));
-		LiftiumTest.errors.push(e);
-		LiftiumTest.testFailed();
-	} catch (e){
-		// Avoid infinite recursion
-		alert("Yikes. Error function is producing an error:" + e.message);
-	}
 };

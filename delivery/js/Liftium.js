@@ -3,9 +3,8 @@
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
-	baseUrl		: "http://delivery.liftium.com/", // FIXME
+	baseUrl		: "http://delivery.liftium.com/",
 	chain 		: [],
-	errors 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
         loadDelay       : 250,
 	calledSlots 	: [],
@@ -25,7 +24,6 @@ Liftium._ = function(id){
 
 /* Simple abstraction layer for event handling across browsers */
 Liftium.addEventListener = function(item, eventName, callback){
-        // TODO: use jQuery if it's available
         if (window.addEventListener) { // W3C
                 return item.addEventListener(eventName, callback, false);
         } else if (window.attachEvent){ // IE 
@@ -63,7 +61,8 @@ Liftium.buildChain = function(slotname) {
 
         // Do we have this slot?
         if (Liftium.e(Liftium.config.sizes[size])){
-                throw "Unrecognized size in Liftium: " + size;
+		Liftium.reportError("Unrecognized size in Liftium: " + size, "publisher");
+		return false;
         }
 
         // Sort the chain. Done client side for better caching and randomness
@@ -137,11 +136,11 @@ Liftium.callAd = function (slotname, iframe) {
 
 	// Catch config errors
         if (Liftium.e(Liftium.config)){
-                Liftium.debug("Error downloading config");
+                Liftium.reportError("Error downloading config");
 		Liftium.fillerAd(slotname, "Error downloading config");
                 return false;
         } else if (Liftium.config.error){
-                Liftium.debug("Config error " + Liftium.config.error);
+                Liftium.reportError("Config error " + Liftium.config.error);
 		Liftium.fillerAd(slotname, Liftium.config.error);
                 return false;
         }
@@ -159,6 +158,10 @@ Liftium.callAd = function (slotname, iframe) {
 Liftium._callAd = function (slotname, iframe) {
 	Liftium.d("Calling ad for " + slotname, 1);
         var t = Liftium.getNextTag(slotname);
+	if (t === false) {
+		Liftium.fillerAd(slotname);
+		return false;
+	}
 
         var loadDivId = slotname + '_' + t["tag_id"];
 
@@ -178,15 +181,30 @@ Liftium._callAd = function (slotname, iframe) {
                         document.write('<div id="' + loadDivId + '">' + t["tag"] + "</div>");
                 }
         } catch (e) {
-                Liftium.tagErrors = Liftium.tagErrors || [];
-                Liftium.tagErrors.push([t['tag_id'], Liftium.print_r(e)]);
-                Liftium.d("Error loading tag: ", 0, e);
+                Liftium.reportError("Error loading tag: " . Liftium.print_r(e), "tag");
         }
 
         return true;
 
 };
 
+
+/* Handle Javascript errors with window.onerror */
+Liftium.catchError = function (msg, url, line) {
+	try {
+		msg = "Javascript error on line #" + line + " of " + url + ": " + msg;
+		Liftium.d("ERROR! " + msg);
+		Liftium.reportError(msg, "onerror");
+		// If being called from the unit testing suite, mark it as a failed test
+		if (! Liftium.e(window.failTestOnError)) { // Set in LiftiumTest
+			window.LiftiumTest.testFailed();
+			alert(msg);
+		}
+	} catch (e) {
+		// Oh no. Error in the error handler. 
+	}
+	return false; // Make sure we let the default error handling continue
+};
 
 /* Sort the chain based on the following criteria:
  * tier, weighted_random
@@ -396,7 +414,7 @@ Liftium.getCountry = function(){
                 Liftium.d("Using athena_country for geo targeting (" + ac + ")", 8);
         } else if (typeof top.Geo == "undefined") {
                 // sometimes Geo isn't available because geoiplookup hasn't returned
-                Liftium.d("Geo country not downloaded properly, defaulting to US for now");
+                Liftium.d("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
                 return "us"; // Bail here so Liftium.getCountryFound doesn't get set
         } else if (typeof top.Geo.country == "undefined" ) {
                 // It downloaded, but it's empty, because we were unable to determine the country
@@ -442,7 +460,8 @@ Liftium.getNextTag = function(slotname){
         // Do we need to build the chain?
         if (Liftium.e(Liftium.chain[slotname])){
                 if ( Liftium.buildChain(slotname) === false){
-			throw ("Unrecognized slotname" + slotname);
+			Liftium.reportError("Unrecognized slotname " + slotname, "chain");
+			return false;
                 }
         }
 
@@ -450,7 +469,8 @@ Liftium.getNextTag = function(slotname){
 	Liftium.chain[slotname].numHops = Liftium.chain[slotname].numHops || 0;
 	Liftium.chain[slotname].numHops++;
 	if (Liftium.chain[slotname].numHops > 10){
-		throw ("Maximnum number of hops exceeded: 10");
+		Liftium.reportError("Maximum number of hops exceeded: 10", "chain");
+		return false;
 	}
 	
 	// \suspenders
@@ -484,7 +504,7 @@ Liftium.getNextTag = function(slotname){
                 }
         }
         // Rut roh
-        Liftium.d("No always_fill for " + slotname);
+        Liftium.d("No always_fill for " + slotname, "chain");
         
         // FIXME: Passing the slotname for the size will break when multiple slotnames are supported and are no longer named after the size. -Martel DuVigneaud 2009-09-22
         return Liftium.fillerAd(slotname);
@@ -645,7 +665,8 @@ Liftium.getUniqueSlotId = function(slotname) {
 		}
 	}
 
-	throw ("Error in Liftium.getUniqueSlotId. More than 10 ads of the same size?");
+	Liftium.reportError("Error in Liftium.getUniqueSlotId. More than 10 ads of the same size?", "publisher");
+	return false;
 };
 
 /* This is the backup tag used to go to the next ad in the configuration */
@@ -670,8 +691,6 @@ Liftium.iframeOnload = function(e) {
                         iframe.readyState = "complete";
                 }
         } catch (e) {
-		// iframe onload
-		alert ("iframe onload");
 	}
 };
 
@@ -695,7 +714,7 @@ Liftium.init = function () {
         Liftium.debugLevel = Liftium.getRequestVal('liftium_debug', 0);
 
 	if (Liftium.e(window.LiftiumOptions) || Liftium.e(window.LiftiumOptions.pubid)){
-		throw("LiftiumOptions.pubid must be set"); // TODO: provide a link to documentation
+		Liftium.reportError("LiftiumOptions.pubid must be set", "publisher"); // TODO: provide a link to documentation
 	}
 
 	Liftium.pullConfig();
@@ -783,8 +802,7 @@ Liftium.isValidCriteria = function (t){
                 return t['isValidCriteria'];
         }
 
-        try {
-          for (var key in t.criteria){
+        for (var key in t.criteria){
                 switch (key){
                   case 'Geography':
                         if ( ! Liftium.isValidCountry(t.criteria.Geography)){
@@ -804,13 +822,8 @@ Liftium.isValidCriteria = function (t){
                         }
                         break; // Shouldn't be necessary, but silences a jslint error 
                 }
-          }
-
-        } catch(e){
-                var emsg = "Javascript Error while checking criteria: " + Liftium.print_r(e);
-                Liftium.d(emsg);
-                return false;
         }
+
 	// Frequency
         if (!Liftium.e(t["freq_cap"])){
                 var a = Liftium.getTagStat(t["tag_id"], "a");
@@ -1068,6 +1081,48 @@ Liftium.recordEvents = function(slotname){
 
 
 
+Liftium.reportError = function (msg, type) {
+  try { 
+	// wrapped in a try catch block because if this function is reporting an error, all hell breaks loose
+
+	// Note that the Unit tests also track the number of errors
+	if (typeof Liftium.errorCount != "undefined") {
+		Liftium.errorCount++;
+	} else {
+		Liftium.errorCount = 1;
+	}
+
+	if (Liftium.errorCount > 5){
+		// Don't overwhelm our servers if the browser is stuck in a loop.
+		return;
+	}
+
+	var p = {
+		'msg' : msg,
+		'type': type || "general",
+		'pubid' : window.LiftiumOptions.pubid
+	};
+
+	Liftium.beaconCall(Liftium.baseUrl + "error?" + Liftium.buildQueryString(p));
+
+  } catch (e) {
+	Liftium.d("Yikes. Liftium.reportError has an error");
+  }
+};
+window.onerror = Liftium.catchError;
+
+
+Liftium.errorMessage = function (e) {
+	// e can be a native javascript error or a message. Figure out which
+	if (typeof e == "object" ){
+		// For now, so I can see what the format is for all browsers
+		return Liftium.print_r(e);
+	} else if (typeof e == "string"){
+		return e;
+	}
+};
+
+
 /* Send a beacon back to our server so we know if it worked */
 Liftium.sendBeacon = function (){
 
@@ -1112,21 +1167,6 @@ Liftium.sendBeacon = function (){
               b.pageTime = b.adTime - parseFloat(Liftium.loadDelay/1000); // subtract delayTime
               b.pageTime = Math.floor(b.pageTime * 10) / 10; // Round to 1 decimal
               Liftium.d ("Page loaded in " + b.pageTime + " seconds");
-        }
-
-        // Errors
-        if (! Liftium.e(Liftium.errors)){
-              // Send javascript errors back with the beacon
-              Liftium.d("sendBeacon() errors: ", 0, Liftium.errors);
-              b.errors = Liftium.errors;
-        }
-
-
-        // Tag Errors
-        if (! Liftium.e(Liftium.tagErrors)){
-              // Send tag errors back with the beacon
-              Liftium.d("sendBeacon() tagErrors: ", 0, Liftium.tagErrors);
-              b.tagErrors = Liftium.tagErrors;
         }
 
         // Pass along other goodies
@@ -1231,6 +1271,11 @@ Liftium.storeTagStats = function (){
         );
 };
 
+
+/* Why do we even have this lever!? Because we need to test error handling (see test_jserror.php) */
+Liftium.throwError = function () {
+	return window.LiftiumthrowError.UndefinedVar;
+};
 
 // Gentlemen, Start your optimization!
 Liftium.init();

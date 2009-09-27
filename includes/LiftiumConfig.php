@@ -187,7 +187,6 @@ class LiftiumConfig{
 
 
 	static private function getCacheVersion(){
-		return mt_rand();
 		return "1.0r";
 	}
 }
