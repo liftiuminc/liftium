@@ -1,6 +1,7 @@
 class Tag < ActiveRecord::Base
   belongs_to :network
   belongs_to :publisher
+  has_many :tag_options
 
   # Get a list of enabled networks
   @networks = Network.find :all, :conditions => {:enabled => true}

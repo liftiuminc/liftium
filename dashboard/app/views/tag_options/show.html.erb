@@ -1,0 +1,18 @@
+<p>
+  <b>Option name:</b>
+  <%=h @tag_option.option_name %>
+</p>
+
+<p>
+  <b>Option value:</b>
+  <%=h @tag_option.option_value %>
+</p>
+
+<p>
+  <b>Tagid:</b>
+  <%=h @tag_option.tagid %>
+</p>
+
+
+<%= link_to 'Edit', edit_tag_option_path(@tag_option) %> |
+<%= link_to 'Back', tag_options_path %>

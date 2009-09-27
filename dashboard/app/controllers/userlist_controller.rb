@@ -9,14 +9,3 @@ class UserlistController < ApplicationController
     config.columns[:admin].form_ui = :checkbox
   end
 end
-
-
-# Not working for some reason
-#module UserlistHelper
-#   def password_column(record)
-#      password_field "record", "password", :class => "email-input text-input", :size => 30
-#   end
-#   def password_confirmation_column(record)
-#      password_field "record", "password_confirmation", :class => "email-input text-input", :size => 30
-#   end
-#end

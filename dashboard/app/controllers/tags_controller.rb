@@ -26,12 +26,5 @@ class TagsController < ApplicationController
     config.columns[:rejection_time].description = "Wait this many minutes after a rejection before trying again";
     config.columns[:value].label = "Value ($)";
 
-    # TODO : Make the tag textarea a more suitable size
-  end
-end
-
-module NetworksHelper
-  def size_form_column (record, input_name)
-     select("", input_name, Adformat.all.collect {|af| [ af.name_with_size, af.size ] }, { :selected => record.size, :include_blank => true })
   end
 end
