@@ -24,6 +24,7 @@ class TagsController < ApplicationController
     config.columns[:tier].description = "0-10";
     config.columns[:frequency_cap].description = "Number, Per 24 hours";
     config.columns[:rejection_time].description = "Wait this many minutes after a rejection before trying again";
+    config.columns[:tag].description = "<br />Copy Paste tag here. Note that you may use macros of <b>%@width@%, %@height@%, %@size@%</b>.<br />Macros also available one for each tag option you enter below. Ie. %@account_id@%"
     config.columns[:value].label = "Value ($)";
 
   end
