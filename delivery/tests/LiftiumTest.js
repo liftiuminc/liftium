@@ -1,5 +1,6 @@
 /* Unit test helper */
 
+// Tell Liftium to throw a LiftiumTest.testFailed when it has a js error
 window.failTestOnError = true;
 
 var LiftiumTest = {

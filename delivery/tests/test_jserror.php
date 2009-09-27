@@ -18,15 +18,9 @@ try { // Should fail on call to undefinedVar
 		code();
 	}
 } catch (e) {
-	var msg = Liftium.errorMessage(e);
-	if (Liftium.e(msg)){
-		LiftiumTest.testFailed();
-		document.write("msg is empty!");
-	} else {
-		LiftiumTest.testPassed();
-		// So I can see what it is on the various browsers
-		document.write(msg);
-	}
+	LiftiumTest.testPassed();
+	// So I can see what it is on the various browsers
+	document.write(Liftium.print_r(e));
 }
 </script>
 </pre>
@@ -35,13 +29,29 @@ try { // Should fail on call to undefinedVar
 <!-- Error in Athena javascript -->
 <script>Liftium.throwError();</script>
 
-<!-- Error with a particular tag. Should call tag id #, which is a tag with bad javascript.  -->
+<!-- Error with a particular tag. Should call tag id #, which is a tag with bad javascript.  
 <script>Liftium.callAd("125x125");</script>
+-->
 
 <script>
-	if (Liftium.errorCount == 2){
+	/* ATTENTION: Certain browsers don't fire the onload handler.
+	  If this is the case, Liftium.errorCount will be undefined.
+	  For these browsers, we won't get errors passed back :(
+
+	  Firefox 3 - Yes
+	  Safari 4 - No
+	  IE 6 - Yes
+	  IE 7 - Yes
+	  IE 8 - Yes
+	  Chrome - No
+	  Opera - No
+	*/
+	if (typeof Liftium.errorCount == "undefined" ) {
+		document.write("This browser does not support window.onerror. :(");
+	} else if (Liftium.errorCount == 1){
 		LiftiumTest.testPassed();
 	} else {
+		alert("Liftium.errorCount is " + Liftium.errorCount);
 		LiftiumTest.testFailed();
 	}
 </script>

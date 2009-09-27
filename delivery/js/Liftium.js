@@ -691,8 +691,6 @@ Liftium.iframeOnload = function(e) {
                         iframe.readyState = "complete";
                 }
         } catch (e) {
-		// iframe onload
-		alert ("iframe onload");
 	}
 };
 
@@ -1086,16 +1084,17 @@ Liftium.recordEvents = function(slotname){
 Liftium.reportError = function (msg, type) {
   try { 
 	// wrapped in a try catch block because if this function is reporting an error, all hell breaks loose
-	if (Liftium.errorCount > 5){
-		// Don't overwhelm our servers if the browser is stuck in a loop.
-		return;
-	}
 
 	// Note that the Unit tests also track the number of errors
-	if (Liftium.errorCount) {
+	if (typeof Liftium.errorCount != "undefined") {
 		Liftium.errorCount++;
 	} else {
 		Liftium.errorCount = 1;
+	}
+
+	if (Liftium.errorCount > 5){
+		// Don't overwhelm our servers if the browser is stuck in a loop.
+		return;
 	}
 
 	var p = {
