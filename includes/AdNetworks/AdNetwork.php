@@ -152,25 +152,11 @@ class AdNetwork {
 
 
         /* Poor man's auto-loader, with error checking. This may be a performance challenge. Verify. */
-        static public function loadNetworkClass($network){
-                if (empty($network)){
-                        // Huh?
-                        return false;
-                }
-
-                $class = 'AdNetwork' . $network;
-                if (class_exists($class)){
-                        // Already loaded
-                        return $class;
-                }
-
-		global $IP;
-                $file = $IP . '/AdNetworks/' . $class . '.php';
-                if (!file_exists($file)){
-                        return false;
-                } else {
-                        return $class;
-                }
+        static public function getNetworkClass($network_id){
+		switch ($network_id){
+		  case '': return '';
+                  default : return false;
+		} 
         }
 
 
@@ -288,6 +274,37 @@ class AdNetwork {
 			return $ret;
 		}
 	}
+
+        /* Pull the current list of networks
+         */
+        public function getNetworkList(){
+                $cache = LiftiumCache::getInstance();
+                $cacheKey = __CLASS__ . ':' . __METHOD__ . ":" . self::cacheVersion . ":";
+
+                $out = $cache->get($cacheKey);
+                if (!empty($out) && empty($_GET['purge'])){
+                        return $out;
+                }
+
+                // Cache miss, get from DB
+                $dbr = Framework::getDB("slave");
+                $networks = AdNetwork::searchNetworks(array('enabled'=>'Yes'));
+
+                $out = array();
+                foreach($networks as $network){
+                        $out[] = array(
+                                'network_id' => $network->network_id,
+                                'network_name' => $network->network_name
+                        );
+                }
+
+
+                // Store in memcache for next time
+                $cache->set($cacheKey, $out, 0, self::cacheTimeout);
+
+                return $out;
+        }
+
 		
 }
 

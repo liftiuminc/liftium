@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :tag_options
+
   map.resources :network_options
 
 

@@ -1,0 +1,24 @@
+<h1>Listing tag_options</h1>
+
+<table>
+  <tr>
+    <th>Option name</th>
+    <th>Option value</th>
+    <th>Tagid</th>
+  </tr>
+
+<% @tag_options.each do |tag_option| %>
+  <tr>
+    <td><%=h tag_option.option_name %></td>
+    <td><%=h tag_option.option_value %></td>
+    <td><%=h tag_option.tagid %></td>
+    <td><%= link_to 'Show', tag_option %></td>
+    <td><%= link_to 'Edit', edit_tag_option_path(tag_option) %></td>
+    <td><%= link_to 'Destroy', tag_option, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tag_option', new_tag_option_path %>

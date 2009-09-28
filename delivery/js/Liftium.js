@@ -624,7 +624,8 @@ Liftium.getSizeForSlotname = function (slotname){
 Liftium.getTagStat = function (tag_id, type){
         var stat = null;
 
-	Liftium.tagStats = Liftium.tagStats || "";
+	Liftium.tagStats = Liftium.tagStats || Liftium.cookie("ATS") || '';
+
         var statMatch = Liftium.tagStats.match(Liftium.getStatRegExp(tag_id));
         if (!Liftium.e(statMatch)){
                 var len = statMatch.length;

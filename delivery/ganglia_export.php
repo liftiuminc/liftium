@@ -46,11 +46,6 @@ function getStatsByBrowser(){
 
 function getTagsByNetwork($network_id){
 
-	if ($network_id == "4"){
-		// Special case
-		getContextWebStats();
-	}
-
 	$tags = AdTag::searchTags(array('enabled'=>1, 'network_id'=>$network_id));
 	foreach ($tags as $tag){
 		$stats = $tag->getFillStats(array('minute'=>strtotime('-90 seconds')));
@@ -61,32 +56,6 @@ function getTagsByNetwork($network_id){
 			" rejects: {$stats['rejects']}" . "\n";
 	}
 }
-
-
-function getContextWebStats(){
-	require_once dirname(__FILE__) . '/AdNetworks/AdNetworkContextWeb.php';
-	$ContextWeb = new AdNetworkContextWeb();
-	$config = $ContextWeb->configArray();
-
-	foreach($config as $cwtag){
-		$attempts = intval(file_get_contents("http://" . $_SERVER['HTTP_HOST'] . "/athena/event/get?event=contextWebBeacon&cwtagid=" . $cwtag[0] . "&action=attempt&begin=-2+minutes&end=-1+minute"));
-		if ($attempts == 0){
-			continue;
-		}
-
-		$rejects = intval(file_get_contents("http://" . $_SERVER['HTTP_HOST'] . "/athena/event/get?event=contextWebBeacon&cwtagid=" . $cwtag[0] . "&action=reject&begin=-2+minutes&end=-1+minute"));
-
-		$loads = intval(file_get_contents("http://" . $_SERVER['HTTP_HOST'] . "/athena/event/get?event=contextWebBeacon&cwtagid=" . $cwtag[0] . "&action=load&begin=-2+minutes&end=-1+minute"));
-
-		$safe_tag_name = "ContextWeb_#{$cwtag[0]}_\${$cwtag[1]}_{$cwtag[2]}";
-
-		echo "tag_id:CW_{$cwtag[0]} tag_name:$safe_tag_name" .
-			" attempts: $attempts" .
-			" loads: $loads" .
-			" rejects: $rejects" . "\n";
-	}
-}
-
 
 
 function getMiscStats(){
