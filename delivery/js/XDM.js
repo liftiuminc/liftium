@@ -2,11 +2,11 @@
  * Ideas borrowed from http://code.google.com/p/xssinterface/, but rewritten from scratch.
  *
  * XDM has two methods for sending messages cross domain. The first of which uses
- * postMessages(), an HTML 5 javascript method.  * As I write this, the following
- * browsers support postMessage
- * Firefox 3+
+ * postMessages(), an HTML 5 javascript method.
+ * As I write this, the following * browsers support postMessage
+ * Firefox 3.1+
  * IE 8+
- * Safari 3 nightly builds. 
+ * Safari 4+
  *
  * For the rest of the browsers, we use a backward compatible hack that utilizes an
  * external html file that acts as a conduit for information - XDM.iframeUrl
@@ -16,14 +16,16 @@
 
 var XDM = {
 	allowedMethods : [],
-	debugOn	   : false, // Print debug messages to console.log
+	debugOn	   : true, // Print debug messages to console.log
 
 	// These options only needed for the iframe based method,
 	// for browsers that don't support postMessage
 	// HTML file that calls "XDM.setCookieFromUrl"
-	iframeUrl      : "/extensions/wikia/AdEngine/XDM_iframe.html", 
-	postMessageEnabled : false // Set to false to force fallback method
+	iframeUrl      : null,
+	postMessageEnabled : true // Set to false to force fallback method
 };
+
+
 /*
  * @param frame - the window object to execute the code in. Example: top, window.parent
  * @param method - the method to execute in the parent window. Note the other window has to be listening for it with XDMListen(), and the method must be in XDM.allowedMethods
@@ -51,8 +53,7 @@ XDM.send = function (destWin, method, args){
 
 XDM.getDestinationDomain = function(destWin){
 	if (destWin == top){
-		// Firefox and Safari don't allow children to read parent window,
-		// pull domain from referrer. ;-)
+		// Pull domain from referrer. 
 		if (document.referrer.toString() !== ''){
 			var m = document.referrer.toString().match(/https*:\/\/([^\/]+)/);
 			XDM.debug("Hostname for destWin set to " + m[1] + " using referrer");
@@ -90,6 +91,12 @@ XDM._postMessage = function(destWin, method, args) {
 
 XDM._postMessageWithIframe = function(destWin, method, args) {
 	XDM.debug("Sending message using iframe");
+	if (XDM.iframeUrl === null) {
+		XDM.debug("Iframe method called, but no html file is specified");
+		return false;
+	}
+		
+
 	var d = XDM.getDestinationDomain(destWin), targetOrigin;
 	if (d === false){
 		// No where to send 
@@ -176,9 +183,8 @@ XDM.isAllowedMethod = function(method){
 XDM.executeMessage = function(serializedMessage){
 	var nvpairs = XDM.parseQueryString(serializedMessage);
 	if ( XDM.isAllowedMethod(nvpairs["method"])){
-		// Execute the code. Note we prepend top to make sure it's executing in the right place.
-		var code = "top." + nvpairs["method"]; 
-		var functionArgs = [];
+
+		var functionArgs = [], code;
 		// Build up the argument list
 		for (var prop in nvpairs){
 			if (prop.substring(0, 3) == "arg"){
@@ -186,6 +192,7 @@ XDM.executeMessage = function(serializedMessage){
 			}
 		}
 
+		// Why hard code this? To prevent stupid shit.
 		if (functionArgs.length > 0){
 			code += '("' + functionArgs.join('","') + '");';
 		} else {
@@ -200,40 +207,36 @@ XDM.executeMessage = function(serializedMessage){
 };
 
 
-/* Nick wrote: This code looks at the query string supplied in the url and parses it.
+/* This code looks at the supplied query string and parses it.
  * It returns an associative array of url decoded name value pairs
  */
 XDM.parseQueryString = function (qs){
-  var ret = [], intIndex;
+        var ret = [];
+        if (typeof qs != "string") { return ret; }
 
-  if (qs.charAt(0) === '?') { qs = qs.substr(1); }
-  if (qs.length === 0) {  return ret; }
+        if (qs.charAt(0) === '?') { qs = qs.substr(1); }
 
-  qs=qs.replace(/\;/g, '&', qs);
+        qs=qs.replace(/\;/g, '&', qs);
 
-  var nvpairs=qs.split('&');
+        var nvpairs=qs.split('&');
 
-  for (var i = 0; i < nvpairs.length; i++){
-    if (nvpairs[i].length === 0){
-      continue;
-    }
+        for (var i = 0, intIndex; i < nvpairs.length; i++){
+                if (nvpairs[i].length === 0){
+                        continue;
+                }
 
-    var varName ='', varValue='';
-    if ((intIndex = nvpairs[i].indexOf('=')) != -1) {
-      varName = decodeURIComponent(nvpairs[i].substr(0, intIndex));
-      varValue = decodeURIComponent(nvpairs[i].substr(intIndex + 1));
-    } else {
-      varName = decodeURIComponent(nvpairs[i].substr(0, intIndex));
-      varValue = '';
-    }
+                var varName = '', varValue = '';
+                if ((intIndex = nvpairs[i].indexOf('=')) != -1) {
+                        varName = decodeURIComponent(nvpairs[i].substr(0, intIndex));
+                        varValue = decodeURIComponent(nvpairs[i].substr(intIndex + 1));
+                } else {
+                        // No value, but it's there
+                        varName = nvpairs[i];
+                        varValue = true;
+                }
 
-    if (varName === '' || varValue === ''){
-      continue;
-    }
+                ret[varName] = varValue;
+        }
 
-    ret[varName]=varValue;
-  }
-
-  return ret;
-};
-
+        return ret;
+}; 
