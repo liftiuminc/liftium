@@ -6,7 +6,7 @@ else
 fi
 
 if [ "$1" == "live" ] ; then
-  echo "No more reraking the live website. You owe Nick lunch for putting this check here, you would have just dropped the live database."
+  echo "No more reraking the live website. You owe Nick a margarita for putting this check here, you would have just dropped the live database."
 fi
 
 rake db:drop RAILS_ENV=$env
