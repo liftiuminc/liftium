@@ -6,8 +6,8 @@ If this page is white, it didn't work.
 <p>
 
 <?php
-// Note that I'm using the ip address here so that it's a different domain
-$iframeUrl = "http://" . gethostbyname($_SERVER["HTTP_HOST"]) . dirname($_SERVER['REQUEST_URI']) . '/iframe_cross_domain.html';
+// Note that I'm using the port here so that it's a different domain
+$iframeUrl = "http://" . $_SERVER["HTTP_HOST"] . ":81". dirname($_SERVER['REQUEST_URI']) . '/iframe_cross_domain.html';
 ?>
 <script>
 </script>
