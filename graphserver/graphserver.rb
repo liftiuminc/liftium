@@ -6,7 +6,7 @@ require 'sinatra'
 require 'sparklines'
 
 @@rrd_path = "/var/lib/ganglia/rrds/"
-@@liftium_path= "#{@@rrd_path}/Liftium/localhost/"
+@@liftium_path= "#{@@rrd_path}/Liftium/localhost.localdomain/"
 
 
 def send_rrd_graph(rrd_opts) 

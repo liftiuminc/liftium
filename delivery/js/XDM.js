@@ -7,6 +7,8 @@
  * Firefox 3.1+
  * IE 8+
  * Safari 4+
+ * Chrome 3+
+ * Opera 9+
  *
  * For the rest of the browsers, we use a backward compatible hack that utilizes an
  * external html file that acts as a conduit for information - XDM.iframeUrl
@@ -184,7 +186,7 @@ XDM.executeMessage = function(serializedMessage){
 	var nvpairs = XDM.parseQueryString(serializedMessage);
 	if ( XDM.isAllowedMethod(nvpairs["method"])){
 
-		var functionArgs = [], code;
+		var functionArgs = [], code = nvpairs["method"];
 		// Build up the argument list
 		for (var prop in nvpairs){
 			if (prop.substring(0, 3) == "arg"){
