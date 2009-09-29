@@ -1,11 +1,13 @@
 <?php require 'header.php'?>
-<script src="../XDM.js"></script>
+<script src="../js/XDM.js"></script>
 This page is for testing the cross domain communication tools. It pulls up an iframe that will attempt to call the "testPassed" on the parent page.
+
+If this page is white, it didn't work.
 <p>
 
 <?php
-// Note that I'm using the ip address here so that it's a different domain
-$iframeUrl = "http://" . gethostbyname($_SERVER["HTTP_HOST"]) . dirname($_SERVER['REQUEST_URI']) . '/iframe_cross_domain.html';
+// Note that I'm using the port here so that it's a different domain
+$iframeUrl = "http://" . $_SERVER["HTTP_HOST"] . ":81". dirname($_SERVER['REQUEST_URI']) . '/iframe_cross_domain.html';
 ?>
 <script>
 </script>
@@ -20,21 +22,13 @@ function crossDomainMessage(message){
                 console.log("Message received in " + window.location.hostname);
                 if (console.dir) { console.dir(message); }
         }
-        XDM.allowedMethods = ["AthenaTest.testPassed"];
+        XDM.allowedMethods = ["LiftiumTest.testPassed"];
         if (message.data.match(/%22arg2%20data%22/)){ // simple check for args being passed
                 XDM.executeMessage(message.data);       
         };
 };
 XDM.listenForMessages(crossDomainMessage);
 
-function checkIfPassed(){
-        clearInterval(myTimer);
-        if (!document.title.match(/passed/i)){
-                AthenaTest.testFailed();
-        };
-} 
-
-myTimer = setInterval(checkIfPassed, 1000);
 </script>
 
 <?php require 'footer.php'?>
