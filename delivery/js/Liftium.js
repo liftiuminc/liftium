@@ -147,7 +147,7 @@ Liftium.callAd = function (slotname, iframe) {
 
 	// Write out a _load div and call the ad
 	var loadid = Liftium.getUniqueSlotId(slotname); 
-	document.write('<div id="' + loadid + '">');
+	document.write('<div id="' + loadid + '" style="overflow: hidden">');
 	Liftium._callAd(slotname);
 	document.write("</div>");
 	return true;
