@@ -4,7 +4,7 @@
  * XDM has two methods for sending messages cross domain. The first of which uses
  * postMessages(), an HTML 5 javascript method.
  * As I write this, the following * browsers support postMessage
- * Firefox 3.1+
+ * Firefox 3.0+
  * IE 8+
  * Safari 4+
  * Chrome 3+
