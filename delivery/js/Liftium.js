@@ -192,7 +192,11 @@ Liftium._callAd = function (slotname, iframe) {
 /* Handle Javascript errors with window.onerror */
 Liftium.catchError = function (msg, url, line) {
 	try {
-		msg = "Javascript error on line #" + line + " of " + url + ": " + msg;
+		if (typeof msg == "object"){
+			msg = "Javascript object: " + Liftium.print_r(msg);
+		} else {
+			msg = "Javascript error on line #" + line + " of " + url + " : " + msg;
+		}
 		Liftium.d("ERROR! " + msg);
 		Liftium.reportError(msg, "onerror");
 		// If being called from the unit testing suite, mark it as a failed test

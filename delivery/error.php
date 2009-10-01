@@ -40,12 +40,16 @@ $ignores = array(
 	"quantserve",
 	"urchin",
 	"greasemonkey",
-	"Error loading script" // Will happen if user interrupts transfer
+	"Error loading script", // Will happen if user interrupts transfer
+	"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
 );
 // Triage
 if (preg_match("/(" . implode("|", $ignores) . ")/", $message)){
 	$logit = false;
 	$statit = false;
+	$emailto = false;
+} else if (empty($line)){
+	// If line is 0, we won't be able to debug.
 	$emailto = false;
 } else if (!strstr($url, "liftium.com")){
 	// Not our site. Log it, no e-mail and no stats
