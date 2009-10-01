@@ -804,31 +804,6 @@ Liftium.isValidCriteria = function (t){
 
         if (!Liftium.e(t['isValidCriteria'])){
                 return t['isValidCriteria'];
-        } else if (Liftium.e(t['criteria'])){
-                t['isValidCriteria'] = true;
-                return t['isValidCriteria'];
-        }
-
-        for (var key in t.criteria){
-                switch (key){
-                  case 'Geography':
-                        if ( ! Liftium.isValidCountry(t.criteria.Geography)){
-                                Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid Geography", 8);
-                                t['isValidCriteria'] = false;
-                                return t['isValidCriteria'];
-                        }
-                        break;
-                  default:
-                        // If it is not predefined, assume it is a page var. 
-                        var list = eval("t.criteria." + key);
-                        if (! Liftium.in_array(Liftium.getPageVar(key), list)){
-
-                                Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " not found in ", 8, list);
-                                t['isValidCriteria'] = false;
-                                return t['isValidCriteria'];
-                        }
-                        break; // Shouldn't be necessary, but silences a jslint error 
-                }
         }
 
 	// Frequency
@@ -873,6 +848,30 @@ Liftium.isValidCriteria = function (t){
                         }
                 }
 
+        }
+
+        if (!Liftium.e(t['criteria'])){
+                for (var key in t.criteria){
+                        switch (key){
+                          case 'Geography':
+                                if ( ! Liftium.isValidCountry(t.criteria.Geography)){
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid Geography", 8);
+                                        t['isValidCriteria'] = false;
+                                        return t['isValidCriteria'];
+                                }
+                                break;
+                          default:
+                                // If it is not predefined, assume it is a page var.
+                                var list = eval("t.criteria." + key);
+                                if (! Liftium.in_array(Liftium.getPageVar(key), list)){
+
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " not found in ", 8, list);
+                                        t['isValidCriteria'] = false;
+                                        return t['isValidCriteria'];
+                                }
+                                break; // Shouldn't be necessary, but silences a jslint error
+                        }
+                }
         }
 
         // All criteria passed 
