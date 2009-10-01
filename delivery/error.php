@@ -7,7 +7,7 @@ $pubid = Framework::getRequestVal("pubid", "UnknownPubid");
 $browser = Framework::getBrowser();
 $ip = Framework::getIp();
 $msg = Framework::getRequestVal("msg");
-if (preg_match("/error on line #([0-9]+) of (https*:\/\/[^ :]+))/", $msg, $match)){
+if (preg_match("/error on line #([0-9]+) of (https*:\/\/[^ :]+)/", $msg, $match)){
 	$line = $match[1];
 	$url = trim($match[2]);
 } else {
@@ -44,7 +44,7 @@ $ignores = array(
 	"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
 );
 // Triage
-if (preg_match("/(" . implode("|", $ignores) . ")/", $message)){
+if (preg_match("/(" . implode("|", $ignores) . ")/", $msg)){
 	$logit = false;
 	$statit = false;
 	$emailto = false;
