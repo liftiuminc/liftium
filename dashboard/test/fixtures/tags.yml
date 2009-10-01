@@ -133,3 +133,54 @@ malformedjs:
   size: "125x125"
   tag: 'This is a tag with bad javascript that should throw an error. <script>badjavascript.tag11()</script>'
 
+rejectionhop:
+  id            : 13
+  tag_name      : 'Test2: MR Rejection Time Hop'
+  network_id    : 42
+  publisher_id  : 1046
+  value         : 3.00
+  enabled       : 1
+  always_fill   : 0
+  tier          : 9
+  rejection_time: 5
+  size          : '300x250'
+  tag           : '<script>document.write("This is a hop from a chain with a rejection time");</script><script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
+
+rejectionfill:
+  id            : 14
+  tag_name      : 'Test2: MR Rejection Time Fill'
+  network_id    : 42
+  publisher_id  : 1046
+  value         : 0.2
+  enabled       : 1
+  always_fill   : 1
+  tier          : 1
+  size          : '300x250'
+  tag           : 'This is an always fill from a chain with a rejection time'
+
+frequencycap:
+  id            : 15
+  tag_name      : 'Test2 : LR Frequency Cap Fill'
+  network_id    : 42
+  publisher_id  : 1046
+  value         : 3.00
+  enabled       : 1
+  always_fill   : 0
+  sample_rate   : NULL
+  tier          : 9
+  frequency_cap : 1
+  size          : '336x280'
+  tag           : '<script>document.write("This is a fill from a chain with a frequency cap");</script>'
+
+frequencyfill:
+  id            : 16
+  tag_name      : 'Test2 : LR Frequency Cap Always Fill'
+  network_id    : 42
+  publisher_id  : 1046
+  value         : 0.20
+  enabled       : 1
+  always_fill   : 1
+  tier          : 1
+  size          : '336x280'
+  tag           : '<script>document.write("This is an always_fill after a tag with a frequency cap");</script>'
+
