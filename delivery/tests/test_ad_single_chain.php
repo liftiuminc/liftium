@@ -1,4 +1,4 @@
-<?php $pubid = 1046; ?>
+<?php $LiftiumOptions=array("pubid" => 1046); ?>
 <?php require 'header.php'?>
 This page is for testing Liftium ad calls with a single always_fill tag in the chain.
 <p>

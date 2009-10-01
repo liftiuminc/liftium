@@ -1116,7 +1116,9 @@ Liftium.reportError = function (msg, type) {
 	Liftium.d("Yikes. Liftium.reportError has an error");
   }
 };
-window.onerror = Liftium.catchError;
+if (window.LiftiumOptions && window.LiftiumOptions.error_beacon !== false ){
+	window.onerror = Liftium.catchError;
+}
 
 
 Liftium.errorMessage = function (e) {

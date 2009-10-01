@@ -1,47 +1,33 @@
-<?php $pubid = 1046 ?>
-<?php require 'header.php'?>
-
+<?php $LiftiumOptions = array("beacon_error" => false) ?>
+<?php require 'header.php';?>
 <!-- For this test, we are testing errors, so turn the default error catching off -->
 <script>window.failTestOnError = false;</script>
 
-This page is for testing how we catch and deal with javascript errors.
-<ol>
-<li>An error on the page
-<li>An error in the Liftium javascript 
-</ol>
-<p>
-<pre>
+<div id="error_message"></div>
+
+<script>
+window.onerror = function (msg, url, line){
+	if (Liftium.e(Liftium.errorCount)){
+		Liftium.errorCount = 1;
+	} else {
+		Liftium.errorCount++;
+	}
+	Liftium._("error_message").innerHTML += "<pre>Error #" + Liftium.errorCount + ":<br/ >" + url + ":" + line + " => " + msg + "</pre>";
+	return true; // Return false to tell the browser to not report the error
+};
+</script>
+
 <!-- Error on the page -->
 <script>
-try { // Should fail on call to undefinedVar
-	if (undefinedVar == true ){
-		code();
-	}
-} catch (e) {
-	LiftiumTest.testPassed();
-	// So I can see what it is on the various browsers
-	document.write(Liftium.print_r(e));
+if (undefinedVar == true ){
+	code();
 }
 </script>
 </pre>
 <hr />
 
-<!-- Caught error so I can see what browsers give me in e -->
-<pre>
-<script>
-try { 
-	Liftium.throwError();
-} catch (e) {
-	LiftiumTest.testPassed();
-	// So I can see what it is on the various browsers
-	document.write(Liftium.print_r(e));
-}
-</script>
-</pre>
-
-<!-- Again, this time don't catch it -->
+<!-- Error off the page -->
 <script>Liftium.throwError();</script>
-
 
 <script>
 /* ATTENTION: Certain browsers don't fire the onload handler.
@@ -59,7 +45,7 @@ try {
 if (typeof Liftium.errorCount == "undefined" ) {
 	LiftiumTest.testPassed();
 	document.write("This browser does not support window.onerror. :(");
-} else if (Liftium.errorCount == 1){
+} else if (Liftium.errorCount == 2){
 	LiftiumTest.testPassed();
 } else {
 	alert("Liftium.errorCount is " + Liftium.errorCount);

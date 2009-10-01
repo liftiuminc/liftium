@@ -1,4 +1,4 @@
-<?php $pubid = 1046; ?>
+<?php $LiftiumOptions=array("pubid" => 1046); ?>
 <?php require 'header.php'?>
 This page is for testing Liftium ad calls if the config didn't download, which should display a PSA.
 <p>
