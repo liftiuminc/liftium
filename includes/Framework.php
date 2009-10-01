@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/CommonSettings.php';
+require dirname(__FILE__) . '/CommonSettings.php';
 
 // F U Symfony
 class Framework {
@@ -155,7 +155,9 @@ class Framework {
 			$ua = $_SERVER['HTTP_USER_AGENT'];
 		}
 
-		if (preg_match("#Firefox/3#", $ua)){
+		if (preg_match("#Firefox/3.5#", $ua)){
+			return "Firefox 3.5";
+		} else if (preg_match("#Firefox/3#", $ua)){
 			return "Firefox 3";
 		} else if (preg_match("#Firefox/2#", $ua)){
 			return "Firefox 2";
