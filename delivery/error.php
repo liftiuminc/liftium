@@ -3,6 +3,7 @@ require dirname(__FILE__) . '/../includes/Framework.php';
 
 // Parse incoming
 $type = Framework::getRequestVal("type", "UnknownType");
+$lang = Framework::getRequestVal("lang", "UnknownLang");
 $pubid = Framework::getRequestVal("pubid", "UnknownPubid");
 $browser = Framework::getBrowser();
 $ip = Framework::getIp();
@@ -20,6 +21,7 @@ if (!empty($_GET['debug'])){
 	echo "<pre>";
 	print_r($_GET);
 	echo "type = $type\n";
+	echo "lang = $lang\n";
 	echo "pubid = $pubid\n";
 	echo "browser = $browser\n";
 	echo "ip = $ip\n";
@@ -44,7 +46,10 @@ $ignores = array(
 	"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
 );
 // Triage
-if (preg_match("/(" . implode("|", $ignores) . ")/", $msg)){
+if ($lang != "en" ){
+	// Can't read these anyway
+	$emailto = false;
+} else if (preg_match("/(" . implode("|", $ignores) . ")/", $msg)){
 	$logit = false;
 	$statit = false;
 	$emailto = false;
@@ -79,7 +84,7 @@ if ($statit) {
 	if (@$_GET['type'] == 'tag') {
 		EventRecorder::record(array('TagErrors'), "minute");
 	} else {
-			EventRecorder::record(array('JavascriptErrors_' . $_GET['type']), "minute");
+			EventRecorder::record(array('JavascriptErrors_' . $type), "minute");
 	}
 }
 ?>

@@ -1123,7 +1123,8 @@ Liftium.reportError = function (msg, type) {
 	var p = {
 		'msg' : msg,
 		'type': type || "general",
-		'pubid' : window.LiftiumOptions.pubid
+		'pubid' : window.LiftiumOptions.pubid,
+		'lang' : Liftium.getBrowserLang()
 	};
 
 	Liftium.beaconCall(Liftium.baseUrl + "error?" + Liftium.buildQueryString(p));
