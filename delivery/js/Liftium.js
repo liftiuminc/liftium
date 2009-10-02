@@ -1011,6 +1011,12 @@ Liftium.pullConfig = function (){
                 "v": 1.2 // versioning for config
         };
 
+	// Simulate a small delay (used by unit tests
+	if (!Liftium.e(window.LiftiumOptions.config_delay)){
+		p.config_delay = window.LiftiumOptions.config_delay;
+		p.cb = Math.random();
+	}
+
         // Allow for us to work in a dev environment
         if (! Liftium.e(Liftium.getRequestVal('liftium_dev_hosts') ||
               window.location.hostname.indexOf(".dev.liftium.com") > -1)){
