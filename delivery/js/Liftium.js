@@ -439,6 +439,19 @@ Liftium.getCountry = function(){
 };
 
 
+/* Normalize the language of the browser.
+ * FF, Safari, Chrome, Camino use 'language'
+ * Opera uses browserLanguage and userLanguage
+ * IE uses 'systemLanguage', and 'userLanguage'
+ * May vary depending on platform based on what the OS exposes
+ */
+Liftium.getBrowserLang = function () {
+	var n = window.navigator;
+	var l = n.language || n.systemLanguage || n.browserLanguage || n.userLanguage || "";
+	return l.substring(0,2);
+};
+
+
 /* Returns the number of minutes that have elapsed since midnight, according to the users clock */
 Liftium.getMinutesSinceMidnight = function(){
         var now = new Date();
