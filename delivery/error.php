@@ -73,7 +73,7 @@ if ($logit) {
 }
 
 // Send e-mail
-if (!empty($emailto)){
+if (!Framework::isDev() && !empty($emailto)){
 	mail(implode(",", $emailto), "Liftium Javascript Error - @{$_GET['type']}", $message);
 }
 

@@ -46,7 +46,7 @@ if ($format == 'text'){
 
 $config_delay = Framework::getRequestVal("config_delay", null, FILTER_VALIDATE_INT);
 if (!empty($config_delay)){
-	trigger_error("Config articificially delayed $config_delay seconds", E_USER_NOTICE);
+	trigger_error("Config artificially delayed $config_delay seconds", E_USER_NOTICE);
 	sleep(min($config_delay, 5)); // max of 5 to prevent silliness
 }
 ?>
