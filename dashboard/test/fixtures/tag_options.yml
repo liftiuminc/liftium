@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  option_name: MyString
-  option_value: MyString
-  tagid: 1
+#one:
+#  option_name: MyString
+#  option_value: MyString
+#  tagid: 1
 
-two:
-  option_name: MyString
-  option_value: MyString
-  tagid: 1
+#two:
+#  option_name: MyString
+#  option_value: MyString
+#  tagid: 1
