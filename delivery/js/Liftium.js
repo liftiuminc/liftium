@@ -178,9 +178,12 @@ Liftium._callAd = function (slotname, iframe) {
                 } else {
 			// Capture this for ads that need the slotname
                         Liftium.slotname = slotname;
+                        Liftium.lastTag = t;
                         document.write('<div id="' + loadDivId + '">' + t["tag"] + "</div>");
+                        Liftium.lastTag = null;
                 }
         } catch (e) {
+		// This is probably never called, because the document.write hides it...
                 Liftium.reportError("Error loading tag: " . Liftium.print_r(e), "tag");
         }
 
@@ -192,13 +195,19 @@ Liftium._callAd = function (slotname, iframe) {
 /* Handle Javascript errors with window.onerror */
 Liftium.catchError = function (msg, url, line) {
 	try {
+		var jsmsg;
 		if (typeof msg == "object"){
-			msg = "Javascript object: " + Liftium.print_r(msg);
+			jsmsg = "Error object: " + Liftium.print_r(msg);
 		} else {
-			msg = "Javascript error on line #" + line + " of " + url + " : " + msg;
+			jsmsg = "Error on line #" + line + " of " + url + " : " + msg;
 		}
-		Liftium.d("ERROR! " + msg);
-		Liftium.reportError(msg, "onerror");
+		Liftium.d("ERROR! " + jsmsg);
+
+		if (Liftium.e(Liftium.lastTag)){
+			Liftium.reportError(jsmsg, "onerror");
+		} else {
+			Liftium.reportError("Tag error for tag " + Liftium.print_r(Liftium.lastTag) + "\n" + jsmsg, "tag");
+		}
 		// If being called from the unit testing suite, mark it as a failed test
 		if (! Liftium.e(window.failTestOnError)) { // Set in LiftiumTest
 			window.LiftiumTest.testFailed();

@@ -46,7 +46,10 @@ $ignores = array(
 	"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
 );
 // Triage
-if ($lang != "en" ){
+if ($type == "tag"){
+	$emailto[] = "veronica@liftium.com";
+	$emailto[] = "jennie@liftium.com";
+} else if ($lang != "en" ){
 	// Can't read these anyway
 	$emailto = false;
 } else if (preg_match("/(" . implode("|", $ignores) . ")/", $msg)){
