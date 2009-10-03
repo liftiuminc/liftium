@@ -1,4 +1,4 @@
-<?php $pubid = 1046; ?>
+<?php $LiftiumOptions = array('pubid' => 1046); ?>
 <?php require 'header.php'?>
 This page is for testing frequency capping, part 2:<br />
 First tag will be skipped because it was alread filled in part 1 and the second tag will always fill.

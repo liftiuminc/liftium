@@ -1,4 +1,4 @@
-<?php $pubid = 1046; ?>
+<?php $LiftiumOptions = array('pubid' => 1046); ?>
 <?php require 'header.php'?>
 This page is for testing rejection time, part 2:<br />
 First tag will be skipped because it was rejected in part 1. Second tag will always fill.
