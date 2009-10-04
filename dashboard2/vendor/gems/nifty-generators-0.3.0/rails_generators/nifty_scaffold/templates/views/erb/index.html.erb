@@ -1,24 +1,24 @@
 <%% title "<%= plural_name.titleize %>" %>
 
-<table>
-  <tr>
+<table class="record_listing">
+  <tr class="record_listing_header">
   <%- for attribute in attributes -%>
     <th><%= attribute.column.human_name.titleize %></th>
   <%- end -%>
   </tr>
   <%% for <%= singular_name %> in @<%= plural_name %> %>
-    <tr>
+    <tr class="record_row_<%%= cycle("odd", "even")%>">
     <%- for attribute in attributes -%>
-      <td><%%=h <%= singular_name %>.<%= attribute.name %> %></td>
+      <td class="record_column"><%%=h <%= singular_name %>.<%= attribute.name %> %></td>
     <%- end -%>
     <%- if action? :show -%>
-      <td><%%= link_to "Show", <%= singular_name %> %></td>
+      <td class="record_action"><%%= link_to "View", <%= singular_name %>, :action=> :show %></td>
     <%- end -%>
     <%- if action? :edit -%>
-      <td><%%= link_to "Edit", edit_<%= singular_name %>_path(<%= singular_name %>) %></td>
+      <td class="record_action"><%%= link_to "Edit", edit_<%= singular_name %>_path(<%= singular_name %>) %></td>
     <%- end -%>
     <%- if action? :destroy -%>
-      <td><%%= link_to "Destroy", <%= singular_name %>, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td class="record_action"><%%= link_to "Delete", <%= singular_name %>, :confirm => 'Are you sure?', :method => "delete" %></td>
     <%- end -%>
     </tr>
   <%% end %>

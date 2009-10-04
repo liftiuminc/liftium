@@ -1,6 +1,6 @@
-dashboard/db/*.sqlite3
-dashboard/config/deploy.rb
-dashboard/db/schema.rb
-dashboard/log/*
-dashboard/public/cache/*
+*.sqlite3
+deploy.rb
 .*.swp
+schema.rb
+*/log/*
+*/cache/*
