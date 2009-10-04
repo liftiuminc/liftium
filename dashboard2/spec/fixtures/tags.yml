@@ -9,7 +9,7 @@ lb_reject:
   enabled: true
   always_fill: false
   tier: 9
-  value_in_cents: 1.5
+  value: 1.5
   size: "728x90"
   tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
@@ -21,7 +21,7 @@ lb_reject_2:
   enabled: true
   always_fill: false
   tier: 8
-  value_in_cents: 1.25
+  value: 1.25
   size: "728x90"
   tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
@@ -33,7 +33,7 @@ lb_fill:
   enabled: true
   always_fill: false
   tier: 7 
-  value_in_cents: 1.25
+  value: 1.25
   size: "728x90"
   tag: 'This is a fill from "Test: LB, fill" (tag 3)'
 
@@ -45,7 +45,7 @@ mr_reject:
   enabled: true
   always_fill: false
   tier: 9
-  value_in_cents: 1.75
+  value: 1.75
   size: "300x250"
   tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
@@ -57,7 +57,7 @@ mr_fill:
   enabled: true
   always_fill: true
   tier: 7 
-  value_in_cents: 0.99
+  value: 0.99
   size: "300x250"
   tag: 'This is a fill from "Test: MR, fill" (tag 5)'
 
@@ -69,7 +69,7 @@ ws_fill:
   enabled: true
   always_fill: false
   tier: 9
-  value_in_cents: 1.75
+  value: 1.75
   size: "160x600"
   tag: 'This is a fill from "Test: MR, fill" (tag 6)'
 
@@ -81,7 +81,7 @@ ws_always_fill:
   enabled: true
   always_fill: true
   tier: 1
-  value_in_cents: 0.10
+  value: 0.10
   size: "160x600"
   tag: 'This is a fill that comes after another fill fill (tag 7)'
 
@@ -93,7 +93,7 @@ test2_ws_reject:
   enabled: true
   always_fill: false
   tier: 9
-  value_in_cents: 1.75
+  value: 1.75
   size: "160x600"
   tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
@@ -105,7 +105,7 @@ test2_ws_always_fill_bad:
   enabled: true
   always_fill: true
   tier: 7 
-  value_in_cents: 0.99
+  value: 0.99
   size: "160x600"
   tag: '<script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
 
@@ -117,7 +117,7 @@ test2_lb_fill:
   enabled: true
   always_fill: true
   tier: 9
-  value_in_cents: 1.75
+  value: 1.75
   size: "728x90"
   tag: 'This is a fill from a chain with a single tag'
 
@@ -129,7 +129,7 @@ malformedjs:
   enabled: true
   always_fill: true
   tier: 8
-  value_in_cents: 1.69
+  value: 1.69
   size: "125x125"
   tag: 'This is a tag with bad javascript that should throw an error. <script>badjavascript.tag11()</script>'
 
@@ -138,7 +138,7 @@ rejectionhop:
   tag_name      : 'Test2: MR Rejection Time Hop'
   network_id    : 42
   publisher_id  : 1046
-  value_in_cents         : 3.00
+  value         : 3.00
   enabled       : 1
   always_fill   : 0
   tier          : 9
@@ -151,7 +151,7 @@ rejectionfill:
   tag_name      : 'Test2: MR Rejection Time Fill'
   network_id    : 42
   publisher_id  : 1046
-  value_in_cents         : 0.2
+  value         : 0.2
   enabled       : 1
   always_fill   : 1
   tier          : 1
@@ -163,7 +163,7 @@ frequencycap:
   tag_name      : 'Test2 : LR Frequency Cap Fill'
   network_id    : 42
   publisher_id  : 1046
-  value_in_cents         : 3.00
+  value         : 3.00
   enabled       : 1
   always_fill   : 0
   sample_rate   : NULL
@@ -177,7 +177,7 @@ frequencyfill:
   tag_name      : 'Test2 : LR Frequency Cap Always Fill'
   network_id    : 42
   publisher_id  : 1046
-  value_in_cents         : 0.20
+  value         : 0.20
   enabled       : 1
   always_fill   : 1
   tier          : 1

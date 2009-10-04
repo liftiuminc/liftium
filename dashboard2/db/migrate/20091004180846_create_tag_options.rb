@@ -5,6 +5,7 @@ class CreateTagOptions < ActiveRecord::Migration
       t.string :option_name
       t.string :option_value
     end
+    add_index :tag_options, [:tag_id, :option_name], {:unique => true }
   end
   
   def self.down

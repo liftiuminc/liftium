@@ -20,7 +20,7 @@
     <tr class="record_row_<%= cycle("odd", "even")%>">
       <td nowrap="true" class="record_column"><%=h tag.tag_name %></td>
       <td class="record_column"><%=h tag.tier %></td>
-      <td class="record_column"><%=h tag.value_in_cents %></td>
+      <td class="record_column">$<%=h tag.value %></td>
       <td class="record_column"><%= tag.enabled ? image_tag("/images/icons/tick.png") : image_tag("/images/icons/cross.png") %></td>
       <td class="record_column"><%=h tag.sample_rate %></td>
       <td class="record_column"><%=h tag.frequency_cap %></td>

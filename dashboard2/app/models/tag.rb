@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :tag_name, :value_in_cents, :enabled, :always_fill, :sample_rate, :tier, :frequency_cap, :rejection_time, :tag, :tag_options_attributes
+  attr_accessible :tag_name, :value, :enabled, :always_fill, :sample_rate, :tier, :frequency_cap, :rejection_time, :tag, :tag_options_attributes
 
   belongs_to :network
   belongs_to :publisher

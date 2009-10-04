@@ -4,10 +4,10 @@ class CreateNetworks < ActiveRecord::Migration
       t.string :network_name
       t.string :website
       t.string :pay_type
-      t.boolean :enabled
-      t.boolean :supports_threshold
-      t.boolean :default_always_fill
-      t.boolean :us_only
+      t.boolean :enabled, {:default => true}
+      t.boolean :supports_threshold, {:default => true}
+      t.boolean :default_always_fill, {:default => false}
+      t.boolean :us_only, {:default => false}
       t.text :comments
       t.text :contact_info
       t.string :billing_info
@@ -16,6 +16,8 @@ class CreateNetworks < ActiveRecord::Migration
       t.text :scraping_instructions
       t.timestamps
     end
+
+    add_index :networks, :network_name, {:unique => true }
   end
   
   def self.down

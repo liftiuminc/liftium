@@ -7,6 +7,7 @@ class CreatePublishers < ActiveRecord::Migration
       t.integer :hoptime
       t.timestamps
     end
+    add_index :publishers, :site_name, {:unique => true }
   end
   
   def self.down
