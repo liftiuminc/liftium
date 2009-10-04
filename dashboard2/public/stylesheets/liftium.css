@@ -6,6 +6,7 @@ body {
   color: #333;
 }
 
+/* Page elements */
 a img {
   border: none;
 }
@@ -19,6 +20,8 @@ input:focus, textarea:focus, select:focus {
 	background-color: #FFFFE0;
 }
 
+
+/* Wrappers, page/structure */
 #header {
 	background:transparent url(/images/head.gif) repeat-x scroll 0 0;	
 	height: 71px;
@@ -28,23 +31,18 @@ input:focus, textarea:focus, select:focus {
 	padding-left: 100px;
 }
 
-#container {
+#container { 
 	min-width: 500px;
 	padding-left: 100px;
 	position: absolute; /* Have the container be as wide as the content */
-/*
-  width: 75%;
-  margin: 0 auto;
-  background-color: #FFF;
-  padding: 20px 40px;
-  border: solid 1px black;
-  margin-top: 20px;
-*/
 }
 
 #content {
 	background: #FFF;
-	padding: 20px;
+	padding-left: 20px;
+	padding-top: 15px;
+	padding-right: 20px;
+	padding-bottom: 20px;
 	border-right: 1px solid #D0D0D0;
 	border-left: 1px solid #D0D0D0;
 	border-bottom: 1px solid #D0D0D0;
@@ -65,15 +63,53 @@ input:focus, textarea:focus, select:focus {
 	font-size: 18px;
 }
 
-.fieldset input[type=text] {
-	margin-top:6px;
-}
 
+/* Form fields */
 .fieldset input[type=text] {
 	margin-bottom:10px;
 	width: 300px;
 }
 
+/* Record Listings */
+.record_listing { /* the table */
+	border-spacing: 0;
+	border-bottom:1px solid #CCC;
+	border-left:1px solid #CCC;
+	border-right:1px solid #CCC;
+}
+
+.record_listing td { /* the table */
+}
+
+.record_listing td, .record_listing th { /* the table */
+	padding: 6px;
+	font-size: 12px;
+	line-height: 10px;
+}
+
+
+.record_listing_header { /* table header */
+	background:#666;
+	border-right:1px solid #FFF;
+	color:#FFF;
+	text-align:left;
+	line-height: 17px;
+}
+
+.record_row_odd {
+
+}
+
+.record_row_even {
+        background-color: #E3E3E3;
+}
+
+.record_column {
+	border-right:1px solid #CCC;
+}
+
+
+/* Rails messages */
 #flash_notice, #flash_error {
   padding: 5px 8px;
   margin: 10px 0;
