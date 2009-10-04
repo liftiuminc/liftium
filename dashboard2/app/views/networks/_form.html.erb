@@ -10,47 +10,51 @@
   </div>
   <div class="fieldset">
     <%= f.label :pay_type %><br />
-    <%= f.text_field :pay_type %>
-  </div>
-  <div class="fieldset">
-    <%= f.label :enabled %><br />
-    <%= f.check_box :enabled %>
-  </div>
-  <div class="fieldset">
-    <%= f.label :supports_threshold %><br />
-    <%= f.check_box :supports_threshold %>
-  </div>
-  <div class="fieldset">
-    <%= f.label :default_always_fill %><br />
-    <%= f.check_box :default_always_fill %>
-  </div>
-  <div class="fieldset">
-    <%= f.label :us_only %><br />
-    <%= f.check_box :us_only %>
-  </div>
-  <div class="fieldset">
-    <%= f.label :comments %><br />
-    <%= f.text_area :comments %>
-  </div>
-  <div class="fieldset">
-    <%= f.label :contact_info %><br />
-    <%= f.text_area :contact_info %>
-  </div>
-  <div class="fieldset">
-    <%= f.label :billing_info %><br />
-    <%= f.text_field :billing_info %>
+    <%= select("network", "pay_type", @network.pay_types, {:include_blank => true}) %>
   </div>
   <div class="fieldset">
     <%= f.label :brand_safety_level %><br />
-    <%= f.text_field :brand_safety_level %>
+    <%= select("network", "brand_safety_level", [1,2,3,4,5,6,7,8,9,10], {:include_blank => true}) %>
   </div>
   <div class="fieldset">
-    <%= f.label :tag_template %><br />
-    <%= f.text_area :tag_template %>
+    <%= f.label :enabled, nil, :class => "label_for_radio" %>
+    <%= radio_button "network", "enabled", "true"%>Yes
+    <%= radio_button "network", "enabled", "false"%>No
+  </div>
+  <div class="fieldset">
+    <%= f.label :supports_threshold, nil, :class => "label_for_radio" %>
+    <%= radio_button "network", "supports_threshold", "true"%>Yes
+    <%= radio_button "network", "supports_threshold", "false"%>No
+  </div>
+  <div class="fieldset">
+    <%= f.label :default_always_fill, nil, :class => "label_for_radio" %>
+    <%= radio_button "network", "default_always_fill", "true"%>Yes
+    <%= radio_button "network", "default_always_fill", "false"%>No
+  </div>
+  <div class="fieldset">
+    <%= f.label :us_only, nil, :class => "label_for_radio" %>
+    <%= radio_button "network", "us_only", "true"%>Yes
+    <%= radio_button "network", "us_only", "false"%>No
+  </div>
+  <div class="fieldset">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments, {:rows => 5} %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :contact_info %><br />
+    <%= f.text_area :contact_info, {:rows => 5} %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :billing_info %><br />
+    <%= f.text_field :billing_info, {:rows => 5} %>
   </div>
   <div class="fieldset">
     <%= f.label :scraping_instructions %><br />
-    <%= f.text_area :scraping_instructions %>
+    <%= f.text_area :scraping_instructions, {:rows => 5} %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :tag_template %><br />
+    <%= f.text_area :tag_template , {:rows => 8}%>
   </div>
   <p><%= liftium_submit "Save Changes" %></p>
 <% end %>

@@ -65,9 +65,26 @@ input:focus, textarea:focus, select:focus {
 
 
 /* Form fields */
-.fieldset input[type=text] {
-	margin-bottom:10px;
+.fieldset input[type=text], .fieldset textarea {
 	width: 300px;
+}
+.fieldset select {
+	width: 150px;
+}
+
+.fieldset label {
+	line-height: 20px;
+	color: #000;
+}
+
+.fieldset .label_for_radio {
+	display:block;
+	float:left;
+	width:150px;
+}
+
+.fieldset {
+	margin-bottom: 10px;
 }
 
 /* Record Listings */

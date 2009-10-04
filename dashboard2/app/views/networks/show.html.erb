@@ -6,7 +6,7 @@
 </p>
 <p>
   <strong>Website:</strong>
-  <%=h @network.website %>
+  <a href="<%=h @network.website %>" target="_blank"><%=h @network.website %></a>
 </p>
 <p>
   <strong>Pay Type:</strong>
@@ -14,19 +14,19 @@
 </p>
 <p>
   <strong>Enabled:</strong>
-  <%=h @network.enabled %>
+  <%=h @network.enabled_s %>
 </p>
 <p>
   <strong>Supports Threshold:</strong>
-  <%=h @network.supports_threshold %>
+  <%=h @network.supports_threshold_s %>
 </p>
 <p>
   <strong>Default Always Fill:</strong>
-  <%=h @network.default_always_fill %>
+  <%=h @network.default_always_fill_s %>
 </p>
 <p>
   <strong>Us Only:</strong>
-  <%=h @network.us_only %>
+  <%=h @network.us_only_s %>
 </p>
 <p>
   <strong>Comments:</strong>
