@@ -1,12 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title><%= h(yield(:title) || "Untitled") %></title>
-    <%= stylesheet_link_tag 'application' %>
+    <title><%= h(yield(:title) || "Liftium") %></title>
+    <%= stylesheet_link_tag 'liftium' %>
     <%= yield(:head) %>
   </head>
   <body>
+    <div id="header">
+	<div id="logo"><a href="/" title="Ad Network Optimization and Monetization by Liftium"><img src="/images/logo.black.gradient.gif" alt="Ad Network Optimization and Monetization by Liftium"></a></div>		
+    </div>
     <div id="container">
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>

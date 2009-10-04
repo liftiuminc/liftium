@@ -1,7 +1,8 @@
 body {
-  background-color: #4B7399;
-  font-family: Verdana, Helvetica, Arial;
-  font-size: 14px;
+  margin: 0;
+  background-color: #EEE;
+  font-family: Arial,Sans-Serif;
+  font-size: 12px;
 }
 
 a img {
@@ -9,22 +10,34 @@ a img {
 }
 
 a {
-  color: #0000FF;
+  color: #06F;
+  text-decoration: none; /* Nick wrote: I don't like this. */
 }
 
-.clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
+#header {
+	background:transparent url(/images/head.gif) repeat-x scroll 0 0;	
+	height: 71px;
 }
+
+#logo {
+	width: 1000px;
+	margin: 0 auto;
+	padding-left: 20px;
+}
+
 
 #container {
+	width: 1000px;
+	margin: 0 auto;
+	padding-left: 20px;
+/*
   width: 75%;
   margin: 0 auto;
   background-color: #FFF;
   padding: 20px 40px;
   border: solid 1px black;
   margin-top: 20px;
+*/
 }
 
 #flash_notice, #flash_error {
@@ -49,7 +62,7 @@ a {
 #errorExplanation {
   width: 400px;
   border: 2px solid #CF0000;
-  padding: 0px;
+  padding: 0;
   padding-bottom: 12px;
   margin-bottom: 20px;
   background-color: #f0f0f0;
