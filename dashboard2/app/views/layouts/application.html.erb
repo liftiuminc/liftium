@@ -11,15 +11,17 @@
 	<div id="logo"><a href="/" title="Ad Network Optimization and Monetization by Liftium"><img src="/images/logo.black.gradient.gif" alt="Ad Network Optimization and Monetization by Liftium"></a></div>		
     </div>
     <div id="container">
-      <%- flash.each do |name, msg| -%>
+      <%- if show_title? -%>
+        <div id="titlebar"><h1><%=h yield(:title) %></h1></div>
+      <%- end -%>
+      <div id="content">
+
+       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
       
-      <%- if show_title? -%>
-        <h1><%=h yield(:title) %></h1>
-      <%- end -%>
-      
       <%= yield %>
-    </div>
+      </div><!-- content -->
+    </div><!-- container -->
   </body>
 </html>

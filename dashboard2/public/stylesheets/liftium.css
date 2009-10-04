@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background-color: #EEE;
-  font-family: Arial,Sans-Serif;
+  font-family: Arial,sans-serif;
   font-size: 12px;
 }
 
@@ -25,11 +25,11 @@ a {
 	padding-left: 20px;
 }
 
-
 #container {
-	width: 1000px;
+	min-width: 500px;
 	margin: 0 auto;
 	padding-left: 20px;
+	position: absolute; /* Have the container be as wide as the content */
 /*
   width: 75%;
   margin: 0 auto;
@@ -38,6 +38,28 @@ a {
   border: solid 1px black;
   margin-top: 20px;
 */
+}
+
+#content {
+	background: #FFF;
+	padding: 20px;
+	border-right: 1px solid #D0D0D0;
+	border-left: 1px solid #D0D0D0;
+	border-bottom: 1px solid #D0D0D0;
+}
+
+#titlebar {
+	background:transparent url(/images/titlebar_bg.gif) repeat-x scroll 0 0;	
+	height: 51px;
+	border-right: 1px solid #D0D0D0;
+	border-left: 1px solid #D0D0D0;
+}
+#titlebar h1 {
+	font-weight:bold;
+	height:51px;
+	line-height:50px;
+	padding:0 20px;
+	font-size: 18px;
 }
 
 #flash_notice, #flash_error {
