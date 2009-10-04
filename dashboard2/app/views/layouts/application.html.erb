@@ -11,8 +11,13 @@
 	<div id="logo"><a href="/" title="Ad Network Optimization and Monetization by Liftium"><img src="/images/logo.black.gradient.gif" alt="Ad Network Optimization and Monetization by Liftium"></a></div>		
     </div>
     <div id="container">
-      <%- if show_title? -%>
-        <div id="titlebar"><h1><%=h yield(:title) %></h1></div>
+      <%- if show_title_bar? -%>
+        <div id="titlebar">
+		<%- if @title_bar_right_text -%>
+		<div id="title_bar_right_text"><%= @title_bar_right_text %></div>
+      		<%- end -%>
+		<h1><%=h yield(:title) %></h1>
+	</div>
       <%- end -%>
       <div id="content">
 

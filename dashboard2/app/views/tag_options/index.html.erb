@@ -1,8 +1,13 @@
+<% @title_bar_right_text = '<a href="' + new_tag_option_path + '"><img alt="" src="/images/icons/add.png"></a> ' + (link_to "Create New Tag Option", new_tag_option_path) %>
+<!--
+<p><%= link_to "Create new Tag Option", new_tag_option_path %></p>
+-->
+
 <% title "Tag Options" %>
 
-<p><%= link_to "Create new Tag Option", new_tag_option_path %></p>
+<br clear="all"/>
 
-<table class="record_listing" width="500">
+<table class="record_listing" width="500" cellspacing="0" cellpadding="0"><!-- Cellspacing/paddding added for IE 6 -->
   <tr class="record_listing_header">
     <th>Option Name</th>
     <th>Option Value</th>

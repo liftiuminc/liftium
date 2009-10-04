@@ -1,10 +1,15 @@
-<%% title "<%= plural_name.titleize %>" %>
-
 <%- if action? :new -%>
+<%% @title_bar_right_text = '<a href="' + new_<%=singular_name%>_path + '"><img alt="" src="/images/icons/add.png"></a> ' + (link_to "Create New <%= singular_name.titleize %>", new_<%= singular_name %>_path) %>
+<!--
 <p><%%= link_to "Create new <%= singular_name.titleize %>", new_<%= singular_name %>_path %></p>
+-->
 <%- end -%>
 
-<table class="record_listing" width="500">
+<%% title "<%= plural_name.titleize %>" %>
+
+<br clear="all"/>
+
+<table class="record_listing" width="500" cellspacing="0" cellpadding="0"><!-- Cellspacing/paddding added for IE 6 -->
   <tr class="record_listing_header">
   <%- for attribute in attributes -%>
     <th><%= attribute.column.human_name.titleize %></th>
