@@ -1,0 +1,40 @@
+<% form_for @tag do |f| %>
+  <%= f.error_messages %>
+  <div class="fieldset">
+    <%= f.label :tag_name %><br />
+    <%= f.text_field :tag_name %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :value_in_cents %><br />
+    <%= f.text_field :value_in_cents %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :always_fill %><br />
+    <%= f.check_box :always_fill %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :sample_rate %><br />
+    <%= f.text_field :sample_rate %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :tier %><br />
+    <%= f.text_field :tier %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :frequency_cap %><br />
+    <%= f.text_field :frequency_cap %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :rejection_time %><br />
+    <%= f.text_field :rejection_time %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :tag %><br />
+    <%= f.text_area :tag %>
+  </div>
+  <p><%= liftium_submit "Save Changes" %></p>
+<% end %>
