@@ -2,7 +2,7 @@
 module ApplicationHelper
 
   def liftium_submit(text="Submit")
-	submit_tag $text
+	submit_tag text
   end
 
   #http://transfs.com/devblog/2009/06/26/nested-forms-with-rails-2-3-helpers-and-javascript-tricks/
