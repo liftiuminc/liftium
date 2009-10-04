@@ -29,6 +29,7 @@ input:focus, textarea:focus, select:focus {
 	min-width: 500px;
 	padding-left: 100px;
 	padding-top:20px;
+	padding-bottom:20px;
 	position: absolute; /* Have the container be as wide as the content */
 }
 
