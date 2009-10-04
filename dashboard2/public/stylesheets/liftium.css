@@ -65,6 +65,10 @@ input:focus, textarea:focus, select:focus {
 
 
 /* Form fields */
+.fieldset {
+	margin-bottom: 10px;
+}
+
 .fieldset input[type=text], .fieldset textarea {
 	width: 300px;
 }
@@ -75,6 +79,7 @@ input:focus, textarea:focus, select:focus {
 .fieldset label {
 	line-height: 20px;
 	color: #000;
+	font-size: 14px;
 }
 
 .fieldset .label_for_radio {
@@ -83,8 +88,16 @@ input:focus, textarea:focus, select:focus {
 	width:150px;
 }
 
-.fieldset {
-	margin-bottom: 10px;
+.fieldset .hint {
+	font-size: 11px;
+	font-weight: lighter;
+	color: gray;
+}
+
+/* Make the input for tags extra big */
+.fieldset .tag_input {
+	width: 600px;
+	height: 175px;
 }
 
 /* Record Listings */
