@@ -1,8 +1,5 @@
 <%- if action? :new -%>
 <%% @title_bar_right_text = '<a href="' + new_<%=singular_name%>_path + '"><img alt="" src="/images/icons/add.png"></a> ' + (link_to "Create New <%= singular_name.titleize %>", new_<%= singular_name %>_path) %>
-<!--
-<p><%%= link_to "Create new <%= singular_name.titleize %>", new_<%= singular_name %>_path %></p>
--->
 <%- end -%>
 
 <%% title "<%= plural_name.titleize %>" %>
