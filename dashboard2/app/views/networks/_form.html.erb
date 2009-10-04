@@ -1,0 +1,56 @@
+<% form_for @network do |f| %>
+  <%= f.error_messages %>
+  <div class="fieldset">
+    <%= f.label :network_name %><br />
+    <%= f.text_field :network_name %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :website %><br />
+    <%= f.text_field :website %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :pay_type %><br />
+    <%= f.text_field :pay_type %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :supports_threshold %><br />
+    <%= f.check_box :supports_threshold %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :default_always_fill %><br />
+    <%= f.check_box :default_always_fill %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :us_only %><br />
+    <%= f.check_box :us_only %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :contact_info %><br />
+    <%= f.text_area :contact_info %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :billing_info %><br />
+    <%= f.text_field :billing_info %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :brand_safety_level %><br />
+    <%= f.text_field :brand_safety_level %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :tag_template %><br />
+    <%= f.text_area :tag_template %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :scraping_instructions %><br />
+    <%= f.text_area :scraping_instructions %>
+  </div>
+  <p><%= liftium_submit "Save Changes" %></p>
+<% end %>

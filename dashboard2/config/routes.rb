@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :networks
   map.resources :ad_formats
 
   # The priority is based upon order of creation: first created -> highest priority.

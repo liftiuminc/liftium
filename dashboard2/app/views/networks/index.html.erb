@@ -1,0 +1,43 @@
+<% title "Networks" %>
+
+<p><%= link_to "Create new Network", new_network_path %></p>
+
+<table class="record_listing" width="500">
+  <tr class="record_listing_header">
+    <th>Network Name</th>
+    <th>Website</th>
+    <th>Pay Type</th>
+    <th>Enabled</th>
+    <th>Supports Threshold</th>
+    <th>Default Always Fill</th>
+    <th>Us Only</th>
+    <th>Comments</th>
+    <th>Contact Info</th>
+    <th>Billing Info</th>
+    <th>Brand Safety Level</th>
+    <th>Tag Template</th>
+    <th>Scraping Instructions</th>
+    <th colspan="3">Actions</th>
+  </tr>
+  <% for network in @networks %>
+    <tr class="record_row_<%= cycle("odd", "even")%>">
+      <td class="record_column"><%=h network.network_name %></td>
+      <td class="record_column"><%=h network.website %></td>
+      <td class="record_column"><%=h network.pay_type %></td>
+      <td class="record_column"><%=h network.enabled %></td>
+      <td class="record_column"><%=h network.supports_threshold %></td>
+      <td class="record_column"><%=h network.default_always_fill %></td>
+      <td class="record_column"><%=h network.us_only %></td>
+      <td class="record_column"><%=h network.comments %></td>
+      <td class="record_column"><%=h network.contact_info %></td>
+      <td class="record_column"><%=h network.billing_info %></td>
+      <td class="record_column"><%=h network.brand_safety_level %></td>
+      <td class="record_column"><%=h network.tag_template %></td>
+      <td class="record_column"><%=h network.scraping_instructions %></td>
+      <td class="record_action"><%= link_to "View", network, :action=> :show %></td>
+      <td class="record_action"><%= link_to "Edit", edit_network_path(network) %></td>
+      <td class="record_action"><%= link_to "Delete", network, :confirm => 'Are you sure?', :method => "delete" %></td>
+    </tr>
+  <% end %>
+</table>
+
