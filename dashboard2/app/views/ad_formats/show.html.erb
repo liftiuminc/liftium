@@ -1,0 +1,16 @@
+<% title "Ad Format" %>
+
+<p>
+  <strong>Ad Format Name:</strong>
+  <%=h @ad_format.ad_format_name %>
+</p>
+<p>
+  <strong>Size:</strong>
+  <%=h @ad_format.size %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_ad_format_path(@ad_format) %> |
+  <%= link_to "Delete", @ad_format, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
+  <%= link_to "View All", ad_formats_path %>
+</p>

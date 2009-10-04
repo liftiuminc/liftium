@@ -2,5 +2,7 @@
 deploy.rb
 .*.swp
 schema.rb
-*/log/*
+test.log
+production.log
+development.log
 */cache/*

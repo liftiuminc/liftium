@@ -1,0 +1,19 @@
+<% title "Ad Formats" %>
+
+<table class="record_listing">
+  <tr class="record_listing_header">
+    <th>Ad Format Name</th>
+    <th>Size</th>
+  </tr>
+  <% for ad_format in @ad_formats %>
+    <tr class="record_row_<%= cycle("odd", "even")%>">
+      <td class="record_column"><%=h ad_format.ad_format_name %></td>
+      <td class="record_column"><%=h ad_format.size %></td>
+      <td class="record_action"><%= link_to "View", ad_format, :action=> :show %></td>
+      <td class="record_action"><%= link_to "Edit", edit_ad_format_path(ad_format) %></td>
+      <td class="record_action"><%= link_to "Delete", ad_format, :confirm => 'Are you sure?', :method => "delete" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Ad Format", new_ad_format_path %></p>

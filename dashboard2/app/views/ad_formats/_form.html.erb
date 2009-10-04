@@ -1,0 +1,12 @@
+<% form_for @ad_format do |f| %>
+  <%= f.error_messages %>
+  <div class="fieldset">
+    <%= f.label :ad_format_name %><br />
+    <%= f.text_field :ad_format_name %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :size %><br />
+    <%= f.text_field :size %>
+  </div>
+  <p><%= liftium_submit "Save Changes" %></p>
+<% end %>
