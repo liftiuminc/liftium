@@ -27,7 +27,7 @@ input:focus, textarea:focus, select:focus {
 
 #container { 
 	min-width: 500px;
-	padding-left: 100px;
+	margin-left: 150px;
 	padding-top:20px;
 	padding-bottom:20px;
 	position: absolute; /* Have the container be as wide as the content */
@@ -53,6 +53,23 @@ input:focus, textarea:focus, select:focus {
 	padding-left: 100px;
 }
 
+
+/*** Left Nav bar ***/
+	
+#leftnav {
+	position:absolute;
+	float:left;
+	width: 150px;
+	padding-top: 20px;
+	padding-left: 5px;
+}
+
+#leftnav .navsection {
+}
+
+#leftnav .navsection_header {
+	font-weight: bold;
+}
 
 /*** Title Bar ***/
 #titlebar {

@@ -10,7 +10,31 @@
     <div id="header">
 	<div id="logo"><a href="/" title="Ad Network Optimization and Monetization by Liftium"><img src="/images/logo.black.gradient.gif" alt="Ad Network Optimization and Monetization by Liftium"></a></div>		
     </div>
+
+    <!-- Left Nav -->
+    <div id="leftnav">
+      <div class="navsection">
+	    <div class="navsection_header">Publishers</div>
+	    <ul>
+	    <li><%= link_to "Tags", tags_url %>
+	    <li><%= link_to "Networks", tags_url %>	
+	    </ul>
+       </div>
+       <div class="navsection">
+	    <div class="navsection_header">Admin</div>
+	    <ul>
+	    <li><%= link_to "Users", "" %>	
+	    <li><%= link_to "Ad Formats", ad_formats_url %>	
+	    <li><%= link_to "Publishers", publishers_url %>	
+	    </ul>
+       </div>
+    </div>
+   
+   
+    <!-- Main content -->
     <div id="container">
+
+
       <%- if show_title_bar? -%>
         <div id="titlebar">
 		<%- if @title_bar_right_text -%>
