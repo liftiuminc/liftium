@@ -116,13 +116,27 @@ input:focus, textarea:focus, select:focus {
 }
 
 #flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
+  background-color: #f7fff0;
+  border: solid 1px #a7e147;
+  background-image:url(/images/success1.gif);
+  background-position:20px center;
+  background-repeat:no-repeat;
+  padding: 15px; 
+  text-indent: 50px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 #flash_error {
-  background-color: #FCC;
-  border: solid 1px #C66;
+  background-color: #ffdfdf;
+  border: solid 1px #df3e4e;
+  background-image:url(/images/error1.gif);
+  background-position:20px center;
+  background-repeat:no-repeat;
+  padding: 15px; 
+  text-indent: 50px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .fieldWithErrors {
@@ -130,7 +144,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 #errorExplanation {
-  width: 400px;
+  width: 450px;
   border: 2px solid #CF0000;
   padding: 0;
   padding-bottom: 12px;
@@ -139,6 +153,19 @@ input:focus, textarea:focus, select:focus {
 }
 
 #errorExplanation h2 {
+  background-color: #ffdfdf;
+  border: solid 1px #df3e4e;
+  background-image:url(/images/error1.gif);
+  background-position:20px center;
+  background-repeat:no-repeat;
+  padding-right: 15px; 
+  padding-top: 15px; 
+  padding-bottom: 15px; 
+  padding-left: 65px; 
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0;
+/*
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
@@ -146,6 +173,7 @@ input:focus, textarea:focus, select:focus {
   margin: 0;
   background-color: #c00;
   color: #fff;
+*/
 }
 
 #errorExplanation p {
@@ -160,5 +188,6 @@ input:focus, textarea:focus, select:focus {
 
 #errorExplanation ul li {
   font-size: 12px;
-  list-style: disc;
+  line-height: 20px;
+  list-style: circle;
 }
