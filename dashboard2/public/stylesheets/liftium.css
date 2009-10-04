@@ -6,7 +6,7 @@ body {
   color: #333;
 }
 
-/* Page elements */
+/*** Page elements ***/
 a img {
   border: none;
 }
@@ -21,7 +21,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 
-/* Wrappers, page/structure */
+/*** Wrappers, page/structure ***/
 #header {
 	background:transparent url(/images/head.gif) repeat-x scroll 0 0;	
 	height: 71px;
@@ -35,6 +35,7 @@ input:focus, textarea:focus, select:focus {
 #container { 
 	min-width: 500px;
 	padding-left: 100px;
+	padding-top:20px;
 	position: absolute; /* Have the container be as wide as the content */
 }
 
@@ -49,18 +50,13 @@ input:focus, textarea:focus, select:focus {
 	border-bottom: 1px solid #D0D0D0;
 }
 
+
+/*** Title Bar ***/
 #titlebar {
 	background:transparent url(/images/titlebar_bg.gif) repeat-x scroll 0 0;	
 	height: 51px;
 	border-right: 1px solid #D0D0D0;
 	border-left: 1px solid #D0D0D0;
-}
-
-#title_bar_right_text {
-	float: right;
-	margin-right: 21px;
-	margin-top: 30px;
-	font-size: 14px;
 }
 
 #titlebar h1 {
@@ -72,8 +68,20 @@ input:focus, textarea:focus, select:focus {
 	font-size: 18px;
 }
 
+#title_bar_right_text {
+	float: right;
+	margin-right: 21px;
+	margin-top: 30px;
+	font-size: 14px;
+}
 
-/* Form fields */
+#title_bar_right_text img{
+	padding-right:2px;
+	vertical-align:top;
+}
+
+
+/*** Form fields ***/
 .fieldset {
 	margin-bottom: 10px;
 }
@@ -114,7 +122,7 @@ input:focus, textarea:focus, select:focus {
 	height: 175px;
 }
 
-/* Record Listings */
+/*** Record Listings ***/
 .record_listing { /* the table */
 	border-spacing: 0;
 	border-bottom:1px solid #CCC;
@@ -153,7 +161,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 
-/* Rails messages */
+/*** Rails messages ***/
 #flash_notice, #flash_error {
   padding: 5px 8px;
   margin: 10px 0;
@@ -209,15 +217,6 @@ input:focus, textarea:focus, select:focus {
   font-weight: bold;
   font-size: 14px;
   margin: 0;
-/*
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: 0;
-  background-color: #c00;
-  color: #fff;
-*/
 }
 
 #errorExplanation p {
