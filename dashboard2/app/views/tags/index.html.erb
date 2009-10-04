@@ -10,7 +10,6 @@
     <th>Tier</th>
     <th>Value</th>
     <th>Enabled</th>
-    <th>Always Fill</th>
     <th>Sample Rate</th>
     <th>Freq Cap</th>
     <th>Rej Time</th>
@@ -22,8 +21,7 @@
       <td nowrap="true" class="record_column"><%=h tag.tag_name %></td>
       <td class="record_column"><%=h tag.tier %></td>
       <td class="record_column"><%=h tag.value_in_cents %></td>
-      <td class="record_column"><%=h tag.enabled_s %></td>
-      <td class="record_column"><%=h tag.always_fill_s %></td>
+      <td class="record_column"><%= tag.enabled_h %></td>
       <td class="record_column"><%=h tag.sample_rate %></td>
       <td class="record_column"><%=h tag.frequency_cap %></td>
       <td class="record_column"><%=h tag.rejection_time %></td>

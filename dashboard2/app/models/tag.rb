@@ -12,6 +12,10 @@ class Tag < ActiveRecord::Base
       enabled ? "Yes" : "No"
    end
 
+   def enabled_h
+      enabled ? '<input type="checkbox" disabled="true" checked="true"/>' : '<input type="checkbox" disabled="true"/>'
+   end
+
    def always_fill_s 
       always_fill ? "Yes" : "No"
    end

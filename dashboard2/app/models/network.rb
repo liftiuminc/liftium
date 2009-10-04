@@ -14,16 +14,32 @@ class Network < ActiveRecord::Base
       enabled ? "Yes" : "No"
    end
 
-   def supports_threshold_s 
+   def enabled_h
+      enabled ? '<input type="checkbox" disabled="true" checked="true"/>' : '<input type="checkbox" disabled="true"/>'
+   end
+
+   def supports_threshold_s
       supports_threshold ? "Yes" : "No"
+   end
+
+   def supports_threshold_h
+      supports_threshold ? '<input type="checkbox" disabled="true" checked="true"/>' : '<input type="checkbox" disabled="true"/>'
    end
 
    def default_always_fill_s 
       default_always_fill ? "Yes" : "No"
    end
 
+   def default_always_fill_h
+      default_always_fill ? '<input type="checkbox" disabled="true" checked="true"/>' : '<input type="checkbox" disabled="true"/>'
+   end
+
    def us_only_s 
       us_only ? "Yes" : "No"
+   end
+
+   def us_only_h
+      us_only ? '<input type="checkbox" disabled="true" checked="true"/>' : '<input type="checkbox" disabled="true"/>'
    end
 
    def pay_types 

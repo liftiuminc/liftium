@@ -17,9 +17,9 @@
     <tr class="record_row_<%= cycle("odd", "even")%>">
       <td class="record_column"><%=h network.network_name %></td>
       <td class="record_column"><%=h network.pay_type %></td>
-      <td class="record_column"><%=h network.enabled_s %></td>
-      <td class="record_column"><%=h network.supports_threshold_s %></td>
-      <td class="record_column"><%=h network.us_only_s %></td>
+      <td class="record_column"><%= network.enabled_h %></td>
+      <td class="record_column"><%= network.supports_threshold_h %></td>
+      <td class="record_column"><%= network.us_only_h %></td>
       <td class="record_column"><%=h network.brand_safety_level %></td>
       <td class="record_action"><%= link_to "View", network, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_network_path(network) %></td>
