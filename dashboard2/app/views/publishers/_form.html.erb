@@ -1,0 +1,20 @@
+<% form_for @publisher do |f| %>
+  <%= f.error_messages %>
+  <div class="fieldset">
+    <%= f.label :site_name %><br />
+    <%= f.text_field :site_name %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :site_url %><br />
+    <%= f.text_field :site_url %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :brand_safety_level %><br />
+    <%= f.text_field :brand_safety_level %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :hoptime %><br />
+    <%= f.text_field :hoptime %>
+  </div>
+  <p><%= liftium_submit "Save Changes" %></p>
+<% end %>

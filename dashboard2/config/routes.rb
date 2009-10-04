@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :publishers
+
+  map.resources :tag_options
+
   map.resources :tags
 
   map.resources :networks

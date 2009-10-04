@@ -1,0 +1,24 @@
+<% title "Publisher" %>
+
+<p>
+  <strong>Site Name:</strong>
+  <%=h @publisher.site_name %>
+</p>
+<p>
+  <strong>Site Url:</strong>
+  <%=h @publisher.site_url %>
+</p>
+<p>
+  <strong>Brand Safety Level:</strong>
+  <%=h @publisher.brand_safety_level %>
+</p>
+<p>
+  <strong>Hoptime:</strong>
+  <%=h @publisher.hoptime %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_publisher_path(@publisher) %> |
+  <%= link_to "Delete", @publisher, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
+  <%= link_to "View All", publishers_path %>
+</p>
