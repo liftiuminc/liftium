@@ -70,10 +70,10 @@ input:focus, textarea:focus, select:focus {
 }
 
 .fieldset input[type=text], .fieldset textarea {
-	width: 300px;
+	width: 325px;
 }
 .fieldset select {
-	width: 150px;
+	width: 182px;
 }
 
 .fieldset label {
@@ -82,10 +82,15 @@ input:focus, textarea:focus, select:focus {
 	font-size: 14px;
 }
 
-.fieldset .label_for_radio {
+.fieldset .left_label {
 	display:block;
 	float:left;
+	clear:both;
 	width:150px;
+}
+
+.input_for_number {
+	width: 175px !important; /* Nick wrote: I don't understand why this is needed */
 }
 
 .fieldset .hint {

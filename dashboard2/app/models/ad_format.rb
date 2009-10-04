@@ -5,7 +5,7 @@ class AdFormat < ActiveRecord::Base
   validates_format_of :size, :with => /^[0-9]{1,3}x[0-9]{1,3}$/
 
     def name_with_size
-      "#{format_name} (#{size})"
+      "#{ad_format_name} (#{size})"
     end
 
   belongs_to :tag

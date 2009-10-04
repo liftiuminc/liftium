@@ -5,16 +5,20 @@
   <%=h @tag.tag_name %>
 </p>
 <p>
+  <strong>Size:</strong>
+  <%=h @tag.size %>
+</p>
+<p>
   <strong>Value In Cents:</strong>
   <%=h @tag.value_in_cents %>
 </p>
 <p>
   <strong>Enabled:</strong>
-  <%=h @tag.enabled %>
+  <%=h @tag.enabled_s %>
 </p>
 <p>
   <strong>Always Fill:</strong>
-  <%=h @tag.always_fill %>
+  <%=h @tag.always_fill_s %>
 </p>
 <p>
   <strong>Sample Rate:</strong>
@@ -34,7 +38,7 @@
 </p>
 <p>
   <strong>Tag:</strong>
-  <%=h @tag.tag %>
+  <pre><%=h @tag.tag %></pre>
 </p>
 
 <p>

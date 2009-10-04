@@ -1,3 +1,12 @@
+<% # FIXME: How do I put this in the model?
+   # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
+
+    # Get the list of publishers for admin users
+    #@publishers = Publisher.find :all;
+%>
+
+
 <% form_for @tag do |f| %>
   <%= f.error_messages %>
   <div class="fieldset">
@@ -5,36 +14,51 @@
     <%= f.text_field :tag_name %>
   </div>
   <div class="fieldset">
-    <%= f.label :value_in_cents %><br />
-    <%= f.text_field :value_in_cents %>
+    <%= f.label :publisher, nil, :class => "left_label" %>
+    <!-- #collection_select(:tag, :publisher_id, @publishers, :id, :publisher_name, :include_blank => true) 
+-->
   </div>
   <div class="fieldset">
-    <%= f.label :enabled %><br />
-    <%= f.check_box :enabled %>
+    <%= f.label :network, nil, :class => "left_label" %>
+    <%= collection_select(:tag, :network_id, @networks, :id, :network_name, :include_blank => true) %>
   </div>
   <div class="fieldset">
-    <%= f.label :always_fill %><br />
-    <%= f.check_box :always_fill %>
+    <%= f.label :size, nil, :class => "left_label" %>
+    <%= select("tag", "size", AdFormat.all.collect {|af| [ af.name_with_size, af.size ] }) %>
   </div>
   <div class="fieldset">
-    <%= f.label :sample_rate %><br />
-    <%= f.text_field :sample_rate %>
+    <%= f.label :tier, nil, :class => "left_label" %>
+    <%= select("tag", "tier", [1,2,3,4,5,6,7,8,9,10], {:include_blank => true}) %>
   </div>
   <div class="fieldset">
-    <%= f.label :tier %><br />
-    <%= f.text_field :tier %>
+    <%= f.label :value_in_cents, "Value", :class => "left_label" %>
+    <%= f.text_field :value_in_cents, :class => "input_for_number" %>
   </div>
   <div class="fieldset">
-    <%= f.label :frequency_cap %><br />
-    <%= f.text_field :frequency_cap %>
+    <%= f.label :enabled, nil, :class => "left_label"%>
+    <%= radio_button "tag", "enabled", "true"%>Yes
+    <%= radio_button "tag", "enabled", "false"%>No
   </div>
   <div class="fieldset">
-    <%= f.label :rejection_time %><br />
-    <%= f.text_field :rejection_time %>
+    <%= f.label :always_fill, nil, :class => "left_label" %>
+    <%= radio_button "tag", "always_fill", "true"%>Yes
+    <%= radio_button "tag", "always_fill", "false"%>No
+  </div>
+  <div class="fieldset">
+    <%= f.label :sample_rate , nil, :class => "left_label"%>
+    <%= f.text_field :sample_rate, :class => "input_for_number" %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :frequency_cap, nil, :class => "left_label" %>
+    <%= f.text_field :frequency_cap, :class => "input_for_number" %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :rejection_time, nil, :class => "left_label" %>
+    <%= f.text_field :rejection_time, :class => "input_for_number" %>
   </div>
   <div class="fieldset">
     <%= f.label :tag %><br />
-    <%= f.text_area :tag %>
+    <%= f.text_area :tag, :class => "tag_input" %>
   </div>
   <p><%= liftium_submit "Save Changes" %></p>
 <% end %>

@@ -8,4 +8,13 @@ class Tag < ActiveRecord::Base
 
   accepts_nested_attributes_for :tag_options, :allow_destroy => true
 
+   def enabled_s 
+      enabled ? "Yes" : "No"
+   end
+
+   def always_fill_s 
+      always_fill ? "Yes" : "No"
+   end
+
+
 end
