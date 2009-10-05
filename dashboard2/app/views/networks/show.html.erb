@@ -17,7 +17,11 @@
   <%=h @network.enabled_s %>
 </p>
 <p>
-  <strong>Supports Threshold:</strong>
+  <strong>Brand Safety Level:</strong>
+  <%=h @network.brand_safety_level %>
+</p>
+<p>
+  <strong>Supports Threshold (backup/default tags):</strong>
   <%=h @network.supports_threshold_s %>
 </p>
 <p>
@@ -25,7 +29,7 @@
   <%=h @network.default_always_fill_s %>
 </p>
 <p>
-  <strong>Us Only:</strong>
+  <strong>United States Only:</strong>
   <%=h @network.us_only_s %>
 </p>
 <p>
@@ -41,18 +45,13 @@
   <%=h @network.billing_info %>
 </p>
 <p>
-  <strong>Brand Safety Level:</strong>
-  <%=h @network.brand_safety_level %>
+  <strong>Scraping Instructions:</strong>
+  <%=h @network.scraping_instructions %>
 </p>
 <p>
   <strong>Tag Template:</strong>
   <pre><%=h @network.tag_template %></pre>
 </p>
-<p>
-  <strong>Scraping Instructions:</strong>
-  <%=h @network.scraping_instructions %>
-</p>
-
 <p>
   <%= link_to "Edit", edit_network_path(@network) %> |
   <%= link_to "Delete", @network, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
