@@ -1,7 +1,10 @@
 class Network < ActiveRecord::Base
 
   @all_pay_types = ["Per Click", "Per Impression", "Affliate" ]
-  has_many :network_options
+
+  has_many :network_tag_options
+  accepts_nested_attributes_for :network_tag_options, :allow_destroy => true
+
   validates_uniqueness_of :network_name
   validates_presence_of :network_name, :pay_type
   validates_inclusion_of :enabled, :in => [true, false]

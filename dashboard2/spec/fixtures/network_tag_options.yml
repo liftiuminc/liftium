@@ -1,0 +1,11 @@
+one:
+  id: 1
+  network_id: 2
+  option_name: accountid
+  required: true
+
+two:
+  id: 2
+  network_id: 2
+  option_name: channel
+  required: false

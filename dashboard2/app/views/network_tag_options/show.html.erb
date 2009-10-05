@@ -1,0 +1,20 @@
+<% title "Network Tag Option" %>
+
+<p>
+  <strong>Network:</strong>
+  <%=h @network_tag_option.network.network_name %>
+</p>
+<p>
+  <strong>Option Name:</strong>
+  <%=h @network_tag_option.option_name %>
+</p>
+<p>
+  <strong>Required:</strong>
+  <%=h @network_tag_option.required_s %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_network_tag_option_path(@network_tag_option) %> |
+  <%= link_to "Delete", @network_tag_option, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
+  <%= link_to "View All", network_tag_options_path %>
+</p>

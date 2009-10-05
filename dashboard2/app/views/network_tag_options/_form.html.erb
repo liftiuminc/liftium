@@ -1,0 +1,20 @@
+<%
+# FIXME: How do I put this in the model?
+# Get a list of enabled networks
+@networks = Network.find :all, :conditions => {:enabled => true}
+%>
+
+<% form_for @network_tag_option do |f| %>
+  <%= f.error_messages %>
+  <div class="fieldset">
+    <%= f.label :network %><br />
+    <%= collection_select(:network_tag_option, :network_id, @networks, :id, :network_name, :include_blank => true) %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :option_name %><br />
+    <%= f.text_field :option_name, {:style => "width:150px"} %>
+    <%= f.check_box :required %>
+    <%= f.label :required %><br />
+  </div>
+  <p><%= liftium_submit "Save Changes" %></p>
+<% end %>
