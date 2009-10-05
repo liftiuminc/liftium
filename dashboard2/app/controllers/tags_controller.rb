@@ -9,8 +9,28 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
   end
   
-  def new
+  def select_network
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
     @tag = Tag.new
+  end
+
+  def new
+    if !params[:network_id] 
+      flash[:notice] = "Please select a network to continue"
+      redirect_to :action => 'select_network'
+    else 
+    
+      # Get a list of enabled networks
+      @networks = Network.find :all, :conditions => {:enabled => true}
+     
+      # Get the list of publishers for admin users
+      @publishers = Publisher.find :all;
+      @tag = Tag.new
+      @tag.network_id = params[:network_id]
+      @tag.tag_options.build
+
+    end
   end
   
   def create
@@ -24,6 +44,11 @@ class TagsController < ApplicationController
   end
   
   def edit
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
+   
+    # Get the list of publishers for admin users
+    @publishers = Publisher.find :all;
     @tag = Tag.find(params[:id])
   end
   

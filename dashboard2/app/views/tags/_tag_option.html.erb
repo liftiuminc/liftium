@@ -1,8 +1,8 @@
   <div class="fieldset tag_options">
     <%= f.label :option_name %>
-    <%= f.text_field :option_name %>
+    <%= f.text_field :option_name, {"style" => "width:150px"} %>
     <%= f.label :option_value %>
-    <%= f.text_field :option_value %>
+    <%= f.text_field :option_value, {"style" => "width:150px"} %>
     <% if f.object.new_record? %>
 	<%= link_to_function "Clear", "this.up('.tag_options').remove()" %>
     <% else %>

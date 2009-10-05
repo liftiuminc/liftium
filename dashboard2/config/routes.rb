@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
   map.resources :publishers
   map.resources :tag_options
+  map.purchase 'tags/select_network', :controller => 'tags', :action => 'select_network'
   map.resources :tags
   map.resources :networks
   map.resources :ad_formats

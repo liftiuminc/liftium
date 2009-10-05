@@ -1,5 +1,6 @@
 class Network < ActiveRecord::Base
 
+  # FIXME
   @all_pay_types = ["Per Click", "Per Impression", "Affliate" ]
 
   has_many :network_tag_options
