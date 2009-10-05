@@ -2,15 +2,25 @@
   <%= f.error_messages %>
   <div class="fieldset">
     <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.text_field :email, {:style=> "width: 200px"} %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :admin, "Administrator" %>
+    <%= radio_button "user", "admin", "true"%>Yes
+    <%= radio_button "user", "admin", "false"%>No
   </div>
   <div class="fieldset">
     <%= f.label :publisher %><br />
-  <p>
     <% @publishers = Publisher.find :all %>
     <%= collection_select(:user, :publisher_id, @publishers, :id, :site_name, :include_blank => true) %>
-  </p>
-
+  </div>
+  <div class="fieldset">
+    <%= f.label :password %><br />
+    <%= f.password_field :password,  {:style=> "width: 200px"}%>
+  </div>
+  <div class="fieldset">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation,  {:style=> "width: 200px"}%>
   </div>
   <p><%= liftium_submit "Save Changes" %></p>
 <% end %>

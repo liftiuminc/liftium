@@ -4,20 +4,20 @@
 
 <br clear="all"/>
 
-<table class="record_listing" width="500" cellspacing="0" cellpadding="0"><!-- Cellspacing/paddding added for IE 6 -->
+<table class="record_listing" width="600" cellspacing="0" cellpadding="0"><!-- Cellspacing/paddding added for IE 6 -->
   <tr class="record_listing_header">
     <th>Email</th>
+    <th>Admin</th>
     <th>Publisher</th>
     <th>Login Count</th>
-    <th>Last Login</th>
     <th colspan="3">Actions</th>
   </tr>
   <% for user in @users %>
     <tr class="record_row_<%= cycle("odd", "even")%>">
       <td class="record_column"><%=h user.email %></td>
-      <td class="record_column"><%=h user.publisher_id ? user.publisher.site_name : "" %></td>
+      <td class="record_column"><%= user.admin ? image_tag("/images/icons/tick.png") : "-" %></td>
+      <td nowrap="true" class="record_column"><%=h user.publisher_id ? user.publisher.site_name : "" %></td>
       <td class="record_column"><%=h user.login_count %></td>
-      <td class="record_column"><%=h user.last_login_ip %></td>
       <td class="record_action"><%= link_to "View", user, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_user_path(user) %></td>
       <td class="record_action"><%= link_to "Delete", user, :confirm => 'Are you sure?', :method => "delete" %></td>

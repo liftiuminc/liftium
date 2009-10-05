@@ -7,7 +7,11 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = current_user
+    if params[:id] 
+      @user = User.find(params[:id])
+    else 
+      @user = current_user
+    end
   end
   
   def new
@@ -25,7 +29,11 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    if params[:id] 
+      @user = User.find(params[:id])
+    else 
+      @user = current_user
+    end
   end
   
   def update

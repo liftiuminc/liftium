@@ -1,5 +1,4 @@
 class Network < ActiveRecord::Base
-  attr_accessible :network_name, :website, :pay_type, :enabled, :supports_threshold, :default_always_fill, :us_only, :comments, :contact_info, :billing_info, :brand_safety_level, :tag_template, :scraping_instructions
 
   @all_pay_types = ["Per Click", "Per Impression", "Affliate" ]
   has_many :network_options

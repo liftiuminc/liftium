@@ -4,12 +4,20 @@
   <strong>Email:</strong>
   <%=h @user.email %>
 </p>
+<p>
+  <strong>Administrator:</strong>
+  <%=h @user.admin_s %>
+</p>
 <!--
 <p>
   <strong>Single Access Token:</strong>
   <%=h @user.single_access_token %>
 </p>
 -->
+<p>
+  <strong>Publisher:</strong>
+  <%=h @user.publisher ? @user.publisher.site_name : "-" %>
+</p>
 <p>
   <strong>Login Count:</strong>
   <%=h @user.login_count %>

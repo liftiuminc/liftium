@@ -1,5 +1,4 @@
 class TagOption < ActiveRecord::Base
-  attr_accessible :option_name, :option_value, :tag_id
   belongs_to :tag
 
   validates_uniqueness_of :option_name, { :scope => :tag_id }

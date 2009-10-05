@@ -163,16 +163,18 @@ input:focus, textarea:focus, select:focus {
 
 .record_listing td, .record_listing th { /* the table */
 	font-size: 12px;
-	line-height: 10px;
 	padding: 6px;
 }
 
 .record_listing_header { /* table header */
 	background:#666;
-	border-right:1px solid #FFF;
 	color:#FFF;
-	line-height: 17px;
+	line-height: 13px;
 	text-align:left;
+}
+
+.record_listing_header th { /* table header */
+	border-right:1px solid #FFF;
 }
 
 .record_row_odd {

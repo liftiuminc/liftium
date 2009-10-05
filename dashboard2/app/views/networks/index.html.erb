@@ -18,8 +18,8 @@
       <td class="record_column"><%=h network.network_name %></td>
       <td class="record_column"><%=h network.pay_type %></td>
       <td class="record_column"><%= network.enabled ? image_tag("/images/icons/tick.png") : image_tag("/images/icons/cross.png") %></td>
-      <td class="record_column"><%= network.supports_threshold ? image_tag("/images/icons/tick.png") : image_tag("/images/icons/cross.png") %></td>
-      <td class="record_column"><%= network.us_only ? image_tag("/images/icons/tick.png") : image_tag("/images/icons/cross.png") %></td>
+      <td class="record_column"><%= network.supports_threshold ? image_tag("/images/icons/tick.png") : "-" %></td>
+      <td class="record_column"><%= network.us_only ? image_tag("/images/icons/tick.png") : "-" %></td>
       <td class="record_column"><%=h network.brand_safety_level %></td>
       <td class="record_action"><%= link_to "View", network, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_network_path(network) %></td>
