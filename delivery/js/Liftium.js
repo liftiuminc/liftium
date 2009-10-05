@@ -94,8 +94,8 @@ Liftium.buildChain = function(slotname) {
 
         // Sampled ad
         var sampledAd = Liftium.getSampledAd(size);
-        // Business rule: Don't do sampling if a tier 10 ad is present (exclusive)
-        if (sampledAd !== false && Liftium.isValidCriteria(sampledAd) && Liftium.chain[slotname][0]['tier'] != "10"){
+        // Business rule: Don't do sampling if a tier 1 ad is present (exclusive)
+        if (sampledAd !== false && Liftium.isValidCriteria(sampledAd) && Liftium.chain[slotname][0]['tier'] != "1"){
                 // HACK: No easy way to put an element on to the beginning of an array in javascript, so reverse/push/reverse
                 Liftium.chain[slotname].reverse();
                 Liftium.chain[slotname].push(sampledAd);
@@ -228,9 +228,9 @@ Liftium.catchError = function (msg, url, line) {
 Liftium.chainSort = function(a, b){
         var a_tier = parseInt(a['tier'], 10) || 0;
         var b_tier = parseInt(b['tier'], 10) || 0;
-        if (a_tier > b_tier){
+        if (a_tier < b_tier){
                 return -1;
-        } else if (a_tier < b_tier){
+        } else if (a_tier > b_tier){
                 return 1;
         } else {
                 // Same tier, sort by weighted random
