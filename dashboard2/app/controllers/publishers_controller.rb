@@ -1,4 +1,6 @@
 class PublishersController < ApplicationController
+  before_filter :require_user
+
   def index
     @publishers = Publisher.all
   end

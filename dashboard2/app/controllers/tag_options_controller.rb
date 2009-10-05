@@ -1,4 +1,6 @@
 class TagOptionsController < ApplicationController
+  before_filter :require_user
+
   def index
     @tag_options = TagOption.all
   end

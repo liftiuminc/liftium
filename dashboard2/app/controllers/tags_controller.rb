@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  before_filter :require_user
+
   def index
     @tags = Tag.all
   end

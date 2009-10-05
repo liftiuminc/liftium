@@ -1,0 +1,22 @@
+
+<%# @title_bar_right_text = link_to "Send me my password", new_password_reset_path %>
+
+<% title "Login" %>
+
+<% form_for @user_session, :url => user_session_path do |f| %>
+<div width="400">
+
+  <%= f.error_messages %>
+
+  <div class="fieldset">
+    <%= f.label :email %><br />
+    <%= f.text_field :email, {:style=> "width: 200px"}  %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :password %><br />
+    <%= f.password_field :password,  {:style=> "width: 200px"}%>
+  </div>
+  <%= liftium_submit "Login"%>
+<% end %>
+</div>
+

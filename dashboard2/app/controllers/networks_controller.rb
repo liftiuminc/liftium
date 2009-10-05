@@ -1,4 +1,6 @@
 class NetworksController < ApplicationController
+  before_filter :require_user
+
   def index
     @networks = Network.all
   end

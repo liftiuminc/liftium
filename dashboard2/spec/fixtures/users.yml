@@ -1,0 +1,40 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+nick:
+   id: 42
+   email: nick@liftium.com
+   crypted_password: 45b6e98b65f752bae02d0545237ea50b46b849da253117db6b2789f748d983b0f40ac03ca53a76a47f83adb192212850621ca75eb89a750cbadb613dc1b1a127
+   password_salt: QwX2fPJnUVmDoemEqosZ
+   persistence_token: cd8a3c47320e5efd5b3ddf4d31eef7cd31357cbbcaa366ffaa3eaced88cd58a865c43489d02d0879ce5e91ced1bc28778ce3859bcc763a5e8c46c59f584684ca
+   single_access_token: x0DUJNP2NXBRWEVASRm6
+   perishable_token: jB8RRF-9nvUkYKrn0Kf4
+   login_count: 1
+   failed_login_count: 0
+   created_at: 2009-09-17 20:58:34
+
+nick2:
+   id: 44
+   email: nick@sullivanflock.com
+   crypted_password: 45b6e98b65f752bae02d0545237ea50b46b849da253117db6b2789f748d983b0f40ac03ca53a76a47f83adb192212850621ca75eb89a750cbadb613dc1b1a127
+   password_salt: QwX2fPJnUVmDoemEqosZ
+   persistence_token: cd8a3c47320e5efd5b3ddf4d31eef7cd31357cbbcaa366ffaa3eaced88cd58a865c43489d02d0879ce5e91ced1bc28778ce3859bcc763a5e8c46c59f584684ca
+   single_access_token: x0DUJNP2NXBRWEVASRm6
+   perishable_token: jB8RRF-9nvUkYKrn0Kf4
+   login_count: 1
+   failed_login_count: 0
+   created_at: 2009-09-17 20:58:34
+   # Nicks blog
+   publisher_id: 1045
+
+
+martel:
+  id                 : 43
+  email              : mduvigneaud@gmail.com
+  crypted_password   : 66f68fe709444f4ad8d77b986c10a55eb4bebdb9592beed58205b0b8a844f56298a6b5095a10c5140fd5a53cfeb2a09620bc23b66ec741359eabc5b17283d2eb
+  password_salt      : q7WsuyI3hc6G0n6bciS0
+  persistence_token  : 28bd42fafd3750a82ba0bcb524999386976fdae9df589fd4d1fa28b70f8814f4b8c5250c7d71f3f624c1c957edd9d3835dfa55c48fddf5883bafc40e7ccb0169
+  single_access_token: uJMLms6FZNWdx9nZf7qA
+  perishable_token   : QflmYarl67PXFYKcHU9L
+  created_at         : 2009-09-21 00:48:57
+  publisher_id       : NULL
+

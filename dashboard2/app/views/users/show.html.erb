@@ -1,0 +1,56 @@
+<% title "User" %>
+
+<p>
+  <strong>Email:</strong>
+  <%=h @user.email %>
+</p>
+<p>
+  <strong>Crypted Password:</strong>
+  <%=h @user.crypted_password %>
+</p>
+<p>
+  <strong>Password Salt:</strong>
+  <%=h @user.password_salt %>
+</p>
+<p>
+  <strong>Persistence Token:</strong>
+  <%=h @user.persistence_token %>
+</p>
+<p>
+  <strong>Single Access Token:</strong>
+  <%=h @user.single_access_token %>
+</p>
+<p>
+  <strong>Perishable Token:</strong>
+  <%=h @user.perishable_token %>
+</p>
+<p>
+  <strong>Login Count:</strong>
+  <%=h @user.login_count %>
+</p>
+<p>
+  <strong>Failed Login Count:</strong>
+  <%=h @user.failed_login_count %>
+</p>
+<p>
+  <strong>Current Login At:</strong>
+  <%=h @user.current_login_at %>
+</p>
+<p>
+  <strong>Last Login At:</strong>
+  <%=h @user.last_login_at %>
+</p>
+<p>
+  <strong>Current Login Ip:</strong>
+  <%=h @user.current_login_ip %>
+</p>
+<p>
+  <strong>Last Login Ip:</strong>
+  <%=h @user.last_login_ip %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_user_path(@user) %> |
+  <%= link_to "Delete", @user, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
+  <%= link_to "View All", users_path %>
+</p>
