@@ -1,0 +1,12 @@
+  <div class="fieldset tag_options">
+    <%= f.label :option_name %>
+    <%= f.text_field :option_name, {:style => "width:150px"} %>
+    <%= f.check_box :required %>
+    <%= f.label :required %>
+    <% if f.object.new_record? %>
+	<%= link_to_function "Clear", "this.up('.tag_options').remove()" %>
+    <% else %>
+	<%= f.check_box '_delete' %>
+	<%= f.label '_delete', 'Remove' %>
+    <% end %>
+  </div>

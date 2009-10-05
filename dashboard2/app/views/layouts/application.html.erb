@@ -13,6 +13,9 @@
 
     <!-- Left Nav -->
     <div id="leftnav">
+     <% if !current_user %>
+	 <%= link_to "Log In", new_user_session_path %>
+     <% else %>
       <div class="navsection">
 	    <div class="navsection_header">Publishers</div>
 	    <ul>
@@ -31,15 +34,12 @@
        <div class="navsection">
 	    <div class="navsection_header">Account</div>
 		<ul>
-		<% if !current_user %>
-		  <li><%= link_to "Log In", new_user_session_path %>
-		<% else %>
 		  <li><%= link_to "My Account", account_path %>
 		  <li><%= link_to "Logout", user_session_path, :method => :delete %>
-		<% end %>
 		</ul>
 	    </div>
        </div>
+     <% end %>
 
     </div>
    

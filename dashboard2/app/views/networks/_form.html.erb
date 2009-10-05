@@ -38,7 +38,7 @@
   </div>
   <div class="fieldset">
     <%= f.label :contact_info, "Contact Information" %><br />
-    <%= f.text_area :contact_info, {:rows => 5} %>
+    <%= f.text_area :contact_info, {:rows => 5} %><br />
     <span class="hint">Account Reps, etc.</span>
   </div>
   <div class="fieldset">
@@ -59,5 +59,15 @@
     <%= f.label :tag_template %><br />
     <%= f.text_area :tag_template , :class => "tag_input"%>
   </div>
+
+  <div class="subform" id="network_tag_options_subform">
+  <div id="network_tag_options">
+  <% f.fields_for :network_tag_options do |network_tag_options_form| %>
+    <%= render :partial => 'network_tag_option', :locals=>{:f => network_tag_options_form} %>
+  <% end %>
+  </div>
+  <%= link_to_new_nested_form "Add a tag option", f, :network_tag_options %>
+  </div>
+
   <p><%= liftium_submit "Save Changes" %></p>
 <% end %>

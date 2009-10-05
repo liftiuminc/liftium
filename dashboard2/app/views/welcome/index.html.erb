@@ -1,0 +1,15 @@
+<% @show_nav = false %>
+<% title "Welcome" %>
+
+<% if !current_user %>
+
+<div style="width:500px">
+Liftium is an Ad Network Optimization company with some new ideas. We are currently only servicing early beta customers.
+If you already have an account, you may <%= link_to "log in", new_user_session_path %>. To inquire about our beta program, e-mail jennie at liftium.com
+</div>
+<% else %>
+<div style="width:500px">
+<img src="/images/swallowing_gum.jpg" width="500">
+</div>
+
+<% end %> 
