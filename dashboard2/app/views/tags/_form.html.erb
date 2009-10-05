@@ -58,8 +58,8 @@
   <div class="fieldset" id="tag_template_fieldset">
     <%= f.label :tag %>
     <%if @tag.network.tag_template %>
-      <span class="hint">Either use the network tag template with options OR override by providing your own tag</span><br />
-    <% end %>
+      <span class="hint">Either use the network tag template with options OR override by providing your own tag</span>
+    <% end %><br />
     <%= f.text_area :tag, :class => "tag_input" %>
   </div>
 
