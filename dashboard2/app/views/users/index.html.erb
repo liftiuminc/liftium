@@ -7,32 +7,16 @@
 <table class="record_listing" width="500" cellspacing="0" cellpadding="0"><!-- Cellspacing/paddding added for IE 6 -->
   <tr class="record_listing_header">
     <th>Email</th>
-    <th>Crypted Password</th>
-    <th>Password Salt</th>
-    <th>Persistence Token</th>
-    <th>Single Access Token</th>
-    <th>Perishable Token</th>
+    <th>Publisher</th>
     <th>Login Count</th>
-    <th>Failed Login Count</th>
-    <th>Current Login At</th>
-    <th>Last Login At</th>
-    <th>Current Login Ip</th>
-    <th>Last Login Ip</th>
+    <th>Last Login</th>
     <th colspan="3">Actions</th>
   </tr>
   <% for user in @users %>
     <tr class="record_row_<%= cycle("odd", "even")%>">
       <td class="record_column"><%=h user.email %></td>
-      <td class="record_column"><%=h user.crypted_password %></td>
-      <td class="record_column"><%=h user.password_salt %></td>
-      <td class="record_column"><%=h user.persistence_token %></td>
-      <td class="record_column"><%=h user.single_access_token %></td>
-      <td class="record_column"><%=h user.perishable_token %></td>
+      <td class="record_column"><%=h user.publisher_id ? user.publisher.site_name : "" %></td>
       <td class="record_column"><%=h user.login_count %></td>
-      <td class="record_column"><%=h user.failed_login_count %></td>
-      <td class="record_column"><%=h user.current_login_at %></td>
-      <td class="record_column"><%=h user.last_login_at %></td>
-      <td class="record_column"><%=h user.current_login_ip %></td>
       <td class="record_column"><%=h user.last_login_ip %></td>
       <td class="record_action"><%= link_to "View", user, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_user_path(user) %></td>

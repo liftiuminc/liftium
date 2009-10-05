@@ -1,29 +1,15 @@
-<% title "User" %>
+<% title "User " + @user.email %>
 
 <p>
   <strong>Email:</strong>
   <%=h @user.email %>
 </p>
-<p>
-  <strong>Crypted Password:</strong>
-  <%=h @user.crypted_password %>
-</p>
-<p>
-  <strong>Password Salt:</strong>
-  <%=h @user.password_salt %>
-</p>
-<p>
-  <strong>Persistence Token:</strong>
-  <%=h @user.persistence_token %>
-</p>
+<!--
 <p>
   <strong>Single Access Token:</strong>
   <%=h @user.single_access_token %>
 </p>
-<p>
-  <strong>Perishable Token:</strong>
-  <%=h @user.perishable_token %>
-</p>
+-->
 <p>
   <strong>Login Count:</strong>
   <%=h @user.login_count %>
