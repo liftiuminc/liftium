@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags
   map.resources :networks
   map.resources :ad_formats
+  # FIXME. Why couldn't I just use map.resources :charts here?
+  map.chart 'charts/:id/tag', :controller => 'charts', :action => 'tag'
 
   # The priority is based upon order of creation: first created -> highest priority.
 
