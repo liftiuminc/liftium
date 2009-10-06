@@ -702,6 +702,25 @@ Liftium.getUniqueSlotId = function(slotname) {
 	return false;
 };
 
+
+/* Pass options from LiftiumOptions through to the tag */
+Liftium.handleNetworkOptions = function (tag) {
+
+	switch (tag.network_id){
+	  case 1: /* Google */
+
+	    for (var opt in window.LiftiumOptions){
+		if (opt.match(/^google_/)){
+			window[opt] = window.LiftiumOptions[opt];
+		}
+	    }
+	    return true;
+
+	  default: return null;
+	}
+};
+
+
 /* This is the backup tag used to go to the next ad in the configuration */
 Liftium.hop = function (slotname){
         if (Liftium.e(slotname)){
