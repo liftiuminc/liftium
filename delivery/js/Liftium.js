@@ -845,19 +845,6 @@ Liftium.isValidCriteria = function (t){
 
         }
 
-        // Rejection capping
-        if (!Liftium.e(t["rej_cap"])){
-                var r = Liftium.getTagStat(t["tag_id"], "r");
-                if (r >= parseInt(t["rej_cap"], 10)){
-                        Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
-                                " invalid: " + r + " rejects is greater then rej_cap of " +
-                                t["rej_cap"], 3);
-                        t['isValidCriteria'] = false;
-                        return t['isValidCriteria'];
-                }
-
-        }
-
         // Rejection time
         if (!Liftium.e(t["rej_time"])){
                 var elapsedMinutes = Liftium.getMinutesSinceReject(t["tag_id"]);

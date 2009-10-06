@@ -49,7 +49,7 @@ class LiftiumConfig{
 		// TODO: Make these prepared statements for performance
 		$sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
 			tags.tag, tags.always_fill, tags.sample_rate,
-			tags.frequency_cap AS freq_cap, tags.rejection_cap AS rej_cap,
+			tags.frequency_cap AS freq_cap,
 			tags.rejection_time as rej_time, tags.tier, tags.value,
 			networks.tag_template
 			FROM tags

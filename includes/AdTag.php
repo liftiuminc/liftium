@@ -56,7 +56,7 @@ class AdTag {
 		$out = array();
 
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT size FROM adformats";
+		$sql = "SELECT size FROM ad_formats";
 		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
 			$out[] = $row['size'];
 		}
