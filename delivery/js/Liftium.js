@@ -163,6 +163,9 @@ Liftium._callAd = function (slotname, iframe) {
 		return false;
 	}
 
+	// Network Options
+	Liftium.handleNetworkOptions(t);
+
         var loadDivId = slotname + '_' + t["tag_id"];
 
         // Clear other load divs for the current slot
