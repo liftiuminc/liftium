@@ -4,5 +4,7 @@ deploy.rb
 schema.rb
 test.log
 production.log
+live.log
+dev_mysql.log
 development.log
 */cache/*
