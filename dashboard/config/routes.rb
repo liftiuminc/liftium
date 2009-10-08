@@ -1,48 +1,19 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :network_tag_options
-
-  map.resources :users
-  map.resource :account, :controller => "users"
-  map.resource :user_session
-  map.resources :publishers
-  map.resources :tag_options
-  map.purchase 'tags/select_network', :controller => 'tags', :action => 'select_network'
-  map.resources :tags
-  map.resources :networks
-  map.resources :ad_formats
-  # FIXME. Why couldn't I just use map.resources :charts here?
-  map.chart 'charts/:id/tag', :controller => 'charts', :action => 'tag'
-
   # The priority is based upon order of creation: first created -> highest priority.
+  #
+  map.resource :account, :controller => "users"
+  map.resources :ad_formats
+  map.resources :networks, :has_many => :network_tag_options
+  map.resources :publishers, :has_many => :tags
 
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
+  map.select_network 'tags/select_network', :controller => 'tags', :action => 'select_network'
+  map.tag_generator  'tags/generator/:id', :controller => 'tags', :action => 'generator'
+  map.resources :tags, :has_many => [ :ad_formats, :tag_options ]
+  map.resource :user_session
+  map.resources :users 
 
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
-  # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
-  #   end
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
+  # Charts
+  map.chart 'charts/:id/:action', :controller => 'charts'
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "welcome"

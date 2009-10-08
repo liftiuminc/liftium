@@ -68,4 +68,13 @@ class TagsController < ApplicationController
     flash[:notice] = "Successfully destroyed tag."
     redirect_to tags_url
   end
+
+  def generator 
+    if params[:id]
+      @tag = Tag.find(params[:id])
+    else 
+      @tag = Tag.new
+    end
+  end
+
 end
