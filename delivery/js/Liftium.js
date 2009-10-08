@@ -736,6 +736,47 @@ Liftium.hop = function (slotname){
 };
 
 
+/* Set / Get an iframes contents, depending on the number of arguments */
+Liftium.iframeContents = function(iframe, html){
+	if (typeof iframe != "object"){
+		return false;
+	}
+
+	// Get the dom object
+	// IE does one way, W3C is another. Sooprise!
+	// Thanks to: http://bindzus.wordpress.com/2007/12/24/adding-dynamic-contents-to-iframes/
+	if (! iframe.doc) {
+		if(iframe.contentDocument) {
+			// Firefox, Opera
+			iframe.doc = iframe.contentDocument;
+		} else if(iframe.contentWindow) {
+			// IE
+			iframe.doc = iframe.contentWindow.document;
+		} else if(iframe.document) {
+			// Others?
+			iframe.doc = iframe.document;
+		}
+
+		// Trick to set up the document. See url above for info
+		iframe.doc.open();
+		iframe.doc.close();
+	}
+ 
+
+	if (typeof html != "undefined" ){
+		// Set
+		iframe.doc.body.style.backgroundColor="blue";
+		var div = iframe.doc.createElement("div");
+		div.id = "div42";
+		div.innerHTML = html;
+		iframe.doc.body.appendChild(div);
+		return true;
+	} else {
+		// Get
+		return iframe.doc.getElementById("div42").innerHTML;
+	}
+};
+
 Liftium.iframeOnload = function(e) {
 
         var iframe = e.target || e;
