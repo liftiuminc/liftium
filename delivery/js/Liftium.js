@@ -1257,19 +1257,6 @@ Liftium.sendBeacon = function (){
 
 	var now = new Date();
 
-        // Ad Time
-        var ms = (now.getTime() - Liftium.startTime) / 1000;
-        b.adTime = ms - parseFloat(Liftium.loadDelay/1000); // subtract delayTime
-        b.adTime = Math.floor(b.adTime * 10) / 10; // Round to 1 decimal
-
-        // Page Time
-        if (typeof window.wgNow == "object" ){
-              ms = (now.getTime() - window.wgNow.getTime()) / 1000;
-              b.pageTime = b.adTime - parseFloat(Liftium.loadDelay/1000); // subtract delayTime
-              b.pageTime = Math.floor(b.pageTime * 10) / 10; // Round to 1 decimal
-              Liftium.d ("Page loaded in " + b.pageTime + " seconds");
-        }
-
         // Pass along other goodies
         b.country = Liftium.getCountry();
         if (!Liftium.e(window.wgUserName)){
@@ -1304,7 +1291,7 @@ Liftium.sendBeacon = function (){
  
         Liftium.beaconCall(Liftium.baseUrl + 'beacon?' + Liftium.buildQueryString(p));
  
-        Liftium.d ("Liftium done, beacon sent, ads loaded in " + b.adTime + " seconds");
+        Liftium.d ("Liftium done, beacon sent");
 
 
         // Call the unit tests
