@@ -61,6 +61,7 @@ class Tag < ActiveRecord::Base
    end
 
    def preview_url 
+     # FIXME. This isn't working. Rails env empty?
      if ENV['RAILS_ENV'] == "dev" || ENV['RAILS_ENV'] == "dev_mysql"
 	"http://delivery.dev.liftium.com/tag?tag_id=#{id}"
      else 
