@@ -139,7 +139,8 @@ input:focus, textarea:focus, select:focus {
 	width: 600px;
 	height: 150px;
 	font-size: 9pt;
-	font-family: Lucida Console,monospace;
+	/* http://www.codestyle.org/css/font-family/sampler-Monospace.shtml */
+	font-family: Monaco,Lucida Console,monospace;
 }
 
 /* In fieldset */.input_for_number {

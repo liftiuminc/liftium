@@ -1,6 +1,23 @@
 <% title "Tag - " + @tag.tag_name %>
 
-<p>
+<style type="text/css">
+<%-if @tag.height.to_i > 400%>
+#tag_preview {
+	float:left;
+	margin-right: 15px;
+};
+<%-elsif @tag.width.to_i < 400%>
+#tag_preview {
+	float:right;
+};
+<%end%>
+</style>
+
+<div id="tag_preview" style="<%=@tag.css_size%>;border:1px dashed #660099">
+Tag will be here
+</div>
+
+<div id="tag_details">
   <strong>Tag Name:</strong>
   <%=h @tag.tag_name %>
 </p>
@@ -36,11 +53,11 @@
   <strong>Rejection Time:</strong>
   <%=h @tag.rejection_time %>
 </p>
-<p>
+</div>
+<br clear="all"/>
   <strong>Tag:</strong><br />
   <textarea class="tag_input"><%=h @tag.tag %></textarea>
 </p>
-
 <p>
   <%= link_to "Edit", edit_tag_path(@tag) %> |
   <%= link_to "Delete", @tag, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
