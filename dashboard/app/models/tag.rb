@@ -49,4 +49,12 @@ class Tag < ActiveRecord::Base
    def css_size 
      "width:#{width}px;height:#{height}px;"
    end
+
+   def preview_url 
+     if ENV['RAILS_ENV'] == "dev" || ENV['RAILS_ENV'] == "dev_mysql"
+	"http://delivery.dev.liftium.com/tag?tag_id=#{id}"
+     else 
+	"http://delivery.liftium.com/tag?tag_id=#{id}"
+     end
+   end 
 end
