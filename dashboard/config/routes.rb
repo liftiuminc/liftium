@@ -6,8 +6,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :networks, :has_many => :network_tag_options
   map.resources :publishers, :has_many => :tags
 
+  # FIXME: Is there way to not have to list all these?
   map.select_network 'tags/select_network', :controller => 'tags', :action => 'select_network'
   map.tag_generator  'tags/generator/:id', :controller => 'tags', :action => 'generator'
+  map.tag_generator  'tags/html_preview', :controller => 'tags', :action => 'html_preview'
   map.resources :tags, :has_many => [ :ad_formats, :tag_options ]
   map.resource :user_session
   map.resources :users 

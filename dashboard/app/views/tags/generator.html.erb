@@ -1,21 +1,19 @@
-<% title "Tag Generator" %>
+<% title "Tag Generator / Preview" %>
 
 <% # FIXME: How do I put this in the model?
 
     # Get the list of publishers for admin users
     @publishers = Publisher.find :all;
 %>
-
-
 <script>
-function generateTag(f) {
+function generateTag() {
   try {
-	var pubid = $("pubid_").value;
+	var pubid = $("pubid").value;
 	if (pubid == ""){
 		alert("You must select a publisher to continue.");	
 		return false;
 	}
-	var size = $("size_").value;
+	var size = $("size").value;
 	if (size == ""){
 		alert("You must select a size to continue.");	
 		return false;
@@ -24,7 +22,7 @@ function generateTag(f) {
 	comments = $("comments").checked;
 	var t='';
 	if (comments){
-		t += '<!-- Begin Liftium set up -->\n' +
+		t += '<!-- Begin Liftium set up. \n' +
 		     'This only needs to appear once on your page, anywhere above the tag is ok. -->\n';
 	}
 
@@ -49,48 +47,38 @@ function generateTag(f) {
 }
 
 function doPreview(){
-	var size = $("size_").value;
-	var h = '<a href="javascript:doPreview()">Reload Preview</a><br />\n';
+	var size = $("size").value;
 	var dim = size.match(/^([0-9]{2,4})x([0-9]{2,4})/);
 	if (! dim){
 		return false;
 	}
 
-	h += '<div style="width:' + dim[1] + 'px;height:' + dim[2] + 'px;border:1px dashed #660099"></div>';
-	$("preview_tag").update(h);
-
-	var iframe = document.createElement('IFRAME');
+	iframe = document.getElementById("preview_iframe");
 	iframe.width=dim[1];
 	iframe.height=dim[2];
-	iframe.border=1;
-	document.getElementById("preview_tag").appendChild(iframe);
-	var w;
-	if (iframe.contentDocument) {
-		// For NS6
-		w = iframe.contentDocument; 
-	} else if (iframe.contentWindow) {
-		// For IE5.5 and IE6
-		w = iframe.contentWindow.document;
-	} else if (iframe.document) {
-		// For IE5
-		w = iframe.document;
-	} else {
-		return true;
-	}
-	w.innerHTML = "blarrrrrrr"; 
-	w.innerHTML += "more BLARRRRRRRRR";
-	
+	iframe.style.border="1px dashed #660099";
+	iframe.style.display="block";
+
+	var f = document.getElementById("preview_form");
+	f.html.value = $("tag").value; 
+	f.submit();
 }
 </script>
 
 <form onSubmit="return generateTag(this);">
   <div class="fieldset">
     <%= label_tag :publisher, nil, :class => "left_label" %>
-    <%= collection_select("pubid", "", @publishers, :id, :site_name, :include_blank => true) %>
+    <select name="pubid" id="pubid">
+    <option value="">Select a Publisher
+    <%= options_from_collection_for_select(@publishers, :id, :site_name) %>
+    </select>
   </div>
   <div class="fieldset">
     <%= label_tag :size, nil, :class => "left_label" %>
-    <%= select("size", "", AdFormat.all.collect {|af| [ af.name_with_size, af.size ] }, :include_blank=>true) %>
+    <select name="size" id="size">
+    <option value="">Select a Size
+    <%= options_from_collection_for_select(AdFormat.all.collect, :size, :name_with_size) %>
+    </select>
   </div>
   <div class="fieldset">
     <%= label_tag :options, nil, :class => "left_label" %><br />
@@ -103,4 +91,8 @@ function doPreview(){
   </div>
   <p><%= liftium_submit "Generate Tag" %></p>
 </form>
-<div id="preview_tag"></div>
+<!-- FIXME: form for remote ?-->
+<form id="preview_form" target="preview_iframe" method="post" action="/tags/html_preview"><!-- FIXME: url for html preview? -->
+<input type="hidden" name="html"/>
+</form>
+<iframe name="preview_iframe" id="preview_iframe" style="display:none"></iframe>
