@@ -1,4 +1,4 @@
-<% title "Tag" %>
+<% title "Tag - " + @tag.tag_name %>
 
 <p>
   <strong>Tag Name:</strong>
@@ -37,8 +37,8 @@
   <%=h @tag.rejection_time %>
 </p>
 <p>
-  <strong>Tag:</strong>
-  <pre><%=h @tag.tag %></pre>
+  <strong>Tag:</strong><br />
+  <textarea class="tag_input"><%=h @tag.tag %></textarea>
 </p>
 
 <p>

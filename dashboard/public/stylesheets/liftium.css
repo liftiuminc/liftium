@@ -135,11 +135,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Make the input for tags extra big */
-.fieldset .tag_input {
+.tag_input {
 	width: 600px;
 	height: 150px;
 	font-size: 9pt;
-	font-family: Courier New,monospace;
+	font-family: Lucida Console,monospace;
 }
 
 /* In fieldset */.input_for_number {
