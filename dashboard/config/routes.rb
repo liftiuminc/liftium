@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.select_network 'tags/select_network', :controller => 'tags', :action => 'select_network'
   map.tag_generator  'tags/generator/:id', :controller => 'tags', :action => 'generator'
   map.tag_html_preview  'tags/html_preview', :controller => 'tags', :action => 'html_preview'
+  map.tag_copy  'tags/copy/:id', :controller => 'tags', :action => 'copy'
   map.resources :tags, :has_many => [ :ad_formats, :tag_options ]
   map.resource :user_session
   map.resources :users 

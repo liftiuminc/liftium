@@ -135,12 +135,12 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Make the input for tags extra big */
-.tag_input {
+.fieldset .tag_input, .tag_input {
 	width: 600px;
 	height: 150px;
 	font-size: 9pt;
 	/* http://www.codestyle.org/css/font-family/sampler-Monospace.shtml */
-	font-family: Monaco,Lucida Console,monospace;
+	font-family: Lucida Console,monospace;
 }
 
 /* In fieldset */.input_for_number {

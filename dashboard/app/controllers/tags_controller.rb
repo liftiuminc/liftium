@@ -51,6 +51,20 @@ class TagsController < ApplicationController
     @publishers = Publisher.find :all;
     @tag = Tag.find(params[:id])
   end
+
+  def copy
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
+   
+    # Get the list of publishers for admin users
+    @publishers = Publisher.find :all;
+
+    @tag_orig = Tag.find(params[:id])
+    @tag = @tag_orig.clone
+    @tag.tag_name = "Copy of #{@tag.tag_name}"
+    @tag.tag_options = @tag_orig.tag_options
+    render :action => 'edit'
+  end
   
   def update
     @tag = Tag.find(params[:id])

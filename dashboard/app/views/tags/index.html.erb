@@ -14,7 +14,7 @@
     <th>Sampled</th>
     <th>Freq Cap</th>
     <th>Rej Time</th>
-    <th colspan="3">Actions</th>
+    <th colspan="4">Actions</th>
     <th>Fill Rate</th>
   </tr>
   <% for tag in @tags %>
@@ -32,7 +32,9 @@
       <td class="record_column"><%=h tag.rejection_time %></td>
       <td class="record_action"><%= link_to "View", tag, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_tag_path(tag) %></td>
-      <td class="record_column"><%= link_to "Delete", tag, :confirm => 'Are you sure?', :method => "delete" %></td>
+      <td class="record_action"><%= link_to "Delete", tag, :confirm => 'Are you sure?', :method => "delete" %></td>
+	<!-- FIXME: Use correct rails link helper -->
+      <td class="record_column"><%= link_to "Copy", "/tags/copy/#{tag.id}" %></td>
       <td class="record_action">
 	<a href="<%=h url_for :controller => 'charts', :action => 'tag', :id => tag.id %>"><img src="http://rgraph.liftium.com/sparkline?net=<%=tag.network_id%>&tag=<%=tag.id%>&range=15m&width=50&height=25" width="50" height="25"/></a></td>
     </tr>
