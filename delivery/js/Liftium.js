@@ -1223,6 +1223,16 @@ Liftium.sendBeacon = function (){
         }
         Liftium.beaconCalled = true;
 
+        // Throttle the beacon
+        var throttle = Liftium.config.throttle;
+        if (throttle === undefined || throttle === null){
+                Liftium.d("No throttle defined, using 1.0");
+                throttle = 1.0;
+        }
+        if (Math.random() > throttle){
+                Liftium.d("Beacon throttled at " + throttle);
+                return true;
+        }
 
 	var events = '', numSlots = 0;
         for(var slotname in Liftium.chain){
