@@ -25,7 +25,7 @@ class LiftiumConfig{
 			$criteria['size'] = $size;
 			$tags = AdTag::searchTags($criteria, false);
 			foreach($tags as $tag_id){
-				$object->sizes[$size][] = $this->loadTagFromId($tag_id, $size);
+				$object->sizes[$size][] = $this->loadTagFromId($tag_id);
 			}
 		}
 
@@ -35,9 +35,9 @@ class LiftiumConfig{
 		return $object;
 	}
 
-	public function loadTagFromId($tag_id, $size, $slotname = null){
+	public function loadTagFromId($tag_id){
                 $cache = LiftiumCache::getInstance();
-		$cacheKey = __CLASS__ . ':' . __METHOD__ . ':' . self::getCacheVersion() . ":$tag_id:$size:$slotname";
+		$cacheKey = __CLASS__ . ':' . __METHOD__ . ':' . self::getCacheVersion() . ":$tag_id";
 
 		$out = $cache->get($cacheKey);
 		if (!empty($out) && empty($_GET['purge'])){
@@ -49,7 +49,7 @@ class LiftiumConfig{
 		// TODO: Make these prepared statements for performance
 		$sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
 			tags.tag, tags.always_fill, tags.sample_rate,
-			tags.frequency_cap AS freq_cap,
+			tags.frequency_cap AS freq_cap, tags.size,
 			tags.rejection_time as rej_time, tags.tier, tags.value,
 			networks.tag_template
 			FROM tags
@@ -63,9 +63,9 @@ class LiftiumConfig{
 		}
 
                 // Get the tag options
-		$dim = AdTag::getHeightWidthFromSize($size);
+		$dim = AdTag::getHeightWidthFromSize($out['size']);
 		$tag_options = array(
-			'size' => $size,
+			'size' => $out['size'],
 			'width' => $dim['width'],
 			'height' => $dim['height']
 		);
