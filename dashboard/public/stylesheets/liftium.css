@@ -181,11 +181,22 @@ input:focus, textarea:focus, select:focus {
 }
 
 .record_row_odd {
-
+	vertical-align: top;
 }
 
 .record_row_even {
 	background-color: #E3E3E3;
+	vertical-align: top;
+}
+
+.disabled {
+	/* FIXME repeats oddly in IE */
+        background: #FFEEEE url(/images/disabled_bg.png) no-repeat center;
+}
+
+.record_column_number {
+	text-align: center;
+	border-right:1px solid #CCC;
 }
 
 
