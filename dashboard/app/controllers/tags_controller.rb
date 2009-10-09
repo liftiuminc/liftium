@@ -77,4 +77,18 @@ class TagsController < ApplicationController
     end
   end
 
+  def html_preview 
+    if params[:id]
+      @tag = Tag.find(params[:id])
+      render :action => :html_preview, :layout => "bare"
+    elsif params[:html]
+      @tag = Tag.new
+      @tag.tag = params[:html]
+      render :action => :html_preview, :layout => "bare"
+    else 
+      flash[:notice] = "html_preview expects either html or id"
+      redirect_to @tag
+    end
+  end
+
 end

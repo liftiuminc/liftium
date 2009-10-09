@@ -27,5 +27,26 @@ class Tag < ActiveRecord::Base
       always_fill ? "Yes" : "No"
    end
 
+   def html 
+      if tag 
+	"#{tag}"
+      else 
+        # TODO: Network tag options expansion
+	"#{tag.network.tag_template}"
+      end
+   end
 
+   def width
+     @d = size.to_s.split("x")
+     @d[0] || 0
+   end
+
+   def height
+     @d = size.to_s.split("x")
+     @d[1] || 0
+   end
+
+   def css_size 
+     "width:#{width}px;height:#{height}px;"
+   end
 end

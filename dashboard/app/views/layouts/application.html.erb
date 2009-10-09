@@ -2,6 +2,7 @@
   <head>
     <title><%= h(yield(:title) || "") %> - Liftium.com</title>
     <%= stylesheet_link_tag 'liftium' %>
+    <%= javascript_include_tag "prototype" %>
     <%= yield(:head) %>
   </head>
   <body>
@@ -17,17 +18,17 @@
       <div class="navsection">
 	    <div class="navsection_header">Publishers</div>
 	    <ul>
-	    <li><%= link_to "Tags", tags_url %>
-	    <li><%= link_to "Networks", networks_url %>	
 	    </ul>
        </div>
        <div class="navsection">
 	    <div class="navsection_header">Admin</div>
 	    <ul>
+	    <li><%= link_to "Tags", tags_url %>
+	    <li><%= link_to "Tag Generator", tag_generator_url %>	
+	    <li><%= link_to "Networks", networks_url %>	
 	    <li><%= link_to "Users", users_url %>	
 	    <li><%= link_to "Ad Formats", ad_formats_url %>	
 	    <li><%= link_to "Publishers", publishers_url %>	
-	    <li><%= link_to "Tag Generator", tag_generator_url %>	
 	    </ul>
        </div>
        <div class="navsection">
@@ -45,8 +46,6 @@
    
     <!-- Main content -->
     <div id="container">
-
-
       <%- if show_title_bar? -%>
         <div id="titlebar">
 		<%- if @title_bar_right_text -%>
@@ -66,8 +65,6 @@
       </div><!-- content -->
     </div><!-- container -->
   </body>
-<!-- I wonder how long I can get away with this at the bottom... -->
-<%= javascript_include_tag "prototype" %>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
