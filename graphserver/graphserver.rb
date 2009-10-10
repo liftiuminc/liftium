@@ -4,18 +4,30 @@ require 'rubygems'
 require 'json'
 require 'sinatra'
 require 'sparklines'
+require 'ftools';
 
-@@rrd_path = "/var/lib/ganglia/rrds/"
-@@liftium_path= "#{@@rrd_path}/Liftium/localhost.localdomain/"
+@@rrd_path       = "/var/lib/ganglia/rrds/"
+@@liftium_path   = "#{@@rrd_path}/Liftium/localhost.localdomain/"
 
+# 2x2 pixel gif
+@@fallback_image = File.expand_path( File.dirname( $0 ) + '/white.gif' );
 
 def send_rrd_graph(rrd_opts) 
   temp_file =  Tempfile.new('rrd-image')
   rrd_opts.unshift temp_file.path
-  system "rrdtool graph #{rrd_opts.join(' ')}"
-  send_file temp_file.path, :type => 'image/png',
+
+  # on success, send the graph
+  if system "rrdtool graph #{rrd_opts.join(' ')}"
+    send_file temp_file.path, 
+                :type        => 'image/png',
 			    :disposition => nil
-  temp_file.close
+    temp_file.close
+  # otherwise, send a fallback image  
+  else 
+    send_file @@fallback_image,
+                :type        => 'image/gif',
+                :disposition => nil   
+  end 
 end
 
 get '/chart' do
