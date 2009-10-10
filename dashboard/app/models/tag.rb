@@ -27,5 +27,45 @@ class Tag < ActiveRecord::Base
       always_fill ? "Yes" : "No"
    end
 
+   # db returns 0.1. we want this to be 0.10
+   def value_s 
+      @pieces = value.to_s.split(".")
+      if @pieces[1].length == 1
+	"#{value}0"
+      else 
+	"#{value}"
+      end
+   end
 
+   def html 
+      if tag 
+	"#{tag}"
+      else 
+        # TODO: Network tag options expansion
+	"#{tag.network.tag_template}"
+      end
+   end
+
+   def width
+     @d = size.to_s.split("x")
+     @d[0] || 0
+   end
+
+   def height
+     @d = size.to_s.split("x")
+     @d[1] || 0
+   end
+
+   def css_size 
+     "width:#{width}px;height:#{height}px;"
+   end
+
+   def preview_url 
+     # FIXME. This isn't working. Rails env empty?
+     if ENV['RAILS_ENV'] == "dev" || ENV['RAILS_ENV'] == "dev_mysql"
+	"http://delivery.dev.liftium.com/tag?tag_id=#{id}"
+     else 
+	"http://delivery.liftium.com/tag?tag_id=#{id}"
+     end
+   end 
 end

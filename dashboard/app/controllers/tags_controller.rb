@@ -29,6 +29,7 @@ class TagsController < ApplicationController
       @tag = Tag.new
       @tag.network_id = params[:network_id]
       @tag.tag_options.build
+      @tag.always_fill = @tag.network.default_always_fill
 
     end
   end
@@ -51,6 +52,20 @@ class TagsController < ApplicationController
     @publishers = Publisher.find :all;
     @tag = Tag.find(params[:id])
   end
+
+  def copy
+    # Get a list of enabled networks
+    @networks = Network.find :all, :conditions => {:enabled => true}
+   
+    # Get the list of publishers for admin users
+    @publishers = Publisher.find :all;
+
+    @tag_orig = Tag.find(params[:id])
+    @tag = @tag_orig.clone
+    @tag.tag_name = "Copy of #{@tag.tag_name}"
+    @tag.tag_options = @tag_orig.tag_options
+    render :action => 'edit'
+  end
   
   def update
     @tag = Tag.find(params[:id])
@@ -68,4 +83,27 @@ class TagsController < ApplicationController
     flash[:notice] = "Successfully destroyed tag."
     redirect_to tags_url
   end
+
+  def generator 
+    if params[:id]
+      @tag = Tag.find(params[:id])
+    else 
+      @tag = Tag.new
+    end
+  end
+
+  def html_preview 
+    if params[:id]
+      @tag = Tag.find(params[:id])
+      render :action => :html_preview, :layout => "bare"
+    elsif params[:html]
+      @tag = Tag.new
+      @tag.tag = params[:html]
+      render :action => :html_preview, :layout => "bare"
+    else 
+      flash[:notice] = "html_preview expects either html or id"
+      redirect_to @tag
+    end
+  end
+
 end

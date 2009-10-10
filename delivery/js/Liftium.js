@@ -163,6 +163,9 @@ Liftium._callAd = function (slotname, iframe) {
 		return false;
 	}
 
+	// Network Options
+	Liftium.handleNetworkOptions(t);
+
         var loadDivId = slotname + '_' + t["tag_id"];
 
         // Clear other load divs for the current slot
@@ -702,6 +705,25 @@ Liftium.getUniqueSlotId = function(slotname) {
 	return false;
 };
 
+
+/* Pass options from LiftiumOptions through to the tag */
+Liftium.handleNetworkOptions = function (tag) {
+
+	switch (tag.network_id){
+	  case 1: /* Google */
+
+	    for (var opt in window.LiftiumOptions){
+		if (opt.match(/^google_/)){
+			window[opt] = window.LiftiumOptions[opt];
+		}
+	    }
+	    return true;
+
+	  default: return null;
+	}
+};
+
+
 /* This is the backup tag used to go to the next ad in the configuration */
 Liftium.hop = function (slotname){
         if (Liftium.e(slotname)){
@@ -713,6 +735,47 @@ Liftium.hop = function (slotname){
         return Liftium._callAd(slotname);
 };
 
+
+/* Set / Get an iframes contents, depending on the number of arguments */
+Liftium.iframeContents = function(iframe, html){
+	if (typeof iframe != "object"){
+		return false;
+	}
+
+	// Get the dom object
+	// IE does one way, W3C is another. Sooprise!
+	// Thanks to: http://bindzus.wordpress.com/2007/12/24/adding-dynamic-contents-to-iframes/
+	if (! iframe.doc) {
+		if(iframe.contentDocument) {
+			// Firefox, Opera
+			iframe.doc = iframe.contentDocument;
+		} else if(iframe.contentWindow) {
+			// IE
+			iframe.doc = iframe.contentWindow.document;
+		} else if(iframe.document) {
+			// Others?
+			iframe.doc = iframe.document;
+		}
+
+		// Trick to set up the document. See url above for info
+		iframe.doc.open();
+		iframe.doc.close();
+	}
+ 
+
+	if (typeof html != "undefined" ){
+		// Set
+		iframe.doc.body.style.backgroundColor="blue";
+		var div = iframe.doc.createElement("div");
+		div.id = "div42";
+		div.innerHTML = html;
+		iframe.doc.body.appendChild(div);
+		return true;
+	} else {
+		// Get
+		return iframe.doc.getElementById("div42").innerHTML;
+	}
+};
 
 Liftium.iframeOnload = function(e) {
 
@@ -1160,6 +1223,16 @@ Liftium.sendBeacon = function (){
         }
         Liftium.beaconCalled = true;
 
+        // Throttle the beacon
+        var throttle = Liftium.config.throttle;
+        if (throttle === undefined || throttle === null){
+                Liftium.d("No throttle defined, using 1.0");
+                throttle = 1.0;
+        }
+        if (Math.random() > throttle){
+                Liftium.d("Beacon throttled at " + throttle);
+                return true;
+        }
 
 	var events = '', numSlots = 0;
         for(var slotname in Liftium.chain){
@@ -1183,19 +1256,6 @@ Liftium.sendBeacon = function (){
         b.events = events;
 
 	var now = new Date();
-
-        // Ad Time
-        var ms = (now.getTime() - Liftium.startTime) / 1000;
-        b.adTime = ms - parseFloat(Liftium.loadDelay/1000); // subtract delayTime
-        b.adTime = Math.floor(b.adTime * 10) / 10; // Round to 1 decimal
-
-        // Page Time
-        if (typeof window.wgNow == "object" ){
-              ms = (now.getTime() - window.wgNow.getTime()) / 1000;
-              b.pageTime = b.adTime - parseFloat(Liftium.loadDelay/1000); // subtract delayTime
-              b.pageTime = Math.floor(b.pageTime * 10) / 10; // Round to 1 decimal
-              Liftium.d ("Page loaded in " + b.pageTime + " seconds");
-        }
 
         // Pass along other goodies
         b.country = Liftium.getCountry();
@@ -1231,7 +1291,7 @@ Liftium.sendBeacon = function (){
  
         Liftium.beaconCall(Liftium.baseUrl + 'beacon?' + Liftium.buildQueryString(p));
  
-        Liftium.d ("Liftium done, beacon sent, ads loaded in " + b.adTime + " seconds");
+        Liftium.d ("Liftium done, beacon sent");
 
 
         // Call the unit tests

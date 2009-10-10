@@ -1,0 +1,98 @@
+<% title "Tag Generator / Publisher Preview" %>
+
+<% # FIXME: How do I put this in the model?
+
+    # Get the list of publishers for admin users
+    @publishers = Publisher.find :all;
+%>
+<script>
+function generateTag() {
+  try {
+	var pubid = $("pubid").value;
+	if (pubid == ""){
+		alert("You must select a publisher to continue.");	
+		return false;
+	}
+	var size = $("size").value;
+	if (size == ""){
+		alert("You must select a size to continue.");	
+		return false;
+	}
+
+	comments = $("comments").checked;
+	var t='';
+	if (comments){
+		t += '<!-- Begin Liftium set up. \n' +
+		     'This only needs to appear once on your page, anywhere above the tag is ok. -->\n';
+	}
+
+	t += '<script>LiftiumOptions = {pubid:' + pubid + '}</\script>\n' +
+	    '<script src="http://cdn.liftium.com/js/Liftium.js"><\/script>\n';
+
+	if (comments){ t += '<!-- End Liftium set up -->\n'; }
+	if (comments){ t += '<!-- Display Tag. Put this in the exact place where you want the ad -->\n'; }
+	t += '<script>Liftium.callAd("' + size + '")<\/script>';
+
+	$("tag").value = t;
+
+	if ($("preview").checked){
+		doPreview();
+	}
+
+	return false;
+  } catch (e) {
+	alert("Tag Generator Error " + e.message);
+	return false;
+  }
+}
+
+function doPreview(){
+	var size = $("size").value;
+	var dim = size.match(/^([0-9]{2,4})x([0-9]{2,4})/);
+	if (! dim){
+		return false;
+	}
+
+	iframe = document.getElementById("preview_iframe");
+	iframe.width=dim[1];
+	iframe.height=dim[2];
+	iframe.style.border="1px dashed #660099";
+	iframe.style.display="block";
+
+	var f = document.getElementById("preview_form");
+	f.html.value = $("tag").value; 
+	f.submit();
+}
+</script>
+
+<form onSubmit="return generateTag(this);">
+  <div class="fieldset">
+    <%= label_tag :publisher, nil, :class => "left_label" %>
+    <select name="pubid" id="pubid">
+    <option value="">Select a Publisher
+    <%= options_from_collection_for_select(@publishers, :id, :site_name) %>
+    </select>
+  </div>
+  <div class="fieldset">
+    <%= label_tag :size, nil, :class => "left_label" %>
+    <select name="size" id="size">
+    <option value="">Select a Size
+    <%= options_from_collection_for_select(AdFormat.all.collect, :size, :name_with_size) %>
+    </select>
+  </div>
+  <div class="fieldset">
+    <%= label_tag :options, nil, :class => "left_label" %><br />
+    <%= check_box_tag("comments", 1, true) %><%= label_tag :comments, "Helpful comments" %> 
+    <%= check_box_tag("preview", 1, true) %><%= label_tag :preview, "Show Preview" %>
+  </div>
+  <div class="fieldset" id="tag_template_fieldset">
+    <%= label_tag :tag %><br />
+    <%= text_area_tag :tag, nil, :class => "tag_input" %>
+  </div>
+  <p><%= liftium_submit "Generate Tag" %></p>
+</form>
+<!-- FIXME: form for remote ?-->
+<form id="preview_form" target="preview_iframe" method="post" action="/tags/html_preview"><!-- FIXME: url for html preview? -->
+<input type="hidden" name="html"/>
+</form>
+<iframe name="preview_iframe" id="preview_iframe" style="display:none"></iframe>

@@ -21,7 +21,7 @@
   <%=h @network.brand_safety_level %>
 </p>
 <p>
-  <strong>Supports Threshold (backup/default tags):</strong>
+  <strong>Supports Floor (backup/default tags):</strong>
   <%=h @network.supports_threshold_s %>
 </p>
 <p>
@@ -49,8 +49,8 @@
   <%=h @network.scraping_instructions %>
 </p>
 <p>
-  <strong>Tag Template:</strong>
-  <pre><%=h @network.tag_template %></pre>
+  <strong>Tag Template:</strong><br />
+  <textarea class="tag_input"><%=h @network.tag_template %></textarea>
 </p>
 <p>
   <%= link_to "Edit", edit_network_path(@network) %> |

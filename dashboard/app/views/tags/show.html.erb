@@ -1,5 +1,36 @@
-<% title "Tag" %>
+<% title "Tag - " + @tag.tag_name %>
 
+<style type="text/css">
+<%-if @tag.height.to_i > 400%>
+#tag_preview {
+	float:left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+};
+<%-elsif @tag.width.to_i < 400%>
+#tag_preview {
+	float:right;
+};
+<%-else %>
+#tag_preview {
+	margin-bottom: 10px;
+};
+<%end%>
+<%-if @tag.width.to_i > 600%>
+#wrapper {
+	width:<%=@tag.width%>px;	
+}
+<%-else %>
+#wrapper {
+	width:600px;
+}
+<%-end%>
+</style>
+
+<div id="wrapper">
+<div id="tag_details">
+
+<iframe id="tag_preview" src="<%= @tag.preview_url %>" style="<%=@tag.css_size%>;border:1px dashed #660099"></iframe>
 <p>
   <strong>Tag Name:</strong>
   <%=h @tag.tag_name %>
@@ -10,7 +41,7 @@
 </p>
 <p>
   <strong>Value:</strong>
-  $<%=h @tag.value %>
+  $<%=h @tag.value_s %>
 </p>
 <p>
   <strong>Enabled:</strong>
@@ -36,13 +67,14 @@
   <strong>Rejection Time:</strong>
   <%=h @tag.rejection_time %>
 </p>
-<p>
-  <strong>Tag:</strong>
-  <pre><%=h @tag.tag %></pre>
+</div>
+<br clear="all"/>
+  <strong>Tag:</strong><br />
+  <textarea class="tag_input"><%=h @tag.tag %></textarea>
 </p>
-
 <p>
   <%= link_to "Edit", edit_tag_path(@tag) %> |
   <%= link_to "Delete", @tag, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
   <%= link_to "View All", tags_path %>
 </p>
+</div>
