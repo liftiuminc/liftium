@@ -2,7 +2,43 @@
 
 <% title "Tags" %>
 
-<br clear="all"/>
+<div class="filter_form" id="tag_filter_form">
+  <form>
+     <ul>
+	<% if params[:debug] -%>
+	  <%= params.inspect -%>
+	<% end -%>
+	<li><%= label_tag :publisher %>
+	    <!-- FIXME. Use built in rails helper instead? -->
+	    <select name="publisher_id" id="publisherDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Publisher.all.collect, :id, :site_name, params[:publisher_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :network %>
+	    <select name="network_id" id="networkDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Network.all.collect, :id, :network_name, params[:network_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= check_box_tag "include_disabled", 1, !params[:include_disabled].blank?%><%= label_tag :include_disabled, "Show Disabled Tags"%></li>
+
+	<li><%= label_tag :size %>
+	    <select name="size" id="sizeDD">
+	      <option value="">
+	      <%= options_from_collection_for_select AdFormat.all.collect, :size, :name_with_size, params[:size] %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :name_search %>
+	    <%= text_field_tag :name_search, params[:name_search] %>
+	    </li>
+	<li><%= liftium_submit "Filter Tags"%></li>
+  </form>
+</div>
+
 
 <table class="record_listing" width="800" cellpadding="0" cellspacing="0">
   <tr class="record_listing_header">
@@ -31,6 +67,7 @@
       <td class="record_column">
 	<%=h tag.frequency_cap ? "Freq. cap - #{tag.frequency_cap}" : ""%>
 	<%=h tag.rejection_time ? "Rej. time  - #{tag.rejection_time}" : ""%>
+        &#160; <!-- So the border shows up when there is no criteria -->
       <td class="record_action"><%= link_to "View", tag, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_tag_path(tag) %></td>
       <td class="record_action"><%= link_to "Delete", tag, :confirm => 'Are you sure?', :method => "delete" %></td>
