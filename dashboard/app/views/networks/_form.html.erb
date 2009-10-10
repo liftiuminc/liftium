@@ -22,7 +22,7 @@
     <%= radio_button "network", "enabled", "false"%>No
   </div>
   <div class="fieldset">
-    <%= f.label :supports_threshold, "Backup/Default tags", :class => "label_for_radio" %>
+    <%= f.label :supports_threshold, "Supports price floor", :class => "label_for_radio" %>
     <%= radio_button "network", "supports_threshold", "true"%>Yes
     <%= radio_button "network", "supports_threshold", "false"%>No
   </div>
@@ -30,6 +30,7 @@
     <%= f.label :default_to_always_fill, nil, :class => "label_for_radio" %>
     <%= radio_button "network", "default_always_fill", "true"%>Yes
     <%= radio_button "network", "default_always_fill", "false"%>No
+    <span class="hint">when creating a new tag</span>
   </div>
   <div class="fieldset">
     <%= f.label :us_only, "United States Only", :class => "label_for_radio" %>

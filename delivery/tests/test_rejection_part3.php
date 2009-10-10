@@ -7,7 +7,7 @@ Modify the tag stats to simulate elapsed time: first tag will hop again, second 
 // Fiddle with the data to simulate time elapsed.
 Liftium.tagStats = Liftium.cookie('ATS');
 //document.write(Liftium.tagStats + '<br />');
-Liftium.tagStats = Liftium.tagStats.replace(/(\d+_13l[^,]+m)(\d+)/, function (str, stat, time) { return stat + (parseInt(time) - 5); });
+Liftium.tagStats = Liftium.tagStats.replace(/(\d+_14l[^,]+m)(\d+)/, function (str, stat, time) { return stat + (parseInt(time) - 5); });
 //document.write(Liftium.tagStats);
 </script>
 <!-- sample page -->

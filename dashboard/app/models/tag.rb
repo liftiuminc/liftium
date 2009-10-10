@@ -27,6 +27,16 @@ class Tag < ActiveRecord::Base
       always_fill ? "Yes" : "No"
    end
 
+   # db returns 0.1. we want this to be 0.10
+   def value_s 
+      @pieces = value.to_s.split(".")
+      if @pieces[1].length == 1
+	"#{value}0"
+      else 
+	"#{value}"
+      end
+   end
+
    def html 
       if tag 
 	"#{tag}"
@@ -51,6 +61,7 @@ class Tag < ActiveRecord::Base
    end
 
    def preview_url 
+     # FIXME. This isn't working. Rails env empty?
      if ENV['RAILS_ENV'] == "dev" || ENV['RAILS_ENV'] == "dev_mysql"
 	"http://delivery.dev.liftium.com/tag?tag_id=#{id}"
      else 
