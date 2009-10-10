@@ -17,8 +17,10 @@ class AdTag {
 
 	public function loadFromId($tag_id){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT *, id AS tag_id FROM tags WHERE id=" . $dbr->quote($tag_id);
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sql = "SELECT *, id AS tag_id FROM tags WHERE id = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($tag_id));
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			foreach($row as $column => $data){
 				$this->$column = $data;
 			}
@@ -28,8 +30,10 @@ class AdTag {
 
 		/*
 		$sql = "SELECT option_name, option_value FROM tag_option WHERE tag_id=" . $dbr->quote($tag_id);
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($tag_id));
 		$this->options = null;
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$this->options[$row['option_name']] = $row['option_value'];
 		}
 		*/
@@ -43,9 +47,11 @@ class AdTag {
 		$dbr = Framework::getDB("slave");
 		$sql = "SELECT DISTINCT size FROM ad_slot
 			INNER JOIN tag_slot_linking ON ad_slot.as_id = tag_slot_linking.as_id
-				AND tag_slot_linking.tag_id=" . $dbr->quote($tag_id);
+				AND tag_slot_linking.tag_id = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($tag_id));
 		$out = array();
-		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out[] = $row['size'];
 		}
 
@@ -57,7 +63,9 @@ class AdTag {
 
 		$dbr = Framework::getDB("slave");
 		$sql = "SELECT size FROM ad_formats";
-		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sth = $dbr->prepare($sql);
+		$sth->execute();
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out[] = $row['size'];
 		}
 
@@ -71,9 +79,11 @@ class AdTag {
 
 		$dbr = Framework::getDB("slave");
 		$sql = "SELECT slot, size FROM ad_slot WHERE default_enabled = 1
-			AND size NOT IN ('" . implode("','", $excludedSizes) . "')
+			AND size NOT IN (" . implode(", ", array_fill('?', count($excludedSizes))) . ")
 			AND skin='monaco' ORDER BY size, slot";
-		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sth = $dbr->prepare($sql);
+		$sth->execute($excludedSizes);
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out[$row['slot']] = $row['size'];
 		}
 
@@ -154,34 +164,41 @@ class AdTag {
 		 * within the same tier randomly (to take advantage of cream skimming)
 		 * But we also want to favor the higher paying ads
 		 */
+		$values = array();
 		$sql = "SELECT SQL_SMALL_RESULT /* Tell mysql to use in memory temp tables */
 			id AS tag_id,
 			(rand() * (0.1 * value)) AS weighted_random_value
 			FROM tags WHERE 1=1";
 		if (!empty($criteria['name_search'])){
 			$search = '%' . $criteria['name_search'] . '%';
-			$sql .= "\n\tAND tag_name like " . $dbr->quote($search) . " ";
+			$sql .= "\n\tAND tag_name like ? ";
+			$values[] = $search;
 		}
 
 		if (!empty($criteria['enabled'])){
-			$sql .= "\n\tAND enabled = " . $dbr->quote($criteria['enabled']) . " ";
+			$sql .= "\n\tAND enabled = ? ";
+			$values[] = $criteria['enabled'];
 			$sql .= "\n\tAND network_id in (SELECT network_id from networks where enabled = 1)";
 		}
 
 		if (!empty($criteria['network_id'])){
-			$sql .= "\n\tAND network_id = " . $dbr->quote($criteria['network_id']) . " ";
+			$sql .= "\n\tAND network_id = ? ";
+			$values[] = $criteria['network_id'];
 		}
 
 		if (!empty($criteria['pubid'])){
-			$sql .= "\n\tAND publisher_id = " . $dbr->quote($criteria['pubid']) . " ";
+			$sql .= "\n\tAND publisher_id = ? ";
+			$values[] = $criteria['pubid'];
 		}
 
 		if (!empty($criteria['size'])){
-			$sql .= "\n\tAND size = " . $dbr->quote($criteria['size']) . " ";
+			$sql .= "\n\tAND size = ? ";
+			$values[] = $criteria['size'];
 		}
 
 		if (!empty($criteria['auto_update_ecpm'])){
-			$sql .= "\n\tAND auto_update_ecpm = " . $dbr->quote($criteria['auto_update_ecpm']) . " ";
+			$sql .= "\n\tAND auto_update_ecpm = ? ";
+			$values[] = $criteria['auto_update_ecpm'];
 		}
 
 
@@ -199,10 +216,10 @@ class AdTag {
 				  SELECT tag_id FROM target_tag_linking
 					INNER JOIN target_value
 					ON target_tag_linking.target_value_id = target_value.target_value_id
-				  WHERE target_key_id = 1 AND target_keyvalue = " . $dbr->quote($criteria['target_country']) . "
+				  WHERE target_key_id = 1 AND target_keyvalue = ?
 				 )
 			       )";
-
+			$values[] = $criteria['target_country'];
 		}
 
 		if (!empty($criteria['target_browser'])){
@@ -218,9 +235,10 @@ class AdTag {
 				  SELECT tag_id FROM target_tag_linking
 					INNER JOIN target_value
 					ON target_tag_linking.target_value_id = target_value.target_value_id
-				  WHERE target_key_id = 7 AND target_keyvalue = " . $dbr->quote($criteria['target_browser']) . "
+				  WHERE target_key_id = 7 AND target_keyvalue = ?
 				  )
 				)";
+			$values[] = $criteria['target_browser'];
 		}
 
 		if (!empty($criteria['target_hub'])){
@@ -236,9 +254,10 @@ class AdTag {
 				  SELECT tag_id FROM target_tag_linking
 					INNER JOIN target_value
 					ON target_tag_linking.target_value_id = target_value.target_value_id
-				  WHERE target_key_id = 2 AND target_keyvalue = " . $dbr->quote($criteria['target_hub']) . "
+				  WHERE target_key_id = 2 AND target_keyvalue = ?
 				 )
 			       )";
+			$values[] = $criteria['target_hub'];
 		}
 
 		if (!empty($criteria['wgDBname'])){
@@ -254,9 +273,10 @@ class AdTag {
 				  SELECT tag_id FROM target_tag_linking
 					INNER JOIN target_value
 					ON target_tag_linking.target_value_id = target_value.target_value_id
-				  WHERE target_key_id = 4 AND target_keyvalue = " . $dbr->quote($criteria['wgDBname']) . "
+				  WHERE target_key_id = 4 AND target_keyvalue = ?
 				 )
 			       )";
+			$values[] = $criteria['wgDBname'];
 		}
 
 		// Exclude site specific tags
@@ -272,7 +292,8 @@ class AdTag {
 			$sql.= "\n\tAND tag_id IN (
 				  SELECT DISTINCT tag_id FROM tag_slot_linking
 					INNER JOIN ad_slot ON tag_slot_linking.as_id = ad_slot.as_id
-					 AND ad_slot.slot = " . $dbr->quote($criteria['slotname']) .  ")";
+					 AND ad_slot.slot = ?)";
+			$values[] = $criteria['slotname'];
 		}
 
 		switch (@$criteria['sort']){
@@ -283,17 +304,21 @@ class AdTag {
 		}
 
 		if (intval(@$criteria['limit']) > 0 ){
-			$sql .= " LIMIT " . $criteria['limit'];
+			$sql .= " LIMIT ?";
+			$values[] = $criteria['limit'];
 		}
 		if (intval(@$criteria['offset']) > 0 ){
-			$sql .= " OFFSET " . $criteria['offset'];
+			$sql .= " OFFSET ?";
+			$values[] = $criteria['offset'];
 		}
 
 		if (!empty($_GET['debug'])){
 			echo "<xmp>" . $sql . "</xmp>";
 		}
 		$out = array();
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sth = $dbr->prepare($sql);
+		$sth->execute($values);
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			if ($objects){
 				$out[] = new AdTag($row['tag_id']);
 			} else {
@@ -312,23 +337,27 @@ class AdTag {
 
 		$dbr = Framework::getDB("slave");
 
+		$values = array();
 		$sql = "SELECT SUM(attempts) AS attempts, SUM(rejects) AS rejects,
 			SUM(loads) AS loads,
 			SUM(loads)/SUM(attempts) AS fill_rate
 			FROM fills_minute WHERE
-			tag_id = " . $dbr->quote($tag_id);
+			tag_id = ?";
+		$values[] = $tag_id;
 
 		if (!empty($criteria['since'])){
-			$sql.= " AND minute >= " . $dbr->quote(date('Y-m-d H:i:00', $criteria['since']));
+			$sql.= " AND minute >= ?";
+			$values[] = date('Y-m-d H:i:00', $criteria['since']);
 		} else if (!empty($criteria['minute'])){
-			$sql.= " AND minute = " . $dbr->quote(date('Y-m-d H:i:00', $criteria['minute']));
+			$sql.= " AND minute = ?";
+			$values[] = date('Y-m-d H:i:00', $criteria['minute']);
 		}
 
 		$placeholder = array('attempts'=>0, 'rejects'=>0, 'loads'=>0, 'fill_rate'=>0);
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
-			$out = $row;
-		}
-		if (empty($out['attempts'])){
+		$sth = $dbr->prepare($sql);
+		$sth->execute($values);
+		$out = $sth->fetch(PDO::FETCH_ASSOC);
+		if ($out === false || empty($out['attempts'])){
 			return $placeholder;
 		} else {
 			return $out;

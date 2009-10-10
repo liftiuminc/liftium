@@ -63,11 +63,13 @@ class LiftiumConfig{
 			networks.tag_template
 			FROM tags
 			INNER JOIN networks ON tags.network_id = networks.id
-			WHERE tags.id = " . $dbr->quote($tag_id) . " LIMIT 1;";
-		foreach ($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
-			$out = $row;
-		}
-		if (empty($out)){
+			WHERE tags.id = ? LIMIT 1";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($tag_id));
+		$out = $sth->fetch(PDO::FETCH_ASSOC);
+		unset($sth);
+
+		if ($out === false){
 			return false;
 		}
 
@@ -79,8 +81,10 @@ class LiftiumConfig{
 			'height' => $dim['height']
 		);
                 $sql = "SELECT option_name, option_value
-                        FROM tag_options WHERE tag_id =" . $dbr->quote($tag_id) . ";";
-                foreach ($dbr->query($sql) as $row){
+                        FROM tag_options WHERE tag_id = ?";
+                $sth = $dbr->prepare($sql);
+                $sth->execute(array($tag_id));
+                while($row = $sth->fetch(PDO::FETCH_ASSOC)){
                         $tag_options[$row['option_name']]=$row['option_value'];
                 }
 
@@ -89,9 +93,11 @@ class LiftiumConfig{
 		// Get the slot names
 		$sql = "SELECT slot FROM ad_slot
 			INNER JOIN tag_slot_linking ON ad_slot.as_id = tag_slot_linking.as_id
-			WHERE tag_slot_linking.tag_id =" . $dbr->quote($tag_id) . ";";
+			WHERE tag_slot_linking.tag_id = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($tag_id));
 		$out['slotnames'] = Array();
-		foreach ($dbr->query($sql) as $row){
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out['slotnames'][] = $row['slot'];
 		}
 		*/
@@ -155,9 +161,11 @@ class LiftiumConfig{
 		$dbr = Framework::getDB("slave");
 		$sql = "SELECT target_keyvalue FROM target_value WHERE
 			target_key_id = (SELECT target_key_id FROM target_key WHERE target_keyname = 'Geography')
-			ORDER BY length(target_keyvalue), target_keyvalue;";
+			ORDER BY length(target_keyvalue), target_keyvalue";
+		$sth = $dbr->prepare($sql);
+		$sth->execute();
 		$out = array();
-                foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+                while($row = $dbr->fetch(PDO::FETCH_ASSOC)){
                         $out[] = $row['target_keyvalue'];
                 }
 
