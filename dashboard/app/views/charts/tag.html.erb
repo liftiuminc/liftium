@@ -1,7 +1,11 @@
 <% title "Tag Charts" %>
 
-<img src="<%=h tag_fillrate_url @tag, "1h" %>" width="400" />
-<img src="<%=h tag_fillrate_url @tag, "1d" %>" width="400" />
-<img src="<%=h tag_fillrate_url @tag, "1w" %>" width="400" />
-<img src="<%=h tag_fillrate_url @tag, "1m" %>" width="400" />
-<img src="<%=h tag_fillrate_url @tag, "1y" %>" width="400" />
+<a href="<%=h tag_fillrate_url @tag, "1h" %>"><img src="<%=h tag_fillrate_url @tag, "1h" %>" width="400" /></a>
+
+<a href="<%=h tag_fillrate_url @tag, "1d" %>"><img src="<%=h tag_fillrate_url @tag, "1d" %>" width="400" /></a>
+
+<a href="<%=h tag_fillrate_url @tag, "1w" %>"><img src="<%=h tag_fillrate_url @tag, "1w" %>" width="400" /></a>
+
+<a href="<%=h tag_fillrate_url @tag, "1m" %>"><img src="<%=h tag_fillrate_url @tag, "1m" %>" width="400" /></a>
+
+<a href="<%=h tag_fillrate_url @tag, "1y" %>"><img src="<%=h tag_fillrate_url @tag, "1y" %>" width="400" /></a>
