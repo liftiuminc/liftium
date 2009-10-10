@@ -18,7 +18,7 @@ a {
 	text-decoration: none; /* Nick wrote: I don't like this. */
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus, textarea:focus, {
 	background-color: #FFFFE0;
 }
 
@@ -39,7 +39,7 @@ input:focus, textarea:focus, select:focus {
 	border-left: 1px solid #D0D0D0;
 	border-bottom: 1px solid #D0D0D0;
 	padding-left: 20px;
-	padding-top: 15px;
+	padding-top: 5px;
 	padding-right: 20px;
 	padding-bottom: 20px;
 }
@@ -62,6 +62,11 @@ input:focus, textarea:focus, select:focus {
 	width: 150px;
 	padding-top: 20px;
 	padding-left: 5px;
+}
+
+#leftnav ul {
+	list-style-type:none;
+	padding-left: 15px;
 }
 
 #leftnav .navsection {
@@ -145,6 +150,26 @@ input:focus, textarea:focus, select:focus {
 	width: 175px !important; /* Nick wrote: I don't understand why the important is needed */
 }
 
+/* Filter search forms */
+.filter_form {
+	width: 800px;
+}
+
+.filter_form select {
+	width: 175px;
+}
+
+.filter_form label {
+	display: inline-block;
+	font-weight: bold;
+	width: 175px;
+}
+
+.filter_form li {
+	list-style-type:none;
+	margin-bottom: 4px;
+	margin-top: 4px;
+}
 
 /*** Record Listings ***/
 

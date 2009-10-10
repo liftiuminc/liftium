@@ -33,9 +33,9 @@ class TagsController < ApplicationController
        query.push('%' + params[:name_search] + '%')
     end
 
-  #  if params[:debug]
+    if params[:debug]
        flash[:notice] = "Query: " + query.inspect
-    #end
+    end
 
     @tags = Tag.find_by_sql query
     if @tags.length < 1

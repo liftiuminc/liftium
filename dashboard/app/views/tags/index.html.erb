@@ -23,8 +23,6 @@
 	    </select>
 	</li>
 
-	<li><%= check_box_tag "include_disabled", 1, !params[:include_disabled].blank?%><%= label_tag :include_disabled, "Show Disabled Tags"%></li>
-
 	<li><%= label_tag :size %>
 	    <select name="size" id="sizeDD">
 	      <option value="">
@@ -32,9 +30,15 @@
 	    </select>
 	</li>
 
-	<li><%= label_tag :name_search %>
+	<li><%= label_tag :tag_name %>
 	    <%= text_field_tag :name_search, params[:name_search] %>
-	    </li>
+	</li>
+
+	<li><%= label_tag :include_disabled, "Include Disabled Tags"%>
+	    <%= radio_button_tag "include_disabled", "true", !params[:include_disabled].blank?%>Yes
+	    <%= radio_button_tag "include_disabled", "", params[:include_disabled].blank?%>No
+	</li>
+
 	<li><%= liftium_submit "Filter Tags"%></li>
   </form>
 </div>
