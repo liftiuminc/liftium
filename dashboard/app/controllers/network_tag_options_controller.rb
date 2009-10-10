@@ -29,7 +29,7 @@ class NetworkTagOptionsController < ApplicationController
     @network_tag_option = NetworkTagOption.find(params[:id])
     if @network_tag_option.update_attributes(params[:network_tag_option])
       flash[:notice] = "Successfully updated network tag option."
-      redirect_to @network_tag_option
+      redirect_to network_tag_options_url
     else
       render :action => 'edit'
     end

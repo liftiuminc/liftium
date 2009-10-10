@@ -31,7 +31,7 @@ class PublishersController < ApplicationController
     @publisher = Publisher.find(params[:id])
     if @publisher.update_attributes(params[:publisher])
       flash[:notice] = "Successfully updated publisher."
-      redirect_to @publisher
+      redirect_to publishers_url
     else
       render :action => 'edit'
     end

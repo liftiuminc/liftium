@@ -31,7 +31,7 @@ class AdFormatsController < ApplicationController
     @ad_format = AdFormat.find(params[:id])
     if @ad_format.update_attributes(params[:ad_format])
       flash[:notice] = "Successfully updated ad format."
-      redirect_to @ad_format
+      redirect_to ad_formats_url
     else
       render :action => 'edit'
     end

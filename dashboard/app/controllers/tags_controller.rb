@@ -109,7 +109,7 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     if @tag.update_attributes(params[:tag])
       flash[:notice] = "Successfully updated tag."
-      redirect_to @tag
+      redirect_to tags_url
     else
       render :action => 'edit'
     end

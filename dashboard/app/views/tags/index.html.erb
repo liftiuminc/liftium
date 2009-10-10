@@ -45,6 +45,7 @@
 
 
 <table class="record_listing" width="800" cellpadding="0" cellspacing="0">
+
   <tr class="record_listing_header">
     <th>Publisher</th>
     <th>Tag</th>
@@ -54,6 +55,7 @@
     <th colspan="4">Actions</th>
     <th>Fill Rate</th>
   </tr>
+
   <% for tag in @tags %>
    <%- if tag.enabled %>
     <tr class="record_row_<%= cycle("odd", "even")%>">
@@ -83,4 +85,5 @@
 	<% end %>
     </tr>
   <% end %>
+
 </table>

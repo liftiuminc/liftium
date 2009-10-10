@@ -31,7 +31,7 @@ class NetworksController < ApplicationController
     @network = Network.find(params[:id])
     if @network.update_attributes(params[:network])
       flash[:notice] = "Successfully updated network."
-      redirect_to @network
+      redirect_to networks_url
     else
       render :action => 'edit'
     end

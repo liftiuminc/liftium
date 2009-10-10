@@ -31,7 +31,7 @@ class TagOptionsController < ApplicationController
     @tag_option = TagOption.find(params[:id])
     if @tag_option.update_attributes(params[:tag_option])
       flash[:notice] = "Successfully updated tag option."
-      redirect_to @tag_option
+      redirect_to tag_options_url
     else
       render :action => 'edit'
     end
