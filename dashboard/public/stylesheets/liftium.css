@@ -157,7 +157,7 @@ input:focus, textarea:focus, select:focus {
 	border-bottom:1px solid #CCC;
 	border-left:1px solid #CCC;
 	border-right:1px solid #CCC;
-	font-size: 10pt;
+	font-size: 9pt;
 }
 
 .record_listing td { /* the table */
