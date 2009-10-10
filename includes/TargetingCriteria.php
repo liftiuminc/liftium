@@ -5,7 +5,10 @@ class TargetingCriteria {
 	public function getKeys(){
                 $dbr = Framework::getDB("slave");
 		$out = array();
-		foreach($dbr->query("SELECT * FROM target_key ORDER BY target_keyname", PDO::FETCH_ASSOC) as $row){
+		$sql = "SELECT * FROM target_key ORDER BY target_keyname";
+		$sth = $dbr->prepare($sql);
+		$sth->execute();
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out[$row['target_key_id']] = $row['target_keyname'];
 		}
 		return $out;	
@@ -14,16 +17,20 @@ class TargetingCriteria {
 	public function getKeyValues($keyname = null){
                 $dbr = Framework::getDB("slave");
 
+		$values = array();
 		$sql = "SELECT target_value.*, target_keyname FROM target_value
 			INNER JOIN target_key ON
 				target_key.target_key_id = target_value.target_key_id
 			WHERE 1 = 1";
 		if (!empty($keyname)){
-			$sql .= " AND target_keyname = " . $dbr->quote($keyname);
+			$sql .= " AND target_keyname = ?";
+			$values[] = $keyname;
 		}
 
+		$sth = $dbr->prepare($sql);
+		$sth->execute($values);
 		$out = array();
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out[$row['target_value_id']] = $row;
 		}
 		return $out;	
@@ -46,10 +53,12 @@ class TargetingCriteria {
 				target_key.target_key_id = target_value.target_key_id
 			INNER JOIN target_tag_linking ON
 				target_tag_linking.target_value_id = target_value.target_value_id AND
-				target_tag_linking.tag_id = " . $dbr->quote($tag_id);
+				target_tag_linking.tag_id = ?";
 
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($tag_id));
 		$out = array();
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out[$row['target_value_id']] = $row;
 		}
 		return $out;	
@@ -62,21 +71,22 @@ class TargetingCriteria {
 			return false;
 		}
 
-		$dbw->exec("BEGIN");
-		$dbw->exec("DELETE FROM target_tag_linking WHERE tag_id = " . $dbw->quote($tag_id));
+		$dbw->beginTransaction();
+		$sth = $dbw->prepare("DELETE FROM target_tag_linking WHERE tag_id = ?");
+		$sth->execute(array($tag_id));
 
 		$ret = 0;
                 if (!empty($target_value_ids)){
-                        $sql = "INSERT INTO target_tag_linking VALUES ";
+                        $sql = "INSERT INTO target_tag_linking VALUES (?, ?)";
+						$sth = $dbw->prepare($sql);
                         foreach($target_value_ids as $tv_id){
-                                $sql.="($tag_id, $tv_id),";
+                                $sth->execute(array($tag_id, $tv_id));
+                                $ret++;
                         }
-                        $sql = preg_replace('/,$/', ';', $sql);
-                        $ret = $dbw->exec($sql);
                 }
 
 
-		$dbw->exec("COMMIT");
+		$dbw->commit();
 
 		return $ret;
 
@@ -121,7 +131,9 @@ class TargetingCriteria {
 			$tvid = self::getTargetValueId($keyid, $piece);
 			if (empty($tvid)){
 				// Otherwise insert it
-				$dbw->exec("INSERT INTO target_value VALUES(NULL, $keyid, ". $dbw->quote($piece) .")");
+				$sql = "INSERT INTO target_value VALUES(NULL, ?, ?)";
+				$sth = $dbw->prepare($sql);
+				$sth->execute(array($keyid, $piece));
 				$tvid  = $dbw->lastInsertId();
 			}
 			$out[] = $tvid;
@@ -132,8 +144,10 @@ class TargetingCriteria {
 
 	static public function getKeyValueId($keyname){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT target_key_id FROM target_key WHERE target_keyname = " . $dbr->quote($keyname);
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sql = "SELECT target_key_id FROM target_key WHERE target_keyname = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($keyname));
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			return $row['target_key_id'];
 		}
 		return false;
@@ -142,9 +156,11 @@ class TargetingCriteria {
 
 	static public function getTargetValueId($keyid, $keyvalue){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT target_value_id FROM target_value WHERE target_key_id = " . intval($keyid) . "
-			AND target_keyvalue = " . $dbr->quote($keyvalue);
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sql = "SELECT target_value_id FROM target_value WHERE target_key_id = ?
+			AND target_keyvalue = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array(intval($keyid), $keyvalue));
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			return $row['target_value_id'];
 		}
 		return false;
