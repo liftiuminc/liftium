@@ -3,7 +3,7 @@
 body {
 	background-color: #EEE;
 	color: #333;
-	font-family: Arial,sans-serif;
+	font-family: Verdana,Arial,sans-serif;
 	font-size: 12px;
 	margin: 0;
 }
@@ -81,7 +81,7 @@ input:focus, textarea:focus, select:focus {
 
 #titlebar h1 {
 	float:left;
-	font-size: 18px;
+	font-size: 150%;
 	font-weight:bold;
 	height:51px;
 	line-height:50px;
@@ -92,7 +92,7 @@ input:focus, textarea:focus, select:focus {
 	float: right;
 	margin-right: 21px;
 	margin-top: 30px;
-	font-size: 14px;
+	font-size: larger;
 }
 
 #title_bar_right_text img{
@@ -112,7 +112,6 @@ input:focus, textarea:focus, select:focus {
 
 .fieldset label {
 	color: #000;
-	font-size: 14px;
 	line-height: 20px;
 }
 
@@ -129,7 +128,7 @@ input:focus, textarea:focus, select:focus {
 
 
 .fieldset .hint {
-	font-size: 11px;
+	font-size: smaller;
 	font-weight: lighter;
 	color: gray;
 }
@@ -138,7 +137,6 @@ input:focus, textarea:focus, select:focus {
 .fieldset .tag_input, .tag_input {
 	width: 600px;
 	height: 150px;
-	font-size: 9pt;
 	/* http://www.codestyle.org/css/font-family/sampler-Monospace.shtml */
 	font-family: Lucida Console,monospace;
 }
@@ -159,13 +157,13 @@ input:focus, textarea:focus, select:focus {
 	border-bottom:1px solid #CCC;
 	border-left:1px solid #CCC;
 	border-right:1px solid #CCC;
+	font-size: 10pt;
 }
 
 .record_listing td { /* the table */
 }
 
 .record_listing td, .record_listing th { /* the table */
-	font-size: 12px;
 	padding: 6px;
 }
 
@@ -214,7 +212,7 @@ input:focus, textarea:focus, select:focus {
 	border: solid 1px #a7e147;
 	padding: 15px; 
 	font-weight: bold;
-	font-size: 14px;
+	font-size: larger;
 	text-indent: 50px;
 }
 
@@ -224,7 +222,7 @@ input:focus, textarea:focus, select:focus {
 	background-position:20px center;
 	background-repeat:no-repeat;
 	border: solid 1px #df3e4e;
-	font-size: 14px;
+	font-size: larger;
 	font-weight: bold;
 	padding: 15px; 
 	text-indent: 50px;
@@ -249,7 +247,7 @@ input:focus, textarea:focus, select:focus {
 	background-position:20px center;
 	background-repeat:no-repeat;
 	border: solid 1px #df3e4e;
-	font-size: 14px;
+	font-size: larger;
 	font-weight: bold;
 	margin: 0;
 	padding-right: 15px; 
@@ -269,7 +267,6 @@ input:focus, textarea:focus, select:focus {
 }
 
 #errorExplanation ul li {
-	font-size: 12px;
 	line-height: 20px;
 	list-style: circle;
 }
