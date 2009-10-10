@@ -29,12 +29,7 @@ class Tag < ActiveRecord::Base
 
    # db returns 0.1. we want this to be 0.10
    def value_s 
-      @pieces = value.to_s.split(".")
-      if @pieces[1].length == 1
-	"#{value}0"
-      else 
-	"#{value}"
-      end
+      sprintf( "%.2f", value)
    end
 
    def html 
