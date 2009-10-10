@@ -29,6 +29,7 @@ class TagsController < ApplicationController
       @tag = Tag.new
       @tag.network_id = params[:network_id]
       @tag.tag_options.build
+      @tag.always_fill = @tag.network.default_always_fill
 
     end
   end

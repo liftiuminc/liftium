@@ -29,6 +29,15 @@ class LiftiumConfig{
 			}
 		}
 
+		// Pull beacon throttle
+		$dbr = Framework::getDB("slave");
+		$sql = "SELECT beacon_throttle FROM publishers WHERE id = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($criteria['pubid']));
+		list($throttle) = $sth->fetch();
+		unset($sth);
+		$object->throttle = $throttle;
+
 		// Store in memcache for next time
 		$cache->set($cacheKey, $object, 0, self::cacheTimeout);
 
