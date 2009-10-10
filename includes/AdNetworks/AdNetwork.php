@@ -29,8 +29,10 @@ class AdNetwork {
 
 	public function loadFromId($network_id){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT *, id AS network_id FROM networks WHERE id=" . $dbr->quote($network_id);
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sql = "SELECT *, id AS network_id FROM networks WHERE id = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($network_id));
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			foreach($row as $column => $data){
 				$this->$column = $data;
 			}
@@ -39,8 +41,10 @@ class AdNetwork {
 
 	public function loadFromName($network_name){
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT * FROM networks WHERE network_name=" . $dbr->quote($network_name);
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		$sql = "SELECT * FROM networks WHERE network_name = ?";
+		$sth = $dbr->prepare($sql);
+		$sth->execute(array($network_name));
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			foreach($row as $column => $data){
 				$this->$column = $data;
 			}
@@ -58,13 +62,15 @@ class AdNetwork {
 
 		$columns = array('network_name', 'notes', 'enabled', 'supports_threshold', 'pay_type',
 			'guaranteed_fill', 'webui_login_url', 'webui_username', 'webui_password');
+		$values = array();
 		$set = '';
 		$dbw = Framework::getDB("master");
 		foreach ($columns as $col){
 			if ($set != ''){
 				$set .=",\n";
 			}
-			$set .= "\t$col = " . $dbw->quote($this->$col);
+			$set .= "\t$col = ?";
+			$values[] = $this->$col;
 		}
 
 
@@ -81,7 +87,8 @@ class AdNetwork {
 		}
 
 		if ($doUpdate){
-			$sql = "UPDATE network SET $set WHERE network_id = " . $dbw->quote($this->network_id);
+			$sql = "UPDATE network SET $set WHERE network_id = ?";
+			$values[] = $this->network_id;
 			$change_type = "Update";
 			$change_desc = "Ad Network #" . $this->network_id . ' Updated';
 
@@ -91,7 +98,8 @@ class AdNetwork {
 			$change_desc = "Ad Network Created";
 		}
 
-		$ret = $dbw->exec($sql);
+		$sth = $dbw->prepare($sql);
+		$ret = $sth->execute($values);
 		$this->loadFromName($this->network_name);
 
                 // Change log
@@ -111,8 +119,9 @@ class AdNetwork {
 
 	public function delete(){
 		$dbw = Framework::getDB('master');
-		$sql = "DELETE FROM networks WHERE network_id = " . $dbw->quote($this->network_id);
-		$ret = $dbw->exec($sql);
+		$sql = "DELETE FROM networks WHERE network_id = ?";
+		$sth = $dbw->prepare($sql);
+		$ret = $sth->execute(array($this->network_id));
 
                 // Change log
                 $ChangeLog = new ChangeLog();
@@ -130,20 +139,25 @@ class AdNetwork {
 
 	static public function searchNetworks($criteria=array()){
 		$dbr = Framework::getDB("slave");
+		$values = array();
 		$sql = "SELECT id AS network_id FROM networks WHERE 1=1";
 		if (!empty($criteria['name_search'])){
 			$search = '%' . $criteria['name_search'] . '%';
-			$sql.= "\n\tAND network_name like " . $dbr->quote($search) . " ";
+			$sql.= "\n\tAND network_name like ?";
+			$values[] = $search;
 		}
 
 		if (!empty($criteria['enabled'])){
-			$sql.= "\n\tAND enabled = " . $dbr->quote($criteria['enabled']) . " ";
+			$sql.= "\n\tAND enabled = ?";
+			$values[] = $criteria['enabled'];
 		}
 
 		$sql.= " ORDER BY network_name";
 
+		$sth = $dbr->prepare($sql);
+		$sth->execute($values);
 		$out = array();
-		foreach($dbr->query($sql, PDO::FETCH_ASSOC) as $row){
+		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$out[] = new AdNetwork($row['network_id']);
 		}
 
