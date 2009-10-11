@@ -13,7 +13,7 @@
 </p>
 <p>
   <strong>Brand Safety Level:</strong>
-  <%=h @network.brand_safety_level %>
+  <%=h @network.brand_safety_level ? @network.brand_safety_level : "-"%>
 </p>
 <p>
   <strong>Supports Floor (backup/default tags):</strong>
@@ -29,19 +29,19 @@
 </p>
 <p>
   <strong>Comments:</strong>
-  <%=h @network.comments %>
+  <span class="comments"><%=h @network.comments %></span>
 </p>
 <p>
   <strong>Contact Info:</strong>
-  <%=h @network.contact_info %>
+  <span class="comments"><%=h @network.contact_info %></span>
 </p>
 <p>
   <strong>Billing Info:</strong>
-  <%=h @network.billing_info %>
+  <span class="comments"><%=h @network.billing_info %></span>
 </p>
 <p>
   <strong>Scraping Instructions:</strong>
-  <%=h @network.scraping_instructions %>
+  <span class="comments"><%=h @network.scraping_instructions %></span>
 </p>
 <p>
   <strong>Tag Template:</strong><br />

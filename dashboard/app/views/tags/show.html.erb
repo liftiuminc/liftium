@@ -53,25 +53,25 @@
 </p>
 <p>
   <strong>Sample Rate:</strong>
-  <%=h @tag.sample_rate %>
+  <%=h @tag.sample_rate ? "#{@tag.sample_rate}%" : "-" %>
 </p>
 <p>
   <strong>Tier:</strong>
-  <%=h @tag.tier %>
+  <%=h @tag.tier ? @tag.tier : 10%>
 </p>
 <p>
   <strong>Frequency Cap:</strong>
-  <%=h @tag.frequency_cap %>
+  <%=h @tag.frequency_cap ? "#{@tag.frequency_cap} impressions in 24 hours" : "-"%>
 </p>
 <p>
   <strong>Rejection Time:</strong>
-  <%=h @tag.rejection_time %>
+  <%=h @tag.rejection_time ? "#{@tag.rejection_time} minutes" : "-"%>
 </p>
 </div>
 <br clear="all"/>
 <strong>Tag:</strong><br />
 <%if @tag.tag.blank? -%>
-  <i>Using <%= @tag.network.network_name %>  template</i>. <%= link_to("Edit Network Template", {:action => "edit", :controller=>"networks", :id => @tag.network_id})%>
+  <i>Using <%= @tag.network.network_name %>  template</i>. <%= link_to("Edit Network Template", {:action => "edit", :controller=>"networks", :id => @tag.network_id, :anchor => "tag_template"})%>
 <%else %>
 <%= pretty_tag @tag.tag %>
 <%end -%>
