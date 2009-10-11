@@ -4,10 +4,12 @@
   <strong>Site Name:</strong>
   <%=h @publisher.site_name %>
 </p>
+<% if !@publisher.site_url.blank? %>
 <p>
   <strong>Site Url:</strong>
-  <%=h @publisher.site_url %>
+  <a href="<%=h @publisher.site_url %>" target="_blank"><%=h @publisher.site_url %> <img src="/images/icons/house_link.png"/></a>
 </p>
+<% end %>
 <p>
   <strong>Brand Safety Level:</strong>
   <%=h @publisher.brand_safety_level %>

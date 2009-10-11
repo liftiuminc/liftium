@@ -38,12 +38,6 @@ test2:
    site_url: "http://www.example.com"
    brand_safety_level: 1
 
-jguitar2:
-   #Asaph asked to be number 1
-   id: 1047
-   site_name: "Jguitar - oldid"
-   brand_safety_level: 5
-
 jguitar:
    id: 1
    site_name: "Jguitar"
