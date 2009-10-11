@@ -177,6 +177,11 @@ input:focus, textarea:focus, {
 	border-right:1px solid #CCC;
 }
 
+.record_action {
+	padding-left: 10px ;
+	padding-right: 10px ;
+}
+
 .record_listing { /* the table */
 	border-spacing: 0;
 	border-bottom:1px solid #CCC;
@@ -185,11 +190,11 @@ input:focus, textarea:focus, {
 	font-size: 9pt;
 }
 
-.record_listing td { /* the table */
-}
-
 .record_listing td, .record_listing th { /* the table */
-	padding: 6px;
+	padding-top: 3px;
+	padding-bottom: 4px;
+	padding-left: 3px;
+	padding-right: 2px;
 }
 
 .record_listing_header { /* table header */
