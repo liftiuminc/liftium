@@ -2,11 +2,22 @@ class TagsController < ApplicationController
   before_filter :require_user
 
   def index
-    # FIXME: This belongs in the model
+    # FIXME: This belongs in the model, but I couldn't get it to work
     # Could I have tried to do this with native ActiveRecord find? Yep.
 
+    # FIXME: There has to be a better way...
+    adapter = Rails.configuration.database_configuration[Rails.configuration.environment]["adapter"]
+    if adapter == "sqlite3"
+      # sqllite calls it rand
+      random = "random"
+    else 
+      # mysql calls it rand
+      random = "rand"
+    end
+
     query = []
-    query.push("SELECT * FROM tags WHERE 1=1");
+    query.push("SELECT *, (" +  random + "() * (0.1 * value)) AS weighted_random_value
+		FROM tags WHERE 1=1");
 
     if (params[:include_disabled].blank?)
        query[0] += " AND enabled = ?"
@@ -33,6 +44,28 @@ class TagsController < ApplicationController
        query.push('%' + params[:name_search] + '%')
     end
 
+    case (params[:order])
+      when "tag_name"
+	query[0] += " ORDER BY tag_name ASC"
+      else 
+        # Same order as the chain
+	query[0] += " ORDER BY tier ASC, weighted_random_value DESC"
+    end
+
+    if (! params[:limit].to_s.empty? && params[:limit].to_i < 100)
+       query[0] += " LIMIT ?"
+       query.push(params[:limit].to_i)
+    else
+       query[0] += " LIMIT 50"
+    end
+
+    if (! params[:offset].blank?)
+       query[0] += " OFFSET ? "
+       query.push(params[:offset].to_i)
+    else
+       query[0] += " OFFSET 0"
+    end
+      
     if params[:debug]
        flash[:notice] = "Query: " + query.inspect
     end
@@ -42,6 +75,7 @@ class TagsController < ApplicationController
       flash[:notice] = "No matching tags found"
     end
   end
+
   
   def show
     @tag = Tag.find(params[:id])
