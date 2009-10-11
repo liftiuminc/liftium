@@ -425,9 +425,9 @@ Liftium.getCountry = function(){
         }
 
         var ac;
-        if (!Liftium.e(Liftium.getRequestVal('athena_country'))){
-                ac = Liftium.getRequestVal('athena_country');
-                Liftium.d("Using athena_country for geo targeting (" + ac + ")", 8);
+        if (!Liftium.e(Liftium.getRequestVal('liftium_country'))){
+                ac = Liftium.getRequestVal('liftium_country');
+                Liftium.d("Using liftium_country for geo targeting (" + ac + ")", 8);
         } else if (typeof top.Geo == "undefined") {
                 // sometimes Geo isn't available because geoiplookup hasn't returned
                 Liftium.d("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
@@ -929,14 +929,15 @@ Liftium.isValidCriteria = function (t){
         if (!Liftium.e(t['criteria'])){
                 for (var key in t.criteria){
                         switch (key){
-                          case 'Geography':
-                                if ( ! Liftium.isValidCountry(t.criteria.Geography)){
-                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid Geography", 8);
+                          case 'country':
+                                if ( ! Liftium.isValidCountry(t.criteria.country)){
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid country", 8);
                                         t['isValidCriteria'] = false;
                                         return t['isValidCriteria'];
                                 }
                                 break;
                           default:
+				/* TODO support arbitrary key values 
                                 // If it is not predefined, assume it is a page var.
                                 var list = eval("t.criteria." + key);
                                 if (! Liftium.in_array(Liftium.getPageVar(key), list)){
@@ -945,6 +946,8 @@ Liftium.isValidCriteria = function (t){
                                         t['isValidCriteria'] = false;
                                         return t['isValidCriteria'];
                                 }
+				*/
+				
                                 break; // Shouldn't be necessary, but silences a jslint error
                         }
                 }

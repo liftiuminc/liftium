@@ -55,8 +55,9 @@ class LiftiumConfig{
 
 		// Cache miss, get from DB
 		$dbr = Framework::getDB("slave");
-		// TODO: Make these prepared statements for performance
-		$sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
+		static $sth;
+		if (empty($sth)){
+		  $sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
 			tags.tag, tags.always_fill, tags.sample_rate,
 			tags.frequency_cap AS freq_cap, tags.size,
 			tags.rejection_time as rej_time, tags.tier, tags.value,
@@ -64,10 +65,10 @@ class LiftiumConfig{
 			FROM tags
 			INNER JOIN networks ON tags.network_id = networks.id
 			WHERE tags.id = ? LIMIT 1";
-		$sth = $dbr->prepare($sql);
-		$sth->execute(array($tag_id));
-		$out = $sth->fetch(PDO::FETCH_ASSOC);
-		unset($sth);
+		  $sth_t = $dbr->prepare($sql);
+		}
+		$sth_t->execute(array($tag_id));
+		$out = $sth_t->fetch(PDO::FETCH_ASSOC);
 
 		if ($out === false){
 			return false;
@@ -80,11 +81,14 @@ class LiftiumConfig{
 			'width' => $dim['width'],
 			'height' => $dim['height']
 		);
-                $sql = "SELECT option_name, option_value
-                        FROM tag_options WHERE tag_id = ?";
-                $sth = $dbr->prepare($sql);
-                $sth->execute(array($tag_id));
-                while($row = $sth->fetch(PDO::FETCH_ASSOC)){
+
+		static $sth_o;
+		if (empty($sth_o)){
+                  $sql = "SELECT option_name, option_value FROM tag_options WHERE tag_id = ?";
+                  $sth_o = $dbr->prepare($sql);
+		}
+                $sth_o->execute(array($tag_id));
+                while($row = $sth_o->fetch(PDO::FETCH_ASSOC)){
                         $tag_options[$row['option_name']]=$row['option_value'];
                 }
 
@@ -101,11 +105,6 @@ class LiftiumConfig{
 			$out['slotnames'][] = $row['slot'];
 		}
 		*/
-
-		if (!empty($_GET['debug'])){
-			print_r($out);
-			print_r($tag_options);
-		}
 
 		// If the tag exists already, pass it through the expander 
 		if (!empty($out['tag'])){
@@ -131,8 +130,12 @@ class LiftiumConfig{
 		$out['tag'] = preg_replace('/^[ \t]+/m', '', $out['tag']);
 
 		// Get the Targeting criteria
-		//$out['criteria'] = TargetingCriteria::getThinCriteriaForTag($tag_id);
+		$out['criteria'] = TargetingCriteria::getCriteriaForTag($tag_id);
 
+
+		if (!empty($_GET['debug'])){
+			print_r($out);
+		}
 
 		// Slim it down for compactness
 		$slimout = array();
