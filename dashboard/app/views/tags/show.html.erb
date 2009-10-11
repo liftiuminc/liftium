@@ -69,9 +69,13 @@
 </p>
 </div>
 <br clear="all"/>
+<strong>Tag:</strong><br />
+<%if @tag.tag.blank? -%>
+  <i>Using <%= @tag.network.network_name %>  template</i>
+<%else %>
   <strong>Tag:</strong><br />
   <textarea class="tag_input"><%=h @tag.tag %></textarea>
-</p>
+<%end -%>
 <p>
   <%= link_to "Edit", edit_tag_path(@tag) %> |
   <%= link_to "Delete", @tag, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |

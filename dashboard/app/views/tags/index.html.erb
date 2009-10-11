@@ -62,7 +62,7 @@
    <%-else%>
     <tr class="disabled" background="/images/disabled_bg.png">
    <%-end%>
-      <td nowrap="true" class="record_column"><%=h tag.publisher.site_name %></td>
+      <td nowrap="true" class="record_column"><%= !tag.publisher.nil? ? tag.publisher.site_name : "<i>No publisher</i>"%></td>
       <td nowrap="true" class="record_column">
 	<%=h tag.network.network_name %> - <%= tag.tag_name %><br />
 	<%= tag.size %>

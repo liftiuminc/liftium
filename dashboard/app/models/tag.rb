@@ -9,7 +9,7 @@ class Tag < ActiveRecord::Base
   #TODO: validate publisherid once accounts are set up
   validates_format_of :size, :with => /[0-9]{1,3}x[0-9]{1,3}/
   validates_uniqueness_of :tag_name, :scope => :publisher_id
-  validates_presence_of :tag_name, :network_id, :size
+  validates_presence_of :tag_name, :network, :size, :publisher
   validates_inclusion_of :enabled, :in => [true, false]
   validates_inclusion_of :always_fill, :in => [true, false]
   validates_numericality_of :tier, :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10, :allow_nil => true

@@ -55,15 +55,19 @@
 
 <!-- If there is a tag template, present the choice to use the default or override -->
 
+
+  <input id="tag_toggle_template" type="radio" name="tag_toggle" value="template" onClick="tagToggle(this.value)"/>Use the template for <%= @tag.network.network_name %>
+  <input id="tag_toggle_override" type="radio" name="tag_toggle" value="override" onClick="tagToggle(this.value)"/>I want to override and put in my own tag
+  <div id="template_tag_block">
+
   <div class="fieldset" id="tag_template_fieldset">
-    <%= f.label :tag %>
-    <%if @tag.network.tag_template %>
-      <span class="hint">Either use the network tag template with options OR override by providing your own tag</span>
-    <% end %><br />
-    <%= f.text_area :tag, :class => "tag_input" %>
+    <%= f.label :tag_template %><br />
+    <div class="tag_input" style="height:auto">
+    <%=h @tag.network.tag_template %>
+    </div>
   </div>
 
-<!-- FIXME -->
+  <!-- FIXME -->
   <div class="subform" id="tag_options_subform">
   <%if @tag.network.network_tag_options %>
       <%= f.label :tag_options, "Available Options" %>:
@@ -81,5 +85,31 @@
   <%= link_to_new_nested_form "Add a tag option", f, :tag_options %>
   </div>
 
+  </div> <!-- / tag_template_block -->
+
+
+  <div id="regular_tag_block">
+  <div class="fieldset" id="tag_template_fieldset">
+    <%= f.label :tag %><br />
+    <%= f.text_area :tag, :class => "tag_input" %>
+  </div>
+  </div>
+
+<script>
+function tagToggle(value){
+	if (value == "template"){
+	  $("regular_tag_block").hide();
+	  $("template_tag_block").show();
+	  $("tag_toggle_template").checked = true;
+	} else {
+	  $("regular_tag_block").show();
+	  $("template_tag_block").hide();
+	  $("tag_toggle_override").checked = true;
+	}
+}
+<%= !@tag.tag.blank? ? 'tagToggle("override");' : 'tagToggle("template");' %>
+</script>
+
   <p><%= liftium_submit "Save Changes" %></p>
-<% end %>
+
+<% end %><!-- form_for -->
