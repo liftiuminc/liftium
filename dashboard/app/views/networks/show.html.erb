@@ -1,9 +1,4 @@
-<% title "Network" %>
-
-<p>
-  <strong>Network Name:</strong>
-  <%=h @network.network_name %>
-</p>
+<% title "Network - " + @network.network_name %>
 <p>
   <strong>Website:</strong>
   <a href="<%=h @network.website %>" target="_blank"><%=h @network.website %></a>
@@ -50,7 +45,7 @@
 </p>
 <p>
   <strong>Tag Template:</strong><br />
-  <textarea class="tag_input"><%=h @network.tag_template %></textarea>
+  <%= pretty_tag @network.tag_template %>
 </p>
 <p>
   <%= link_to "Edit", edit_network_path(@network) %> |

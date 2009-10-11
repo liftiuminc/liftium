@@ -139,7 +139,7 @@ input:focus, textarea:focus, {
 }
 
 /* Make the input for tags extra big */
-.fieldset .tag_input, .tag_input {
+.fieldset .tag_input {
 	width: 600px;
 	height: 150px;
 	/* http://www.codestyle.org/css/font-family/sampler-Monospace.shtml */
@@ -294,4 +294,17 @@ input:focus, textarea:focus, {
 #errorExplanation ul li {
 	line-height: 20px;
 	list-style: circle;
+}
+
+/* Miscellaneous */
+.code {
+	width: 600px;
+	/* http://www.codestyle.org/css/font-family/sampler-Monospace.shtml */
+	font-family: Lucida Console,monospace;
+	/* Wrap in all browsers. http://labnol.blogspot.com/2006/10/html-css-trick-for-displaying-code.html */
+	white-space: pre-wrap; /* css-3 */
+	white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+	white-space: -pre-wrap; /* Opera 4-6 */
+	white-space: -o-pre-wrap; /* Opera 7 */
+	word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
