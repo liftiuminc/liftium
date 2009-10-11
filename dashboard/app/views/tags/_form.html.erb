@@ -62,9 +62,8 @@
 
   <div class="fieldset" id="tag_template_fieldset">
     <%= f.label :tag_template %><br />
-    <div class="tag_input" style="height:auto">
-    <%=h @tag.network.tag_template %>
-    </div>
+    <%= pretty_tag @tag.network.tag_template %>
+
   </div>
 
   <!-- FIXME -->
