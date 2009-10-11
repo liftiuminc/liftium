@@ -3,8 +3,10 @@ class Tag < ActiveRecord::Base
   belongs_to :network
   belongs_to :publisher
   has_many :tag_options
+  has_many :tag_targets
 
   accepts_nested_attributes_for :tag_options, :allow_destroy => true
+  accepts_nested_attributes_for :tag_targets, :allow_destroy => true
 
   #TODO: validate publisherid once accounts are set up
   validates_format_of :size, :with => /[0-9]{1,3}x[0-9]{1,3}/

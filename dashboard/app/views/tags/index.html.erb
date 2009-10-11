@@ -65,20 +65,25 @@
       <td nowrap="true" class="record_column"><%= !tag.publisher.nil? ? tag.publisher.site_name : "<i>No publisher</i>"%></td>
       <td nowrap="true" class="record_column">
 	<%=h tag.network.network_name %> - <%= tag.tag_name %><br />
+	<span style="font-size: smaller">
 	<%= tag.size %>
 	<%= tag.sample_rate ? "- sampled #{tag.sample_rate}%" : "" %>
+	</span>
       </td>
       <td class="record_column_number"><%=h tag.tier ? tag.tier : "-"%></td>
       <td class="record_column_number">$<%=h tag.value ? tag.value_s : "-"%></td>
-      <td class="record_column">
-	<%=h tag.frequency_cap ? "Freq. cap - #{tag.frequency_cap}" : ""%>
-	<%=h tag.rejection_time ? "Rej. time  - #{tag.rejection_time}" : ""%>
+      <td class="record_column" style="font-size:smaller">
+	<%=h tag.frequency_cap ? "Freq. cap - #{tag.frequency_cap}<br />" : ""%>
+	<%=h tag.rejection_time ? "Rej. time  - #{tag.rejection_time}<br />" : ""%>
+        <% for criteria in tag.tag_targets do -%>
+	  <%=h criteria.key_name + ": " + criteria.key_value %><br />
+	<% end -%>
         &#160; <!-- So the border shows up when there is no criteria -->
       <td class="record_action"><%= link_to "View", tag, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_tag_path(tag) %></td>
       <td class="record_action"><%= link_to "Delete", tag, :confirm => 'Are you sure?', :method => "delete" %></td>
 	<!-- FIXME: Use correct rails link helper -->
-      <td class="record_column"><%= link_to "Copy", "/tags/copy/#{tag.id}" %></td>
+      <td class="record_action"><%= link_to "Copy", "/tags/copy/#{tag.id}" %></td>
       <td class="record_action">
 	<% if tag.enabled %>
 	<a href="<%=h url_for :controller => 'charts', :action => 'tag', :id => tag.id %>"><img src="http://rgraph.liftium.com/sparkline?net=<%=tag.network_id%>&tag=<%=tag.id%>&range=15m&width=50&height=25" width="50" height="25"/></a></td>

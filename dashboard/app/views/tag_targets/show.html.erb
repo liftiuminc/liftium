@@ -1,0 +1,16 @@
+<% title "Tag Target" %>
+
+<p>
+  <strong>Key Name:</strong>
+  <%=h @tag_target.key_name %>
+</p>
+<p>
+  <strong>Key Value:</strong>
+  <%=h @tag_target.key_value %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_tag_target_path(@tag_target) %> |
+  <%= link_to "Delete", @tag_target, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
+  <%= link_to "View All", tag_targets_path %>
+</p>

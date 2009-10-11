@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
   # The priority is based upon order of creation: first created -> highest priority.
   #
   map.resource :account, :controller => "users"
@@ -11,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.tag_generator  'tags/generator/:id', :controller => 'tags', :action => 'generator'
   map.tag_html_preview  'tags/html_preview', :controller => 'tags', :action => 'html_preview'
   map.tag_copy  'tags/copy/:id', :controller => 'tags', :action => 'copy'
-  map.resources :tags, :has_many => [ :ad_formats, :tag_options ]
+  map.resources :tags, :has_many => [ :ad_formats, :tag_options, :tag_targets ]
   map.resource :user_session
   map.resources :users 
 
