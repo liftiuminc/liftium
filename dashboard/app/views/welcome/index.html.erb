@@ -8,8 +8,7 @@ Liftium is an Ad Network Optimization company with some new ideas. We are curren
 If you already have an account, you may <%= link_to "log in", new_user_session_path %>. To inquire about our beta program, e-mail jennie at liftium.com
 </div>
 <% else %>
-<div style="width:500px">
-<img src="/images/swallowing_gum.jpg" width="500">
-</div>
-
+<% for @stat in ["RemnantRevenue", "BeaconCalls", "TotalAdsServed", "SlotTimeouts", "HopsPerAd", "JavascriptErrors", "TagErrors"] do -%>
+	<a href="<%= misc_stat_url @stat, "1h", 400, 190 %>"><img src="<%= misc_stat_url @stat, "1h" %>" width="400" height="190"/></a>
+<% end -%>
 <% end %> 
