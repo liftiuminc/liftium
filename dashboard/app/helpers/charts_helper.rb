@@ -42,4 +42,35 @@ module ChartsHelper
 	"http://rgraph.liftium.com/chart?" + data.to_query
   end
 
+  def misc_stat_url (stat, range="1h", width=600, height=250)
+
+      # FIXME, this shouldn't be defined twice.
+      case range[1]
+	when "h"
+	  time = "Hourly"
+	when "d"
+	  time = "Daily"
+	when "w"
+	  time = "Weekly"
+	when "m"
+	  range = range + "onth"
+	  time = "Monthly"
+	when "y"
+	  time = "Yearly"
+	else 
+	  time = ""
+      end
+
+	data = {
+		:stat => stat,
+		:range => range,
+		:title => title = stat + " " + time,
+		:width => width,
+		:height => height
+	}
+
+	"http://rgraph.liftium.com/misc?" + data.to_query
+
+  end
+
 end
