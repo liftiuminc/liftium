@@ -11,6 +11,7 @@ class NetworksController < ApplicationController
   
   def new
     @network = Network.new
+    @network.network_tag_options.build
   end
   
   def create

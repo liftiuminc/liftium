@@ -792,11 +792,13 @@ Liftium.iframeOnload = function(e) {
 
 
 /* Emulate PHP's in_array, which will return true/false if a key exists in an array */
-Liftium.in_array = function (needle, haystack){
+Liftium.in_array = function (needle, haystack, ignoreCase){
     for (var key in haystack) {
         if (haystack[key] == needle) {
             return true;
-        }
+        } else if (ignoreCase && haystack[key].toString().toLowerCase() == needle.toString().toLowerCase()){
+            return true;
+	}
     }
 
     return false;
@@ -863,12 +865,12 @@ Liftium.isValidCountry = function (countryList){
 
         Liftium.d("Checking if " + ac + " is in:", 8, countryList);
 
-        if (Liftium.in_array("row", countryList) &&
+        if (Liftium.in_array("row", countryList, true) &&
                   !Liftium.in_array(ac, ['us','uk','ca'])){
                 Liftium.d("ROW targetted, and country not in us, uk, ca", 6);
                 return true;
         }
-        if (Liftium.in_array(ac, countryList)){
+        if (Liftium.in_array(ac, countryList, true)){
                 return true;
         }
 

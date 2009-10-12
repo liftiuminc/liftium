@@ -9,21 +9,21 @@
     <th>Site Name</th>
     <th>Brand Safety Level</th>
     <th>Hoptime</th>
-    <th colspan="4">Actions</th>
+    <th colspan="3">Actions</th>
   </tr>
   <% for publisher in @publishers %>
     <tr class="record_row_<%= cycle("odd", "even")%>">
-      <td class="record_column" nowrap ="true"><%=h publisher.site_name %>
+      <td class="record_column" nowrap ="true">
+	<% if publisher.site_url %>
+	  <a href="<%=h publisher.site_url %>" target="_blank"><img src="/images/icons/house_link.png"/></a>
+	<% end %>
+	<%=h publisher.site_name %>
       </td>
-      <td class="record_column"><%=h publisher.brand_safety_level %></td>
-      <td class="record_column"><%=h publisher.hoptime %></td>
+      <td class="record_column"><%=h publisher.brand_safety_level ? publisher.brand_safety_level : "-" %></td>
+      <td class="record_column"><%=h publisher.hoptime ? publisher.hoptime : "-"%></td>
       <td class="record_action"><%= link_to "View", publisher, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_publisher_path(publisher) %></td>
       <td class="record_action"><%= link_to "Delete", publisher, :confirm => 'Are you sure?', :method => "delete" %></td>
-      <td class="record_action">
-	<% if publisher.site_url %>
-	  <a href="<%=h publisher.site_url %>" target="_blank">Site</a>
-	<% end %>
     </tr>
   <% end %>
 </table>
