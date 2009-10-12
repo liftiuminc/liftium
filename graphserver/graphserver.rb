@@ -7,7 +7,8 @@ require 'sparklines'
 require 'ftools';
 
 @@rrd_path       = "/var/lib/ganglia/rrds/"
-@@liftium_path   = "#{@@rrd_path}/Liftium/localhost.localdomain/"
+#@@liftium_path   = "#{@@rrd_path}/Liftium/localhost.localdomain/"
+@@liftium_path   = "#{@@rrd_path}/Liftium/dev.liftium.com/"
 
 # 2x2 pixel gif
 @@fallback_image = File.expand_path( File.dirname( $0 ) + '/white.gif' );
