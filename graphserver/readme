@@ -5,6 +5,9 @@
 
 *** Production ***
 
+# for the setup, I have followed the instructions here:
+# http://articles.slicehost.com/2009/2/20/ubuntu-intrepid-thin-web-server-for-ruby
+
 # the server is deployed in /var/www/liftium
 $ cd /var/www/liftium; git pull
 
