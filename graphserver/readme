@@ -1,6 +1,19 @@
-start/stop
+*** Development ***
 
-sudo /var/lib/gems/1.8/bin/thin -C /var/www/liftium/graphserver/thin.yml start
+# start / stop the server. Logs will be in the current directory:
+/var/lib/gems/1.8/bin/thin -C /var/www/liftium/graphserver/thin-dev.yml start
 
-log
-/var/log/thin.4567.log
+*** Production ***
+
+# the server is deployed in /var/www/liftium
+$ cd /var/www/liftium; git pull
+
+# the server is managed by thin. A symlink should exist from /etc/thin:
+# this link is maintained by puppet.
+$ sudo ln -s /var/www/liftium/graphserver/thin.yml /etc/thin/graphserver.yml
+
+# to restart the server:
+$ sudo /etc/init.d/thin restart
+
+# log will be under /var/log:
+$ tail -f /var/log/thin.4567.log
