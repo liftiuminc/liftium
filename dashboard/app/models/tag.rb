@@ -5,8 +5,8 @@ class Tag < ActiveRecord::Base
   has_many :tag_options
   has_many :tag_targets
 
-  accepts_nested_attributes_for :tag_options, :allow_destroy => true
-  accepts_nested_attributes_for :tag_targets, :allow_destroy => true
+  accepts_nested_attributes_for :tag_options, :allow_destroy => true, :reject_if => proc { |a| a['option_name'].blank? || a['option_value'].blank? }
+  accepts_nested_attributes_for :tag_targets, :allow_destroy => true, :reject_if => proc { |a| a['key_name'].blank? || a['key_value'].blank?}
 
   #TODO: validate publisherid once accounts are set up
   validates_format_of :size, :with => /[0-9]{1,3}x[0-9]{1,3}/
