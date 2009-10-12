@@ -244,4 +244,51 @@ google_color_url = "008000";
 
 
 
+### dummy tags to have all the tiers represented
+tier_5:
+  id: 30
+  publisher_id: 1046
+  tag_name: "Tier 5"
+  network_id: 42
+  enabled: false
+  always_fill: true
+  tier: 5
+  value: 0.05
+  size: "125x125"
+  tag: 'Tier 5'
+  
+tier_6:
+  id: 31
+  publisher_id: 1046
+  tag_name: "Tier 6"
+  network_id: 42
+  enabled: false
+  always_fill: true
+  tier: 6
+  value: 0.06
+  size: "125x125"
+  tag: 'Tier 6'
 
+tier_7:
+  id: 32
+  publisher_id: 1046
+  tag_name: "Tier 7"
+  network_id: 42
+  enabled: false
+  always_fill: true
+  tier: 7
+  value: 0.07
+  size: "125x125"
+  tag: 'Tier 7'
+  
+tier_8:
+  id: 33
+  publisher_id: 1046
+  tag_name: "Tier 8"
+  network_id: 42
+  enabled: false
+  always_fill: true
+  tier: 8
+  value: 0.08
+  size: "125x125"
+  tag: 'Tier 8'  

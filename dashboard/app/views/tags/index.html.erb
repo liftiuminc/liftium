@@ -43,7 +43,6 @@
   </form>
 </div>
 
-
 <table class="record_listing" width="800" cellpadding="0" cellspacing="0">
 
   <tr class="record_listing_header">
@@ -55,6 +54,20 @@
     <th colspan="4">Actions</th>
     <th>Fill Rate</th>
   </tr>
+
+<%  @tier_to_color = {
+        1   => '#60FC6F',   # light green
+        2   => '#50A91E',   # dark green
+        3   => '#FEDFAC',   # salmon
+        4   => '#FFDB17',   # yellow
+        5   => '#FBA80D',   # dark yellow
+        6   => '#FC7435',   # orange
+        7   => '#D15E63',   # pinkish red
+        8   => '#A9FAF4',   # teal
+        9   => '#B2CFEC',   # blueish
+        10  => '#BB28FF',   # purple
+    }
+%>
 
   <% for tag in @tags %>
    <%- if tag.enabled %>
@@ -70,7 +83,7 @@
 	<%= tag.sample_rate ? "- sampled #{tag.sample_rate}%" : "" %>
 	</span>
       </td>
-      <td class="record_column_number"><%=h tag.tier ? tag.tier : "-"%></td>
+      <td class="record_column_number" bgcolor="<%= "#{@tier_to_color[tag.tier]}" %>"><%=h tag.tier ? tag.tier : "-"%></td>
       <td class="record_column_number">$<%=h tag.value ? tag.value_s : "-"%></td>
       <td class="record_column" style="font-size:smaller">
 	<%= tag.frequency_cap ? "Freq. cap - #{tag.frequency_cap}<br />" : ""%>
