@@ -152,6 +152,23 @@ class TagsController < ApplicationController
   def update
     @tag = Tag.find(params[:id])
     if @tag.update_attributes(params[:tag])
+
+      ### any associated notes? See FB 24
+      if params[:note] 
+
+        ### if we already have a comment, update it
+        if !@tag.comments.empty?
+            @tag.comments[0].update_attributes( :comment => params[:note][:tag] )
+            
+        ### otherwise, create a new one    
+        else 
+          comment = Comment.new(  :title   => params[:tag][:tag_name],
+                                  :comment => params[:note][:tag] )
+
+          @tag.add_comment comment
+        end          
+      end  
+      
       flash[:notice] = "Successfully updated tag."
       redirect_to tags_url
     else
