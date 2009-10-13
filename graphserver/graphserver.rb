@@ -29,10 +29,23 @@ def send_rrd_graph(rrd_opts)
     temp_file.close
   # otherwise, send a fallback image  
   else 
-    send_file @@fallback_image,
-                :type        => 'image/gif',
-                :disposition => nil   
+    # XXX don't know how to capture STDERR from a syscall :(
+    send_fallback_image "System call failed: " + $?.to_s
   end 
+end
+
+def send_fallback_image( reason )
+
+    ### record why we're sending this image
+    warn "[ERROR] Sending fallback image because: #{reason}"
+
+    ### record why we're sending this error
+    @response[ "X-GraphError" ] = "#{reason}"   
+
+    send_file @@fallback_image,
+                :type           => 'image/gif',
+                :disposition    => nil
+
 end
 
 get '/chart' do
@@ -102,15 +115,24 @@ get '/sparkline' do
       results << value.to_i
     end
   end
-  image = Sparklines.plot(results, :type => 'area',
-                          :min => 0,
-                          :max => 100,
-			  :step => 3,
-			  :upper => 0,
-			  :above_color => "#0098E0",
-                          :height => params[:height] )
-	
-  content_type 'image/png'
-  image	
+  
+  begin 
+      image = Sparklines.plot( results, 
+            :type           => 'area',
+            :min            => 0,
+            :max            => 100,
+            :step           => 3,
+            :upper          => 0,
+            :above_color    => "#0098E0",
+            :height         => params[:height] )
+
+      content_type 'image/png'
+      image	
+  rescue Exception => e    
+    send_fallback_image e.to_s
+  end
+  
+  return image
+  
 end
 
