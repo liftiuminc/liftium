@@ -89,8 +89,10 @@ Liftium.buildChain = function(slotname) {
 
         // AlwaysFill ad.
         var gAd = Liftium.getAlwaysFillAd(size);
-        Liftium.chain[slotname].push(gAd);
-        networks.push("AlwaysFill: " + gAd["network_name"] + ", #" + gAd["tag_id"]);
+	if ( gAd !== false) {
+		Liftium.chain[slotname].push(gAd);
+		networks.push("AlwaysFill: " + gAd["network_name"] + ", #" + gAd["tag_id"]);
+	}
 
         // Sampled ad
         var sampledAd = Liftium.getSampledAd(size);
