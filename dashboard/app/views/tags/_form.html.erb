@@ -63,7 +63,7 @@
   <div class="fieldset" id="tag_template_notes">
     <%= f.label :tag_notes %> 
     <span class="hint">additional notes for this tag. Ex. "Stick to tier 10"</span><br />
-    <input type="text" size="30" name="note[tag]" value="<%=h @tag.comments ? "#{@tag.comments[0].comment}" : "" %>" />
+    <input type="text" size="30" name="note[tag]" value="<%=h !@tag.comments.empty? ? "#{@tag.comments[0].comment}" : "" %>" />
   </div>
 
 

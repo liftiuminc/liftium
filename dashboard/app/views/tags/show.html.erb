@@ -69,7 +69,7 @@
 </p>
 <p>
   <strong>Note:</strong>
-  <%=h @tag.comments ? "#{@tag.comments[0].comment}" : "-"%> 
+  <%=h !@tag.comments.empty? ? "#{@tag.comments[0].comment}" : "-"%> 
 </p>
 </div>
 <br clear="all"/>
