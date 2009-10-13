@@ -108,7 +108,17 @@ class TagsController < ApplicationController
   
   def create
     @tag = Tag.new(params[:tag])
+
     if @tag.save
+
+      ### any associated notes? See FB 24
+      if params[:note]
+        comment = Comment.new(  :title   => params[:tag][:tag_name],
+                                :comment => params[:note][:tag] )
+
+        @tag.add_comment comment
+      end  
+
       flash[:notice] = "Successfully created tag."
       redirect_to @tag
     else

@@ -5,6 +5,10 @@ class Tag < ActiveRecord::Base
   has_many :tag_options, :dependent => :destroy
   has_many :tag_targets, :dependent => :destroy
 
+  ### enable comments on tags. See FB 24
+  ### Requires db/migrate/20091013122159_add_tag_comments.rb
+  acts_as_commentable
+
   accepts_nested_attributes_for :tag_options, :allow_destroy => true, :reject_if => proc { |a| a['option_name'].blank? || a['option_value'].blank? }
   accepts_nested_attributes_for :tag_targets, :allow_destroy => true, :reject_if => proc { |a| a['key_name'].blank? || a['key_value'].blank?}
 

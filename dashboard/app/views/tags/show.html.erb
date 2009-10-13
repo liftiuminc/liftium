@@ -67,6 +67,10 @@
   <strong>Rejection Time:</strong>
   <%=h @tag.rejection_time ? "#{@tag.rejection_time} minutes" : "-"%>
 </p>
+<p>
+  <strong>Note:</strong>
+  <%=h @tag.comments ? "#{@tag.comments[0].comment}" : "-"%> 
+</p>
 </div>
 <br clear="all"/>
 <strong>Tag:</strong><br />

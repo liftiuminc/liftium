@@ -60,6 +60,13 @@
     <input type="text" size="30" name="tag[tag_targets_attributes][0][key_value]" value="<%=h !@tag.tag_targets.empty? ? @tag.tag_targets[0].key_value : "" %>"/>
   </div>
 
+  <div class="fieldset" id="tag_template_notes">
+    <%= f.label :tag_notes %> 
+    <span class="hint">additional notes for this tag. Ex. "Stick to tier 10"</span><br />
+    <input type="text" size="30" name="note[tag]" value="<%=h @tag.comments ? "#{@tag.comments[0].comment}" : "" %>" />
+  </div>
+
+
 <!-- If there is a tag template, present the choice to use the default or override -->
 
 
