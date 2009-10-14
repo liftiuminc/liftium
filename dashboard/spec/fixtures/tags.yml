@@ -326,7 +326,7 @@ iframehoptest:
   tag_name: "Test: 0% fill, iframe hop"
   network_id: 42
   enabled: true
-  always_fill: true
+  always_fill: false
   tier: 1
   value: 0.05
   size: "336x280"
