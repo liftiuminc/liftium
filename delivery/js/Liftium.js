@@ -793,6 +793,8 @@ Liftium.hop = function (slotname){
 
         return Liftium._callAd(slotname);
 };
+// Some networks let you hop with a javascript function and that's it (VideoEgg)
+var LiftiumHop = Liftium.hop;
 
 
 /* Hop called from inside an iframe. This part is tricky */
