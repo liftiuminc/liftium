@@ -292,3 +292,30 @@ tier_8:
   value: 0.08
   size: "125x125"
   tag: 'Tier 8'  
+
+
+# Two tags for testing geo targeting
+geotest1:
+  id: 40
+  publisher_id: 1046
+  tag_name: "Test: geo targeting - US"
+  network_id: 42
+  enabled: true
+  always_fill: false
+  tier: 1
+  value: 0.1
+  size: "200x200"
+  tag: 'This is a fill, for US only'
+
+# Two tags for testing geo targeting
+geotest2:
+  id: 41
+  publisher_id: 1046
+  tag_name: "Test: geo targeting - anywhere"
+  network_id: 42
+  enabled: true
+  always_fill: false
+  tier: 2
+  value: 0.05
+  size: "200x200"
+  tag: 'This is a fill, for anywhere' 
