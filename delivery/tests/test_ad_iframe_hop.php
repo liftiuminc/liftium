@@ -10,15 +10,21 @@ This page is for testing hopping inside an iframe, one of the more difficult tas
 	</div>
 </div>
 <script>
-function checkIframe() {
-	var ad = document.getElementById("slot1").innerHTML.toString();
-	if (ad.toString().match(/This is a fill/)){
-		LiftiumTest.testPassed();
-	} else {
-		LiftiumTest.testFailed();
+function checkIframe(again) {
+	var iframes = document.getElementsByTagName("iframe");
+	for (var i = 0; i < iframes.length; i++ ){
+		if (iframes[i].src.match(/\/tag\/\?tag_id=51/)){
+			return LiftiumTest.testPassed();
+		}
+	}
+	// The window may not have loaded (Safari), try 1 more time.
+	if (!again){
+		window.setTimeout("checkIframe(true);", 250);
+	}  else {
+		return LiftiumTest.testFailed();
 	}
 }
-window.setTimeout("checkIframe();", 500);
+window.onload=checkIframe;
 </script>
 
 <?php require 'footer.php'?>

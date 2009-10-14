@@ -137,11 +137,13 @@ Liftium.callAd = function (sizeOrSlot, iframe) {
 	// Catch config errors
         if (Liftium.e(Liftium.config)){
                 Liftium.reportError("Error downloading config");
-		Liftium.fillerAd(sizeOrSlot, "Error downloading config");
+		var t = Liftium.fillerAd(sizeOrSlot, "Error downloading config");
+		document.write(t.tag);
                 return false;
         } else if (Liftium.config.error){
                 Liftium.reportError("Config error " + Liftium.config.error);
-		Liftium.fillerAd(sizeOrSlot, Liftium.config.error);
+		var t2 = Liftium.fillerAd(sizeOrSlot, Liftium.config.error);
+		document.write(t2.tag);
                 return false;
         }
 
@@ -159,17 +161,18 @@ Liftium._callAd = function (slotname, iframe) {
 	Liftium.d("Calling ad for " + slotname, 1);
         var t = Liftium.getNextTag(slotname);
 	if (t === false) {
-		Liftium.fillerAd(slotname);
+		Liftium.fillerAd(slotname, "getNextTag returned false");
+		if (iframe) {
+			Liftium.clearPreviousIframes(slotname);
+			// TODO write PSA in iframe
+		} else {
+                        document.write(t["tag"]);
+		}
 		return false;
 	}
 
 	// Network Options
 	Liftium.handleNetworkOptions(t);
-
-        var loadDivId = slotname + '_' + t["tag_id"];
-
-        // Clear other load divs for the current slot
-        Liftium.clearPreviousIframes(slotname);
 
         Liftium.d("Ad #" + t["tag_id"] + " for " + t['network_name'] + " called in " + slotname);
         Liftium.d("Config = ", 6, t);
@@ -177,23 +180,54 @@ Liftium._callAd = function (slotname, iframe) {
         try { // try/catch block to isolate ad tag errors
 
                 if (!Liftium.e(iframe)){
+        		// Clear other load divs for the current slot
+			Liftium.clearPreviousIframes(slotname);
                         Liftium.callIframeAd(slotname, t);
                 } else {
 			// Capture the current tag for error handling
                         Liftium.lastTag = t;
 			Liftium.lastSlot = slotname;
-                        document.write('<div id="' + loadDivId + '">' + t["tag"] + "</div>");
+                        document.write(t["tag"]);
                         Liftium.lastTag = null;
                 }
         } catch (e) {
 		// This is probably never called, because the document.write hides it...
-                Liftium.reportError("Error loading tag: " . Liftium.print_r(e), "tag");
+                Liftium.reportError("Error loading tag: " + Liftium.print_r(e), "tag");
         }
 
         return true;
 
 };
 
+
+Liftium.callIframeAd = function(slotname, tag, adIframe){
+
+        var iframeUrl = Liftium.getIframeUrl(slotname, tag);
+        if (Liftium.e(iframeUrl) || iframeUrl == "about:blank"){
+                Liftium.d("Skipping No iframe ad called for No Ad for " + slotname, 3);
+                return;
+        }
+
+        if (typeof adIframe == "object"){
+                // Iframe passed in, use it
+                adIframe.src = iframeUrl;
+        } else {
+                // Otherwise, create one and append it to load dive
+                adIframe = document.createElement("iframe");
+                var s = tag["size"].split("x");
+                adIframe.src = iframeUrl;
+                adIframe.width = s[0];
+                adIframe.height = s[1];
+                adIframe.scrolling = "no";
+                adIframe.frameBorder = 0;
+                adIframe.marginHeight = 0;
+                adIframe.marginWidth = 0;
+                adIframe.allowTransparency = true; // For IE
+                adIframe.id = slotname + '_' + tag["tag_id"];
+		Liftium._(slotname).appendChild(adIframe);
+        }
+
+};
 
 /* Handle Javascript errors with window.onerror */
 Liftium.catchError = function (msg, url, line) {
@@ -274,6 +308,13 @@ Liftium.clone = function (obj){
                 // Some other type (null, undefined, string, number)
                 return obj;
         }
+};
+
+
+/* Handler for messages from XDM */
+Liftium.crossDomainMessage = function (message){
+	XDM.allowedMethods = ["Liftium.iframeHop", "LiftiumTest.testPassed"];
+	XDM.executeMessage(message.data);
 };
 
 
@@ -385,21 +426,21 @@ Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
 Liftium.fillerAd = function(size, message){
 	// Pull the height/width out of size
 	size = size || "300x250"; // TODO/FIXME: figure out size by looking at containing div
+
+	var tag = '';
 	if (!Liftium.e(message)){
-                document.write('<div class="LiftiumError" style="display:none">');
-                document.write('Liftium message: ' + message);
-                document.write("</div>");
+                tag += '<div class="LiftiumError" style="display:none">Liftium message: ' + message + "</div>";
 	}
 
 	if (size.match(/300x250/)){
-		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa15" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/300x250_legacy.gif" width="300" height="250" border="0" alt="Public Service Announcement"/></a>');
+		tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa15" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/300x250_legacy.gif" width="300" height="250" border="0" alt="Public Service Announcement"/></a>';
 	} else if (size.match(/728x90/)){
-                document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa1" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/728x90_thinklocal.gif" width="728" height="90" border="0" alt="Public Service Announcement"/></a>');
+                tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa1" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/728x90_thinklocal.gif" width="728" height="90" border="0" alt="Public Service Announcement"/></a>';
 	} else if (size.match(/160x600/)){
-		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0" alt="Public Service Announcement"/></a>');
+		tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0" alt="Public Service Announcement"/></a>';
 	}
-	var t = {tag_id: 'psa', network_name: "Internal Error PSA", tag: 'Public Service Announcement', size: size};
-	return t;
+	tag += "Public Service Announcement";
+	return {tag_id: 'psa', network_name: "Internal Error PSA", tag: tag, size: size};
 };
 
 /* Look through the list of ads in the potential chain, and return the best always_fill */
@@ -461,6 +502,32 @@ Liftium.getBrowserLang = function () {
 	var n = window.navigator;
 	var l = n.language || n.systemLanguage || n.browserLanguage || n.userLanguage || "";
 	return l.substring(0,2);
+};
+
+
+/* When an ad does a document.write and we are already passed that point on the page,
+ * we need to call it in an lframe (document.write can only be executed inline)
+ * We handle this by calling the iframe from Athena. This function returns the iframe url */
+Liftium.getIframeUrl = function(slotname, tag) {
+
+        // Check to see if the tag is already an iframe. 
+        var m = tag["tag"].match(/<iframe[\s\S]+src="([^"]+)"/), iframeUrl;
+
+        if ( m !== null ){
+                iframeUrl = m[1].replace(/&amp;/g, "&");
+                Liftium.d("Found iframe in tag, using " + iframeUrl, 3);
+	/* Nick wrote: Do we need this? 
+        // Handle noad.gif here so it doesn't get called by iframe 
+        } else if (tag["network_name"] == "No Ad"){
+                Liftium.d("Using about:blank for 'No Ad' to avoid iframe", 3);
+                iframeUrl = "about:blank";
+	*/
+        } else {
+                var p = { "tag_id": tag["tag_id"], "size": tag["size"], "slotname": slotname};
+                iframeUrl = Liftium.baseUrl + "tag/?" + Liftium.buildQueryString(p);
+                Liftium.d("No iframe found in tag, using " + iframeUrl, 3);
+        }
+        return iframeUrl;
 };
 
 
@@ -579,6 +646,25 @@ Liftium.getSampledAd = function(size){
 };
 
 
+Liftium.getSlotnameFromElement = function(element){
+	if (typeof element != "object") {
+		return false;
+	}
+
+	// Walk up the dom and find which slot div it's in 
+	var tempElement = element, tries = 0;
+	while(tempElement && tries < 10){
+		if (tempElement.id && tempElement.id.match(/^Liftium_/)){
+			return tempElement.id;
+		} else {
+			tempElement = tempElement.parentNode;
+		}
+		tries++;
+	}
+	return false;
+};
+
+
 /* Format is $day_{$tag_id}l{$loads}r{$rejects}m{$lastrejecttime}
  * r and m are optional, only if there is a reject
  * $day -- 0 to 6, where 0 is Sunday
@@ -590,7 +676,6 @@ Liftium.getSampledAd = function(size){
 Liftium.getStatRegExp = function(tag_id){
         return new RegExp(Liftium.now.getDay() + '_' + tag_id + 'l([0-9]+)r*([0-9]*)m*([0-9]*)' );
 };
-
 
 
 /* Figure out what size a slot is by looking at the config.
@@ -614,6 +699,7 @@ Liftium.getSizeForSlotname = function (slotname){
 
         return false;
 };
+
 
 /* Get loads/rejects for a tag. Type = "l" for loads,  "r" for rejects,
  * and "m" for the minutes since midnight of the last rejection */
@@ -702,6 +788,28 @@ Liftium.hop = function (slotname){
         Liftium.d("Liftium.hop() called for " + slotname);
 
         return Liftium._callAd(slotname);
+};
+
+
+/* Hop called from inside an iframe. This part is tricky */
+Liftium.iframeHop = function(iframeUrl){
+	Liftium.d("Liftium.iframeHop() called from " + iframeUrl, 3);
+	var slotname;
+
+	// Go through all the irames to find the matching src
+        var iframes = document.getElementsByTagName("iframe");
+	for (var i = 0, len = iframes.length; i < len; i++){
+		if (iframes[i].src == iframeUrl){
+			// Found match
+			slotname = Liftium.getSlotnameFromElement(iframes[i]);
+			break;
+		}
+	}
+        if ( Liftium.e(slotname)){
+		Liftium.reportError("Unable to find iframe for " + iframeUrl);
+	} else {
+		Liftium._callAd(slotname, true);
+	}
 };
 
 
@@ -795,6 +903,9 @@ Liftium.init = function () {
                 Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
 
         }
+
+	// Tell the parent window to listen to hop messages 
+	XDM.listenForMessages(Liftium.crossDomainMessage);
 
 };
 
@@ -1149,6 +1260,7 @@ Liftium.recordEvents = function(slotname){
 
 Liftium.reportError = function (msg, type) {
   try { 
+	Liftium.d("Liftium ERROR: " + msg);
 	// wrapped in a try catch block because if this function is reporting an error, all hell breaks loose
 
 	// Note that the Unit tests also track the number of errors
@@ -1343,7 +1455,261 @@ Liftium.throwError = function () {
 	return window.LiftiumthrowError.UndefinedVar;
 };
 
-// Gentlemen, Start your optimization!
-Liftium.init();
+
+/* This Toolkit allows for you to send messages between windows, including cross domain.
+ * Ideas borrowed from http://code.google.com/p/xssinterface/, but rewritten from scratch.
+ *
+ * XDM has two methods for sending messages cross domain. The first of which uses
+ * postMessages(), an HTML 5 javascript method.
+ * As I write this, the following * browsers support postMessage
+ * Firefox 3.0+
+ * IE 8+
+ * Safari 4+
+ * Chrome 3+
+ * Opera 9+
+ *
+ * For the rest of the browsers, we use a backward compatible hack that utilizes an
+ * external html file that acts as a conduit for information - XDM.iframeUrl
+ * This file is expected to be able to parse the query string and act upon
+ * the parameters.
+ */
+
+var XDM = {
+	allowedMethods : [],
+	debugOn	   : false, // Print debug messages to console.log
+
+	// These options only needed for the iframe based method,
+	// for browsers that don't support postMessage
+	// HTML file that calls "XDM.setCookieFromUrl"
+	iframeUrl      : null,
+	postMessageEnabled : true // Set to false to force fallback method
+};
+
+
+/*
+ * @param frame - the window object to execute the code in. Example: top, window.parent
+ * @param method - the method to execute in the parent window. Note the other window has to be listening for it with XDMListen(), and the method must be in XDM.allowedMethods
+ */ 
+XDM.send = function (destWin, method, args){ 
+	XDM.debug("XDM.send called from " + document.location.hostname);
+	// Sanity checks
+	if (typeof method != "string") {
+		XDM.debug("Bad argument for XDM.send, 'method' is not a string, (" + typeof method + ")");
+		return false;
+	}
+	if ( typeof args == "undefined" ){
+		// Just set it to an empty array
+		args = [];
+	}
+
+	if (XDM.canPostMessage()){
+		return XDM._postMessage(destWin, method, args);
+	} else {
+		return XDM._postMessageWithIframe(destWin, method, args);
+	}
+
+};
+
+
+XDM.getDestinationDomain = function(destWin){
+	if (destWin == top){
+		// Pull domain from referrer. 
+		if (document.referrer.toString() !== ''){
+			var m = document.referrer.toString().match(/https*:\/\/([^\/]+)/);
+			XDM.debug("Hostname for destWin set to " + m[1] + " using referrer");
+			return m[1];
+		} else {
+			return false;
+		}
+	} else {
+		return destWin.location.hostname;
+	}
+};
+
+
+XDM._postMessage = function(destWin, method, args) {
+	XDM.debug("Sending message using postMessage()");
+	var d = XDM.getDestinationDomain(destWin), targetOrigin;
+	if (d === false){
+		targetOrigin = '*';
+	} else {
+		targetOrigin = 'http://' + d;
+	}
+	
+
+	var msg = XDM.serializeMessage(method, args);
+	
+	if(destWin.postMessage) { // HTML 5 Standard
+		return destWin.postMessage(msg, targetOrigin);
+	} else if(destWin.document.postMessage) { // Opera 9
+		return destWin.document.postMessage(msg, targetOrigin);
+	} else {
+		throw ("No supported way of using postMessage");
+	}
+};
+
+
+XDM._postMessageWithIframe = function(destWin, method, args) {
+	XDM.debug("Sending message using iframe");
+	if (XDM.iframeUrl === null) {
+		XDM.debug("Iframe method called, but no html file is specified");
+		return false;
+	}
+		
+
+	var d = XDM.getDestinationDomain(destWin), targetOrigin;
+	if (d === false){
+		// No where to send 
+		return false;
+	} else {
+		targetOrigin = 'http://' + d;
+	}
+
+	var iframeUrl = targetOrigin + XDM.iframeUrl + '?' + XDM.serializeMessage(method, args);
+	XDM.debug("Calling iframe dispatch url: " + iframeUrl);
+	
+	if (typeof XDM.iframe == "undefined"){
+		XDM.iframe = document.createElement("iframe");
+		XDM.iframe.style.display = "none";
+		XDM.iframe.width = 0;
+		XDM.iframe.height = 0;
+                if (document.body === null){
+                        document.firstChild.appendChild(document.createElement("body"));
+                }
+		document.body.appendChild(XDM.iframe);
+	}
+	XDM.iframe.src = iframeUrl;
+	
+	return false;
+};
+
+
+XDM.serializeMessage = function(method, args){
+	var out = 'method=' + escape(method.toString());
+        var x;
+        for (var i = 0; i < args.length; i++){
+                x = i+1;
+                out += ';arg' + x + '=' + escape(args[i]);
+        }
+	XDM.debug("Serialized message: " + out);
+	return out;
+};
+
+
+XDM.canPostMessage = function(){
+	if (XDM.postMessageEnabled === false){
+		return false;
+	} else if( window.postMessage || window.document.postMessage) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+
+XDM.debug = function(msg){
+	if (XDM.debugOn && typeof console != "undefined" && typeof console.log != "undefined"){
+		console.log("XDM debug: " +  msg);
+	}
+};
+
+
+XDM.listenForMessages = function(handler){
+	if (XDM.canPostMessage()){
+		if (window.addEventListener) { // W3C
+			return window.addEventListener("message", handler, false);
+		} else if (window.attachEvent){ // IE 
+			return window.attachEvent("onmessage", handler);
+		}
+	} else {
+		// Remote iframe will execute the messages
+		return true;
+	}
+};
+
+
+XDM.isAllowedMethod = function(method){
+	var found = false;
+	for (var i = 0; i < XDM.allowedMethods.length; i++){
+		if (method.toString() === XDM.allowedMethods[i]){
+			found = true;
+			break;
+		}
+        }
+	return found;
+};
+
+
+XDM.executeMessage = function(serializedMessage){
+	var nvpairs = XDM.parseQueryString(serializedMessage);
+	if ( XDM.isAllowedMethod(nvpairs["method"])){
+
+		var functionArgs = [], code = nvpairs["method"];
+		// Build up the argument list
+		for (var prop in nvpairs){
+			if (prop.substring(0, 3) == "arg"){
+				functionArgs.push(nvpairs[prop].replace(/"/g, '\\"'));
+			}
+		}
+
+		// Why hard code this? To prevent stupid shit.
+		if (functionArgs.length > 0){
+			code += '("' + functionArgs.join('","') + '");';
+		} else {
+                	code += "();";
+		}
+
+		XDM.debug("Evaluating " + code + " from iframe");
+		return eval(code);
+	} else {
+		throw("Invalid method: " + nvpairs["method"]);
+	}
+};
+
+
+/* This code looks at the supplied query string and parses it.
+ * It returns an associative array of url decoded name value pairs
+ */
+XDM.parseQueryString = Liftium.parseQueryString;
+/* Commented out in favor of Liftium.
+XDM.parseQueryString = function (qs){
+        var ret = [];
+        if (typeof qs != "string") { return ret; }
+
+        if (qs.charAt(0) === '?') { qs = qs.substr(1); }
+
+        qs=qs.replace(/\;/g, '&', qs);
+
+        var nvpairs=qs.split('&');
+
+        for (var i = 0, intIndex; i < nvpairs.length; i++){
+                if (nvpairs[i].length === 0){
+                        continue;
+                }
+
+                var varName = '', varValue = '';
+                if ((intIndex = nvpairs[i].indexOf('=')) != -1) {
+                        varName = decodeURIComponent(nvpairs[i].substr(0, intIndex));
+                        varValue = decodeURIComponent(nvpairs[i].substr(intIndex + 1));
+                } else {
+                        // No value, but it's there
+                        varName = nvpairs[i];
+                        varValue = true;
+                }
+
+                ret[varName] = varValue;
+        }
+
+        return ret;
+}; 
+*/
+
+
+
+
 
 } // \if (typeof Liftium == "undefined" ) 
+
+
+// Gentlemen, Start your optimization!
+Liftium.init();
