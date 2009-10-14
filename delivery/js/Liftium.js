@@ -132,24 +132,22 @@ Liftium.buildQueryString = function(nvpairs, sep){
 };
 
 
-Liftium.callAd = function (slotname, iframe) {
-	
-	Liftium.lastSlot = slotname;
+Liftium.callAd = function (sizeOrSlot, iframe) {
 
 	// Catch config errors
         if (Liftium.e(Liftium.config)){
                 Liftium.reportError("Error downloading config");
-		Liftium.fillerAd(slotname, "Error downloading config");
+		Liftium.fillerAd(sizeOrSlot, "Error downloading config");
                 return false;
         } else if (Liftium.config.error){
                 Liftium.reportError("Config error " + Liftium.config.error);
-		Liftium.fillerAd(slotname, Liftium.config.error);
+		Liftium.fillerAd(sizeOrSlot, Liftium.config.error);
                 return false;
         }
 
 	// Write out a _load div and call the ad
-	var loadid = Liftium.getUniqueSlotId(slotname); 
-	document.write('<div id="' + loadid + '" style="overflow: hidden">');
+	var slotname = Liftium.getUniqueSlotname(sizeOrSlot); 
+	document.write('<div id="' + slotname + '" style="overflow: hidden">');
 	Liftium._callAd(slotname);
 	document.write("</div>");
 	return true;
@@ -181,9 +179,9 @@ Liftium._callAd = function (slotname, iframe) {
                 if (!Liftium.e(iframe)){
                         Liftium.callIframeAd(slotname, t);
                 } else {
-			// Capture this for ads that need the slotname
-                        Liftium.slotname = slotname;
+			// Capture the current tag for error handling
                         Liftium.lastTag = t;
+			Liftium.lastSlot = slotname;
                         document.write('<div id="' + loadDivId + '">' + t["tag"] + "</div>");
                         Liftium.lastTag = null;
                 }
@@ -247,7 +245,7 @@ Liftium.chainSort = function(a, b){
 
 
 Liftium.clearPreviousIframes = function(slotname){
-        var loadDiv = Liftium.getSlotLoadDiv(slotname);
+        var loadDiv = Liftium._(slotname);
         if (loadDiv === null){
                 return false;
         }
@@ -400,7 +398,7 @@ Liftium.fillerAd = function(size, message){
 	} else if (size.match(/160x600/)){
 		document.write('<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0" alt="Public Service Announcement"/></a>');
 	}
-	var t = {tag_id: 'psa', tag: 'Public Service Announcement', size: size};
+	var t = {tag_id: 'psa', network_name: "Internal Error PSA", tag: 'Public Service Announcement', size: size};
 	return t;
 };
 
@@ -432,7 +430,7 @@ Liftium.getCountry = function(){
                 Liftium.d("Using liftium_country for geo targeting (" + ac + ")", 8);
         } else if (typeof top.Geo == "undefined") {
                 // sometimes Geo isn't available because geoiplookup hasn't returned
-                Liftium.d("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
+                Liftium.reportError("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
                 return "us"; // Bail here so Liftium.getCountryFound doesn't get set
         } else if (typeof top.Geo.country == "undefined" ) {
                 // It downloaded, but it's empty, because we were unable to determine the country
@@ -491,7 +489,7 @@ Liftium.getNextTag = function(slotname){
         // Do we need to build the chain?
         if (Liftium.e(Liftium.chain[slotname])){
                 if ( Liftium.buildChain(slotname) === false){
-			Liftium.reportError("Unrecognized slotname " + slotname, "chain");
+			Liftium.reportError("Error building chain " + slotname, "chain");
 			return false;
                 }
         }
@@ -534,11 +532,10 @@ Liftium.getNextTag = function(slotname){
 
                 }
         }
+
         // Rut roh
-        Liftium.d("No always_fill for " + slotname, "chain");
-        
-        // FIXME: Passing the slotname for the size will break when multiple slotnames are supported and are no longer named after the size. -Martel DuVigneaud 2009-09-22
-        return Liftium.fillerAd(slotname);
+        Liftium.reportError("No more tags left in the chain", "chain");
+        return Liftium.fillerAd(slotname, "No more tags left in the chain");
 };
 
 
@@ -582,39 +579,6 @@ Liftium.getSampledAd = function(size){
 };
 
 
-Liftium.getSlotLoadDiv = function (slotname){
-	// FIXME. Won't work if more than one ad size called per page
-        return Liftium._("Liftium_" + slotname + "_0");
-};
-
-
-/* Return the available slots called on this page */
-Liftium.getSlotNames = function (){
-        var out = [];
-
-        for (var chainslot in Liftium.chain){
-                if (typeof Liftium.chain[chainslot] == "function"){
-                        // Prototype js library overwrites the array handler and adds crap. EVIL.
-                        continue;
-                }
-                out.push(chainslot);
-        }
-
-	/*
-        for (var slot in Liftium.config.slotnames){
-                if (typeof Liftium.config.slotnames[slot] == "function"){
-                        // Prototype js library overwrites the array handler and adds crap. EVIL.
-                        continue;
-                }
-                if (!Liftium.in_array(slot, out)){
-                        out.push(slot);
-                }
-        }
-	*/
-        return out;
-};
-
-
 /* Format is $day_{$tag_id}l{$loads}r{$rejects}m{$lastrejecttime}
  * r and m are optional, only if there is a reject
  * $day -- 0 to 6, where 0 is Sunday
@@ -633,10 +597,11 @@ Liftium.getStatRegExp = function(tag_id){
  * Should we pass a map of sizes->slotnames in the config? Maybe, but it would make it bigger...
  */
 Liftium.getSizeForSlotname = function (slotname){
-	// See if the slotname *is* the size
-	if (slotname.match(/^[0-9]{1,3}x[0-9]{1,3}$/)){
-		return slotname;
+	var match = slotname.match(/[0-9]{1,3}x[0-9]{1,3}/);
+	if (match !== null){
+		return match[0];
 	}
+
         for (var slot in Liftium.config.slotnames){
                 if (typeof Liftium.config.slotnames[slot] == "function"){
                         // Prototype js library overwrites the array handler and adds crap. EVIL.
@@ -696,15 +661,17 @@ Liftium.getTagStat = function (tag_id, type){
 
 
 
-Liftium.getUniqueSlotId = function(slotname) {
-	for (var i = 0; i < 10; i++ ) {
-		if (Liftium._("Liftium_" + slotname + "_" + i) === null){
-			return "Liftium_" + slotname + "_" + i;
-		}
-	}
+Liftium.getUniqueSlotname = function(sizeOrSlot) {
+	Liftium.slotnames = Liftium.slotnames || [];
 
-	Liftium.reportError("Error in Liftium.getUniqueSlotId. More than 10 ads of the same size?", "publisher");
-	return false;
+	var s = "Liftium_" + sizeOrSlot;
+	if (Liftium.in_array(s, Liftium.slotnames)){
+		// This size already called on the page, so make up a new one.
+		s += "_" + Math.random().toString().substring(3,9);
+	}
+	Liftium.slotnames.push(s);
+
+	return s;
 };
 
 
@@ -728,10 +695,10 @@ Liftium.handleNetworkOptions = function (tag) {
 
 /* This is the backup tag used to go to the next ad in the configuration */
 Liftium.hop = function (slotname){
-        if (Liftium.e(slotname)){
-		// Last slotname. This won't work for iframes
-                slotname = Liftium.lastSlot;
-        }
+	// Use the slotname from the last called ad. 
+	if (Liftium.e(slotname)){
+		slotname = Liftium.lastSlot;
+	}
         Liftium.d("Liftium.hop() called for " + slotname);
 
         return Liftium._callAd(slotname);
@@ -988,6 +955,10 @@ Liftium.markChain = function (slotname){
         var attemptFound = false, len = Liftium.chain[slotname].length;
         // If an attempt was found, then everything else "started" was rejected
         Liftium.d("Marking chain for " + slotname, 5);
+	if (Liftium.e(Liftium.chain[slotname])){
+		Liftium.debug("Skiping Marking chain, chain was empty");
+		return false;
+	}
         for (var i = len - 1; i >= 0; i--){
                 if (attemptFound && !Liftium.e(Liftium.chain[slotname][i]['started'])){
                         Liftium.chain[slotname][i]['rejected'] = true;
