@@ -799,7 +799,8 @@ Liftium.iframeHop = function(iframeUrl){
 	// Go through all the irames to find the matching src
         var iframes = document.getElementsByTagName("iframe");
 	for (var i = 0, len = iframes.length; i < len; i++){
-		if (iframes[i].src == iframeUrl){
+		// IE doesn't prepend the host name if you call a local iframe
+		if (iframeUrl.indexOf(iframes[i].src) >=  0){
 			// Found match
 			slotname = Liftium.getSlotnameFromElement(iframes[i]);
 			break;
@@ -1261,6 +1262,9 @@ Liftium.recordEvents = function(slotname){
 Liftium.reportError = function (msg, type) {
   try { 
 	Liftium.d("Liftium ERROR: " + msg);
+	if (window.location.hostname.match(/dev.liftium.com/)){
+		alert("Liftium.reportError: " + msg);
+	}
 	// wrapped in a try catch block because if this function is reporting an error, all hell breaks loose
 
 	// Note that the Unit tests also track the number of errors
