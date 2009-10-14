@@ -1,9 +1,11 @@
+<?php $LiftiumOptions = array('enableXDM' =>  false);?>
 <?php require 'header.php'?>
 This page is for testing the cross domain communication tools. It pulls up an iframe that will attempt to call the "testPassed" on the parent page.
 <p>
 <script>
 XDM.debugOn = true;
 XDM.allowedMethods = ["LiftiumTest.testPassed"];
+XDM.iframeUrl = "/samples/liftium_iframe.html"
 function crossDomainMessage(message){
         if (typeof console != "undefined"){
                 if (console.dir) { console.dir(message); }

@@ -134,6 +134,7 @@ Liftium.buildQueryString = function(nvpairs, sep){
 
 Liftium.callAd = function (sizeOrSlot, iframe) {
 
+	// FIXME. Seems wrong to do this config check every time an add is called.
 	// Catch config errors
         if (Liftium.e(Liftium.config)){
                 Liftium.reportError("Error downloading config");
@@ -146,6 +147,9 @@ Liftium.callAd = function (sizeOrSlot, iframe) {
 		document.write(t2.tag);
                 return false;
         }
+
+	// Now that config has downloaded, set up the XDM config.
+	XDM.iframeUrl = Liftium.config.xdm_iframe_path;
 
 	// Write out a _load div and call the ad
 	var slotname = Liftium.getUniqueSlotname(sizeOrSlot); 
@@ -906,8 +910,9 @@ Liftium.init = function () {
         }
 
 	// Tell the parent window to listen to hop messages 
-	XDM.listenForMessages(Liftium.crossDomainMessage);
-
+	if (window.LiftiumOptions.enableXDM !== false ){
+		XDM.listenForMessages(Liftium.crossDomainMessage);
+	}
 };
 
 
@@ -1459,6 +1464,7 @@ Liftium.throwError = function () {
 	return window.LiftiumthrowError.UndefinedVar;
 };
 
+/* Include of XDM.js */
 
 /* This Toolkit allows for you to send messages between windows, including cross domain.
  * Ideas borrowed from http://code.google.com/p/xssinterface/, but rewritten from scratch.
@@ -1611,11 +1617,15 @@ XDM.canPostMessage = function(){
 };
 
 
-XDM.debug = function(msg){
-	if (XDM.debugOn && typeof console != "undefined" && typeof console.log != "undefined"){
-		console.log("XDM debug: " +  msg);
-	}
-};
+if (window.Liftium){
+  XDM.debug = window.Liftium.debug;
+} else {
+  XDM.debug = function(msg){
+        if (XDM.debugOn && typeof console != "undefined" && typeof console.log != "undefined"){
+                console.log("XDM debug: " +  msg);
+        }
+  };
+}
 
 
 XDM.listenForMessages = function(handler){
@@ -1662,8 +1672,12 @@ XDM.executeMessage = function(serializedMessage){
 		} else {
                 	code += "();";
 		}
+		if (top != self ){
+			nvpairs.destWin = nvpairs.destWin || "top";
+			code = nvpairs.destWin + "." + code;
+		}
 
-		XDM.debug("Evaluating " + code + " from iframe");
+		XDM.debug("Evaluating " + code);
 		return eval(code);
 	} else {
 		throw("Invalid method: " + nvpairs["method"]);
@@ -1674,9 +1688,10 @@ XDM.executeMessage = function(serializedMessage){
 /* This code looks at the supplied query string and parses it.
  * It returns an associative array of url decoded name value pairs
  */
-XDM.parseQueryString = Liftium.parseQueryString;
-/* Commented out in favor of Liftium.
-XDM.parseQueryString = function (qs){
+if (window.Liftium){
+  XDM.parseQueryString = window.Liftium.parseQueryString;
+} else {
+  XDM.parseQueryString = function (qs){
         var ret = [];
         if (typeof qs != "string") { return ret; }
 
@@ -1705,12 +1720,8 @@ XDM.parseQueryString = function (qs){
         }
 
         return ret;
-}; 
-*/
-
-
-
-
+  }; 
+} // using Liftium parse query string
 
 } // \if (typeof Liftium == "undefined" ) 
 

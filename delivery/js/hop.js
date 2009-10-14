@@ -151,11 +151,15 @@ XDM.canPostMessage = function(){
 };
 
 
-XDM.debug = function(msg){
-	if (XDM.debugOn && typeof console != "undefined" && typeof console.log != "undefined"){
-		console.log("XDM debug: " +  msg);
-	}
-};
+if (window.Liftium){
+  XDM.debug = window.Liftium.debug;
+} else {
+  XDM.debug = function(msg){
+        if (XDM.debugOn && typeof console != "undefined" && typeof console.log != "undefined"){
+                console.log("XDM debug: " +  msg);
+        }
+  };
+}
 
 
 XDM.listenForMessages = function(handler){
@@ -202,8 +206,12 @@ XDM.executeMessage = function(serializedMessage){
 		} else {
                 	code += "();";
 		}
+		if (top != self ){
+			nvpairs.destWin = nvpairs.destWin || "top";
+			code = nvpairs.destWin + "." + code;
+		}
 
-		XDM.debug("Evaluating " + code + " from iframe");
+		XDM.debug("Evaluating " + code);
 		return eval(code);
 	} else {
 		throw("Invalid method: " + nvpairs["method"]);
@@ -214,7 +222,10 @@ XDM.executeMessage = function(serializedMessage){
 /* This code looks at the supplied query string and parses it.
  * It returns an associative array of url decoded name value pairs
  */
-XDM.parseQueryString = function (qs){
+if (window.Liftium){
+  XDM.parseQueryString = window.Liftium.parseQueryString;
+} else {
+  XDM.parseQueryString = function (qs){
         var ret = [];
         if (typeof qs != "string") { return ret; }
 
@@ -243,9 +254,8 @@ XDM.parseQueryString = function (qs){
         }
 
         return ret;
-}; 
-
-
+  }; 
+} // using Liftium parse query string
 
 /********* Start of real hop.js ***************/
 function XDM_onload (){

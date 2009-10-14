@@ -4,6 +4,6 @@ document.write(window.location.href);
 </script>
 
 <script src="../js/XDM.js"></script>
-
+<script>XDM.debugOn = true;</script>
+<script>XDM.iframeUrl = "/samples/liftium_iframe.html"</script>
 <script>XDM.send(top, "LiftiumTest.testPassed", ["arg1 data", '"arg2 data"']);</script>
-
