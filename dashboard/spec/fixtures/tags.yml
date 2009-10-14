@@ -319,3 +319,27 @@ geotest2:
   value: 0.05
   size: "200x200"
   tag: 'This is a fill, for anywhere' 
+
+iframehoptest:
+  id: 50
+  publisher_id: 1047
+  tag_name: "Test: 0% fill, iframe hop"
+  network_id: 42
+  enabled: true
+  always_fill: true
+  tier: 1
+  value: 0.05
+  size: "336x280"
+  tag: '<iframe src="/tests/iframehop.html" width="336" height="280"></iframe>'
+
+iframehoptest2:
+  id: 51
+  publisher_id: 1047
+  tag_name: "Test: 100% fill"
+  network_id: 42
+  enabled: true
+  always_fill: true
+  tier: 2
+  value: 0.05
+  size: "336x280"
+  tag: 'This is a fill' 

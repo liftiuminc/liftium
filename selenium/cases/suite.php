@@ -14,6 +14,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 <?php
 $generics = glob($_SERVER['DOCUMENT_ROOT'] . '/tests/test_*');
 $excludes = array(
+	"test_ad_iframe_hop",
 	"test_cross_domain.php",
 	"test_frequency_part1.php",
 	"test_frequency_part2.php",
