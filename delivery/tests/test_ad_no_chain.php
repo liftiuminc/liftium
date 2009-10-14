@@ -1,4 +1,4 @@
-<?php $LiftiumOptions = array ("pubid" => 1); ?>
+<?php $LiftiumOptions = array ("pubid" => -1); ?>
 <?php require 'header.php'?>
 This page is for testing Liftium ad calls with no chain, ie. an invalid publisherid, or a publisher who hasn't been set up. 
 <p>
