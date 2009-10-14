@@ -20,5 +20,9 @@
     <%= f.label :beacon_throttle %><br />
     <%= f.text_field :beacon_throttle %>
   </div>
+  <div class="fieldset">
+    <%= f.label :cross_domain_iframe_path %> <span class="hint">for enabling iframe hopping in IE 6/7 - default is /liftium_iframe.html</span><br />
+    <%= f.text_field :xdm_iframe_path %>
+  </div>
   <p><%= liftium_submit "Save Changes" %></p>
 <% end %>

@@ -12,6 +12,7 @@ test:
    site_name: "Test Publisher"
    site_url: "http://www.example.com"
    brand_safety_level: 1
+   xdm_iframe_path: "/samples/liftium_iframe.html"
 
 slide:
    id: 1043
@@ -37,6 +38,15 @@ test2:
    site_name: "Test Publisher 2"
    site_url: "http://www.example.com"
    brand_safety_level: 1
+   xdm_iframe_path: "/samples/liftium_iframe.html"
+
+test3:
+   # The answer to everything else.
+   id: 1047
+   site_name: "Test Publisher 3"
+   site_url: "http://www.example.com"
+   brand_safety_level: 1
+   xdm_iframe_path: "/samples/liftium_iframe.html"
 
 jguitar:
    id: 1

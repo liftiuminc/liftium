@@ -31,12 +31,13 @@ class LiftiumConfig{
 
 		// Pull beacon throttle
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT beacon_throttle FROM publishers WHERE id = ?";
+		$sql = "SELECT beacon_throttle, xdm_iframe_path FROM publishers WHERE id = ?";
 		$sth = $dbr->prepare($sql);
 		$sth->execute(array($criteria['pubid']));
-		list($throttle) = $sth->fetch();
+		list($throttle, $xdm_iframe_path) = $sth->fetch();
 		unset($sth);
 		$object->throttle = $throttle;
+		$object->xdm_iframe_path = $xdm_iframe_path;
 
 		// Store in memcache for next time
 		$cache->set($cacheKey, $object, 0, self::cacheTimeout);
