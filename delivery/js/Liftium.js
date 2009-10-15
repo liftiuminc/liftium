@@ -170,6 +170,7 @@ Liftium._callAd = function (slotname, iframe) {
 			Liftium.clearPreviousIframes(slotname);
 			// TODO write PSA in iframe
 		} else {
+			Liftium.d("Tag :" + t["tag"], 5);
                         document.write(t["tag"]);
 		}
 		return false;
@@ -773,6 +774,7 @@ Liftium.handleNetworkOptions = function (tag) {
 
 	    for (var opt in window.LiftiumOptions){
 		if (opt.match(/^google_/)){
+			Liftium.d(window[opt] + " set to " +  window.LiftiumOptions[opt], 5);
 			window[opt] = window.LiftiumOptions[opt];
 		}
 	    }
