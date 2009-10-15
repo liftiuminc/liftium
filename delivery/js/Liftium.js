@@ -243,6 +243,7 @@ Liftium.catchError = function (msg, url, line) {
 		} else {
 			jsmsg = "Error on line #" + line + " of " + url + " : " + msg;
 		}
+
 		Liftium.d("ERROR! " + jsmsg);
 
 		if (Liftium.e(Liftium.lastTag)){
@@ -1270,12 +1271,10 @@ Liftium.recordEvents = function(slotname){
 
 
 Liftium.reportError = function (msg, type) {
+  // wrapped in a try catch block because if this function is reporting an error,
+  // all hell breaks loose
   try { 
 	Liftium.d("Liftium ERROR: " + msg);
-	if (window.location.hostname.match(/dev.liftium.com/)){
-		alert("Liftium.reportError: " + msg);
-	}
-	// wrapped in a try catch block because if this function is reporting an error, all hell breaks loose
 
 	// Note that the Unit tests also track the number of errors
 	if (typeof Liftium.errorCount != "undefined") {
@@ -1287,6 +1286,17 @@ Liftium.reportError = function (msg, type) {
 	if (Liftium.errorCount > 5){
 		// Don't overwhelm our servers if the browser is stuck in a loop.
 		return;
+	}
+
+	// Ignore certain errors that we can't do anything about
+	var ignores = [
+		"Error loading script", // This is when a user pushes "Stop"
+		"Script error." // This is when a user pushes "Stop"
+	];
+	for (var i = 0; i < ignores.length; i++){
+		if (msg.indexOf(ignores[i]) >= 0){
+			return;
+		}
 	}
 
 	var p = {
