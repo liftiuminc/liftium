@@ -36,25 +36,12 @@ $statit = true;
 $emailto = array("nick@liftium.com");
 
 
-// Ignore certain noisy messages that aren't our fault
-$ignores = array(
-	"translate.google",
-	"quantserve",
-	"urchin",
-	"greasemonkey",
-	"Error loading script", // Will happen if user interrupts transfer
-	"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
-);
 // Triage
 if ($type == "tag"){
 	$emailto[] = "veronica@liftium.com";
 	$emailto[] = "jennie@liftium.com";
 } else if ($lang != "en" ){
 	// Can't read these anyway
-	$emailto = false;
-} else if (preg_match("/(" . implode("|", $ignores) . ")/", $msg)){
-	$logit = false;
-	$statit = false;
 	$emailto = false;
 } else if (empty($line)){
 	// If line is 0, we won't be able to debug.

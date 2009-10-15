@@ -1291,7 +1291,13 @@ Liftium.reportError = function (msg, type) {
 	// Ignore certain errors that we can't do anything about
 	var ignores = [
 		"Error loading script", // This is when a user pushes "Stop"
-		"Script error." // This is when a user pushes "Stop"
+		"Script error.", // This is when a user pushes "Stop"
+		"GA_googleFillSlot is not defined", // They probably have AdBlock on.
+	        "translate.google",
+	        "quantserve",
+		"urchin",
+		"greasemonkey",
+		"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
 	];
 	for (var i = 0; i < ignores.length; i++){
 		if (msg.indexOf(ignores[i]) >= 0){
