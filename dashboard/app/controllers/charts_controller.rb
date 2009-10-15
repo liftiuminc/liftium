@@ -4,4 +4,7 @@ class ChartsController < ApplicationController
     @tag = Tag.find(params[:id])
   end
 
+  def misc_stat
+  end
+
 end

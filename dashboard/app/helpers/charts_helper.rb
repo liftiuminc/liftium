@@ -34,7 +34,7 @@ module ChartsHelper
 		:net => tag.network_id,
 		:tag => tag.id,
 		:range => range,
-		:title => title = time + " Stats for " + tag.tag_name,
+		:title => time + " Stats for " + tag.tag_name,
 		:width => width,
 		:height => height,
 	}
@@ -64,7 +64,7 @@ module ChartsHelper
 	data = {
 		:stat => stat,
 		:range => range,
-		:title => title = stat + " " + time,
+		:title => stat + " " + time,
 		:width => width,
 		:height => height
 	}
