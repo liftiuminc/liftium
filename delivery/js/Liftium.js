@@ -1495,8 +1495,7 @@ var XDM = {
 
 	// These options only needed for the iframe based method,
 	// for browsers that don't support postMessage
-	// HTML file that calls "XDM.setCookieFromUrl"
-	iframeUrl      : null,
+	iframeUrl      : "/liftium_iframe.html",
 	postMessageEnabled : true // Set to false to force fallback method
 };
 
