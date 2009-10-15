@@ -170,7 +170,6 @@ Liftium._callAd = function (slotname, iframe) {
 			Liftium.clearPreviousIframes(slotname);
 			// TODO write PSA in iframe
 		} else {
-			Liftium.d("Tag :" + t["tag"], 5);
                         document.write(t["tag"]);
 		}
 		return false;
@@ -190,6 +189,7 @@ Liftium._callAd = function (slotname, iframe) {
                         Liftium.callIframeAd(slotname, t);
                 } else {
 			// Capture the current tag for error handling
+			Liftium.d("Tag :" + t["tag"], 5);
                         Liftium.lastTag = t;
 			Liftium.lastSlot = slotname;
                         document.write(t["tag"]);
@@ -770,17 +770,18 @@ Liftium.getUniqueSlotname = function(sizeOrSlot) {
 Liftium.handleNetworkOptions = function (tag) {
 
 	switch (tag.network_id){
-	  case 1: /* Google */
+	  case "1": /* Google */
 
 	    for (var opt in window.LiftiumOptions){
 		if (opt.match(/^google_/)){
-			Liftium.d(window[opt] + " set to " +  window.LiftiumOptions[opt], 5);
+			Liftium.d(opt + " set to " +  window.LiftiumOptions[opt], 5);
 			window[opt] = window.LiftiumOptions[opt];
 		}
 	    }
 	    return true;
 
-	  default: return null;
+	  default:
+	    return true;
 	}
 };
 
