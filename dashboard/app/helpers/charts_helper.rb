@@ -14,7 +14,7 @@ module ChartsHelper
   end
 
   def tag_fillrate_url(tag, range="1h", width=600, height=250) 
-      case range[1]
+      case range[1,1]
 	when "h"
 	  time = "Hourly"
 	when "d"
@@ -45,7 +45,7 @@ module ChartsHelper
   def misc_stat_url (stat, range="1h", width=600, height=250)
 
       # FIXME, this shouldn't be defined twice.
-      case range[1]
+      case range[1,1]
 	when "h"
 	  time = "Hourly"
 	when "d"
