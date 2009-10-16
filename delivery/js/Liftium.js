@@ -1344,10 +1344,12 @@ Liftium.sendBeacon = function (){
         Liftium.beaconCalled = true;
 
         // Throttle the beacon
-        var throttle = Liftium.config.throttle;
-        if (throttle === undefined || throttle === null){
+        var throttle;
+        if (Liftium.e(Liftium.config) || throttle === undefined || throttle === null){
                 Liftium.d("No throttle defined, using 1.0");
                 throttle = 1.0;
+        } else {
+                throttle = Liftium.config.throttle;
         }
         if (Math.random() > throttle){
                 Liftium.d("Beacon throttled at " + throttle);
