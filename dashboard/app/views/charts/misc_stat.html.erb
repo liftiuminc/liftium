@@ -1,4 +1,4 @@
-<% title "Stat Detail - " + params["stat"] %>
+<% title "Stat Detail - " + misc_stat_humanize(params["stat"]) %>
 
 <a href="<%=h misc_stat_url params[:stat], "1h" %>"><img src="<%=h misc_stat_url params[:stat], "1h" %>" width="400" /></a>
 
