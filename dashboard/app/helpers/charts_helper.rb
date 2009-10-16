@@ -64,7 +64,8 @@ module ChartsHelper
 	data = {
 		:stat => stat,
 		:range => range,
-		:title => stat + " " + time,
+		# Lazy
+		:title => stat.tableize.singularize.humanize.titleize + " " + time,
 		:width => width,
 		:height => height
 	}
