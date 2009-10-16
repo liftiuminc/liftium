@@ -14,7 +14,7 @@ module ChartsHelper
   end
 
   def tag_fillrate_url(tag, range="1h", width=600, height=250) 
-      case range[1]
+      case range[1,1]
 	when "h"
 	  time = "Hourly"
 	when "d"
@@ -34,7 +34,7 @@ module ChartsHelper
 		:net => tag.network_id,
 		:tag => tag.id,
 		:range => range,
-		:title => title = time + " Stats for " + tag.tag_name,
+		:title => time + " Stats for " + tag.tag_name,
 		:width => width,
 		:height => height,
 	}
@@ -45,7 +45,7 @@ module ChartsHelper
   def misc_stat_url (stat, range="1h", width=600, height=250)
 
       # FIXME, this shouldn't be defined twice.
-      case range[1]
+      case range[1,1]
 	when "h"
 	  time = "Hourly"
 	when "d"
@@ -64,7 +64,8 @@ module ChartsHelper
 	data = {
 		:stat => stat,
 		:range => range,
-		:title => title = stat + " " + time,
+		# Lazy
+		:title => stat.tableize.singularize.humanize.titleize + " " + time,
 		:width => width,
 		:height => height
 	}
