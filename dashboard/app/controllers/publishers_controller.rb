@@ -43,4 +43,13 @@ class PublishersController < ApplicationController
     flash[:notice] = "Successfully destroyed publisher."
     redirect_to publishers_url
   end
+  
+  def ad_preview
+    @publisher  = Publisher.find(params[:id])    
+    @tags       = Tag.find( :all, :conditions => {
+                                :publisher_id   => @publisher.id,
+                                :enabled        => true
+                            })    
+  end
+  
 end
