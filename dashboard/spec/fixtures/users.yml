@@ -48,3 +48,25 @@ jos:
   single_access_token: bb7PApmyCg8GkCXlsiVV
   perishable_token: pnMEcF2o369ma6YMb2eG
   created_at: 2009-10-09 16:32:55
+
+jennie:
+    id: 47
+    email: jennie@liftium.com
+    admin: 1
+    crypted_password: 521049a7ca55b59f57993f5f7d18687da0d6a94242318844e6caf1f90d4d5e9c04c6f582625d6138118fc46fef092407a3c23a53dc5c1e88590652f31a12fe3d
+    password_salt: km6OAMGYViQO_TTGdRJW
+    persistence_token: 0a61a47f29aac25ab86ddbae3963f3e47a1b7a2ae5ae7ce4308d6fc99e78d8c00983b11af442f3b978553a899cbc585786034e575af8afd9601213c9327a57a2
+    single_access_token: TBBCJpYGqYRZWOV8EPSx
+    perishable_token: cDLW_OVbwuprn5li-xBN
+    created_at: 2009-10-16 15:55:28
+
+veronica:
+    id: 48
+    email: veronica@liftium.com
+    admin: 1
+    crypted_password: 2c615fade8d4caef5cf167807239c6e43dc0a348cb34b4cb7f7331e0f896655910a1833f6fae6b1b85f8c2e6f8c48f8d0c75ea5972d0bf3186d39745f21d021f
+    password_salt: YAxQBrGIH_xr4vqMKrxN
+    persistence_token: ee5f25041323d73f2a00306389bc8e0e91f7ee4266dc63aa5c44dd69fe280489c23be885256e15748ac12f288e97c50c1d7207c12f3beba1a0419560bc51bafa
+    single_access_token: bRGQ52JwyaHvNfj8u-aQ
+    perishable_token: FqEK8cPTwFQQ_jXhJNpa
+    created_at: 2009-10-16 15:55:49
