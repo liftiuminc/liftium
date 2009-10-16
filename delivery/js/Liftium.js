@@ -1345,6 +1345,7 @@ Liftium.sendBeacon = function (){
 
         // Throttle the beacon
         var throttle;
+		// Missing config, throttle undefined, or no value from the DB needs to be defaulted (0 is OK and means no beacons should be sent.)
         if (Liftium.e(Liftium.config) || throttle === undefined || throttle === null){
                 Liftium.d("No throttle defined, using 1.0");
                 throttle = 1.0;
