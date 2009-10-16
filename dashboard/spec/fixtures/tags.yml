@@ -362,3 +362,40 @@ iframehoptest2:
   value: 0.05
   size: "336x280"
   tag: 'This is a fill' 
+
+hoptime1:
+  id            : 52
+  tag_name      : 'Test: hoptime slow hop (2 second)'
+  network_id    : 42
+  publisher_id  : 1048
+  value         : 0.05
+  enabled       : 1
+  always_fill   : 0
+  tier          : 1
+  size          : '336x280'
+  tag           : '<script type="text/javascript" src="/tests/slowhop.php"></script>'
+
+hoptime2:
+  id            : 53
+  tag_name      : 'Test: hoptime normal hop'
+  network_id    : 42
+  publisher_id  : 1048
+  value         : 0.03
+  enabled       : 1
+  always_fill   : 0
+  tier          : 2
+  size          : '336x280'
+  tag           : '<script>document.write("This is a normal hop<br />")</script><script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
+
+hoptime3:
+  id            : 54
+  tag_name      : 'Test: hoptime always_fill'
+  network_id    : 42
+  publisher_id  : 1048
+  value         : 0.03
+  enabled       : 1
+  always_fill   : 1
+  tier          : 3
+  size          : '336x280'
+  tag           : 'This is an always_fill'
+

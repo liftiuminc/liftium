@@ -48,6 +48,15 @@ test3:
    brand_safety_level: 1
    xdm_iframe_path: "/samples/liftium_iframe.html"
 
+test4:
+   # Insanity.
+   id: 1048
+   site_name: "Test Publisher 4"
+   site_url: "http://www.example.com"
+   hoptime: 1000
+   brand_safety_level: 1
+   xdm_iframe_path: "/samples/liftium_iframe.html"
+
 jguitar:
    id: 1
    site_name: "Jguitar"

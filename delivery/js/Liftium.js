@@ -485,7 +485,7 @@ Liftium.getCountry = function(){
                 ac = "us";
         } else {
                 // Everything worked
-                ac = top.Geo.country.toLowerCase();
+                ac = window.Geo.country.toLowerCase();
         }
 
         if (ac === "gb"){
@@ -582,9 +582,9 @@ Liftium.getNextTag = function(slotname){
         var length = Liftium.chain[slotname].length;
         var current = Liftium.chain[slotname].current = Liftium.chain[slotname].current || 0;
         
-        if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
+        if ((now.getTime() - Liftium.slotTimer[slotname]) > (Liftium.config.maxHopTime || Liftium.maxHopTime)){
                 // Maximum fill time has been exceeded, jump to the always_fill
-                Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
+                Liftium.d("Hop Time of " + Liftium.config.maxHopTime + " exceeded. Using the always_fill", 2);
                 Liftium.chain[slotname][current]['exceeded'] = true;
                 
                 // Return the always_fill
