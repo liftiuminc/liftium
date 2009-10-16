@@ -194,7 +194,7 @@ asaph:
   always_fill: 1
   tier: 1
   size: "728x90"
-  tag: '<script type="text/javascript"><!--
+  tag: '<script type="text/javascript">
 google_ad_client = "pub-4338851863733765";
 google_ad_width = 728;
 google_ad_height = 90;
@@ -207,7 +207,6 @@ google_color_bg = "FFFFFF";
 google_color_link = "0000FF";
 google_color_text = "000000";
 google_color_url = "008000";
-//-->
 </script>
 <script type="text/javascript"
   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
@@ -223,7 +222,7 @@ asaph2:
   always_fill: 1
   tier: 1
   size: "728x90"
-  tag: '<script type="text/javascript"><!--
+  tag: '<script type="text/javascript">
 google_ad_client = "pub-4338851863733765";
 google_ad_width = 728;
 google_ad_height = 90;
@@ -236,7 +235,27 @@ google_color_bg = "FFFFFF";
 google_color_link = "0000FF";
 google_color_text = "000000";
 google_color_url = "008000";
-//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>'
+
+nick2:
+  id: 22
+  tag_name: "Nick test adsense"
+  network_id: 1
+  publisher_id: 1045
+  value: 0.25
+  enabled: 1
+  always_fill: 1
+  tier: 1
+  size: "728x90"
+  tag: '<script>
+google_ad_client= "pub-386214431547764";
+google_ad_format = "728x90_as";
+google_ad_type = "text_image";
+google_ad_width = 728;
+google_ad_height = 90;
 </script>
 <script type="text/javascript"
   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
@@ -343,3 +362,40 @@ iframehoptest2:
   value: 0.05
   size: "336x280"
   tag: 'This is a fill' 
+
+hoptime1:
+  id            : 52
+  tag_name      : 'Test: hoptime slow hop (2 second)'
+  network_id    : 42
+  publisher_id  : 1048
+  value         : 0.05
+  enabled       : 1
+  always_fill   : 0
+  tier          : 1
+  size          : '336x280'
+  tag           : '<script type="text/javascript" src="/tests/slowhop.php"></script>'
+
+hoptime2:
+  id            : 53
+  tag_name      : 'Test: hoptime normal hop'
+  network_id    : 42
+  publisher_id  : 1048
+  value         : 0.03
+  enabled       : 1
+  always_fill   : 0
+  tier          : 2
+  size          : '336x280'
+  tag           : '<script>document.write("This is a normal hop<br />")</script><script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
+
+hoptime3:
+  id            : 54
+  tag_name      : 'Test: hoptime always_fill'
+  network_id    : 42
+  publisher_id  : 1048
+  value         : 0.03
+  enabled       : 1
+  always_fill   : 1
+  tier          : 3
+  size          : '336x280'
+  tag           : 'This is an always_fill'
+

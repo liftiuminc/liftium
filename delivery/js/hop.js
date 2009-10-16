@@ -24,8 +24,7 @@ var XDM = {
 
 	// These options only needed for the iframe based method,
 	// for browsers that don't support postMessage
-	// HTML file that calls "XDM.setCookieFromUrl"
-	iframeUrl      : null,
+	iframeUrl      : "/liftium_iframe.html",
 	postMessageEnabled : true // Set to false to force fallback method
 };
 
@@ -261,7 +260,7 @@ if (window.Liftium){
 function XDM_onload (){
 	window.XDM.send(top, "Liftium.iframeHop", [window.location]);
 }
-if ( top != self ) {
+if ( top != self && !self.Liftium ) {
 	// Tell the top window to hop 
 	if (self.attachEvent){
 		self.attachEvent("onload",XDM_onload); // Use onload for IE, which won't let you append to body until it's complete	

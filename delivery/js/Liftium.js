@@ -189,6 +189,7 @@ Liftium._callAd = function (slotname, iframe) {
                         Liftium.callIframeAd(slotname, t);
                 } else {
 			// Capture the current tag for error handling
+			Liftium.d("Tag :" + t["tag"], 5);
                         Liftium.lastTag = t;
 			Liftium.lastSlot = slotname;
                         document.write(t["tag"]);
@@ -242,6 +243,7 @@ Liftium.catchError = function (msg, url, line) {
 		} else {
 			jsmsg = "Error on line #" + line + " of " + url + " : " + msg;
 		}
+
 		Liftium.d("ERROR! " + jsmsg);
 
 		if (Liftium.e(Liftium.lastTag)){
@@ -473,17 +475,17 @@ Liftium.getCountry = function(){
         if (!Liftium.e(Liftium.getRequestVal('liftium_country'))){
                 ac = Liftium.getRequestVal('liftium_country');
                 Liftium.d("Using liftium_country for geo targeting (" + ac + ")", 8);
-        } else if (typeof top.Geo == "undefined") {
+        } else if (typeof window.Geo == "undefined") {
                 // sometimes Geo isn't available because geoiplookup hasn't returned
                 Liftium.reportError("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
                 return "us"; // Bail here so Liftium.getCountryFound doesn't get set
-        } else if (typeof top.Geo.country == "undefined" ) {
+        } else if (typeof window.Geo.country == "undefined" ) {
                 // It downloaded, but it's empty, because we were unable to determine the country
                 Liftium.d("Unable to find a country for this IP, defaulting to US");
                 ac = "us";
         } else {
                 // Everything worked
-                ac = top.Geo.country.toLowerCase();
+                ac = window.Geo.country.toLowerCase();
         }
 
         if (ac === "gb"){
@@ -580,9 +582,9 @@ Liftium.getNextTag = function(slotname){
         var length = Liftium.chain[slotname].length;
         var current = Liftium.chain[slotname].current = Liftium.chain[slotname].current || 0;
         
-        if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
+        if ((now.getTime() - Liftium.slotTimer[slotname]) > (Liftium.config.maxHopTime || Liftium.maxHopTime)){
                 // Maximum fill time has been exceeded, jump to the always_fill
-                Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
+                Liftium.d("Hop Time of " + Liftium.config.maxHopTime + " exceeded. Using the always_fill", 2);
                 Liftium.chain[slotname][current]['exceeded'] = true;
                 
                 // Return the always_fill
@@ -769,16 +771,18 @@ Liftium.getUniqueSlotname = function(sizeOrSlot) {
 Liftium.handleNetworkOptions = function (tag) {
 
 	switch (tag.network_id){
-	  case 1: /* Google */
+	  case "1": /* Google */
 
 	    for (var opt in window.LiftiumOptions){
 		if (opt.match(/^google_/)){
+			Liftium.d(opt + " set to " +  window.LiftiumOptions[opt], 5);
 			window[opt] = window.LiftiumOptions[opt];
 		}
 	    }
 	    return true;
 
-	  default: return null;
+	  default:
+	    return true;
 	}
 };
 
@@ -793,6 +797,8 @@ Liftium.hop = function (slotname){
 
         return Liftium._callAd(slotname);
 };
+// Some networks let you hop with a javascript function and that's it (VideoEgg)
+var LiftiumHop = Liftium.hop;
 
 
 /* Hop called from inside an iframe. This part is tricky */
@@ -1265,12 +1271,10 @@ Liftium.recordEvents = function(slotname){
 
 
 Liftium.reportError = function (msg, type) {
+  // wrapped in a try catch block because if this function is reporting an error,
+  // all hell breaks loose
   try { 
 	Liftium.d("Liftium ERROR: " + msg);
-	if (window.location.hostname.match(/dev.liftium.com/)){
-		alert("Liftium.reportError: " + msg);
-	}
-	// wrapped in a try catch block because if this function is reporting an error, all hell breaks loose
 
 	// Note that the Unit tests also track the number of errors
 	if (typeof Liftium.errorCount != "undefined") {
@@ -1282,6 +1286,23 @@ Liftium.reportError = function (msg, type) {
 	if (Liftium.errorCount > 5){
 		// Don't overwhelm our servers if the browser is stuck in a loop.
 		return;
+	}
+
+	// Ignore certain errors that we can't do anything about
+	var ignores = [
+		"Error loading script", // This is when a user pushes "Stop"
+		"Script error.", // This is when a user pushes "Stop"
+		"GA_googleFillSlot is not defined", // They probably have AdBlock on.
+	        "translate.google",
+	        "quantserve",
+		"urchin",
+		"greasemonkey",
+		"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
+	];
+	for (var i = 0; i < ignores.length; i++){
+		if (msg.indexOf(ignores[i]) >= 0){
+			return;
+		}
 	}
 
 	var p = {
@@ -1323,10 +1344,12 @@ Liftium.sendBeacon = function (){
         Liftium.beaconCalled = true;
 
         // Throttle the beacon
-        var throttle = Liftium.config.throttle;
-        if (throttle === undefined || throttle === null){
+        var throttle;
+        if (Liftium.e(Liftium.config) || throttle === undefined || throttle === null){
                 Liftium.d("No throttle defined, using 1.0");
                 throttle = 1.0;
+        } else {
+                throttle = Liftium.config.throttle;
         }
         if (Math.random() > throttle){
                 Liftium.d("Beacon throttled at " + throttle);
@@ -1490,8 +1513,7 @@ var XDM = {
 
 	// These options only needed for the iframe based method,
 	// for browsers that don't support postMessage
-	// HTML file that calls "XDM.setCookieFromUrl"
-	iframeUrl      : null,
+	iframeUrl      : "/liftium_iframe.html",
 	postMessageEnabled : true // Set to false to force fallback method
 };
 
