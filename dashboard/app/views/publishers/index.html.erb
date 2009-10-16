@@ -9,9 +9,18 @@
     <th>Site Name</th>
     <th>Brand Safety Level</th>
     <th>Hoptime</th>
+    <th>Preview</th>
     <th colspan="3">Actions</th>
   </tr>
   <% for publisher in @publishers %>
+  
+    <!-- this may be slow on a lot of publishers. is there a better way? -->
+    <% tags = Tag.find( :all, :conditions => {
+                        :publisher_id   => publisher.id,
+                        :enabled        => true
+                    })  
+    %>
+  
     <tr class="record_row_<%= cycle("odd", "even")%>">
       <td class="record_column" nowrap ="true">
 	<% if publisher.site_url %>
@@ -21,6 +30,7 @@
       </td>
       <td class="record_column"><%=h publisher.brand_safety_level ? publisher.brand_safety_level : "-" %></td>
       <td class="record_column"><%=h publisher.hoptime ? publisher.hoptime : "-"%></td>
+      <td class="record_column"><%= link_to tags.size.to_s + " ads", :controller => "publishers", :action => :ad_preview, :id => publisher %></td>
       <td class="record_action"><%= link_to "View", publisher, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_publisher_path(publisher) %></td>
       <td class="record_action"><%= link_to "Delete", publisher, :confirm => 'Are you sure?', :method => "delete" %></td>
