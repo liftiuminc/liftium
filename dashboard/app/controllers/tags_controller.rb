@@ -72,7 +72,7 @@ class TagsController < ApplicationController
 
     @tags = Tag.find_by_sql query
     if @tags.length < 1
-      flash[:notice] = "No matching tags found"
+      flash[:warning] = "No matching tags found"
     end
   end
 
@@ -200,7 +200,7 @@ class TagsController < ApplicationController
       @tag.tag = params[:html]
       render :action => :html_preview, :layout => "bare"
     else 
-      flash[:notice] = "html_preview expects either html or id"
+      flash[:error] = "html_preview expects either html or id"
       redirect_to @tag
     end
   end

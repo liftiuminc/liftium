@@ -132,7 +132,7 @@ input:focus, textarea:focus, {
 }
 
 
-.fieldset .hint {
+.hint {
 	font-size: smaller;
 	font-weight: lighter;
 	color: gray;
@@ -229,7 +229,7 @@ input:focus, textarea:focus, {
 
 
 /*** Rails messages ***/
-#flash_notice, #flash_error {
+#flash_notice, #flash_error #flash_warning {
 	margin: 10px 0;
 	padding: 5px 8px;
 }
@@ -239,7 +239,7 @@ input:focus, textarea:focus, {
 	background-image:url(/images/success1.gif);
 	background-position:20px center;
 	background-repeat:no-repeat;
-	border: solid 1px #a7e147;
+	border: solid 2px #a7e147;
 	padding: 15px; 
 	font-weight: bold;
 	font-size: larger;
@@ -251,11 +251,23 @@ input:focus, textarea:focus, {
 	background-image:url(/images/error1.gif);
 	background-position:20px center;
 	background-repeat:no-repeat;
-	border: solid 1px #df3e4e;
+	border: solid 2px #df3e4e;
 	font-size: larger;
 	font-weight: bold;
 	padding: 15px; 
 	text-indent: 50px;
+}
+
+#flash_warning {
+	background-color: #ffffcc;
+	background-image:url(/images/warningt.gif);
+	background-position:20px center;
+	background-repeat:no-repeat;
+	border: solid 2px #ffff00;
+	font-size: larger;
+	font-weight: bold;
+	padding: 15px; 
+	text-indent: 60px;
 }
 
 .fieldWithErrors {
