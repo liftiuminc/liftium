@@ -2,75 +2,12 @@ class TagsController < ApplicationController
   before_filter :require_user
 
   def index
-    # FIXME: This belongs in the model, but I couldn't get it to work
-    # Could I have tried to do this with native ActiveRecord find? Yep.
+    @tags = Tag.new.search(params) 
 
-    # FIXME: There has to be a better way...
-    adapter = Rails.configuration.database_configuration[Rails.configuration.environment]["adapter"]
-    if adapter == "sqlite3"
-      # sqllite calls it rand
-      random = "random"
-    else 
-      # mysql calls it rand
-      random = "rand"
-    end
-
-    query = []
-    query.push("SELECT *, (" +  random + "() * (0.1 * value)) AS weighted_random_value
-		FROM tags WHERE 1=1");
-
-    if (params[:include_disabled].blank?)
-       query[0] += " AND enabled = ?"
-       query.push(true)
-    end
-
-    if (! params[:publisher_id].blank?)
-       query[0] += " AND publisher_id = ?"
-       query.push(params[:publisher_id].to_i)
-    end
-
-    if (! params[:network_id].blank?)
-       query[0] += " AND network_id = ?"
-       query.push(params[:network_id].to_i)
-    end
-
-    if (! params[:size].blank?)
-       query[0] += " AND size = ?"
-       query.push(params[:size])
-    end
-
-    if (! params[:name_search].blank?)
-       query[0] += " AND tag_name like ?"
-       query.push('%' + params[:name_search] + '%')
-    end
-
-    case (params[:order])
-      when "tag_name"
-	query[0] += " ORDER BY tag_name ASC"
-      else 
-        # Same order as the chain
-	query[0] += " ORDER BY tier ASC, weighted_random_value DESC"
-    end
-
-    if (! params[:limit].to_s.empty? && params[:limit].to_i < 100)
-       query[0] += " LIMIT ?"
-       query.push(params[:limit].to_i)
-    else
-       query[0] += " LIMIT 50"
-    end
-
-    if (! params[:offset].blank?)
-       query[0] += " OFFSET ? "
-       query.push(params[:offset].to_i)
-    else
-       query[0] += " OFFSET 0"
-    end
-      
     if params[:debug]
-       flash[:notice] = "Query: " + query.inspect
+      flash[:notice] = "<span style='font-size:smaller'>SQL: " + Tag.new.search_sql(params).inspect + "</span>"
     end
 
-    @tags = Tag.find_by_sql query
     if @tags.length < 1
       flash[:warning] = "No matching tags found"
     end
