@@ -1,18 +1,37 @@
 class DataExportController < ApplicationController
   def index
+
     case params[:interval]
       when "day" 
-        @fill_stats = FillsDay.find(:all, :order => "day")
+        @model = FillsDay
         @time_name = "Day"
       when "hour" 
-        @fill_stats = FillsHour.find(:all, :order => "hour")
+        @model = FillsHour
         @time_name = "Hour"
       else 
-        @fill_stats = FillsMinute.find(:all, :order => "minute")
+        @model = FillsMinute
         @time_name = "Minute"
     end
 
-    if params[:csv]
+    @limit = 250
+    if params[:format] != "csv"
+      params[:limit] = @limit
+    end
+
+    if params[:debug]
+      flash[:notice] = "<span style='font-size:smaller'>SQL: " + @model.new.search_sql(@model, params).inspect + "</span>"
+    end
+
+    @fill_stats = @model.new.search(@model, params)
+
+    if @fill_stats.length == 0
+      flash[:warning] = "No matching stats"
+      return
+    elsif @fill_stats.length == @limit
+      flash[:warning] = "Limit of #{@limit} reached. Use the CSV option to see all"
+    end
+
+    if params[:format] == "csv"
       self.export_to_csv(@time_name)
     end
   end
@@ -63,6 +82,8 @@ class DataExportController < ApplicationController
       # Total line
       csv << [
 	"Totals",
+	"",
+	"",
 	"",
 	"",
 	total_attempts,

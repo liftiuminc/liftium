@@ -1,0 +1,24 @@
+one:
+  tag_id: 13
+  day: <%= (Time.now - 3.days).to_s(:db) %>
+  attempts: 23
+  loads: 23
+  rejects: 0
+four:
+  tag_id: 13
+  day: <%= (Time.now - 2.days).to_s(:db) %>
+  attempts: 22
+  loads: 21
+  rejects: 1
+six:
+  tag_id: 13
+  day: <%= (Time.now - 1.days).to_s(:db) %>
+  attempts: 21
+  loads: 13
+  rejects: 7
+nine:
+  tag_id: 13
+  day: <%= Time.now.to_s(:db) %>
+  attempts: 5
+  loads: 5
+  rejects: 0

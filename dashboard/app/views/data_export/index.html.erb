@@ -4,7 +4,54 @@ total_loads = 0
 total_rejects = 0
 total_slip = 0
 %>
+<div class="filter_form" id="tag_filter_form">
+  <form>
+     <ul>
+	<% if params[:debug] -%>
+	  <%= params.inspect -%>
+	<% end -%>
+	<li><%= label_tag :publisher %>
+	    <!-- FIXME. Use built in rails helper instead? -->
+	    <select name="publisher_id" id="publisherDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Publisher.all.collect, :id, :site_name, params[:publisher_id].to_i %>
+	    </select>
+	</li>
 
+	<li><%= label_tag :network %>
+	    <select name="network_id" id="networkDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Network.all.collect, :id, :network_name, params[:network_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :size %>
+	    <select name="size" id="sizeDD">
+	      <option value="">
+	      <%= options_from_collection_for_select AdFormat.all.collect, :size, :name_with_size, params[:size] %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :interval%>
+	    <%= radio_button_tag "interval", "minute", params[:interval]=="minute" || params[:interval].blank? %>Minute
+	    <%= radio_button_tag "interval", "hour", params[:interval]=="hour"%>Hour
+	    <%= radio_button_tag "interval", "day", params[:interval]=="day"%>Day
+
+	<li><%= label_tag :format, "Ouptut to"%>
+	    <%= radio_button_tag "format", "csv", params[:format]=="csv"%>CSV File
+	    <%= radio_button_tag "format", "html", params[:format]!="csv"%>Screen <span class="hint">(limit 500 records)</span>
+	</li>
+
+	<li><%= label_tag :include_disabled, "Include Disabled Tags"%>
+	    <%= radio_button_tag "include_disabled", "true", !params[:include_disabled].blank?%>Yes
+	    <%= radio_button_tag "include_disabled", "", params[:include_disabled].blank?%>No
+	</li>
+
+	<li><%= liftium_submit "Retrieve Stats"%></li>
+  </form>
+</div>
+
+<%- if @fill_stats.length > 0 %>
 <br clear="all"/>
 
 <table class="record_listing" width="800" cellspacing="0" cellpadding="0"><!-- Cellspacing/padding added for IE 6 -->
@@ -20,7 +67,13 @@ total_slip = 0
     <th>Slip</th>
     <th>Fill Rate</th>
   </tr>
-  <% for fill_stat in @fill_stats %>
+  <% counter = 0 %>
+  <%- for fill_stat in @fill_stats %>
+    <%- counter +=1
+	if counter > @limit
+	  break
+        end
+    -%>
     <tr class="record_row_<%= cycle("odd", "even")%>">
       <td class="record_column"><a href="<%= publisher_url fill_stat.tag.publisher %>"><%= fill_stat.tag.publisher.site_name%></a></td>
       <td class="record_column"><a href="<%= network_url fill_stat.tag.network %>"><%= fill_stat.tag.network.network_name%></a></td>
@@ -46,8 +99,9 @@ total_slip = 0
       <td class="record_column"><%= total_loads%></td>
       <td class="record_column"><%= total_rejects%></td>
       <td class="record_column"><%= total_slip%></td>
-      <td class="record_column"><%= @fill_stats[0].fill_rate_raw(total_loads, total_attempts)%>%</td>
+      <td class="record_column"><%= @fill_stats.length > 0 ? @fill_stats[0].fill_rate_raw(total_loads, total_attempts).to_s + "%": "-" %></td>
     </tr>
   
 </table>
 
+<% end # if @fill_stats.length > 0 %>
