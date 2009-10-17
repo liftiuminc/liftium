@@ -44,4 +44,13 @@ class NetworksController < ApplicationController
     flash[:notice] = "Successfully destroyed network."
     redirect_to networks_url
   end
+
+  def ad_preview
+    @network    = Network.find(params[:id])    
+    @tags       = Tag.find( :all, :conditions => {
+                                :network_id => @network.id,
+                                :enabled    => true
+                            })    
+  end
+
 end
