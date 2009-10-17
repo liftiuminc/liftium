@@ -1,4 +1,5 @@
 class Network < ActiveRecord::Base
+  require 'uri'
 
   # FIXME
   @all_pay_types = ["Per Click", "Per Impression", "Affliate" ]
@@ -32,6 +33,16 @@ class Network < ActiveRecord::Base
    def pay_types 
         ["Per Click", "Per Impression", "Affliate" ]
    end
-  
+
+   ### make sure all urls start with http(s?). See FB 32
+   def website=(url)
+
+      ### this will catch any malformed uris
+      if url.length > 0
+         url = URI.parse( url =~ /^https?/i ? url : 'http://' + url ).to_s
+      end  
+      
+      write_attribute( :website, url )
+   end
 
 end
