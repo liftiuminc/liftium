@@ -19,7 +19,7 @@
 	<li><%= label_tag :network %>
 	    <select name="network_id" id="networkDD">
 	      <option value="">
-	      <%= options_from_collection_for_select Network.all.collect, :id, :network_name, params[:network_id].to_i %>
+	      <%= options_from_collection_for_select Network.all.collect, :id, :network_name_and_id, params[:network_id].to_i %>
 	    </select>
 	</li>
 
@@ -30,7 +30,7 @@
 	    </select>
 	</li>
 
-	<li><%= label_tag :tag_name %>
+	<li><%= label_tag "Tag name or ID" %>
 	    <%= text_field_tag :name_search, params[:name_search] %>
 	</li>
 
@@ -47,6 +47,7 @@
 
   <tr class="record_listing_header">
     <th>Publisher</th>
+    <th>Network</th>
     <th>Tag</th>
     <th>Tier</th>
     <th>Value</th>
@@ -77,11 +78,13 @@
    <%-end%>
       <td nowrap="true" class="record_column"><%= !tag.publisher.nil? ? tag.publisher.site_name : "<i>No publisher</i>"%></td>
       <td nowrap="true" class="record_column">
-	<%=h tag.network.network_name %> - <%= tag.tag_name %><br />
-	<span style="font-size: smaller">
-	<%= tag.size %>
-	<%= tag.sample_rate ? "- sampled #{tag.sample_rate}%" : "" %>
-	</span>
+   	    <%=h tag.network.network_name_and_id %></td>
+      <td nowrap="true" class="record_column">
+ 	    <%= tag.tag_name + " (id: " + tag.id.to_s + ") "  %><br />
+        <span style="font-size: smaller">
+        <%= tag.size %>
+        <%= tag.sample_rate ? "- sampled #{tag.sample_rate}%" : "" %>
+        </span>
       </td>
       <td class="record_column_number" bgcolor="<%= "#{@tier_to_color[tag.tier]}" %>"><%=h tag.tier ? tag.tier : "-"%></td>
       <td class="record_column_number">$<%=h tag.value ? tag.value_s : "-"%></td>

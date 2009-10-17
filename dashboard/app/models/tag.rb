@@ -106,9 +106,11 @@ class Tag < ActiveRecord::Base
        query.push(params[:size])
     end
 
+    ### search for both name & ids
     if (! params[:name_search].blank?)
-       query[0] += " AND tag_name like ?"
+       query[0] += " AND (tag_name like ? OR id = ?) "
        query.push('%' + params[:name_search] + '%')
+       query.push( params[:name_search] )       
     end
 
     case (params[:order])

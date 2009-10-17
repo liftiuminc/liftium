@@ -33,6 +33,10 @@ class Network < ActiveRecord::Base
    def pay_types 
         ["Per Click", "Per Impression", "Affliate" ]
    end
+   
+   def network_name_and_id
+      network_name.to_s + " (" + id.to_s + ")"
+   end
 
    ### make sure all urls start with http(s?). See FB 32
    def website=(url)
