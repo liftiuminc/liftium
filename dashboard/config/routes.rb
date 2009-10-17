@@ -20,6 +20,9 @@ ActionController::Routing::Routes.draw do |map|
   map.chart_misc 'charts/misc/:stat', :controller => 'charts', :action => "misc_stat"
   map.chart 'charts/:id/:action', :controller => 'charts'
 
+  # Data export
+  map.data_export 'data_export', :controller => 'data_export'
+
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "welcome"
 

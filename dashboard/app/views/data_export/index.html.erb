@@ -1,0 +1,53 @@
+<% title "Data Export"
+total_attempts = 0
+total_loads = 0
+total_rejects = 0
+total_slip = 0
+%>
+
+<br clear="all"/>
+
+<table class="record_listing" width="800" cellspacing="0" cellpadding="0"><!-- Cellspacing/padding added for IE 6 -->
+  <tr class="record_listing_header">
+    <th>Publisher</th>
+    <th>Ad Network</th>
+    <th>Tag</th>
+    <th>Size</th>
+    <th><%=@time_name %></th>
+    <th>Attempts</th>
+    <th>Loads</th>
+    <th>Rejects</th>
+    <th>Slip</th>
+    <th>Fill Rate</th>
+  </tr>
+  <% for fill_stat in @fill_stats %>
+    <tr class="record_row_<%= cycle("odd", "even")%>">
+      <td class="record_column"><a href="<%= publisher_url fill_stat.tag.publisher %>"><%= fill_stat.tag.publisher.site_name%></a></td>
+      <td class="record_column"><a href="<%= network_url fill_stat.tag.network %>"><%= fill_stat.tag.network.network_name%></a></td>
+      <td class="record_column">#<%= fill_stat.tag_id%> - <a href="<%=tag_url fill_stat.tag %>"><%= fill_stat.tag.tag_name%></a></td>
+      <td class="record_column"><%= fill_stat.tag.size%></a></td>
+      <td class="record_column"><%=fill_stat.time%></td>
+      <td class="record_column"><%= fill_stat.attempts%></td>
+      <td class="record_column"><%= fill_stat.loads%></td>
+      <td class="record_column"><%= fill_stat.rejects%></td>
+      <td class="record_column"><%= fill_stat.slip%></td>
+      <td class="record_column"><a href="<%=h url_for :controller => 'charts', :action => 'tag', :id => fill_stat.tag.id %>"><%= fill_stat.fill_rate%>%</a></td>
+    </tr>
+  <%
+  # Add up the totals
+  total_attempts += fill_stat.attempts
+  total_loads += fill_stat.loads
+  total_rejects += fill_stat.rejects
+  total_slip += fill_stat.slip
+  end %>
+    <tr class="record_row_<%= cycle("odd", "even")%>" style="font-weight: bold">
+      <td class="record_column" colspan="5">Totals</td>
+      <td class="record_column"><%= total_attempts%></td>
+      <td class="record_column"><%= total_loads%></td>
+      <td class="record_column"><%= total_rejects%></td>
+      <td class="record_column"><%= total_slip%></td>
+      <td class="record_column"><%= @fill_stats[0].fill_rate_raw(total_loads, total_attempts)%>%</td>
+    </tr>
+  
+</table>
+
