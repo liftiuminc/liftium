@@ -53,7 +53,7 @@
     <th>Value</th>
     <th>Criteria</th>
     <th colspan="4">Actions</th>
-    <th>Fill Rate</th>
+    <th colspan="2">Fill Rate</th>
   </tr>
 
 <%  @tier_to_color = {
@@ -95,15 +95,28 @@
 	  <%=h criteria.key_name + ": " + criteria.key_value %><br />
 	<% end -%>
         &#160; <!-- So the border shows up when there is no criteria -->
+
       <td class="record_action"><%= link_to "View", tag, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_tag_path(tag) %></td>
       <td class="record_action"><%= link_to "Delete", tag, :confirm => 'Are you sure?', :method => "delete" %></td>
 	<!-- FIXME: Use correct rails link helper -->
       <td class="record_action"><%= link_to "Copy", "/tags/copy/#{tag.id}" %></td>
       <td class="record_action">
-	<% if tag.enabled %>
-	<a href="<%=h url_for :controller => 'charts', :action => 'tag', :id => tag.id %>"><img src="<%= tag_sparkline_url tag, "1h"%>" width="50" height="25"/></a></td>
-	<% end %>
+      <% if tag.enabled %>
+	  <a href="<%=h url_for :controller => 'charts', :action => 'tag', :id => tag.id %>"><img src="<%= tag_sparkline_url tag, "1h"%>" width="50" height="25"/></a>
+      <% end %>
+      </td>
+      <td class="record_action" style="font-size:smaller" nowrap="true">
+	<% fill_stats = tag.get_fill_stats("last 60 minutes")%>
+	<%- if fill_stats[:attempts] > 0 %>
+	  <%= fill_stats[:attempts].to_s + " attempts "%><br />
+	  <span style="<%= fill_stats[:fill_rate].to_i < 15 ? "color:red" : "" %>">
+	  <%= fill_stats[:fill_rate].to_s + "% filled" %>
+	  </span>
+	<%- else %>
+	   0 attempts
+	<%- end %>
+      </td>
     </tr>
   <% end %>
 

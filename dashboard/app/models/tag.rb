@@ -143,4 +143,13 @@ class Tag < ActiveRecord::Base
     Tag.find_by_sql self.search_sql(params)
   end 
 
+
+  def get_fill_stats (range)
+    loads = FillsMinute.sum("loads", :conditions => ["tag_id = ?", id])
+    attempts = FillsMinute.sum("attempts", :conditions => ["tag_id = ?", id])
+    rejects = FillsMinute.sum("rejects", :conditions => ["tag_id = ?", id])
+    fill_rate = FillsMinute.new.fill_rate_raw(loads, attempts)
+    return {:loads => loads, :attempts => attempts, :rejects => rejects, :fill_rate => fill_rate}
+  end 
+
 end
