@@ -51,7 +51,7 @@ total_slip = 0
 	<li><%= label_tag :date_select %>
 	    <select name="date_select" id="date_selectDD" onChange="dateSelect(this)">
 	    <option value="">
-	    <%= options_for_select(["Today", "Yesterday", "Last 7 days", "This month"], params[:date_select])%>
+	    <%= options_for_select(["Today", "Yesterday", "Last 7 days", "This month", "Last 30 days", "This quarter", "Last Quarter", "This year"], params[:date_select])%>
 	    </select>
 	</li>
 	<li><%= label_tag "", " - OR -" %></li>
@@ -68,8 +68,7 @@ total_slip = 0
 </div>
 <script>
 function dateSelect(select){
-    switch (select.options[select.selectedIndex].value){
-      case "This month":
+    if (select.selectedIndex > 3)
 	$("interval_day").checked = true;
     }
 }
