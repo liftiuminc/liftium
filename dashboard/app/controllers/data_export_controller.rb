@@ -1,11 +1,29 @@
 class DataExportController < ApplicationController
   def index
     @limit = 250
+    @fill_stats = [] # placeholder empty array in case we don't get that far
 
     if params[:interval].nil?
-      @fill_stats = []
       return
     end
+
+    # Sanity checking on dates
+    if params[:start_date] 
+      s = params[:start_date].to_time
+      if params[:interval] == "minute" && s + (7*86400) < Time.now 
+	flash[:error] = "Please select 'Hour' or 'Day' for interval for dates older than 7 days"
+	return
+      elsif params[:interval] != "day" && s + (30*86400) < Time.now 
+	flash[:error] = "Please select 'Day' for interval for dates older than 30 days"
+	return
+      elsif params[:end_date] && s > params[:end_date].to_time
+	flash[:error] = "Start Date must be before end date"
+	return
+      elsif params[:end_date] && params[:end_date].to_time > Time.now
+	flash[:warning] = "Warning: End Date is in the future"
+      end
+    end
+
 
     case params[:interval]
       when "day" 

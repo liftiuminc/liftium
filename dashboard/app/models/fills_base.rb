@@ -16,12 +16,13 @@ class FillsBase < ActiveRecord::Base
   
   def search_sql (model, params)
 
+    col = model.new.time_column
     query = []
     query.push("SELECT * FROM " + model.table_name + " INNER JOIN tags ON " + model.table_name + ".tag_id = tags.id WHERE 1=1");
 
     if (params[:include_disabled].blank?)
-#       query[0] += " AND enabled = ?"
-#       query.push(true)
+       query[0] += " AND enabled = ?"
+       query.push(1)
     end
 
     if (! params[:publisher_id].blank?)
@@ -44,11 +45,37 @@ class FillsBase < ActiveRecord::Base
        query.push('%' + params[:name_search] + '%')
     end
 
+    # Date / time
+    case params[:date_select].to_s.downcase
+      when "today"
+        params[:start_date] = DateTime.now.strftime('%Y-%m-%d 00:00:00')
+      when "yesterday"
+        params[:start_date] = 1.day.ago.strftime('%Y-%m-%d 00:00:00')
+        params[:end_date] = DateTime.now.strftime('%Y-%m-%d 00:00:00')
+      when "last 7 days"
+        params[:start_date] = 7.days.ago.strftime('%Y-%m-%d 00:00:00')
+        params[:end_date] = DateTime.now.strftime('%Y-%m-%d 00:00:00')
+      when "this month"
+        params[:start_date] = DateTime.now.strftime('%Y-%m-01 00:00:00')
+        params[:end_date] = DateTime.now.strftime('%Y-%m-%d 00:00:00')
+    end
+    
+
+    if (! params[:start_date].blank?)
+       query[0] += " AND " + col + " >= ? "
+       query.push(params[:start_date].to_time.to_s(:db))
+    end
+
+    if (! params[:end_date].blank?)
+       query[0] += " AND " + col + " <= ? "
+       query.push(params[:end_date].to_time.to_s(:db))
+    end
+
     case (params[:order])
       when "tag_name"
 	query[0] += " ORDER BY " + tag_name + " ASC"
       else 
-	query[0] += " ORDER BY " + model.new.time_column + " ASC"
+	query[0] += " ORDER BY " + col + " ASC"
     end
 
     if (! params[:limit].to_s.empty?)
