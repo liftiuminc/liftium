@@ -7,7 +7,27 @@ class DataExportController < ApplicationController
       return
     end
 
+    # FIXME: flash notice isn't clearing until the second time
+
+    case params[:interval]
+      when "day" 
+        @model = FillsDay
+        @time_name = "Day"
+      when "hour" 
+        @model = FillsHour
+        @time_name = "Hour"
+      else 
+        @model = FillsMinute
+        @time_name = "Minute"
+    end
+
     # Sanity checking on dates
+    if !params[:date_select].blank? 
+	dates = @model.new.get_date_range(params[:date_select])
+        params[:start_date] = dates[0]
+        params[:end_date] = dates[0]
+    end
+
     if !params[:start_date].blank?
       s = params[:start_date].to_time
       if params[:interval] == "minute" && s + (7*86400) < Time.now 
@@ -22,19 +42,6 @@ class DataExportController < ApplicationController
       elsif !params[:end_date].blank? && params[:end_date].to_time > Time.now
 	flash[:warning] = "Warning: End Date is in the future"
       end
-    end
-
-
-    case params[:interval]
-      when "day" 
-        @model = FillsDay
-        @time_name = "Day"
-      when "hour" 
-        @model = FillsHour
-        @time_name = "Hour"
-      else 
-        @model = FillsMinute
-        @time_name = "Minute"
     end
 
     if params[:format] != "csv"
