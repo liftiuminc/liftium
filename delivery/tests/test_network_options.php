@@ -6,7 +6,7 @@ LiftiumOptions = {
 	google_ad_height : 90,
 	google_ad_format : "728x90_as"
 };
-Liftium.handleNetworkOptions({"network_id":1}); // Google
+Liftium.handleNetworkOptions({"network_id":"1"}); // Google
 if (google_ad_height == 90 && google_ad_format == "728x90_as") {
         LiftiumTest.testPassed();
 } else {
