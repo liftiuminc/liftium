@@ -8,7 +8,7 @@ class DataExportController < ApplicationController
     end
 
     # Sanity checking on dates
-    if params[:start_date] 
+    if !params[:start_date].blank?
       s = params[:start_date].to_time
       if params[:interval] == "minute" && s + (7*86400) < Time.now 
 	flash[:error] = "Please select 'Hour' or 'Day' for interval for dates older than 7 days"
@@ -16,10 +16,10 @@ class DataExportController < ApplicationController
       elsif params[:interval] != "day" && s + (30*86400) < Time.now 
 	flash[:error] = "Please select 'Day' for interval for dates older than 30 days"
 	return
-      elsif params[:end_date] && s > params[:end_date].to_time
+      elsif !params[:end_date].blank? && s > params[:end_date].to_time
 	flash[:error] = "Start Date must be before end date"
 	return
-      elsif params[:end_date] && params[:end_date].to_time > Time.now
+      elsif !params[:end_date].blank? && params[:end_date].to_time > Time.now
 	flash[:warning] = "Warning: End Date is in the future"
       end
     end
