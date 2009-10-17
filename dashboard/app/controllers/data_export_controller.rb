@@ -1,5 +1,9 @@
 class DataExportController < ApplicationController
   def index
+    if params[:interval].nil?
+      @fill_stats = []
+      return
+    end
 
     case params[:interval]
       when "day" 
@@ -98,8 +102,5 @@ class DataExportController < ApplicationController
     send_data csv_data,
       :type => 'text/csv; header=present',
       :disposition => "attachment; filename=#{@outfile}"
-
-    flash[:notice] = "Export complete, " + @fill_stats.length.to_s + " records exported"
-
   end
 end
