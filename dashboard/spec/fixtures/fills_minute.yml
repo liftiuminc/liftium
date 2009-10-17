@@ -1,0 +1,61 @@
+one:
+  tag_id: 13
+  # Rails rocks.
+  minute: <%= (Time.now - 3.days + 1.minute).to_s(:db) %>
+  attempts: 5
+  loads: 5
+  rejects: 0
+two:
+  tag_id: 13
+  minute: <%= (Time.now - 3.days + 2.minute).to_s(:db) %>
+  attempts: 5
+  loads: 5
+  rejects: 0
+three:
+  tag_id: 13
+  minute: <%= (Time.now - 3.days + 3.minute).to_s(:db) %>
+  attempts: 8
+  loads: 8
+  rejects: 0
+four:
+  tag_id: 13
+  minute: <%= (Time.now - 2.days + 1.minute).to_s(:db) %>
+  attempts: 6
+  loads: 6
+  rejects: 0
+five:
+  tag_id: 13
+  minute: <%= (Time.now - 2.days + 2.minute).to_s(:db) %>
+  attempts: 5
+  loads: 5
+  rejects: 0
+five_2: #heh
+  tag_id: 13
+  minute: <%= (Time.now - 2.days + 3.minute).to_s(:db) %>
+  attempts: 11
+  loads: 10
+  rejects: 1
+six:
+  tag_id: 13
+  minute: <%= (Time.now - 1.days + 1.minute).to_s(:db) %>
+  attempts: 9
+  loads: 7
+  rejects: 2
+seven:
+  tag_id: 13
+  minute: <%= (Time.now - 1.days + 2.minute).to_s(:db) %>
+  attempts: 5
+  loads: 5
+  rejects: 0
+eight:
+  tag_id: 13
+  minute: <%= (Time.now - 1.days + 3.minute).to_s(:db) %>
+  attempts: 12
+  loads: 6
+  rejects: 5
+nine:
+  tag_id: 13
+  minute: <%= Time.now.to_s(:db) %>
+  attempts: 5
+  loads: 5
+  rejects: 0

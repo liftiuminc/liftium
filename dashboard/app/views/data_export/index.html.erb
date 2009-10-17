@@ -1,0 +1,131 @@
+<% title "Data Export"
+total_attempts = 0
+total_loads = 0
+total_rejects = 0
+total_slip = 0
+%>
+<%= calendar_date_select_includes "silver" %>
+<!-- FIXME: Why is flash notice being displayed more than once? -->
+<div class="filter_form" id="tag_filter_form">
+  <form>
+     <ul>
+	<% if params[:debug] -%>
+	  <%= params.inspect -%>
+	<% end -%>
+	<li><%= label_tag :publisher %>
+	    <!-- FIXME. Use built in rails helper instead? -->
+	    <select name="publisher_id" id="publisherDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Publisher.all.collect, :id, :site_name, params[:publisher_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :network %>
+	    <select name="network_id" id="networkDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Network.all.collect, :id, :network_name, params[:network_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :size %>
+	    <select name="size" id="sizeDD">
+	      <option value="">
+	      <%= options_from_collection_for_select AdFormat.all.collect, :size, :name_with_size, params[:size] %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :interval%>
+	    <%= radio_button_tag "interval", "minute", params[:interval]=="minute" || params[:interval].blank? %>Minute
+	    <%= radio_button_tag "interval", "hour", params[:interval]=="hour"%>Hour
+	    <%= radio_button_tag "interval", "day", params[:interval]=="day"%>Day
+
+	<li><%= label_tag :format, "Ouptut to"%>
+	    <%= radio_button_tag "format", "csv", params[:format]=="csv"%>CSV File
+	    <%= radio_button_tag "format", "html", params[:format]!="csv"%>Screen <span class="hint">(limit <%= @limit %> records)</span>
+	</li>
+
+	<li><%= label_tag :include_disabled, "Include Disabled Tags"%>
+	    <%= radio_button_tag "include_disabled", "true", !params[:include_disabled].blank?%>Yes
+	    <%= radio_button_tag "include_disabled", "", params[:include_disabled].blank?%>No
+	</li>
+	<li><%= label_tag :date_select %>
+	    <select name="date_select" id="date_selectDD" onChange="dateSelect(this)">
+	    <option value="">
+	    <%= options_for_select(["Today", "Yesterday", "Last 7 days", "This month"], params[:date_select])%>
+	    </select>
+	</li>
+	<li><%= label_tag "", " - OR -" %></li>
+	<li><%= label_tag :date_range %>
+	    <%
+	    s = !params[:start_date].blank? ? params[:start_date].to_date.strftime("%m/%d/%Y %I:%M %p") : ""
+	    e = !params[:end_date].blank? ? params[:end_date].to_date.strftime("%m/%d/%Y %I:%M %p") : ""
+	    %>
+	    From <%= calendar_date_select_tag "start_date", s, :time => "mixed" %>
+	    To <%= calendar_date_select_tag "end_date", e, :time => "mixed" %>
+        </li>
+	<li><%= liftium_submit "Retrieve Stats"%></li>
+  </form>
+</div>
+<script>
+function dateSelect(select){
+    switch (select.options[select.selectedIndex].value){
+      case "This month":
+	$("interval_day").checked = true;
+    }
+}
+</script>
+
+<%- if @fill_stats.length > 0 %>
+<br clear="all"/>
+
+<table class="record_listing" width="800" cellspacing="0" cellpadding="0"><!-- Cellspacing/padding added for IE 6 -->
+  <tr class="record_listing_header">
+    <th>Publisher</th>
+    <th>Ad Network</th>
+    <th>Tag</th>
+    <th>Size</th>
+    <th><%=@time_name %></th>
+    <th>Attempts</th>
+    <th>Loads</th>
+    <th>Rejects</th>
+    <th>Slip</th>
+    <th>Fill Rate</th>
+  </tr>
+  <% counter = 0 %>
+  <%- for fill_stat in @fill_stats %>
+    <%- counter +=1
+	if counter > @limit
+	  break
+        end
+    -%>
+    <tr class="record_row_<%= cycle("odd", "even")%>">
+      <td class="record_column"><a href="<%= publisher_url fill_stat.tag.publisher %>"><%= fill_stat.tag.publisher.site_name%></a></td>
+      <td class="record_column"><a href="<%= network_url fill_stat.tag.network %>"><%= fill_stat.tag.network.network_name%></a></td>
+      <td class="record_column">#<%= fill_stat.tag_id%> - <a href="<%=tag_url fill_stat.tag %>"><%= fill_stat.tag.tag_name%></a></td>
+      <td class="record_column"><%= fill_stat.tag.size%></a></td>
+      <td class="record_column"><%=fill_stat.time%></td>
+      <td class="record_column"><%= fill_stat.attempts%></td>
+      <td class="record_column"><%= fill_stat.loads%></td>
+      <td class="record_column"><%= fill_stat.rejects%></td>
+      <td class="record_column"><%= fill_stat.slip%></td>
+      <td class="record_column"><a href="<%=h url_for :controller => 'charts', :action => 'tag', :id => fill_stat.tag.id %>"><%= fill_stat.fill_rate%>%</a></td>
+    </tr>
+  <%
+  # Add up the totals
+  total_attempts += fill_stat.attempts
+  total_loads += fill_stat.loads
+  total_rejects += fill_stat.rejects
+  total_slip += fill_stat.slip
+  end %>
+    <tr class="record_row_<%= cycle("odd", "even")%>" style="font-weight: bold">
+      <td class="record_column" colspan="5">Totals</td>
+      <td class="record_column"><%= total_attempts%></td>
+      <td class="record_column"><%= total_loads%></td>
+      <td class="record_column"><%= total_rejects%></td>
+      <td class="record_column"><%= total_slip%></td>
+      <td class="record_column"><%= @fill_stats.length > 0 ? @fill_stats[0].fill_rate_raw(total_loads, total_attempts).to_s + "%": "-" %></td>
+    </tr>
+  
+</table>
+
+<% end # if @fill_stats.length > 0 %>

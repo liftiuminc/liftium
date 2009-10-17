@@ -14,21 +14,8 @@ module ChartsHelper
   end
 
   def tag_fillrate_url(tag, range="1h", width=600, height=250) 
-      case range[1,1]
-	when "h"
-	  time = "Hourly"
-	when "d"
-	  time = "Daily"
-	when "w"
-	  time = "Weekly"
-	when "m"
-	  range = range + "onth"
-	  time = "Monthly"
-	when "y"
-	  time = "Yearly"
-	else 
-	  time = ""
-      end
+   	range = self.clean_range(range)
+	time = self.get_time_from_range(range)
 
 	data = {
 		:net => tag.network_id,
@@ -43,35 +30,54 @@ module ChartsHelper
   end
 
   def misc_stat_url (stat, range="1h", width=600, height=250)
-
-      # FIXME, this shouldn't be defined twice.
-      case range[1,1]
-	when "h"
-	  time = "Hourly"
-	when "d"
-	  time = "Daily"
-	when "w"
-	  time = "Weekly"
-	when "m"
-	  range = range + "onth"
-	  time = "Monthly"
-	when "y"
-	  time = "Yearly"
-	else 
-	  time = ""
-      end
+   	range = self.clean_range(range)
+	time = self.get_time_from_range(range)
 
 	data = {
 		:stat => stat,
 		:range => range,
-		# Lazy
-		:title => stat.tableize.singularize.humanize.titleize + " " + time,
+		:title => self.misc_stat_humanize(stat) + " " + time,
 		:width => width,
 		:height => height
 	}
 
 	"http://rgraph.liftium.com/misc?" + data.to_query
 
+  end
+
+  def misc_stat_humanize (stat)
+     if stat[-1,1] == "s"
+	stat.tableize.humanize.titleize 
+     else
+	stat.tableize.singularize.humanize.titleize 
+     end
+  end
+
+  # 1m => Monthly, etc.
+  def get_time_from_range (range)
+      case range[1,1]
+	when "h"
+	  return "Hourly"
+	when "d"
+	  return "Daily"
+	when "w"
+	  return "Weekly"
+	when "m"
+	  return "Monthly"
+	when "y"
+	  return "Yearly"
+	else 
+	  return ""
+      end
+  end
+
+  # "m" is confusing because it could be monthly or minute, so RRD handles it differently
+  def clean_range (range)
+	if range[1,1] == "m"
+	  return range + "onth"
+        else 
+          return range
+	end
   end
 
 end
