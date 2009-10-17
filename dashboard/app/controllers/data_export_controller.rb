@@ -1,5 +1,7 @@
 class DataExportController < ApplicationController
   def index
+    @limit = 250
+
     if params[:interval].nil?
       @fill_stats = []
       return
@@ -17,7 +19,6 @@ class DataExportController < ApplicationController
         @time_name = "Minute"
     end
 
-    @limit = 250
     if params[:format] != "csv"
       params[:limit] = @limit
     end
