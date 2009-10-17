@@ -30,10 +30,10 @@ class DataExportController < ApplicationController
 
     if !params[:start_date].blank?
       s = params[:start_date].to_time
-      if params[:interval] == "minute" && s + (7*86400) < Time.now 
+      if params[:interval] == "minute" && s + (8*86400) < Time.now 
 	flash[:error] = "Please select 'Hour' or 'Day' for interval for dates older than 7 days"
 	return
-      elsif params[:interval] != "day" && s + (30*86400) < Time.now 
+      elsif params[:interval] != "day" && s + (31*86400) < Time.now 
 	flash[:error] = "Please select 'Day' for interval for dates older than 30 days"
 	return
       elsif !params[:end_date].blank? && s > params[:end_date].to_time
@@ -82,6 +82,7 @@ class DataExportController < ApplicationController
 	"Ad Network",
 	"Tag #",
 	"Tag Name",
+	"Size",
 	time_name,
 	"Attempts",
 	"Loads",
@@ -95,12 +96,13 @@ class DataExportController < ApplicationController
 	fill.tag.network.network_name,
 	fill.tag_id,
 	fill.tag.tag_name,
+	fill.tag.size,
 	fill.time,
 	fill.attempts,
 	fill.loads,
 	fill.rejects,
 	fill.slip,
-	fill.fill_rate
+	fill.fill_rate.to_s + "%"
 	]
 
 	# Add up the totals
@@ -116,11 +118,12 @@ class DataExportController < ApplicationController
 	"",
 	"",
 	"",
+	"",
 	total_attempts,
 	total_loads,
 	total_rejects,
 	total_slip,
-        @fill_stats[0].fill_rate_raw(total_loads, total_attempts)
+        @fill_stats[0].fill_rate_raw(total_loads, total_attempts).to_s + "%"
       ] 
      
     end
