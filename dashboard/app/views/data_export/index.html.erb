@@ -39,7 +39,7 @@ total_slip = 0
 
 	<li><%= label_tag :format, "Ouptut to"%>
 	    <%= radio_button_tag "format", "csv", params[:format]=="csv"%>CSV File
-	    <%= radio_button_tag "format", "html", params[:format]!="csv"%>Screen <span class="hint">(limit 500 records)</span>
+	    <%= radio_button_tag "format", "html", params[:format]!="csv"%>Screen <span class="hint">(limit <%= @limit %> records)</span>
 	</li>
 
 	<li><%= label_tag :include_disabled, "Include Disabled Tags"%>
