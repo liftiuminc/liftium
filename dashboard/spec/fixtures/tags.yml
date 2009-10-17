@@ -141,7 +141,7 @@ rejectionhop:
   value         : 3.00
   enabled       : 1
   always_fill   : 0
-  tier          : 9
+  tier          : 1
   rejection_time: 5
   size          : '300x250'
   tag           : '<script>document.write("This is a hop from a chain with a rejection time");</script><script src="http://delivery.dev.liftium.com/js/hop.js"></script>'
@@ -154,7 +154,7 @@ rejectionfill:
   value         : 0.2
   enabled       : 1
   always_fill   : 1
-  tier          : 1
+  tier          : 9
   size          : '300x250'
   tag           : 'This is an always fill from a chain with a rejection time'
 
@@ -167,7 +167,7 @@ frequencycap:
   enabled       : 1
   always_fill   : 0
   sample_rate   : NULL
-  tier          : 9
+  tier          : 1
   frequency_cap : 1
   size          : '336x280'
   tag           : '<script>document.write("This is a fill from a chain with a frequency cap");</script>'
@@ -180,7 +180,7 @@ frequencyfill:
   value         : 0.20
   enabled       : 1
   always_fill   : 1
-  tier          : 1
+  tier          : 9
   size          : '336x280'
   tag           : '<script>document.write("This is an always_fill after a tag with a frequency cap");</script>'
 
