@@ -1,5 +1,8 @@
-class FillsHour < ActiveRecord::Base
+class FillsHour < FillsBase
 
   set_table_name "fills_hour"
-  belongs_to :tag
+  def time
+    hour
+  end
+
 end

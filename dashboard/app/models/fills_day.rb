@@ -1,5 +1,8 @@
-class FillsDay < ActiveRecord::Base
+class FillsDay < FillsBase
 
   set_table_name "fills_day"
-  belongs_to :tag
+  def time
+    day
+  end
+
 end
