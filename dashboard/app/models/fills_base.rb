@@ -101,10 +101,10 @@ class FillsBase < ActiveRecord::Base
 	dates[0] = now.strftime('%Y-%m-%d %H:00:00')
       when "last 15 minutes"
 	dates[0] = (now - 15.minutes).strftime('%Y-%m-%d %H:%M:00')
-	dates[1] = now.strftime('%Y-%m-%d %H:00:00')
+	dates[1] = now.strftime('%Y-%m-%d %H:%M:00')
       when "last 60 minutes"
 	dates[0] = (now - 60.minutes).strftime('%Y-%m-%d %H:%M:00')
-	dates[1] = now.strftime('%Y-%m-%d %H:00:00')
+	dates[1] = now.strftime('%Y-%m-%d %H:%M:00')
       when "last hour"
 	dates[0] = (now - 1.hour).strftime('%Y-%m-%d %H:00:00')
 	dates[1] = now.strftime('%Y-%m-%d %H:00:00')

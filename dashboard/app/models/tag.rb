@@ -145,9 +145,21 @@ class Tag < ActiveRecord::Base
 
 
   def get_fill_stats (range)
-    loads = FillsMinute.sum("loads", :conditions => ["tag_id = ?", id])
-    attempts = FillsMinute.sum("attempts", :conditions => ["tag_id = ?", id])
-    rejects = FillsMinute.sum("rejects", :conditions => ["tag_id = ?", id])
+    conditions = ["tag_id = ?", id]
+    dates = FillsMinute.new.get_date_range(range)
+    if dates[0]
+      conditions[0] += " AND minute >= ?"
+      conditions.push(dates[0])
+    end
+    if dates[1]
+      conditions[0] += " AND minute <= ?"
+      conditions.push(dates[1])
+    end
+
+    loads = FillsMinute.sum("loads", :conditions => conditions)
+    attempts = FillsMinute.sum("attempts", :conditions => conditions)
+    rejects = FillsMinute.sum("rejects", :conditions => conditions)
+
     fill_rate = FillsMinute.new.fill_rate_raw(loads, attempts)
     return {:loads => loads, :attempts => attempts, :rejects => rejects, :fill_rate => fill_rate}
   end 
