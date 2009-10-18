@@ -1,4 +1,8 @@
 class DataExportController < ApplicationController
+  if Rails.configuration.environment != "test"
+     before_filter :require_user
+  end
+
   def index
     @limit = 250
     @fill_stats = [] # placeholder empty array in case we don't get that far

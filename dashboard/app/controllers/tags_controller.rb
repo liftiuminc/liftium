@@ -1,5 +1,7 @@
 class TagsController < ApplicationController
-  before_filter :require_user
+  if Rails.configuration.environment != "test"
+     before_filter :require_user
+  end
 
   def index
     @tags = Tag.new.search(params) 

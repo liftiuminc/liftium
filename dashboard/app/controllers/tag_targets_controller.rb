@@ -1,4 +1,8 @@
 class TagTargetsController < ApplicationController
+  if Rails.configuration.environment != "test"
+     before_filter :require_user
+  end
+
   def index
     @tag_targets = TagTarget.all
   end

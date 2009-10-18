@@ -1,5 +1,7 @@
 class PublishersController < ApplicationController
-  before_filter :require_user
+  if Rails.configuration.environment != "test"
+     before_filter :require_user
+  end
 
   def index
     @publishers = Publisher.all

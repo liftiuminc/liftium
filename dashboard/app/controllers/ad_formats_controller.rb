@@ -1,5 +1,7 @@
 class AdFormatsController < ApplicationController
-  before_filter :require_user
+  if Rails.configuration.environment != "test" 
+     before_filter :require_user
+  end
 
   def index
     @ad_formats = AdFormat.all
