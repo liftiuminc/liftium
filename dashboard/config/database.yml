@@ -1,22 +1,26 @@
 # SQLite version 3.x
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
+#
+# sqlite can be used... but ran into the following problems:
+# 1) Odd behavior with composite foreign keys when running tests
+# SQLite3::SQLException: object name reserved for internal use: sqlite_autoindex_fills_day_1: CREATE UNIQUE INDEX "sqlite_autoindex_fills_day_1" ON "fills_day" ("tag_id", "day")
+# Patch for CORE here: http://dev.rubyonrails.org/ticket/4537
+# 2) mysql says rand(), sqlite says random()
+# 3) Boolean values handled inconsistently. sqllite does "t" and "f", mysql does 1/0
+
+#development:
+#  adapter: sqlite3
+#  database: db/development.sqlite3
+#  pool: 5
+#  timeout: 5000
+
+# GRANT ALL ON liftiumdev.* TO liftiumdev identified by 'monkey';
+# GRANT ALL ON liftiumdev.* TO liftiumdev@'localhost' identified by 'monkey';
+# CREATE DATABASE liftiumdev;
+
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
-
-dev_mysql:
   adapter: mysql
-  database: liftium
-  username: liftiumdev
-  password: monkey
-  host: localhost
-  encoding: utf8
-
-test_mysql:
-  adapter: mysql
-  database: liftiumtest
+  database: liftiumdev
   username: liftiumdev
   password: monkey
   host: localhost
@@ -25,12 +29,20 @@ test_mysql:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
 
+# GRANT ALL ON liftiumtest.* TO liftiumtest identified by 'monkey';
+# GRANT ALL ON liftiumtest.* TO liftiumtest@'localhost' identified by 'monkey';
+# CREATE DATABASE liftiumtest;
+test:
+  adapter: mysql
+  database: liftiumtest
+  username: liftiumtest
+  password: monkey
+  host: localhost
+  encoding: utf8
+
+# GRANT ALL ON liftium.* TO rails_dashboard identified by 'liftium';
+# GRANT ALL ON liftium.* TO rails_dashboard@'%' identified by 'liftium';
 live:
   adapter: mysql
   database: liftium
