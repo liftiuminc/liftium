@@ -5,7 +5,7 @@
     <%= javascript_include_tag "prototype" %>
     <%= yield(:head) %>
   </head>
-  <body>
+  <body<%= Rails.configuration.environment == "development" && ' background="/images/dev_background.png"'%>>
     <div id="header">
 	<div id="logo"><a href="/" title="Ad Network Optimization and Monetization by Liftium"><img src="/images/logo.black.gradient.gif" alt="Ad Network Optimization and Monetization by Liftium"></a></div>		
     </div>
