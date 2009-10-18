@@ -1,0 +1,23 @@
+<% form_for @publisher_network_login do |f| %>
+  <%= f.error_messages %>
+  
+  <div class="fieldset">
+    <%= f.label :network, nil, :class => "left_label" %>
+    <%= collection_select(:publisher_network_login, :network_id, @networks, :id, :network_name_and_id ) %>
+  </div>
+  
+  <div class="fieldset">
+    <%= f.label :publisher, nil, :class => "left_label" %>
+    <%= collection_select(:publisher_network_login, :publisher_id, @publishers, :id, :site_name ) %>
+  </div>  
+  
+  <div class="fieldset">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="fieldset">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div>
+  <p><%= liftium_submit "Save Changes" %></p>
+<% end %>

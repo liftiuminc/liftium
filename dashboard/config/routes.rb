@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :publisher_network_logins
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   #

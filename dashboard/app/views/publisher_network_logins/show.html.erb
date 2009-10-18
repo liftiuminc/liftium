@@ -1,0 +1,24 @@
+<% title "Publisher Network Login" %>
+
+<p>
+  <strong>Network:</strong>
+  <%=h @publisher_network_login.network.network_name_and_id %>
+</p>
+<p>
+  <strong>Publisher:</strong>
+  <%=h @publisher_network_login.publisher.site_name  %>
+</p>
+<p>
+  <strong>Username:</strong>
+  <%=h @publisher_network_login.username %>
+</p>
+<p>
+  <strong>Password:</strong>
+  <%=h @publisher_network_login.password %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_publisher_network_login_path(@publisher_network_login) %> |
+  <%= link_to "Delete", @publisher_network_login, :confirm => 'Are you sure?', :method => :delete, :action => "destroy" %> |
+  <%= link_to "View All", publisher_network_logins_path %>
+</p>

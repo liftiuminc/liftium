@@ -2,7 +2,8 @@ class Publisher < ActiveRecord::Base
   require 'uri'
 
   has_many :user
-
+  has_many :publisher_network_login, :dependent => :destroy  
+  
   validates_uniqueness_of :site_name
   validates_presence_of :site_name
   validates_presence_of :site_url

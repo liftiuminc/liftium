@@ -24,7 +24,11 @@
     %>
 
     <tr class="record_row_<%= cycle("odd", "even")%>">
-      <td class="record_column"><%=h network.network_name %></td>
+      <td class="record_column">
+      <% if network.website %>
+        <a href="<%=h network.website %>" target="_blank"><img src="/images/icons/house_link.png"/></a>
+      <% end %>      
+      <%= link_to network.network_name, :controller => "publisher_network_logins", :network_id => network.id %></td>
       <td class="record_column"><%=h network.pay_type %></td>
       <td class="record_column"><%= network.enabled ? image_tag("/images/icons/tick.png") : image_tag("/images/icons/cross.png") %></td>
       <td class="record_column"><%= network.supports_threshold ? image_tag("/images/icons/tick.png") : "-" %></td>

@@ -1,0 +1,53 @@
+<% @title_bar_right_text = '<a href="' + new_publisher_network_login_path + '"><img alt="" src="/images/icons/add.png"></a> ' + (link_to "Create New Publisher Network Login", new_publisher_network_login_path) %>
+
+<% title "Publisher Network Logins" %>
+
+<br clear="all"/>
+
+<div class="filter_form" id="filter_form">
+  <form>
+     <ul>
+	<% if params[:debug] -%>
+	  <%= params.inspect -%>
+	<% end -%>
+	<li><%= label_tag :publisher %>
+	    <!-- FIXME. Use built in rails helper instead? -->
+	    <select name="publisher_id" id="publisherDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Publisher.all.collect, :id, :site_name, params[:publisher_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :network %>
+	    <select name="network_id" id="networkDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Network.all.collect, :id, :network_name_and_id, params[:network_id].to_i %>
+	    </select>
+	</li>
+	<li><%= liftium_submit "Filter Credentials"%></li>
+  </form>
+</div>
+
+
+<table class="record_listing" width="500" cellspacing="0" cellpadding="0"><!-- Cellspacing/paddding added for IE 6 -->
+  <tr class="record_listing_header">
+    <th>Network</th>
+    <th>Publisher</th>
+    <th>Username</th>
+    <th>Password</th>
+    <th colspan="3">Actions</th>
+  </tr>
+  <% for publisher_network_login in @publisher_network_logins %>
+
+    <tr class="record_row_<%= cycle("odd", "even")%>">
+      <td class="record_column"><%=h publisher_network_login.network.network_name_and_id %></td>
+      <td class="record_column"><%=h publisher_network_login.publisher.site_name %></td>
+      <td class="record_column"><%=h publisher_network_login.username %></td>
+      <td class="record_column"><%=h publisher_network_login.password %></td>
+      <td class="record_action"><%= link_to "View", publisher_network_login, :action=> :show %></td>
+      <td class="record_action"><%= link_to "Edit", edit_publisher_network_login_path(publisher_network_login) %></td>
+      <td class="record_action"><%= link_to "Delete", publisher_network_login, :confirm => 'Are you sure?', :method => "delete" %></td>
+    </tr>
+  <% end %>
+</table>
+
