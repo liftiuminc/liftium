@@ -62,3 +62,13 @@ test:
   supports_threshold: true
   pay_type: "Per Impression"
   default_always_fill: false
+
+test_us_only:
+  id: 43
+  network_name: "Test (US only)"
+  enabled: true
+  supports_threshold: true
+  pay_type: "Per Impression"
+  default_always_fill: false
+  us_only: true
+

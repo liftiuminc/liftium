@@ -56,6 +56,12 @@ class TagsController < ApplicationController
         @tag.add_comment comment
       end  
 
+      ### is the network US only? then set the tag_target as well. See FB 36
+      if @tag.network.us_only?
+        tt = TagTarget.new( :key_name => 'country', :key_value => 'us' );
+        @tag.update_attributes( :tag_targets => [tt] )
+      end
+
       flash[:notice] = "Successfully created tag."
       redirect_to @tag
     else
