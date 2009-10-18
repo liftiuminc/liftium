@@ -45,11 +45,13 @@ class PublishersController < ApplicationController
   end
   
   def ad_preview
-    @publisher  = Publisher.find(params[:id])    
-    @tags       = Tag.find( :all, :conditions => {
+    @publisher  = Publisher.find(params[:id])
+    @title      = "Publisher - " + @publisher.site_name
+    
+    @tags       = Tag.find( :all, :conditions => { 
                                 :publisher_id   => @publisher.id,
                                 :enabled        => true
-                            })    
+                            })
   end
   
 end

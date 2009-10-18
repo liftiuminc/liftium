@@ -1,10 +1,31 @@
-<!-- XXX lots of duplication between /networks/ad_preview & /publishers/ad_preview -->
+<% title @title %>
 
-<% title "Publisher - " + @publisher.site_name %>
+<%  @cur_tags = @tags
+    
+    if params[:size] and params[:size].length
+        @cur_tags = @tags.select {|t| t.size == params[:size] }
+    end                
+%>
 
-<h2>Currently <%= @tags.size %> enabled tags</h2>
+<h2>Showing <%= @cur_tags.size %> of <%= @tags.size %> enabled tags</h2>
 
-<% for tag in @tags %>
+<div class="filter_form" id="tag_filter_form">
+  <form>
+    <ul>
+      <li><%= label_tag :size %>
+         <select name="size" id="sizeDD">
+            <option value=""></option>
+            <% for size in @tags.map {|t| t.size }.uniq.sort %>
+              <option value="<%= size %>"<% if params[:size] == size %>selected="selected"<% end %>><%= size %></option>
+            <% end %>
+          </select>
+      </li>
+      <li><%= liftium_submit "Filter Tags"%></li>
+    </ul>
+  </form>
+</div>  
+
+<% for tag in @cur_tags %>
     <strong><%= link_to "Tag - " + tag.tag_name, tag, :action => :show %></strong><br>
     <iframe  src="<%= tag.preview_url %>" style="<%= tag.css_size %>;border:1px dashed #660099"></iframe>
     <p>

@@ -47,6 +47,7 @@ class NetworksController < ApplicationController
 
   def ad_preview
     @network    = Network.find(params[:id])    
+    @title      = "Network - " + @network.network_name
     @tags       = Tag.find( :all, :conditions => {
                                 :network_id => @network.id,
                                 :enabled    => true
