@@ -56,7 +56,7 @@
   <div class="fieldset">
     <input type="hidden" name="tag[tag_targets_attributes][0][id]" type="hidden" value="<%=h !@tag.tag_targets.empty? ? @tag.tag_targets[0].id : "" %>" />
     <input type="hidden" name="tag[tag_targets_attributes][0][key_name]" value="country" />
-    <%= f.label :country %> <span class="hint">for geo-targeting. comma separated. Ex. "us,uk,row"</span><br />
+    <%= f.label :country %> <span class="hint">for geo-targeting. comma separated. <%= link_to "Ex. 'us,uk,row'", "http://www.iso.org/iso/english_country_names_and_code_elements", :popup => true %></span><br />
     <input type="text" size="30" name="tag[tag_targets_attributes][0][key_value]" value="<%=h !@tag.tag_targets.empty? ? @tag.tag_targets[0].key_value : "" %>"/>
   </div>
 
