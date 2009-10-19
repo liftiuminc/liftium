@@ -66,8 +66,15 @@ class PublisherNetworkLoginsController < ApplicationController
     @publisher_network_login = PublisherNetworkLogin.find(params[:id])
     if @publisher_network_login.update_attributes(params[:publisher_network_login])
       flash[:notice] = "Successfully updated publisher network login."
-      redirect_to @publisher_network_login
+      redirect_to publisher_network_logins_url
     else
+      # Get a list of enabled networks
+      @networks = Network.find :all, :conditions => {:enabled => true}
+
+      # Get the list of publishers for admin users
+      @publishers = Publisher.find :all;
+    
+   
       render :action => 'edit'
     end
   end
