@@ -197,7 +197,7 @@ Liftium._callAd = function (slotname, iframe) {
                 }
         } catch (e) {
 		// This is probably never called, because the document.write hides it...
-                Liftium.reportError("Error loading tag: " + Liftium.print_r(e), "tag");
+                Liftium.reportError("Error loading tag #" + t.tag_id + ": " + Liftium.print_r(e), "tag");
         }
 
         return true;
