@@ -15,7 +15,6 @@ a img {
 
 a {
 	color: #06F;
-	text-decoration: none; /* Nick wrote: I don't like this. */
 }
 
 input:focus, textarea:focus, {
