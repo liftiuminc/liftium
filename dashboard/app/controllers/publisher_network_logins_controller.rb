@@ -1,4 +1,8 @@
 class PublisherNetworkLoginsController < ApplicationController
+  if Rails.configuration.environment != "test"
+     before_filter :require_user
+  end
+
   def index
     # Get a list of enabled networks
     @networks = Network.find :all, :conditions => {:enabled => true}

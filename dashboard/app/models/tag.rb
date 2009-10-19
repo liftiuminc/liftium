@@ -13,7 +13,7 @@ class Tag < ActiveRecord::Base
   accepts_nested_attributes_for :tag_targets, :allow_destroy => true, :reject_if => proc { |a| a['key_name'].blank? || a['key_value'].blank?}
 
   #TODO: validate publisherid once accounts are set up
-  validates_format_of :size, :with => /[0-9]{1,3}x[0-9]{1,3}/
+  validates_format_of :size, :with => /^[0-9]{1,3}x[0-9]{1,3}$/
   validates_uniqueness_of :tag_name, :scope => :publisher_id
   validates_presence_of :tag_name, :network, :size, :publisher
   validates_inclusion_of :enabled, :in => [true, false]

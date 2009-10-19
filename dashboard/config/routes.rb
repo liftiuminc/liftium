@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :publisher_network_logins
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   #
@@ -8,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :ad_formats
   map.resources :networks, :has_many => :network_tag_options
   map.resources :publishers, :has_many => :tags
+  map.resources :publisher_network_logins
 
   # FIXME: Is there way to not have to list all these?
   map.select_network 'tags/select_network', :controller => 'tags', :action => 'select_network'

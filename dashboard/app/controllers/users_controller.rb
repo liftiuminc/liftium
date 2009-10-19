@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
- # before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update, :index]
+  if Rails.configuration.environment != "test"
+    # before_filter :require_no_user, :only => [:new, :create]
+    before_filter :require_user, :only => [:show, :edit, :update, :index]
+  end
 
   def index
     @users = User.all
@@ -40,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
-      redirect_to @user
+      redirect_to users_url
     else
       render :action => 'edit'
     end

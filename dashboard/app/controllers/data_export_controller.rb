@@ -1,10 +1,14 @@
 class DataExportController < ApplicationController
+  if Rails.configuration.environment != "test"
+     before_filter :require_user
+  end
+
   def index
     @limit = 250
     @fill_stats = [] # placeholder empty array in case we don't get that far
 
     if params[:interval].nil?
-      return
+      render :action => 'index'
     end
 
     # FIXME: flash notice isn't clearing until the second time
@@ -32,15 +36,16 @@ class DataExportController < ApplicationController
       s = params[:start_date].to_time
       if params[:interval] == "minute" && s + (8*86400) < Time.now 
 	flash[:error] = "Please select 'Hour' or 'Day' for interval for dates older than 7 days"
-	return
+        render :action => 'index'
       elsif params[:interval] != "day" && s + (31*86400) < Time.now 
 	flash[:error] = "Please select 'Day' for interval for dates older than 30 days"
-	return
+        render :action => 'index'
       elsif !params[:end_date].blank? && s > params[:end_date].to_time
 	flash[:error] = "Start Date must be before end date"
-	return
+        render :action => 'index'
       elsif !params[:end_date].blank? && params[:end_date].to_time > Time.now
 	flash[:warning] = "Warning: End Date is in the future"
+        render :action => 'index'
       end
     end
 
@@ -56,7 +61,7 @@ class DataExportController < ApplicationController
 
     if @fill_stats.length == 0
       flash[:warning] = "No matching stats"
-      return
+      render :action => 'index'
     elsif @fill_stats.length == @limit
       flash[:warning] = "Limit of #{@limit} reached. Use the CSV option to see all"
     end

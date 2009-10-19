@@ -1,0 +1,18 @@
+# Commands used to generate the initial scaffolds. Alphabetimical
+
+script/generate nifty_scaffold --shoulda ad_format ad_format_name:string size:string
+script/generate nifty_scaffold --shoulda network network_name:string website:string pay_type:string enabled:boolean supports_threshold:boolean default_always_fill:boolean us_only:boolean comments:text contact_info:text billing_info:string brand_safety_level:integer tag_template:text scraping_instructions:text
+script/generate nifty_scaffold --shoulda network_tag_option option_name:string required:boolean
+script/generate nifty_scaffold --shoulda publisher site_name:string site_url:string brand_safety_level:integer hoptime:integer
+script/generate nifty_scaffold --shoulda publisher_network_logins username:string password:string
+script/generate nifty_scaffold --shoulda tag tag_name:string value_in_cents:integer enabled:boolean always_fill:boolean sample_rate:integer tier:integer frequency_cap:integer rejection_time:integer tag:text
+script/generate nifty_scaffold --shoulda tag_option option_name:string option_value:string
+script/generate nifty_scaffold --shoulda tag_target key_name:string key_value:string
+script/generate nifty_scaffold --shoulda user email:string crypted_password:string password_salt:string persistence_token:string single_access_token:string perishable_token:string login_count:integer failed_login_count:integer current_login_at:datetime last_login_at:datetime current_login_ip:string last_login_ip:string
+
+# Controllers only (no model)
+script/generate nifty_scaffold --shoulda charts
+script/generate nifty_scaffold --shoulda data_export index 
+script/generate nifty_scaffold --shoulda password_reset new create edit update
+script/generate nifty_scaffold --shoulda user_session new create destroy
+script/generate nifty_scaffold --shoulda welcome index
