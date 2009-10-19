@@ -8,5 +8,11 @@ class Notifier < ActionMailer::Base
     sent_on       Time.now
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
+
+  def test_message(recipient)
+    recipients recipient
+    from       "system@liftium.com"
+    subject    "Test message from Liftium"
+  end
 end
 
