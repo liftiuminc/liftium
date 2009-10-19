@@ -6,6 +6,8 @@ class CreatePublisherNetworkLogins < ActiveRecord::Migration
       t.string :username,           :null => false
       t.string :password,           :null => false
       t.timestamps
+      t.references network
+      t.references publisher
     end
 
     add_index "publisher_network_logins", ["network_id", "publisher_id"], :name => "index_publisher_network_logins_on_network_id_and_publisher_id", :unique => true
