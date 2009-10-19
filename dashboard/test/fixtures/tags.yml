@@ -186,7 +186,7 @@ frequencyfill:
 
 asaph:
   id: 13
-  tag_name: Jguitar Bottom LB
+  tag_name: Jguitar Bottom LB #1
   network_id: 1
   publisher_id: 1
   value: 0.25
@@ -214,7 +214,7 @@ google_color_url = "008000";
 
 asaph2:
   id: 21
-  tag_name: Jguitar Bottom LB
+  tag_name: Jguitar Bottom LB #2
   network_id: 1
   publisher_id: 1
   value: 0.25
