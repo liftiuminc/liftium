@@ -38,8 +38,6 @@ $emailto = array("nick@liftium.com");
 
 // Triage
 if ($type == "tag"){
-	$emailto[] = "veronica@liftium.com";
-	$emailto[] = "jennie@liftium.com";
 } else if ($lang != "en" ){
 	// Can't read these anyway
 	$emailto = false;
@@ -49,7 +47,7 @@ if ($type == "tag"){
 } else if (!strstr($url, "liftium.com")){
 	// Not our site. Log it, no e-mail and no stats
 	$statit = false;
-	$emailto = false;
+//	$emailto = false;
 }
 
 // Create message
