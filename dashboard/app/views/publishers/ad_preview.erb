@@ -6,8 +6,11 @@
         @cur_tags = @tags.select {|t| t.size == params[:size] }
     end                
 %>
-
 <h2>Showing <%= @cur_tags.size %> of <%= @tags.size %> enabled tags</h2>
+
+<% if @publisher %>
+<a href="http://delivery.liftium.com/config?pubid=<%= @publisher.id %>&format=text">View JavaScript Configuration for <%=h @publisher.site_name%></a>
+<% end %>
 
 <div class="filter_form" id="tag_filter_form">
   <form>
@@ -30,3 +33,4 @@
     <iframe  src="<%= tag.preview_url %>" style="<%= tag.css_size %>;border:1px dashed #660099"></iframe>
     <p>
 <% end %>
+
