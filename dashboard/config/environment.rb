@@ -23,6 +23,13 @@ Rails::Initializer.run do |config|
   config.gem "fastercsv", :lib => false
   config.gem "calendar_date_select"
 
+  ### email exceptions. See FB 60
+  ### not yet working, disabled for now --jos
+#   config.gem 'pboling-super_exception_notifier',
+#       :version => '~> 1.7.1',
+#       :lib => "exception_notifier",
+#       :source => 'http://gems.github.com'
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
