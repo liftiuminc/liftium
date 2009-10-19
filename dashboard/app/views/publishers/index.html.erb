@@ -19,7 +19,7 @@
 	<% if publisher.site_url %>
 	  <a href="<%=h publisher.site_url %>" target="_blank"><img src="/images/icons/house_link.png"/></a>
 	<% end %>
-	<%= link_to publisher.site_name, :controller => "publisher_network_logins", :publisher_id => publisher.id %>
+	<%=h publisher.site_name %>
       </td>
       <td class="record_column"><%=h publisher.brand_safety_level ? publisher.brand_safety_level : "-" %></td>
       <td class="record_column"><%=h publisher.hoptime ? publisher.hoptime : "-"%></td>
