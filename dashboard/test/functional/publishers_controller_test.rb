@@ -53,7 +53,7 @@ class PublishersControllerTest < ActionController::TestCase
     should "redirect when model is valid" do
       Publisher.any_instance.stubs(:valid?).returns(true)
       put :update, :id => Publisher.first
-      assert_redirected_to publisher_url(assigns(:publisher))
+      assert_redirected_to publishers_url
     end
   end
   

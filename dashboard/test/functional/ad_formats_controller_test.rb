@@ -53,7 +53,7 @@ class AdFormatsControllerTest < ActionController::TestCase
     should "redirect when model is valid" do
       AdFormat.any_instance.stubs(:valid?).returns(true)
       put :update, :id => AdFormat.first
-      assert_redirected_to ad_format_url(assigns(:ad_format))
+      assert_redirected_to ad_formats_url
     end
   end
   

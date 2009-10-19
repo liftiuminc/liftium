@@ -53,7 +53,7 @@ class PublisherNetworkLoginsControllerTest < ActionController::TestCase
     should "redirect when model is valid" do
       PublisherNetworkLogins.any_instance.stubs(:valid?).returns(true)
       put :update, :id => PublisherNetworkLogins.first
-      assert_redirected_to publisher_network_logins_url(assigns(:publisher_network_logins))
+      assert_redirected_to publisher_network_logins_url
     end
   end
   

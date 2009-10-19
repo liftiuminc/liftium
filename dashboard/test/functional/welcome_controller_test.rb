@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DataExportsControllerTest < ActionController::TestCase
+class WelcomeControllerTest < ActionController::TestCase
   context "index action" do
     should "render index template" do
       get :index

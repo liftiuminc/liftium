@@ -1,68 +1,18 @@
 require 'test_helper'
 
 class ChartsControllerTest < ActionController::TestCase
-  context "index action" do
-    should "render index template" do
-      get :index
-      assert_template 'index'
+  context "tag action" do
+    should "render tag template" do
+      get :tag, :id => 13
+      assert_template 'tag'
+    end
+  end
+
+  context "misc_stat action" do
+    should "render misc_stat template" do
+      get :misc_stat, :stat => "BeaconsServed"
+      assert_template 'misc_stat'
     end
   end
   
-  context "show action" do
-    should "render show template" do
-      get :show, :id => Charts.first
-      assert_template 'show'
-    end
-  end
-  
-  context "new action" do
-    should "render new template" do
-      get :new
-      assert_template 'new'
-    end
-  end
-  
-  context "create action" do
-    should "render new template when model is invalid" do
-      Charts.any_instance.stubs(:valid?).returns(false)
-      post :create
-      assert_template 'new'
-    end
-    
-    should "redirect when model is valid" do
-      Charts.any_instance.stubs(:valid?).returns(true)
-      post :create
-      assert_redirected_to charts_url(assigns(:charts))
-    end
-  end
-  
-  context "edit action" do
-    should "render edit template" do
-      get :edit, :id => Charts.first
-      assert_template 'edit'
-    end
-  end
-  
-  context "update action" do
-    should "render edit template when model is invalid" do
-      Charts.any_instance.stubs(:valid?).returns(false)
-      put :update, :id => Charts.first
-      assert_template 'edit'
-    end
-  
-    should "redirect when model is valid" do
-      Charts.any_instance.stubs(:valid?).returns(true)
-      put :update, :id => Charts.first
-      assert_redirected_to charts_url(assigns(:charts))
-    end
-  end
-  
-  context "destroy action" do
-    should "destroy model and redirect to index action" do
-      charts = Charts.first
-      delete :destroy, :id => charts
-      assert_redirected_to charts_url
-      assert !Charts.exists?(charts.id)
-    end
-  end
 end

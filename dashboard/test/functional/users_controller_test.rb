@@ -50,10 +50,10 @@ class UsersControllerTest < ActionController::TestCase
       assert_template 'edit'
     end
   
-    should "redirect when model is valid" do
+    should "redirect to user list when model is valid" do
       User.any_instance.stubs(:valid?).returns(true)
       put :update, :id => User.first
-      assert_redirected_to user_url(assigns(:user))
+      assert_redirected_to users_url
     end
   end
   
