@@ -77,11 +77,11 @@
     <tr class="disabled" background="/images/disabled_bg.png">
    <%-end%>
       <td nowrap="true" class="record_column"><%= !tag.publisher.nil? ? tag.publisher.site_name : "<i>No publisher</i>"%></td>
+      <td nowrap="true" class="record_column"><%=h tag.network.network_name %></td>
       <td nowrap="true" class="record_column">
-   	    <%=h tag.network.network_name_and_id %></td>
-      <td nowrap="true" class="record_column">
- 	    <%= tag.tag_name + " (id: " + tag.id.to_s + ") "  %><br />
+ 	    <%= tag.tag_name %><br />
         <span style="font-size: smaller">
+        #<%= tag.id %>
         <%= tag.size %>
         <%= tag.sample_rate ? "- sampled #{tag.sample_rate}%" : "" %>
         </span>
