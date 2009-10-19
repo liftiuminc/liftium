@@ -1,7 +1,7 @@
 /* Items are organized by section, then alphabetical. Please keep it that way. */
 
 body {
-	background-color: #EEE;
+	background-color: #CCC;
 	color: #333;
 	font-family: Verdana,Arial,sans-serif;
 	font-size: 12px;
@@ -27,7 +27,7 @@ input:focus, textarea:focus, {
 
 #container { 
 	min-width: 500px;
-	margin-left: 150px;
+	margin-left: 125px;
 	padding-top:20px;
 	padding-bottom:20px;
 	position: absolute; /* Have the container be as wide as the content */
@@ -59,7 +59,6 @@ input:focus, textarea:focus, {
 #leftnav {
 	position:absolute;
 	float:left;
-	width: 150px;
 	padding-top: 20px;
 	padding-left: 5px;
 }
@@ -219,7 +218,7 @@ input:focus, textarea:focus, {
 
 .disabled {
 	/* FIXME repeats oddly in IE */
-        background: #FFEEEE url(/images/disabled_bg.png) no-repeat center;
+        background: #FEE url(/images/disabled_bg.png) no-repeat center;
 }
 
 .record_column_number {
@@ -229,39 +228,32 @@ input:focus, textarea:focus, {
 
 
 /*** Rails messages ***/
+.rails_flash {
+	background-position:20px center;
+	background-repeat:no-repeat;
+	font-size: larger;
+	padding-top: 15px; 
+	padding-bottom: 15px; 
+	padding-left: 60px;
+}
 #flash_notice {
 	background-color: #f7fff0;
 	background-image:url(/images/success1.gif);
-	background-position:20px center;
-	background-repeat:no-repeat;
 	border: solid 2px #a7e147;
-	font-size: larger;
-	padding: 10px; 
-	padding-left: 60px;
 }
 
 #flash_error {
 	background-color: #ffdfdf;
 	background-image:url(/images/error1.gif);
-	background-position:20px center;
-	background-repeat:no-repeat;
-	border: solid 2px #df3e4e;
-	font-size: larger;
+	border: solid 2px #DF3E4E;
 	font-weight: bold;
-	padding: 10px; 
-	padding-left: 60px; 
 }
 
 #flash_warning {
-	background-color: #ffffcc;
+	background-color: #FFC;
 	background-image:url(/images/warningt.gif);
-	background-position:20px center;
-	background-repeat:no-repeat;
-	border: solid 2px #ffff00;
-	font-size: larger;
+	border: solid 2px #FF0;
 	font-weight: bold;
-	padding: 10px; 
-	padding-left: 60px; 
 }
 
 .fieldWithErrors {

@@ -5,8 +5,11 @@
     <%= javascript_include_tag "prototype" %>
     <%= yield(:head) %>
   </head>
-  <body<%= Rails.configuration.environment == "development" && ' background="/images/dev_background.png"'%>>
+<!--  <body<%= Rails.configuration.environment == "development" && ' background="/images/dev_background.png"'%>>
+-->
+<body>
     <div id="header">
+
 	<div id="logo"><a href="/" title="Ad Network Optimization and Monetization by Liftium"><img src="/images/logo.black.gradient.gif" alt="Ad Network Optimization and Monetization by Liftium"></a></div>		
     </div>
 
@@ -30,6 +33,7 @@
 	    <li><%= link_to "Ad Formats", ad_formats_url %>	
 	    <li><%= link_to "Publishers", publishers_url %>	
 	    <li><%= link_to "Data Export", data_export_url %>	
+	    <li><%= link_to "Network Logins", publisher_network_logins_url %>	
 	    </ul>
        </div>
        <div class="navsection">
@@ -59,7 +63,7 @@
 	<br clear="all"><!-- I hate CSS float -->
 
        <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%= content_tag :div, msg, :id => "flash_#{name}", :class => "rails_flash" %>
       <%- end -%>
       
       <%= yield %>
