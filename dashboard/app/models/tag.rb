@@ -24,6 +24,13 @@ class Tag < ActiveRecord::Base
   validates_numericality_of :rejection_time, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1440, :allow_nil => true
   validates_numericality_of :value, :greater_than_or_equal_to => 0, :less_than => 100 
 
+  ### From FB 16: Tags page should not allow "Always fill" with a rejection 
+  ### time limit set
+  validates_each :always_fill do|record, attr, value|
+    if value == true and record.rejection_time > 0
+      record.errors.add attr, "can not be true if rejection time is set"
+    end  
+  end
 
    def enabled_s 
       enabled ? "Yes" : "No"
