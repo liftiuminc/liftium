@@ -26,11 +26,11 @@ class Tag < ActiveRecord::Base
 
   ### From FB 16: Tags page should not allow "Always fill" with a rejection 
   ### time limit set
-  validates_each :always_fill do|record, attr, value|
-    if value == true and record.rejection_time > 0
-      record.errors.add attr, "can not be true if rejection time is set"
-    end  
-  end
+  #validates_each :always_fill do|record, attr, value|
+  #  if value == true and record.rejection_time > 0
+  #    record.errors.add attr, "can not be true if rejection time is set"
+  #  end  
+  #end
 
    def enabled_s 
       enabled ? "Yes" : "No"
