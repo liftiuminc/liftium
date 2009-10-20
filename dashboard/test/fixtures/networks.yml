@@ -3,6 +3,7 @@
 Adsense:
   id: 1
   network_name: "Google AdSense"
+  website: "https://www.google.com/adsense"
   enabled: true
   supports_threshold: false
   pay_type: "Per Click"
