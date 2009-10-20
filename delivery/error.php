@@ -47,7 +47,7 @@ if ($type == "tag"){
 } else if (!strstr($url, "liftium.com")){
 	// Not our site. Log it, no e-mail and no stats
 	$statit = false;
-//	$emailto = false;
+	$emailto = false;
 }
 
 // Create message
