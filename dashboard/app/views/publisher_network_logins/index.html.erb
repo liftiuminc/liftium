@@ -35,15 +35,18 @@
     <th>Publisher</th>
     <th>Username</th>
     <th>Password</th>
-    <th colspan="3">Actions</th>
+    <th colspan="4">Actions</th>
   </tr>
   <% for publisher_network_login in @publisher_network_logins %>
 
     <tr class="record_row_<%= cycle("odd", "even")%>">
-      <td class="record_column"><%=h publisher_network_login.network.network_name_and_id %></td>
-      <td class="record_column"><%=h publisher_network_login.publisher.site_name %></td>
+      <td class="record_column"><%= link_to publisher_network_login.network.network_name, publisher_network_login.network %></td>
+      <td class="record_column"><%= link_to publisher_network_login.publisher.site_name, publisher_network_login.publisher %></td>
       <td class="record_column"><%=h publisher_network_login.username %></td>
       <td class="record_column"><%=h publisher_network_login.password %></td>
+      <td class="record_column">
+        <%= link_to "Login", publisher_network_login.network.website, :popup => true %>
+      </td>
       <td class="record_action"><%= link_to "View", publisher_network_login, :action=> :show %></td>
       <td class="record_action"><%= link_to "Edit", edit_publisher_network_login_path(publisher_network_login) %></td>
       <td class="record_action"><%= link_to "Delete", publisher_network_login, :confirm => 'Are you sure?', :method => "delete" %></td>

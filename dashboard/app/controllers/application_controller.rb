@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   #protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
+  ### for email exceptions. See FB 60
+  ### not yet working, disabled for now --jos
+  #include ExceptionNotifiable
+
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password, :password_confirmation
 

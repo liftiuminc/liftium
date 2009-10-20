@@ -38,8 +38,6 @@ $emailto = array("nick@liftium.com");
 
 // Triage
 if ($type == "tag"){
-	$emailto[] = "veronica@liftium.com";
-	$emailto[] = "jennie@liftium.com";
 } else if ($lang != "en" ){
 	// Can't read these anyway
 	$emailto = false;

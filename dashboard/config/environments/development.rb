@@ -14,4 +14,13 @@ config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = true
+
+
+### ExceptionNotification settings. See FB 60
+### not yet working, disabled for now --jos
+# ExceptionNotifier.configure_exception_notifier do |config|
+#     config[:exception_recipients]   = %w(jos@liftium.com)
+#     config[:app_name]               = "Liftium Dashboard"
+#     config[:sender_address]         = 'dashboard.error@liftium.com'
+# end

@@ -197,7 +197,7 @@ Liftium._callAd = function (slotname, iframe) {
                 }
         } catch (e) {
 		// This is probably never called, because the document.write hides it...
-                Liftium.reportError("Error loading tag: " + Liftium.print_r(e), "tag");
+                Liftium.reportError("Error loading tag #" + t.tag_id + ": " + Liftium.print_r(e), "tag");
         }
 
         return true;
@@ -1297,7 +1297,7 @@ Liftium.reportError = function (msg, type) {
 	        "quantserve",
 		"urchin",
 		"greasemonkey",
-		"Permission denied to call method Location.toString" // Ads trying to get the window location, which isn't allowed
+		"Permission denied" // Ads trying to get the window location, which isn't allowed
 	];
 	for (var i = 0; i < ignores.length; i++){
 		if (msg.indexOf(ignores[i]) >= 0){
