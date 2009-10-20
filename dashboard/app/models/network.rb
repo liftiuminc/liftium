@@ -5,6 +5,7 @@ class Network < ActiveRecord::Base
   @all_pay_types = ["Per Click", "Per Impression", "Affliate" ]
 
   has_many :network_tag_options,     :dependent => :destroy
+  has_many :tags
   has_many :publisher_network_login, :dependent => :destroy
   accepts_nested_attributes_for :network_tag_options, :allow_destroy => true, :reject_if => proc { |a| a['option_name'].blank? }
 
