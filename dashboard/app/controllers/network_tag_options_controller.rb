@@ -1,7 +1,5 @@
 class NetworkTagOptionsController < ApplicationController
-  if Rails.configuration.environment != "test"
-     before_filter :require_user
-  end
+  before_filter :require_user
 
   def index
     @network_tag_options = NetworkTagOption.all

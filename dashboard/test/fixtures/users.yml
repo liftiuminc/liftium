@@ -70,3 +70,26 @@ veronica:
     single_access_token: bRGQ52JwyaHvNfj8u-aQ
     perishable_token: FqEK8cPTwFQQ_jXhJNpa
     created_at: 2009-10-16 15:55:49
+
+unit_test_publisher:
+  id: 49
+  email: unit_test_publisher@liftium.com
+  publisher_id: 1045
+  admin: 0
+  crypted_password: 6628f62aa35ede056653adffbae5c55a4489408dac987e6ff5e83fd843d98be8beacab7486985576001a1656ef513135ac868438fb334d7d9ac29727923eb842
+  password_salt: nFo-gPcedo8xdrMG0AvQ
+  persistence_token: 9545a17166b406a8fb3f5b10b508759ce942697f9906346ac19b4498773c0cca0d21c43cb35c5f48e6967e5c40d5a44c35109ecdee9f4e41970fc512f7f5589f
+  single_access_token: bu3EWhHOb-ywITI1PBPA
+  perishable_token: eLfQ1ZFtuZQwvcWK-oqd
+
+unit_test_admin:
+  id: 50
+  email: unit_test_admin@liftium.com
+  publisher_id: NULL
+  admin: 1
+  crypted_password: cc751be820a954954c754217c160dcb978841eb05b9685d7439d796678b99c4305e9ea4f475ad7116fad874da45edb62b71769294ebfc8169822e7b70b865fe2
+  password_salt: FbrWTpyuITcgDZDVJfC9
+  persistence_token: 52aae87ddfdef6387c77d88645d845f0ce8783ad333c2d13a83859780308d51fd3aa75224f1c1a532c7fcb5c8d0059caa6fe6ed6ec4b5eb859fdb9e21b39f7e8
+  single_access_token: zabG7i6p5jb7fLbdqanS
+  perishable_token: Qyk_PpbtVsgj-mssb7hK
+

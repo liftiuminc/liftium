@@ -29,6 +29,10 @@ module ChartsHelper
 	"http://rgraph.liftium.com/chart?" + data.to_query
   end
 
+  def misc_stat_types 
+     ["RemnantRevenue", "BeaconCalls", "TotalAdsServed", "SlotTimeouts", "HopsPerAd", "JavascriptErrors", "TagErrors"]
+  end
+
   def misc_stat_url (stat, range="1h", width=600, height=250)
    	range = self.clean_range(range)
 	time = self.get_time_from_range(range)

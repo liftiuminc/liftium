@@ -1,8 +1,18 @@
 require 'test_helper'
 
 class TagsControllerTest < ActionController::TestCase
+  setup :activate_authlogic
+
+  context "index action NOT logged in" do
+    setup { get :index }
+    should_redirect_to "login url" do
+      new_user_session_url
+    end
+  end
+
   context "index action" do
     should "render index template" do
+      login_as_admin
       get :index
       assert_template 'index'
     end
@@ -10,6 +20,7 @@ class TagsControllerTest < ActionController::TestCase
   
   context "show action" do
     should "render show template" do
+      login_as_admin
       get :show, :id => Tag.first
       assert_template 'show'
     end
@@ -17,6 +28,7 @@ class TagsControllerTest < ActionController::TestCase
   
   context "new action" do
     should "render new template" do
+      login_as_admin
       get :new
       assert_redirected_to "/tags/select_network"
     end
@@ -39,6 +51,7 @@ class TagsControllerTest < ActionController::TestCase
   
   context "edit action" do
     should "render edit template" do
+      login_as_admin
       get :edit, :id => Tag.first
       assert_template 'edit'
     end
@@ -46,12 +59,14 @@ class TagsControllerTest < ActionController::TestCase
   
   context "update action" do
     should "render edit template when model is invalid" do
+      login_as_admin
       Tag.any_instance.stubs(:valid?).returns(false)
       put :update, :id => Tag.first
       assert_template 'edit'
     end
   
     should "redirect to list when model is valid" do
+      login_as_admin
       Tag.any_instance.stubs(:valid?).returns(true)
       put :update, :id => Tag.first
       assert_redirected_to tags_url
@@ -60,6 +75,7 @@ class TagsControllerTest < ActionController::TestCase
   
   context "destroy action" do
     should "destroy model and redirect to index action" do
+      login_as_admin
       tag = Tag.first
       delete :destroy, :id => tag
       assert_redirected_to tags_url

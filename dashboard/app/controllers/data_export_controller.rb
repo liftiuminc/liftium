@@ -1,7 +1,5 @@
 class DataExportController < ApplicationController
-  if Rails.configuration.environment != "test"
-     before_filter :require_user
-  end
+  before_filter :require_user
 
   def index
     @limit = 250

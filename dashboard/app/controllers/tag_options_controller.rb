@@ -1,7 +1,5 @@
 class TagOptionsController < ApplicationController
-  if Rails.configuration.environment != "test"
-     before_filter :require_user
-  end
+  before_filter :require_user
 
   def index
     @tag_options = TagOption.all
