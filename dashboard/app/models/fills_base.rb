@@ -16,6 +16,10 @@ class FillsBase < ActiveRecord::Base
     end
     ((loads.to_f/attempts.to_f).to_f.round(3) * 100)
   end
+
+  def time_name 
+    time_column.capitalize
+  end 
   
   def search_sql (model, params)
 
@@ -162,5 +166,70 @@ class FillsBase < ActiveRecord::Base
 	# no op
     end
     return dates
+  end
+
+
+  def export_to_csv(fill_stats)
+    
+    require 'fastercsv'
+
+    @outfile = "fills_" + time_name + "_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+    
+    total_attempts = 0
+    total_loads = 0
+    total_rejects = 0
+    total_slip = 0
+
+    csv_data = FasterCSV.generate do |csv|
+      csv << [
+	"Publisher",
+	"Ad Network",
+	"Tag #",
+	"Tag Name",
+	"Size",
+	time_name,
+	"Attempts",
+	"Loads",
+	"Rejects",
+	"Slip",
+	"Fill Rate"
+      ]
+      fill_stats.each do |fill|
+	csv << [
+	fill.tag.publisher.site_name,
+	fill.tag.network.network_name,
+	fill.tag_id,
+	fill.tag.tag_name,
+	fill.tag.size,
+	fill.time,
+	fill.attempts,
+	fill.loads,
+	fill.rejects,
+	fill.slip,
+	fill.fill_rate.to_s + "%"
+	]
+
+	# Add up the totals
+        total_attempts += fill.attempts
+        total_loads += fill.loads
+        total_rejects += fill.rejects
+        total_slip += fill.slip
+      end
+      # Total line
+      csv << [
+	"Totals",
+	"",
+	"",
+	"",
+	"",
+	"",
+	total_attempts,
+	total_loads,
+	total_rejects,
+	total_slip,
+        fill_stats[0].fill_rate_raw(total_loads, total_attempts).to_s + "%"
+      ] 
+
+    end
   end
 end

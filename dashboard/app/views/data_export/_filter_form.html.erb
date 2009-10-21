@@ -1,0 +1,72 @@
+<%= calendar_date_select_includes "silver" %>
+<div class="filter_form" id="tag_filter_form">
+  <form action="<%= create_data_export_url%>">
+     <ul>
+	<% if params[:debug] -%>
+	  <%= params.inspect -%>
+	<% end -%>
+	<li><%= label_tag :publisher %>
+	    <!-- FIXME. Use built in rails helper instead? -->
+	    <select name="publisher_id" id="publisherDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Publisher.all.collect, :id, :site_name, params[:publisher_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :network %>
+	    <select name="network_id" id="networkDD">
+	      <option value="">
+	      <%= options_from_collection_for_select Network.all.collect, :id, :network_name, params[:network_id].to_i %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :size %>
+	    <select name="size" id="sizeDD">
+	      <option value="">
+	      <%= options_from_collection_for_select AdFormat.all.collect, :size, :name_with_size, params[:size] %>
+	    </select>
+	</li>
+
+	<li><%= label_tag :interval%>
+	    <%= radio_button_tag "interval", "minute", params[:interval]=="minute" || params[:interval].blank? %>Minute
+	    <%= radio_button_tag "interval", "hour", params[:interval]=="hour"%>Hour
+	    <%= radio_button_tag "interval", "day", params[:interval]=="day"%>Day
+
+	<li><%= label_tag :format, "Ouptut to"%>
+	    <%= radio_button_tag "format", "csv", params[:format]=="csv"%>CSV File
+	    <%= radio_button_tag "format", "html", params[:format]!="csv"%>Screen <span class="hint">(limit <%= @limit %> records)</span>
+	</li>
+
+	<li><%= label_tag :include_disabled, "Include Disabled Tags"%>
+	    <%= radio_button_tag "include_disabled", "true", !params[:include_disabled].blank?%>Yes
+	    <%= radio_button_tag "include_disabled", "", params[:include_disabled].blank?%>No
+	</li>
+	<li><%= label_tag :date_select %>
+	    <select name="date_select" id="date_selectDD" onChange="dateSelect(this)">
+	    <option value="">
+	    <%= options_for_select(["This Hour", "Last Hour", "Last 3 Hours", "Last 12 Hours", "Today", "Yesterday", "Last 7 Days", "This Month", "Last 30 days", "This Quarter", "Last Quarter", "This Year", "All Time"], params[:date_select])%>
+	    </select>
+	</li>
+	<li><%= label_tag "", " - OR -" %></li>
+	<li><%= label_tag :date_range %>
+	    <%
+	    s = !params[:start_date].blank? ? params[:start_date].to_time.strftime("%m/%d/%Y %I:%M %p") : ""
+	    e = !params[:end_date].blank? ? params[:end_date].to_time.strftime("%m/%d/%Y %I:%M %p") : ""
+	    %>
+	    From <%= calendar_date_select_tag "start_date", s, :time => "mixed", :onKeyDown=> "$('date_selectDD').selectedIndex=0" %>
+	    To <%= calendar_date_select_tag "end_date", e, :time => "mixed", :onKeyDown=> "$('date_selectDD').selectedIndex=0" %>
+        </li>
+	<li><%= liftium_submit "Retrieve Stats"%></li>
+  </form>
+</div>
+<script>
+function dateSelect(select){
+    if (select.selectedIndex > 7) {
+	$("interval_day").checked = true;
+    }
+    if (select.selectedIndex > 0){
+	$("start_date").value = "";
+	$("end_date").value = "";
+    }
+}
+</script>

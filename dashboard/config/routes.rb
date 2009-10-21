@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Data export
   map.data_export 'data_export', :controller => 'data_export'
+  map.create_data_export 'data_export/create', :controller => 'data_export', :action => "create"
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "homes"

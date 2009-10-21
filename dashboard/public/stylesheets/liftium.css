@@ -234,6 +234,7 @@ input:focus, textarea:focus, {
 	padding-top: 15px; 
 	padding-bottom: 15px; 
 	padding-left: 60px;
+	margin-bottom: 15px;
 }
 #flash_notice {
 	background-color: #f7fff0;
