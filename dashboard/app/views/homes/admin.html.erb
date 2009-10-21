@@ -1,7 +1,0 @@
-<% @show_nav = false %>
-<% title "Admin Home" %>
-
-<% for stat in misc_stat_types do -%>
-	<a href="<%=h url_for :controller => 'charts', :action => 'misc_stat', :stat => stat %>"><img src="<%= misc_stat_url stat, "1h" %>" width="400" height="190"/></a>
-<% end -%>
-

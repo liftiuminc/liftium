@@ -1,6 +1,0 @@
-# Dummy tag for testing geo targeting (test_geo_targeting.php)
-one:
-  id: 1
-  tag_id: 40
-  key_name: country
-  key_value: us
