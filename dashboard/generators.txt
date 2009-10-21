@@ -15,4 +15,4 @@ script/generate nifty_scaffold --shoulda charts
 script/generate nifty_scaffold --shoulda data_export index 
 script/generate nifty_scaffold --shoulda password_reset new create edit update
 script/generate nifty_scaffold --shoulda user_session new create destroy
-script/generate nifty_scaffold --shoulda welcome index
+script/generate nifty_scaffold --shoulda home index
