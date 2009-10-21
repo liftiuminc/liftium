@@ -52,16 +52,21 @@ class FillsBase < ActiveRecord::Base
        query.push('%' + params[:name_search] + '%')
     end
 
-    dates = self.get_date_range(params[:date_select])
-    params[:start_date] = dates[0].nil? ? "" : dates[0]
-    params[:end_date] = dates[1].nil? ? "" : dates[1]
+    if (!params[:date_select].blank?)
+      dates = self.get_date_range(params[:date_select])
+      start_date = dates[0].to_s
+      end_date = dates[1].to_s
+    else
+      start_date = params[:start_date]
+      end_date = params[:end_date]
+    end
 
-    if (! params[:start_date].blank?)
+    if (!start_date.to_s.blank?)
        query[0] += " AND " + col + " >= ? "
        query.push(params[:start_date].to_time.to_s(:db))
     end
 
-    if (! params[:end_date].blank?)
+    if (!end_date.to_s.blank?)
        query[0] += " AND " + col + " <= ? "
        query.push(params[:end_date].to_time.to_s(:db))
     end

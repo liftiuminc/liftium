@@ -36,12 +36,10 @@ class DataExportControllerTest < ActionController::TestCase
 
   # Fix bug reported by Jennie where if you do a search that doesn't return results with CSV, it should redirect you back
   context "create action with query that won't return results" do
-    setup { 
+    should "render index template" do
       login_as_admin
       get :create, :network_id => "100000000000", "format" => "csv"
-    }
-    should_redirect_to "index" do
-      data_export_url
+      respond_with_content_type 'text/html'
     end
   end
 end

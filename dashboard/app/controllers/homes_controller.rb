@@ -13,7 +13,7 @@ class HomesController < ApplicationController
 
   def admin
     if !current_user.admin 
-      render(:file => 'public/403.html', :status => 403) 
+      render(:file => 'public/403.html', :status => :forbidden) 
     end 
   end
 
