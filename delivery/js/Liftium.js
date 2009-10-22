@@ -905,15 +905,7 @@ Liftium.init = function () {
 
 	Liftium.pullConfig();
 	
-	// Call the beacon on page load. Exclude browsers that we don't care about that misbehave
-        //if (window.navigator.vendor != "Camino" && Liftium.getBrowser() != "opera") {
-	Liftium.addEventListener(window, "load", Liftium.onLoadHandler);
-
-        if (typeof document.readyState != "undefined") {
-                // Fire an event when the iframe content loads for browsers that support it (firefox)
-                Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
-
-        }
+	Liftium.addEventListener(window, "load", Liftium.sendBeacon);
 
 	// Tell the parent window to listen to hop messages 
 	if (window.LiftiumOptions.enableXDM !== false ){
@@ -947,6 +939,17 @@ Liftium.isCompletelyLoaded = function(e){
                 }
         }
         return true;
+};
+
+
+Liftium.isLoaded = function(e){
+	e = e || document.body;
+	if (document.readyState == "complete") {
+                // Everything is done. Now only if all browsers had this...
+		return true;
+	}
+
+	return false;
 };
 
 
@@ -1144,23 +1147,6 @@ Liftium.parseQueryString = function (qs){
 
         return ret;
 };      
-
-
-/* Different browsers handle the onload event differently. Handle that here */
-Liftium.onLoadHandler = function (){
-        Liftium.beaconTries = Liftium.beaconTries || 0;
-        if ( Liftium.isCompletelyLoaded(document)) {
-                window.setTimeout("Liftium.sendBeacon()", Liftium.loadDelay);
-        } else if (Liftium.beaconTries < 10){
-                // Check again in a bit. 
-                Liftium.loadDelay += 500;
-                Liftium.beaconTries++;
-                window.setTimeout("Liftium.onLoadHandler()", 500);
-        } else {
-                // Enough waiting, take whatever we have at this point
-                Liftium.sendBeacon();
-        }
-};
 
 
 /* Pull the configuration data from our servers */
