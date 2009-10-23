@@ -894,8 +894,6 @@ Liftium.init = function () {
 	
 	Liftium.addEventListener(window, "load", Liftium.onLoadHandler);
 
-
-
 	// Tell the parent window to listen to hop messages 
 	if (window.LiftiumOptions.enableXDM !== false ){
 		XDM.listenForMessages(Liftium.crossDomainMessage);
@@ -904,41 +902,25 @@ Liftium.init = function () {
 
 /* Different browsers handle iframe load state differently. For once, IE actually does it best.
  * IE - document.readyState *and* iframes.readyState is "interactive" until all iframes loaded, then it is "complete"
+ *      Unfortunately, nested iframes will be called "loaded"
  * Firefox/Seamonkey/Camino - no document.readyState. Special DOMFrameContentLoaded is fired on every iframe load
- * Chrome - loading|loaded|complete, DOMFrameContentLoaded supported, but won't allow you to change iframe.readyState
+ * Chrome/Safari - loading|loaded|complete, DOMFrameContentLoaded supported, but won't allow you to change iframe.readyState
+ *      Unfortunately, nested iframes will be called "loaded"
  * Opera - document.readyState is "interactive" until all iframes loaded, then it is "complete"
  */
-
 Liftium.iframesLoaded = function(){
-	if (document.readyState == "complete"){
+        var iframes = document.getElementsByTagName("iframe"); 
+	if (iframes.length === 0){ return true; }
+
+	var b = BrowserDetect.browser;
+	if (Liftium.in_array(b, ["Firefox", "Gecko", "Mozilla"]) && Liftium.pageLoaded){
 		return true;
-	}
-        var iframes = document.getElementsByTagName("iframe");
-        for (var i = 0, l = iframes.length; i < l; i++){
-		if (typeof iframes[i].readyState == "undefined"){
-			return false;
-		} else if (!iframes[i].readyState.toString().match(/complete/)){
-			return false;
-		}
-	}
-	return true;
-};
-Liftium.iframeOnload = function(e) {
-
-        var iframe = e.target || e;
-
-        // Different browsers do/do not set the readyState. For the ones that don't set it here to normalize
-        try { // Supress permission denied errors for cross domain iframes
-                if (typeof iframe.readyState == "undefined" ) {
-                        iframe.readyState = "complete_liftium";
-                }
-        } catch (e) {
+	} else if (b == "Opera" && document.readyState == "complete"){
+		return true;
+	} else { 
+		return false;
 	}
 };
-if (typeof document.readyState == "undefined") {
-	// Fire an event when the iframe content loads for browsers that support it (firefox)
-	Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
-}
 
 
 /* Check to see if the user from the right geography */
@@ -1120,17 +1102,14 @@ Liftium.markChain = function (slotname){
 
 
 Liftium.onLoadHandler = function () {
-	Liftium.beaconTries = Liftium.beaconTries || 0;
-	Liftium.loadDelay = Liftium.loadDelay || 0;
+	Liftium.pageLoaded = true;
+	Liftium.loadDelay = Liftium.loadDelay || 100;
         if ( Liftium.iframesLoaded()) {
 		Liftium.sendBeacon();
-        } else if (Liftium.beaconTries < 10){
-                // Check again in a bit. 
-                Liftium.loadDelay += 500;
-                Liftium.beaconTries++;
-                window.setTimeout("Liftium.onLoadHandler()", 500);
-        } else {
-		Liftium.reportError("Gave up after waiting " + Liftium.loadDelay + " milliseconds to sendBeacon");
+	} else {
+                // Check again in a bit. Keep increasing the time
+                Liftium.loadDelay += Liftium.loadDelay;
+                window.setTimeout("Liftium.onLoadHandler()", Liftium.loadDelay);
 	}
 };
 
