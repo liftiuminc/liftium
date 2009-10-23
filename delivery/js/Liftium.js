@@ -6,7 +6,6 @@ var Liftium = {
 	baseUrl		: "http://delivery.liftium.com/",
 	chain 		: [],
 	geoUrl 		: "http://geoiplookup.wikia.com/",
-        loadDelay       : 250,
 	calledSlots 	: [],
         rejTags         : []
 
@@ -865,18 +864,6 @@ Liftium.iframeContents = function(iframe, html){
 	}
 };
 
-Liftium.iframeOnload = function(e) {
-
-        var iframe = e.target || e;
-
-        // Different browsers do/do not set the readyState. For the ones that don't set it here to normalize
-        try { // Supress permission denied errors for cross domain iframes
-                if (typeof iframe.readyState == "undefined" ) {
-                        iframe.readyState = "complete";
-                }
-        } catch (e) {
-	}
-};
 
 
 /* Emulate PHP's in_array, which will return true/false if a key exists in an array */
@@ -905,7 +892,9 @@ Liftium.init = function () {
 
 	Liftium.pullConfig();
 	
-	Liftium.addEventListener(window, "load", Liftium.sendBeacon);
+	Liftium.addEventListener(window, "load", Liftium.onLoadHandler);
+
+
 
 	// Tell the parent window to listen to hop messages 
 	if (window.LiftiumOptions.enableXDM !== false ){
@@ -913,44 +902,43 @@ Liftium.init = function () {
 	}
 };
 
+/* Different browsers handle iframe load state differently. For once, IE actually does it best.
+ * IE - document.readyState *and* iframes.readyState is "interactive" until all iframes loaded, then it is "complete"
+ * Firefox/Seamonkey/Camino - no document.readyState. Special DOMFrameContentLoaded is fired on every iframe load
+ * Chrome - loading|loaded|complete, DOMFrameContentLoaded supported, but won't allow you to change iframe.readyState
+ * Opera - document.readyState is "interactive" until all iframes loaded, then it is "complete"
+ */
 
-/* Browsers handle the "onload" event differently. Am I sure?
-* Firefox - when everything is loaded
-* Safari - when the bottom html tag is encountered
-* IE - when page is loaded, not counting iframes
-*/
-Liftium.isCompletelyLoaded = function(e){
-        if (document.readyState == "complete" ){
-                // Everything is done. Now only if all browsers had this...
-                return true;
-        }
-
-        var iframes = e.getElementsByTagName("iframe");
-        for (var i = 0, l = iframes.length; i < l; i++){
-                if (iframes[i].style.display == "none" || iframes[i].clientWidth < 50){
-                        // It's either a pixel or hidden iframe, not an ad.
-                        continue;
-                }
-
-                if (typeof iframes[i].readyState == "undefined" ){
-                        return false;
-                } else if (typeof iframes[i].readyState != "undefined" && iframes[i].readyState != "complete"){
-                        return false;
-                }
-        }
-        return true;
-};
-
-
-Liftium.isLoaded = function(e){
-	e = e || document.body;
-	if (document.readyState == "complete") {
-                // Everything is done. Now only if all browsers had this...
+Liftium.iframesLoaded = function(){
+	if (document.readyState == "complete"){
 		return true;
 	}
-
-	return false;
+        var iframes = document.getElementsByTagName("iframe");
+        for (var i = 0, l = iframes.length; i < l; i++){
+		if (typeof iframes[i].readyState == "undefined"){
+			return false;
+		} else if (!iframes[i].readyState.toString().match(/complete/)){
+			return false;
+		}
+	}
+	return true;
 };
+Liftium.iframeOnload = function(e) {
+
+        var iframe = e.target || e;
+
+        // Different browsers do/do not set the readyState. For the ones that don't set it here to normalize
+        try { // Supress permission denied errors for cross domain iframes
+                if (typeof iframe.readyState == "undefined" ) {
+                        iframe.readyState = "complete_liftium";
+                }
+        } catch (e) {
+	}
+};
+if (typeof document.readyState == "undefined") {
+	// Fire an event when the iframe content loads for browsers that support it (firefox)
+	Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
+}
 
 
 /* Check to see if the user from the right geography */
@@ -1076,7 +1064,7 @@ Liftium.loadScript = function(url, noblock) {
 };
 
 
-/* Clean up the chain. Mark loads/rejects where we know what happened. */
+/* Clean up the chain. Mark loads/rejects where we know what happened. 
 Liftium.markChain = function (slotname){
         var attemptFound = false, len = Liftium.chain[slotname].length;
         // If an attempt was found, then everything else "started" was rejected
@@ -1110,7 +1098,41 @@ Liftium.markChain = function (slotname){
         return true;
 
 };
+*/
 
+
+Liftium.markChain = function (slotname){
+        Liftium.d("Marking chain for " + slotname, 5);
+	if (Liftium.e(Liftium.chain[slotname])){
+		Liftium.debug("Skiping Marking chain, chain was empty");
+		return false;
+	}
+        for (var i = 0, len = Liftium.chain[slotname].length; i < len; i++){
+		if (i < Liftium.chain[slotname].current){
+			Liftium.chain[slotname][i]["rejected"] = true;
+		} else if (i == Liftium.chain[slotname].current){
+			Liftium.chain[slotname][i]["loaded"] = true;
+			break;
+		}
+	}	
+	return i;
+};
+
+
+Liftium.onLoadHandler = function () {
+	Liftium.beaconTries = Liftium.beaconTries || 0;
+	Liftium.loadDelay = Liftium.loadDelay || 0;
+        if ( Liftium.iframesLoaded()) {
+		Liftium.sendBeacon();
+        } else if (Liftium.beaconTries < 10){
+                // Check again in a bit. 
+                Liftium.loadDelay += 500;
+                Liftium.beaconTries++;
+                window.setTimeout("Liftium.onLoadHandler()", 500);
+        } else {
+		Liftium.reportError("Gave up after waiting " + Liftium.loadDelay + " milliseconds to sendBeacon");
+	}
+};
 
 
 /* This code looks at the supplied query string and parses it.
@@ -1473,6 +1495,65 @@ Liftium.storeTagStats = function (){
 Liftium.throwError = function () {
 	return window.LiftiumthrowError.UndefinedVar;
 };
+
+
+/* Browser Detect 
+http://www.quirksmode.org/js/detect.html
+*/
+var BrowserDetect = {
+	init: function () {
+		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+		this.version = this.searchVersion(navigator.userAgent) ||
+			this.searchVersion(navigator.appVersion) ||
+			"an unknown version";
+		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+	},
+	searchString: function (data) {
+		for (var i=0;i<data.length;i++)	{
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1) {
+					return data[i].identity;
+				}
+			} else if (dataProp) {
+				return data[i].identity;
+			}
+		}
+		return null;
+	},
+	searchVersion: function (dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) { return null; }
+		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+	},
+	dataBrowser: [
+		{ string: navigator.userAgent, subString: "Chrome", identity: "Chrome" },
+		{ string: navigator.userAgent, subString: "OmniWeb", versionSearch: "OmniWeb/", identity: "OmniWeb" },
+		{ string: navigator.vendor, subString: "Apple", identity: "Safari", versionSearch: "Version" },
+		{ prop: window.opera, identity: "Opera" },
+		{ string: navigator.vendor, subString: "iCab", identity: "iCab" },
+		{ string: navigator.vendor, subString: "KDE", identity: "Konqueror" },
+		{ string: navigator.userAgent, subString: "Firefox", identity: "Firefox" },
+		{ string: navigator.vendor, subString: "Camino", identity: "Camino" },
+		{ string: navigator.userAgent, subString: "Netscape", identity: "Netscape"},
+		{ string: navigator.userAgent, subString: "MSIE", identity: "Explorer", versionSearch: "MSIE" },
+		{ string: navigator.userAgent, subString: "Gecko", identity: "Mozilla", versionSearch: "rv" },
+		{ string: navigator.userAgent, subString: "Mozilla", identity: "Netscape", versionSearch: "Mozilla" }
+	],
+	dataOS : [
+		{ string: navigator.platform, subString: "Win", identity: "Windows" },
+		{ string: navigator.platform, subString: "Mac", identity: "Mac" },
+		{ string: navigator.userAgent, subString: "iPhone", identity: "iPhone/iPod" },
+		{ string: navigator.platform, subString: "Linux", identity: "Linux" }
+	]
+
+};
+BrowserDetect.init();
+
+
+
 
 /* Include of XDM.js */
 
