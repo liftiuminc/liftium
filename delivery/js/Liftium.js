@@ -903,7 +903,6 @@ Liftium.init = function () {
 /* Different browsers handle iframe load state differently. For once, IE actually does it best.
  * IE - document.readyState *and* iframes.readyState is "interactive" until all iframes loaded, then it is "complete"
  *      Unfortunately, nested iframes will be called "loaded"
- * Firefox/Seamonkey/Camino - no document.readyState. Special DOMFrameContentLoaded is fired on every iframe load
  * Chrome/Safari - loading|loaded|complete, DOMFrameContentLoaded supported, but won't allow you to change iframe.readyState
  *      Unfortunately, nested iframes will be called "loaded"
  * Opera - document.readyState is "interactive" until all iframes loaded, then it is "complete"
@@ -914,6 +913,7 @@ Liftium.iframesLoaded = function(){
 
 	var b = BrowserDetect.browser;
 	if (Liftium.in_array(b, ["Firefox", "Gecko", "Mozilla"]) && Liftium.pageLoaded){
+ 		// Firefox/Seamonkey/Camino - no document.readyState, but load event is after iframes
 		return true;
 	} else if (b == "Opera" && document.readyState == "complete"){
 		return true;
