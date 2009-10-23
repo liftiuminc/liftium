@@ -14,8 +14,6 @@ if (Liftium.iframesLoaded() === true ){
 </div>
 <script>
 Liftium.addEventListener(window, "load", function () { document.getElementById("list").innerHTML += "<li>Onload fired - document.readyState is " + document.readyState ;});
-Liftium.addEventListener(window, "DocumentReady", function () { document.getElementById("list").innerHTML += "<li>DocumentReady fired document.readyState is " + document.readyState; });
-Liftium.addEventListener(window, "DOMContentLoaded", function () { document.getElementById("list").innerHTML += "<li>DOMContentLoaded fired document.readyState is " + document.readyState; });
 </script>
 <iframe id="fast" width="200" height="100" src="slow_loading_iframe.php?delay=1"></iframe>
 
@@ -28,9 +26,8 @@ Liftium.iframesLoaded() === false ? LiftiumTest.testPassed() : LiftiumTest.testF
 <iframe width="200" height="100" src="slow_loading_iframe.php?delay=750"></iframe>
 <script>
 Liftium.iframesLoaded() === false ? LiftiumTest.testPassed() : LiftiumTest.testFailed()
-</script>
-<script>
 setTimeout("Liftium.iframesLoaded() === true ? LiftiumTest.testPassed() : LiftiumTest.testFailed()", 2500);
+setTimeout('document.getElementById("list").innerHTML += "<li>Fast Iframe readyState: " + document.getElementById("fast").readyState', 2000);
 </script>
 
 <?php require 'footer.php'?>
