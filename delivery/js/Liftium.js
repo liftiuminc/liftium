@@ -898,6 +898,21 @@ Liftium.init = function () {
 	if (window.LiftiumOptions.enableXDM !== false ){
 		XDM.listenForMessages(Liftium.crossDomainMessage);
 	}
+
+	/* Opera can be handled by setting the readyState when the iframe loads */
+	if (BrowserDetect.browser == "Opera"){
+	  Liftium.iframeOnload = function (e){
+		var iframe = e.target || e;
+
+		// Different browsers do/do not set the readyState. For the ones that don't set it here to normalize
+		try { // Supress permission denied errors for cross domain iframes
+			if (typeof iframe.readyState == "undefined" ) {
+				iframe.readyState = "complete";
+			}
+		} catch (e) {}
+	  };
+	  Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
+	}
 };
 
 /* Different browsers handle iframe load state differently. For once, IE actually does it best.
@@ -926,22 +941,6 @@ Liftium.iframesLoaded = function(){
 		return false;
 	}
 };
-/* Opera can be handled by setting the readyState when the iframe loads */
-if (BrowserDetect.browser == "Opera"){
-  Liftium.iframeOnload = function (e){
-        var iframe = e.target || e;
-
-        // Different browsers do/do not set the readyState. For the ones that don't set it here to normalize
-        try { // Supress permission denied errors for cross domain iframes
-                if (typeof iframe.readyState == "undefined" ) {
-                        iframe.readyState = "complete";
-                }
-        } catch (e) {}
-  };
-  Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
-}
-
-
 
 /* Check to see if the user from the right geography */
 Liftium.isValidCountry = function (countryList){
@@ -1820,3 +1819,5 @@ if (window.Liftium){
 
 // Gentlemen, Start your optimization!
 Liftium.init();
+
+
