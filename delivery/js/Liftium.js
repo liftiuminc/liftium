@@ -1306,7 +1306,8 @@ Liftium.reportError = function (msg, type) {
 	        "quantserve",
 		"urchin",
 		"greasemonkey",
-		"Permission denied" // Ads trying to get the window location, which isn't allowed
+		"Permission denied", // Ads trying to get the window location, which isn't allowed
+		"Unexpected token ILLEGAL" // Wierd Chrome error about postmessage from Google Ads. 
 	];
 	for (var i = 0; i < ignores.length; i++){
 		if (msg.indexOf(ignores[i]) >= 0){
