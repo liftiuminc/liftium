@@ -16,6 +16,7 @@ body {
 	margin: 0px;
 }
 </style>
+</head>
 <body>
 <?php
 echo "<!-- Begin Tag #{$_GET['tag_id']} -->\n";
