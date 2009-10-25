@@ -444,7 +444,6 @@ Liftium.fillerAd = function(size, message){
 	} else if (size.match(/160x600/)){
 		tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0" alt="Public Service Announcement"/></a>';
 	}
-	tag += "Public Service Announcement";
 	return {tag_id: 'psa', network_name: "Internal Error PSA", tag: tag, size: size};
 };
 
@@ -888,6 +887,7 @@ Liftium.init = function () {
 
 	if (Liftium.e(window.LiftiumOptions) || Liftium.e(window.LiftiumOptions.pubid)){
 		Liftium.reportError("LiftiumOptions.pubid must be set", "publisher"); // TODO: provide a link to documentation
+		return false;
 	}
 
 	Liftium.pullConfig();
@@ -913,6 +913,8 @@ Liftium.init = function () {
 	  };
 	  Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
 	}
+
+	return true;
 };
 
 /* Different browsers handle iframe load state differently. For once, IE actually does it best.
@@ -1047,9 +1049,6 @@ Liftium.isValidCriteria = function (t){
 };
 
 
-
-
-
 /* Load the supplied url inside a script tag  */
 Liftium.loadScript = function(url, noblock) {
         if (typeof noblock == "undefined"){
@@ -1063,43 +1062,6 @@ Liftium.loadScript = function(url, noblock) {
                 h.appendChild(s);
         }
 };
-
-
-/* Clean up the chain. Mark loads/rejects where we know what happened. 
-Liftium.markChain = function (slotname){
-        var attemptFound = false, len = Liftium.chain[slotname].length;
-        // If an attempt was found, then everything else "started" was rejected
-        Liftium.d("Marking chain for " + slotname, 5);
-	if (Liftium.e(Liftium.chain[slotname])){
-		Liftium.debug("Skiping Marking chain, chain was empty");
-		return false;
-	}
-        for (var i = len - 1; i >= 0; i--){
-                if (attemptFound && !Liftium.e(Liftium.chain[slotname][i]['started'])){
-                        Liftium.chain[slotname][i]['rejected'] = true;
-                        Liftium.chain[slotname][i]['loaded'] = false;
-                        Liftium.rejTags.push(Liftium.chain[slotname][i]['tag_id']);
-                } else if (!Liftium.e(Liftium.chain[slotname][i]['started'])){
-                        attemptFound = true;
-                }
-        }
-
-        // If a garaunteed ad was filled, mark it as loaded
-        for (var j = 0 ; j < len; j++){
-                if (!Liftium.e(Liftium.chain[slotname][j]['started']) &&
-                     Liftium.chain[slotname][j]['guaranteed_fill'] == 'Yes' ){
-                        Liftium.chain[slotname][j]['loaded'] = true;
-                        return true;
-                }
-        }
-
-        // If the slot/document is completely loaded, the last one called must be the one loaded
-	var k = Liftium.chain[slotname].current;
-	Liftium.chain[slotname][k]['loaded'] = true;
-        return true;
-
-};
-*/
 
 
 Liftium.markChain = function (slotname){
