@@ -152,7 +152,7 @@ Liftium.callAd = function (sizeOrSlot, iframe) {
 
 	// Write out a _load div and call the ad
 	var slotname = Liftium.getUniqueSlotname(sizeOrSlot); 
-	document.write('<div id="' + slotname + '" style="overflow: hidden">');
+	document.write('<div id="' + slotname + '" style="position: relative">');
 	Liftium._callAd(slotname);
 	document.write("</div>");
 	return true;
@@ -1060,6 +1060,7 @@ Liftium.loadScript = function(url, noblock) {
                 var s = document.createElement("script");
                 s.src = url;
                 h.appendChild(s);
+				return s;
         }
 };
 
@@ -1518,6 +1519,15 @@ BrowserDetect.init();
 
 
 
+
+// Load the Inspector code.
+Liftium.loadInspector = function () {
+        var d = document.getElementById("LiftiumInspectorScript");
+        if (Liftium.e(d)) {
+                var s = Liftium.loadScript(Liftium.baseUrl + "js/Inspector.js?r=" + Math.random().toString().substring(2,8), true);
+                s.id = "LiftiumInspectorScript";
+        }
+};
 
 /* Include of XDM.js */
 
