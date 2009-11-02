@@ -1054,13 +1054,14 @@ Liftium.loadScript = function(url, noblock) {
         if (typeof noblock == "undefined"){
                 // This method blocks
                 document.write('\x3Cscript type="text/javascript" src="' + url + '">\x3C\/sc' + 'ript>');
+		return true;
         } else {
                 // This method does not block
                 var h = document.getElementsByTagName("head").item(0);
                 var s = document.createElement("script");
                 s.src = url;
                 h.appendChild(s);
-				return s;
+		return s;
         }
 };
 
@@ -1150,9 +1151,7 @@ Liftium.pullConfig = function (){
 	}
 
         // Allow for us to work in a dev environment
-        if (! Liftium.e(Liftium.getRequestVal('liftium_dev_hosts') ||
-              window.location.hostname.indexOf(".dev.liftium.com") > -1)){
-                // overwrite
+	if (window.location.hostname.indexOf(".dev.liftium.com") > -1){
                 Liftium.baseUrl = '/';
         }
 
@@ -1467,14 +1466,14 @@ http://www.quirksmode.org/js/detect.html
 */
 var BrowserDetect = {
 	init: function () {
-		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+		this.browser = this.searchString(this.dataBrowser) || "";
 		this.version = this.searchVersion(navigator.userAgent) ||
 			this.searchVersion(navigator.appVersion) ||
-			"an unknown version";
-		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+			"";
+		this.OS = this.searchString(this.dataOS) || "";
 	},
 	searchString: function (data) {
-		for (var i=0;i<data.length;i++)	{
+		for (var i = 0, l = data.length ; i < l; i++){
 			var dataString = data[i].string;
 			var dataProp = data[i].prop;
 			this.versionSearchString = data[i].versionSearch || data[i].identity;
@@ -1516,9 +1515,6 @@ var BrowserDetect = {
 
 };
 BrowserDetect.init();
-
-
-
 
 // Load the Inspector code.
 Liftium.loadInspector = function () {
