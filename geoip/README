@@ -1,0 +1,12 @@
+*** Starting up ***
+
+Currently, this can *NOT* daemonize, so must be run in screen or something
+similar. It is a known missing feature from the standalone server. Our alternative
+is to use an FCGI backend, which is much more overhead.
+
+$ plackup -s Standalone::Prefork --port 9042 --timeout 10 --max-reqs-per-child 1000 -a psgi/geoip.psgi
+
+*** Updating the database ***
+
+The database lives in C<psgi/GeoIP.dat>. Updating this file should be
+seemless and picked up by the server.
