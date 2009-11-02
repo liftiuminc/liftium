@@ -21,7 +21,7 @@ my $app = sub {
     ### normalize to /24 -- actually more work, so disable for now
     #$ip =~ s/\.\d+$/.0/;
     
-    my $c = $GI->country_code_by_addr( $ip );
+    my $c = $GI->country_code_by_addr( $ip ) || '';
     
     return [ 200, [], [ qq[Geo={"country":"$c"}] ] ];
 };
