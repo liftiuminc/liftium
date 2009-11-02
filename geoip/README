@@ -6,6 +6,24 @@ is to use an FCGI backend, which is much more overhead.
 
 $ plackup -s Standalone::Prefork --port 9042 --timeout 10 --max-reqs-per-child 1000 -a psgi/geoip.psgi
 
+*** Usage ***
+
+The server will return the country data for an IP in JSON format, like this:
+
+  Geo={"country":"US"}
+
+There are 3 ways an IP address can be passed to the server, and the server
+will go down this list until it finds an address:
+
+ 1) Explicitly as a URL paramater, like:
+    $ curl "http://localhost:9042/?4.0.1.1"
+
+ 2) Via a proxy, like:
+    $ curl -H "X-Forwarded-For: 194.109.6.66" http://localhost:9042
+    
+ 3) Directly using the client IP, like:
+    $ curl http://localhost:9042/
+
 *** Updating the database ***
 
 The database lives in C<psgi/GeoIP.dat>. Updating this file should be
