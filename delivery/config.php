@@ -40,14 +40,19 @@ if ($format == 'text'){
 	header('Content-Type: application/x-javascript');
     echo 'Liftium.config = ' . json_encode($config) . ';';
 
-    // esi or inline call? -- all servers should have a local geoipd	
-    echo 'Liftium.geo = ';
-    $url = "http://localhost:9042/__geoip/?" . Framework::getIP();
-    if ( Framework::isDev() ) {
-        echo file_get_contents($url);
-	} else {
-	    echo "<!--esi esi:include src='$url' -->";
-	}
+    // esi or inline call? -- all servers should have a local geoipd.
+    // disabled for now, as there's a requirement to compress this
+    // response, and that will not work with esis in varnish right now
+    // uncomment this code when compression & varnish work well together
+    // --Jos
+//     echo 'Liftium.geo = ';
+//     $url = "/__geoip";
+//     if ( Framework::isDev() ) {
+//         echo file_get_contents( 'http://localhost:9042' . $url);
+//     } else {
+// 	    ### src HAS to be in double quotes (")
+//         echo "<!--esi <esi:include src=\"$url\" /> -->";
+//     }
 
 	if (Framework::getRequestVal('liftium_debug', 0, FILTER_VALIDATE_INT)){
 		echo '/*' . print_r($_GET, true) . '*/' . "\n";
