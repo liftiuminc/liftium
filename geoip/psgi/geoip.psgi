@@ -23,5 +23,5 @@ my $app = sub {
     
     my $c = $GI->country_code_by_addr( $ip ) || '';
     
-    return [ 200, [], [ qq[Geo={"country":"$c"}] ] ];
+    return [ 200, [], [ qq[{"country":"$c"}] ] ];
 };
