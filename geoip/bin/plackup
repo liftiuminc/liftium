@@ -1,0 +1,167 @@
+#!/usr/bin/perl
+
+eval 'exec /usr/bin/perl  -S $0 ${1+"$@"}'
+    if 0; # not running under some shell
+use strict;
+use lib "lib";
+use Cwd;
+use Getopt::Long;
+use Plack::Loader;
+use Plack::Util;
+use Pod::Usage;
+use Try::Tiny;
+
+my $app    = "app.psgi";
+my $host;
+my $port   = 5000;
+my $env    = "development";
+my $help   = 0;
+my $backend;
+my $reload;
+my @includes;
+
+# delay the build process for reloader
+sub build(&;$) {
+    my $block = shift;
+    my $app   = shift || sub { };
+    return sub { $block->($app->()) };
+}
+
+# From 'prove': Allow cuddling the paths with the -I
+@ARGV = map { /^(-I)(.+)/ ? ($1,$2) : $_ } @ARGV;
+
+Getopt::Long::Configure("no_ignore_case", "pass_through");
+GetOptions(
+    "a|app=s"      => \$app,
+    "o|host=s"     => \$host,
+    "p|port=i"     => \$port,
+    "s|server=s"   => \$backend,
+    "i|impl=s"     => sub { warn "-i is deprecated. Use -s instead\n"; $backend = $_[1] },
+    "E|env=s"      => \$env,
+    'I=s@'         => \@includes,
+    'r|reload:s'   => sub { $reload = [ split ",", $_[1] || '.' ] },
+    "h|help",      => \$help,
+);
+
+pod2usage(0) if $help;
+lib->import(@includes) if @includes;
+
+my $handler = build { Plack::Util::load_psgi $app };
+
+if ($env eq 'development') {
+    require Plack::Middleware::StackTrace;
+    require Plack::Middleware::AccessLog;
+    $handler = build { Plack::Middleware::StackTrace->wrap($_[0]) } $handler;
+    $handler = build { Plack::Middleware::AccessLog->wrap($_[0], logger => sub { print STDERR @_ }) } $handler;
+}
+
+my @args = map {
+    my $is_long_opt = s/^--//;
+    my @v = split '=', $_, 2;
+    $v[0] =~ tr/-/_/ if $is_long_opt;
+    @v;
+} @ARGV;
+
+push @args, host => $host, port => $port;
+
+my $loader = $reload ?
+    do { require Plack::Loader::Reloadable; Plack::Loader::Reloadable->new($reload) } : 'Plack::Loader';
+
+my $server = $backend ? $loader->load($backend, @args) : $loader->auto(@args);
+$server->run($reload ? $handler : $handler->());
+
+__END__
+
+=head1 NAME
+
+plackup - Run PSGI application with Plack servers
+
+=head1 SYNOPSIS
+
+  # read your app from app.psgi file
+  plackup
+
+  # can be passed with --app option (Or -a)
+  plackup --app hello.psgi
+
+  # Switch server implementation with --server (or -s)
+  plackup --server Coro --port 9090
+
+=head1 DESCRIPTION
+
+plackup is a command line utility to run PSGI application from the command line.
+
+plackup automatically figures out the environment it is run in, and
+runs your application in that environment. FastCGI, CGI, AnyEvent and
+others can all be detected. See L<Plack::Loader> for the authorative
+list.
+
+C<plackup> assumes you have an C<app.psgi> script in your current
+directory, that would look like:
+
+  #!/usr/bin/perl
+  use MyApp;
+  my $app = MyApp->new;
+  my $handler = sub { $app->run_psgi(@_) };
+
+The last statement of C<app.psgi> should be a code reference that is a
+PSGI application.
+
+=head1 OPTIONS
+
+=over 4
+
+=item -a, --app
+
+Use the C<--app> option to locate a C<.psgi> script with a different
+name in a different path. (Actually the path doesn't need to end in
+C<.psgi>: it's just there for convention)
+
+=item -o, --host
+
+The interface a TCP based server daemon binds to. Defauts to undef,
+which lets most server backends bind the the any (*) interface. This
+opeion doesn't mean anything if the server is not TCP based.
+
+=item -p, --port
+
+The port number a TCP based server daemon listens on. Defaults to
+5000. This option doesn't mean anything if the server is not TCP
+based.
+
+=item -s, --server
+
+Select a specific implementation to run on using the C<PLACK_SERVER>
+environment variable or use the C<-s> or C<--server> flag which will
+be prefered over the environment variable if present.
+
+=item -I
+
+Specify perl library include path, like C<perl>'s -I option.
+
+=item -E, --env
+
+Specify the environment option (default is C<development>). If it's
+set to C<development>, following middleware is enabled by default:
+L<CommonLogger>, L<StackTrace>.
+
+=item -r, --reload
+
+Make plackup to watch updates from your development directory and
+restarts the server whenever a file is updated. You can specify the
+path to watch file updates separated by comma (C<,>) and it default to
+the current directory.
+
+  plackup -r /path/to/project/lib,/path/to/project/templates
+
+=back
+
+Other options are passed through to the backend server. See each
+Plack::Server backend documentations to see which options are
+available.
+
+=head1 SEE ALSO
+
+L<Plack::Loader>
+
+=cut
