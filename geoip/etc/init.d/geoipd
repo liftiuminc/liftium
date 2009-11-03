@@ -29,6 +29,10 @@ case "$1" in
           --background --quiet --chuid www-data:www-data --exec $DAEMON
         echo "$NAME."
         ;;
+        
+  ### XXX FIXME -- unfortunately the standalone server preforks itself, therefor
+  ### the pid in the pidfile is not the pid of the forked server, as this process
+  ### has already exited. Perhaps the right way is to use 'killall' or 'screen'
   stop)
         echo -n "Stopping $DESC: "
         start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON 
