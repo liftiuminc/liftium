@@ -13,7 +13,7 @@
 
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/var/www/liftium/geoip/geopid
+DAEMON=/var/www/liftium/geoip/geoipd
 NAME=geoipd
 DESC=geoipd
 PIDFILE=/var/run/$NAME.pid
