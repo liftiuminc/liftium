@@ -1,0 +1,60 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:             geoipd
+# Required-Start:       $syslog
+# Required-Stop:        $syslog
+# Should-Start:         $local_fs
+# Should-Stop:          $local_fs
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    geoipd
+# Description:          geoipd
+### END INIT INFO
+
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/var/www/liftium/geoip/geopid
+NAME=geoipd
+DESC=geoipd
+PIDFILE=/var/run/$NAME.pid
+
+test -x $DAEMON || exit 0
+
+set -e
+
+case "$1" in
+  start)
+        echo -n "Starting $DESC: "
+        start-stop-daemon --start --pidfile $PIDFILE --make-pidfile --quiet \
+          --background --quiet --chuid www-data:www-data --exec $DAEMON
+        echo "$NAME."
+        ;;
+  stop)
+        echo -n "Stopping $DESC: "
+        start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON 
+        echo "$NAME."
+        rm -f $PIDFILE
+        ;;
+
+  restart|force-reload)
+        #
+        #       If the "reload" option is implemented, move the "force-reload"
+        #       option to the "reload" entry above. If not, "force-reload" is
+        #       just the same as "restart".
+        #
+        echo -n "Restarting $DESC: "
+        start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE
+        rm -f $PIDFILE
+        sleep 1
+        start-stop-daemon --start --quiet --exec $DAEMON
+        echo "$NAME."
+        ;;
+  *)
+        N=/etc/init.d/$NAME
+        # echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
+        echo "Usage: $N {start|stop|restart|force-reload}" >&2
+        exit 1
+        ;;
+esac
+
+exit 0

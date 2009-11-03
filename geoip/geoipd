@@ -1,0 +1,5 @@
+#!/bin/sh
+
+### for IO redirect, we MUST do it like this or it wont work with start-stop-daemon
+/usr/local/bin/plackup -s Standalone::Prefork --port 9042 --timeout 10 --max-reqs-per-child 1000 -a /var/www/liftium/geoip/psgi/geoip.psgi > /var/log/geoipd.log 2>&1
+
