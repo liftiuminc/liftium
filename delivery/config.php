@@ -38,7 +38,17 @@ if ($format == 'text'){
 	print_r($config);
 } else {
 	header('Content-Type: application/x-javascript');
-	echo 'Liftium.config = ' . json_encode($config) . ';';
+    echo 'Liftium.config = ' . json_encode($config) . ';';
+
+    // esi or inline call? -- all servers should have a local geoipd	
+    echo 'Liftium.geo = ';
+    $url = "http://localhost:9042/__geoip/?" . Framework::getIP();
+    if ( Framework::isDev() ) {
+        echo file_get_contents($url);
+	} else {
+	    echo "<!--esi esi:include src='$url' -->";
+	}
+
 	if (Framework::getRequestVal('liftium_debug', 0, FILTER_VALIDATE_INT)){
 		echo '/*' . print_r($_GET, true) . '*/' . "\n";
 	}
