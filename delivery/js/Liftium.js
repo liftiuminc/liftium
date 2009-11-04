@@ -483,7 +483,7 @@ Liftium.getCountry = function(){
                 ac = "us";
         } else {
                 // Everything worked
-                ac = Liftium.country.toLowerCase();
+                ac = Liftium.geo.country.toLowerCase();
         }
 
         if (ac === "gb"){
