@@ -5,7 +5,7 @@ if (typeof Liftium == "undefined" ) { // No need to do this twice
 var Liftium = {
 	baseUrl		: "http://delivery.liftium.com/",
 	chain 		: [],
-	geoUrl 		: "http://geoiplookup.wikia.com/",
+	geoUrl 		: "http://geoip.liftium.com/",
 	calledSlots 	: [],
         rejTags         : []
 
