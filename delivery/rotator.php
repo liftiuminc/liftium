@@ -20,9 +20,7 @@ $dbw->exec("REPLACE INTO fills_hour SELECT tag_id,
 $dbw->exec("REPLACE INTO fills_day SELECT tag_id,
         DATE_FORMAT(minute, '%Y-%m-%d') AS day,
         SUM(attempts) AS attempts, SUM(loads) AS loads,
-        SUM(rejects) AS rejects FROM fills_minute WHERE
-        minute > " . $dbw->quote($min_date) .
-        " GROUP BY day, tag_id;");
+        SUM(rejects) AS rejects FROM fills_minute GROUP BY day, tag_id;");
 
 $dbw->exec("DELETE FROM fills_minute WHERE minute < " . $dbw->quote(date(MYSQL_DATE_FORMAT, strtotime('-7 days'))));
 
