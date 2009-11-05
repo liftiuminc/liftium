@@ -178,7 +178,7 @@ class AdTag {
 		if (!empty($criteria['enabled'])){
 			$sql .= "\n\tAND enabled = ? ";
 			$values[] = $criteria['enabled'];
-			$sql .= "\n\tAND network_id in (SELECT network_id from networks where enabled = 1)";
+			$sql .= "\n\tAND network_id in (SELECT id from networks where enabled = 1)";
 		}
 
 		if (!empty($criteria['network_id'])){
