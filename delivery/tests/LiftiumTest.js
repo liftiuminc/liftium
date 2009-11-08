@@ -12,7 +12,7 @@ var LiftiumTest = {
 
 LiftiumTest.testPassed = function(){
 	if (this.testsFailed === 0){
-		document.body.bgColor = "green";
+		document.body.style.backgroundColor = "green";
 	}
 	this.testsRun++;
 	this.testsPassed++;
@@ -20,7 +20,7 @@ LiftiumTest.testPassed = function(){
 };
 
 LiftiumTest.testFailed = function(){
-	document.body.bgColor = "red";
+	document.body.style.backgroundColor = "red";
 	this.testsRun++;
 	this.testsFailed++;
 	this.updateTestStatus();
