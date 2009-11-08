@@ -401,6 +401,18 @@ Liftium.debug = function (msg, level){
 Liftium.d = Liftium.debug; // Shortcut to reduce size of JS
 
 
+Liftium.dec2hex = function(d){
+        var h = parseInt(d, 10).toString(16);
+        if (h.toString() == "0"){
+                return "00";
+        } else {
+                return h.toUpperCase();
+        }
+};
+
+
+
+
 /* Emulate php's empty(). Thanks to:
  * http://kevin.vanzonneveld.net/techblog/article/javascript_equivalent_for_phps_empty/
  * Nick wrote: added the check for number that is NaN
@@ -446,6 +458,51 @@ Liftium.fillerAd = function(size, message){
 	}
 	return {tag_id: 'psa', network_name: "Internal Error PSA", tag: tag, size: size};
 };
+
+
+/* For the supplied type, (text, link, bg), return the color as a hex string.
+ * Useful for passing to text ad networks to have the ad match the colors of the website
+ */
+Liftium.getAdColor = function (type){
+//  try {
+	switch (type){
+          case "link":
+	    var links = document.getElementsByTagName("a");
+	    if (Liftium.e(links)){
+		return null;
+	    } else {
+		return Liftium.normalizeColor(Liftium.getStyle(links[0], "color"));
+	    }
+          case "bg":
+		return Liftium.normalizeColor(Liftium.getStyle(document.body, "background-color"));
+          case "text":
+		return Liftium.normalizeColor(Liftium.getStyle(document.body, "color"));
+	  default: return null;
+	}	
+//  } catch(e){
+     // Silence errors from this funciton and just return null. 
+//     return null;
+// }
+
+};
+
+
+/* Get the css style for the supplied element.
+   TODO: support for float and other idiosyncracies
+*/
+Liftium.getStyle = function (element, cssprop){
+	var camelCase = cssprop.replace(/\-(\w)/g, function(all, letter){
+		return letter.toUpperCase();
+	});
+	if (element.currentStyle) { //IE
+		return element.currentStyle[camelCase] || "";
+	} else if (document.defaultView && document.defaultView.getComputedStyle) { //Firefox
+		return document.defaultView.getComputedStyle(element, "")[camelCase] || "";
+	} else { //try and get inline style
+		return element.style[camelCase] || "";
+	}
+};
+
 
 /* Look through the list of ads in the potential chain, and return the best always_fill */
 Liftium.getAlwaysFillAd = function(size){
@@ -1084,6 +1141,34 @@ Liftium.markChain = function (slotname){
 };
 
 
+/* We can get color data in a lot of different formats. Normalize here for css. false on error */
+Liftium.normalizeColor = function(input){
+	input = input || "";
+        if (input == "transparent") {
+                return "";
+        } else if (input.match(/^#[A-F0-9a-f]{6}/)){
+                // It's 6 digit already hex
+                return input.toUpperCase().replace(/^#/, "");
+        } else if (input.match(/^#[A-F0-9a-f]{3}$/)){
+                // It's 3 digit hex. Convert to 6. Thank you IE.
+                var f = input.substring(1, 1);
+                var s = input.substring(2, 1);
+                var t = input.substring(3, 1);
+                var out = f + f + s + s + t + t;
+                return out.toUpperCase();
+        } else if (input.match(/^rgb/)){
+                var str = input.replace(/[^0-9,]/g, '');
+                var rgb = str.split(",");
+                return Liftium.dec2hex(rgb[0]) +
+                       Liftium.dec2hex(rgb[1]) +
+                       Liftium.dec2hex(rgb[2]);
+        } else {
+                // Input is a string, like "white"
+                return input;
+        }
+};
+
+
 Liftium.onLoadHandler = function () {
 	Liftium.pageLoaded = true;
 	Liftium.loadDelay = Liftium.loadDelay || 100;
@@ -1460,7 +1545,6 @@ Liftium.throwError = function () {
 	return window.LiftiumthrowError.UndefinedVar;
 };
 
-
 /* Browser Detect 
 http://www.quirksmode.org/js/detect.html
 */
@@ -1788,5 +1872,3 @@ if (window.Liftium){
 
 // Gentlemen, Start your optimization!
 Liftium.init();
-
-
