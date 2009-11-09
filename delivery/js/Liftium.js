@@ -464,7 +464,7 @@ Liftium.fillerAd = function(size, message){
  * Useful for passing to text ad networks to have the ad match the colors of the website
  */
 Liftium.getAdColor = function (type){
-//  try {
+  try {
 	switch (type){
           case "link":
 	    var links = document.getElementsByTagName("a");
@@ -479,11 +479,11 @@ Liftium.getAdColor = function (type){
 		return Liftium.normalizeColor(Liftium.getStyle(document.body, "color"));
 	  default: return null;
 	}	
-//  } catch(e){
+  } catch(e){
      // Silence errors from this funciton and just return null. 
-//     return null;
-// }
-
+     Liftium.d("Error in Liftium.getAdColor: " + e.message);
+     return null;
+  }
 };
 
 
@@ -1164,7 +1164,8 @@ Liftium.normalizeColor = function(input){
                        Liftium.dec2hex(rgb[2]);
         } else {
                 // Input is a string, like "white"
-                return input;
+                // Note: Opera returns it quoted. So remove those.
+                return input.replace(/"/g, "");
         }
 };
 
