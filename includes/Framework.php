@@ -13,7 +13,7 @@ class Framework {
 			$slavehosts = array('localhost');
 			$username = 'liftiumdev';
 			$password = 'monkey';
-			$dbname = "liftium";
+			$dbname = "liftium_dev_delivery";
 		} else {
 			$masterhost = 'masterdb';
 			$slavehosts = array('masterdb', 'slavedb1');
