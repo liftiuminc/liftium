@@ -261,6 +261,7 @@ Liftium.catchError = function (msg, url, line) {
 	return false; // Make sure we let the default error handling continue
 };
 
+
 /* Sort the chain based on the following criteria:
  * tier, weighted_random
  * The idea behind weighted_random is that we want to sort items
@@ -1001,6 +1002,19 @@ Liftium.iframesLoaded = function(){
 	}
 };
 
+
+/* Check to see if the user is using the right browser */
+Liftium.isValidBrowser = function (browser){
+        var obv = BrowserDetect.OS + " " + BrowserDetect.browser + " " + BrowserDetect.version;
+	var reg = new RegExp(browser, "i");
+        if (obv.match(reg)){
+                return true;
+        } else {
+                return false;
+        }
+};
+
+
 /* Check to see if the user from the right geography */
 Liftium.isValidCountry = function (countryList){
 
@@ -1077,6 +1091,13 @@ Liftium.isValidCriteria = function (t){
                           case 'country':
                                 if ( ! Liftium.isValidCountry(t.criteria.country)){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid country", 8);
+                                        t['isValidCriteria'] = false;
+                                        return t['isValidCriteria'];
+                                }
+                                break;
+                          case 'browser':
+                                if ( ! Liftium.isValidBrowser(t.criteria.browser[0])){
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid browser", 8);
                                         t['isValidCriteria'] = false;
                                         return t['isValidCriteria'];
                                 }
