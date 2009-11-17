@@ -1,4 +1,6 @@
+<?php $LiftiumOptions = array("disabled" => true) ?>
 <?php require 'header.php'?>
+
 This page is for testing Liftium.print_r.
 <p>
 <script>
