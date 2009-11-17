@@ -38,3 +38,5 @@ if (empty($_GET['liftium_debug'])){
 }       
 </style>
 <div id="test_results" style="display:none">Running tests...</div>
+<a href="/tests/">View all tests</a>
+<br />
