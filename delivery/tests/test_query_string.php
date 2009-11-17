@@ -83,6 +83,14 @@ if (typeof nvpairs == "object" && nvpairs.length == 0){
 }
 
 
+// + 
+nvpairs = Liftium.parseQueryString("?var1=val1&var2=%22val+encoded%22");
+if (nvpairs.var1 == "val1" && nvpairs.var2 == '"val encoded"') {
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+
 </script>
 
 <?php require 'footer.php'?>

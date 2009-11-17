@@ -681,18 +681,16 @@ Liftium.getNextTag = function(slotname){
 
 
 Liftium.getReferringKeywords = function (referer){
-	var kwords = Liftium.cookie("referringKeywords");
-	if (!Liftium.e(kwords)){
-		return kwords;
-	}
 		
-	var l = referer || document.referrer.toString();
+	var l = referer || document.referrer.toString(), kwords;
 	var qstring = l.match(/\?(.*)$/);
 	if (Liftium.e(qstring)){
-		return null;
+		qstring = [];
+	} else {
+		qstring = qstring[1];
 	}
-	var varNames = [ "q" ];
-	
+	var varNames = [ "q", "p" ];
+
 	for (var i = 0; i < varNames.length; i++){
 		kwords = Liftium.getRequestVal(varNames[i], '', qstring);
 		if (!Liftium.e(kwords))	{
@@ -700,9 +698,12 @@ Liftium.getReferringKeywords = function (referer){
 		}
 	}
 
+	var kwordsCookie = Liftium.cookie("referringKeywords");
 	if (!Liftium.e(kwords)){
 		Liftium.cookie("referringKeywords", kwords);	
 		return kwords;
+	} else if (!Liftium.e(kwordsCookie)){
+		return kwordsCookie;
 	} else {
 		return null;
 	}
@@ -1276,6 +1277,7 @@ Liftium.parseQueryString = function (qs){
 
 
         qs=qs.replace(/\;/g, '&', qs);
+        qs=qs.replace(/\+/g, '%20', qs);
 
         var nvpairs=qs.split('&');
 
