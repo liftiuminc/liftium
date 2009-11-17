@@ -668,6 +668,36 @@ Liftium.getNextTag = function(slotname){
 };
 
 
+Liftium.getReferringKeywords = function (referer){
+	return false;
+	var kwords = Liftium.cookie("referringKeywords");
+	if (!Liftium.e(kwords)){
+		return kwords;
+	}
+		
+	var l = referer || document.referrer.toString();
+	var qstring = l.match(/\?(.*)$/);
+	if (Liftium.e(qstring)){
+		return null;
+	}
+	var varNames = [ "q" ];
+	
+	for (var i = 0; i < varNames.length; i++){
+		kwords = Liftium.getRequestVal(varNames[i], '', qstring);
+		if (!Liftium.e(kwords))	{
+			break;
+		}
+	}
+
+	if (!Liftium.e(kwords)){
+		Liftium.cookie("referringKeywords", kwords);	
+		return kwords;
+	} else {
+		return null;
+	}
+};
+
+
 Liftium.getRequestVal = function(varName, defaultVal, qstring){
         var nvpairs = Liftium.parseQueryString(qstring || document.location.search);
         if (typeof nvpairs[varName] != "undefined"){
