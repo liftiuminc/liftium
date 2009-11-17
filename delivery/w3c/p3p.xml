@@ -1,5 +1,5 @@
 <!-- http://msdn.microsoft.com/en-us/library/ms537341(VS.85).aspx -->
-<META xmlns="http://www.w3.org/2000/12/p3pv1">
+<META xmlns="http://www.w3.org/2002/01/P3Pv1">
  <POLICY-REFERENCES>
     <POLICY-REF about="full_p3p_policy.xml">
        <INCLUDE>\*</INCLUDE>

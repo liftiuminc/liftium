@@ -1,39 +1,24 @@
-<!-- http://msdn.microsoft.com/en-us/library/ms537341(VS.85).aspx -->
-<POLICY xmlns="http://www.w3.org/2000/12/p3pv1"
-    discuri="http://www.liftium.com/privacy-policy"  
-    opturi="http://www.liftium.com/privacy-policy">
- <ENTITY>
+<POLICIES xmlns="http://www.w3.org/2002/01/P3Pv1">
+<POLICY discuri="http://www.liftium.com/privacy-policy"
+name="policy">
+<ENTITY>
   <DATA-GROUP>
    <DATA ref="#business.name">Liftium Incorporated</DATA>
-   <DATA ref="#business.contact-info.postal.street">32 Castledown Rd</DATA>
-   <DATA ref="#business.contact-info.postal.city">Pleasanton</DATA>
    <DATA ref="#business.contact-info.postal.stateprov">CA</DATA>
-   <DATA ref="#business.contact-info.postal.postalcode">94566</DATA>
    <DATA ref="#business.contact-info.postal.country">USA</DATA>
    <DATA ref="#business.contact-info.online.email">support@liftium.com</DATA>
-   <DATA ref="#business.contact-info.telecom.telephone.intcode">1</DATA>
-   <DATA ref="#business.contact-info.telecom.telephone.loccode">949</DATA>
-   <DATA ref="#business.contact-info.telecom.telephone.number">9225564</DATA>
+   <DATA ref="#business.contact-info.online.uri">http://www.liftium.com/</DATA>
   </DATA-GROUP>
  </ENTITY>
  <ACCESS><nonident/></ACCESS>
 <STATEMENT>
-  <PURPOSE><admin/><develop/></PURPOSE>
+  <PURPOSE><admin/><develop/><current/></PURPOSE>
   <RECIPIENT><ours/></RECIPIENT>
-  <RETENTION><stated-purpose/></RETENTION>
-  <DATA-GROUP>
-    <DATA ref="#dynamic.clickstream.server"/>
-    <DATA ref="#dynamic.http.useragent"/>
-  </DATA-GROUP>
-</STATEMENT>
-<STATEMENT>
-  <PURPOSE><pseudo-analysis required="opt-in"/></PURPOSE>
-  <RECIPIENT><other-recipient/></RECIPIENT>
   <RETENTION><indefinitely/></RETENTION>
   <DATA-GROUP>
-    <DATA ref="#user.home-info.postal.postalcode">
-      <CATEGORIES><demographic/></CATEGORIES>
-    </DATA>
+    <DATA ref="#dynamic.clickstream"/>
+    <DATA ref="#dynamic.http"/>
   </DATA-GROUP>
 </STATEMENT>
 </POLICY>
+</POLICIES>
