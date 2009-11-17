@@ -1270,7 +1270,7 @@ Liftium.onLoadHandler = function () {
  */
 Liftium.parseQueryString = function (qs){
         var ret = [];
-        if (Liftium.e(qs)) { return ret; }
+        if (typeof qs != "string" || qs === "") { return ret; }
 
         if (qs.charAt(0) === '?') { qs = qs.substr(1); }
 

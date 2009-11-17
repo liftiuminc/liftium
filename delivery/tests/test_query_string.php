@@ -74,6 +74,15 @@ if (Liftium.buildQueryString(nvpairs, ";") == "%24var1=val1;var2=%22val%20encode
 	LiftiumTest.testFailed();
 }
 
+// Stuff other than a string 
+nvpairs = Liftium.parseQueryString(null);
+if (typeof nvpairs == "object" && nvpairs.length == 0){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+
+
 </script>
 
 <?php require 'footer.php'?>
