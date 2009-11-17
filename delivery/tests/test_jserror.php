@@ -1,4 +1,4 @@
-<?php $pubid = 1046 ?>
+<?php $LiftiumOptions = array("offline" => true) ?>
 <?php require 'header.php'?>
 
 <!-- For this test, we are testing errors, so turn the default error catching off -->

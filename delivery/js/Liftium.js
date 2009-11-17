@@ -137,8 +137,8 @@ Liftium.buildQueryString = function(nvpairs, sep){
 
 
 Liftium.callAd = function (sizeOrSlot, iframe) {
-	if (LiftiumOptions.disabled){
-		Liftium.d("Not printing tag because LiftiumOptions.disabled is set");
+	if (LiftiumOptions.offline){
+		Liftium.d("Not printing tag because LiftiumOptions.offline is set");
 		return false;
 	}
 
@@ -1956,7 +1956,7 @@ if (window.Liftium){
 
 
 // Gentlemen, Start your optimization!
-LiftiumOptions.disabled || Liftium.init();
+LiftiumOptions.offline || Liftium.init();
 
 // If an ad was specified in LiftiumOptions, call the ad directly
 if (LiftiumOptions && LiftiumOptions.callAd){

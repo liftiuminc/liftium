@@ -1,9 +1,9 @@
+<?php $LiftiumOptions = array("disabled"=> true) ?>
 <?php require 'header.php'?>
 This page is for testing Liftium.getReferreringKeywords
 <p>
 <script>
 // Google
-/*
 if ( Liftium.getReferringKeywords("http://www.google.com/?q=pet+diabetes") == "pet diabetes google"){
 	LiftiumTest.testPassed();
 } else {
@@ -34,7 +34,6 @@ if ( Liftium.getReferringKeywords("blah") == "pet diabetes ask"){
 } else {
 	LiftiumTest.testFailed();
 }
-*/
 </script>
 
 <?php require 'footer.php'?>

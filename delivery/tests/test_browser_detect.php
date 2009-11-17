@@ -1,3 +1,4 @@
+<?php $LiftiumOptions = array("offline" => true) ?>
 <?php require 'header.php'?>
 This page is for testing BrowserDetect
 <p>

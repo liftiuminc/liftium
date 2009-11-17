@@ -1,3 +1,4 @@
+<?php $LiftiumOptions = array("offline" => true) ?>
 <?php require 'header.php'?>
 This page is for testing Liftium.handleNetworkOptions, which sets special javascript up depending the network and what is passed in Liftium.options
 <p>
