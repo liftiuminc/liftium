@@ -1107,16 +1107,6 @@ Liftium.isValidCriteria = function (t){
                 return t['isValidCriteria'];
         }
 
-	// Don't use iframes if no xdm iframe path is set on a browser that doesn't support it
-	if (!XDM.canPostMessage() &&
-		Liftium.e(Liftium.config.xdm_iframe_path) && 
-		t["tag"].toString().match(/iframe/i) &&
-		t["always_fill"] != 1){
-		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path. tagid #" + t["tag_id"], "tag");
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
-	}
-
 	// Frequency
         if (!Liftium.e(t["freq_cap"])){
                 var a = Liftium.getTagStat(t["tag_id"], "a");
@@ -1181,6 +1171,16 @@ Liftium.isValidCriteria = function (t){
                         }
                 }
         }
+
+	// Don't use iframes if no xdm iframe path is set on a browser that doesn't support it
+	if (!XDM.canPostMessage() &&
+		Liftium.e(Liftium.config.xdm_iframe_path) && 
+		t["tag"].toString().match(/iframe/i) &&
+		t["always_fill"] != 1){
+		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path. tagid #" + t["tag_id"], "tag");
+                t['isValidCriteria'] = false;
+                return t['isValidCriteria'];
+	}
 
         // All criteria passed 
         Liftium.d("Targeting criteria passed for tag #" + t["tag_id"], 8);
