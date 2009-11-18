@@ -44,6 +44,8 @@ if ($type == "tag"){
 } else if (empty($line)){
 	// If line is 0, we won't be able to debug.
 	$emailto = false;
+} else if (preg_match("/xdm_iframe_path/", $msg)){
+	$emailto = false;
 } else if (!strstr($url, "liftium.com")){
 	// Not our site. Log it, no e-mail and no stats
 	$statit = false;
