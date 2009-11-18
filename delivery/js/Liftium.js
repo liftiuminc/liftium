@@ -1111,7 +1111,7 @@ Liftium.isValidCriteria = function (t){
 	if (!XDM.canPostMessage() &&
 		Liftium.e(Liftium.config.xdm_iframe_path) && 
 		t["tag"].toString().match(/iframe/i) &&
-		t["always_fill"] == 1){
+		t["always_fill"] != 1){
 		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path. tagid #" + t["tag_id"], "tag");
                 t['isValidCriteria'] = false;
                 return t['isValidCriteria'];
