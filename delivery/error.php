@@ -13,7 +13,7 @@ if (preg_match("/error on line #([0-9]+) of (https*:\/\/[^ :]+)/", $msg, $match)
 	$url = trim($match[2]);
 } else {
 	$line = "-1";
-	$url = "UnkwownUrl";
+	$url = "UnknownUrl";
 }
 
 // Debug
@@ -37,14 +37,14 @@ $emailto = array("nick@liftium.com");
 
 
 // Triage
-if ($type == "tag"){
+if (preg_match("/xdm_iframe_path/", $msg)){
+	$emailto = false;
+} else if ($type == "tag"){
 } else if ($lang != "en" ){
 	// Can't read these anyway
 	$emailto = false;
 } else if (empty($line)){
 	// If line is 0, we won't be able to debug.
-	$emailto = false;
-} else if (preg_match("/xdm_iframe_path/", $msg)){
 	$emailto = false;
 } else if (!strstr($url, "liftium.com")){
 	// Not our site. Log it, no e-mail and no stats
