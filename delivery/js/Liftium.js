@@ -529,7 +529,9 @@ Liftium.getAlwaysFillAd = function(size){
 };
 
 
-/* Get the users country */
+/* Get the users country
+ * FIXME: Return "unknown" instead of "us" on error
+ * */
 Liftium.getCountry = function(){
         if (!Liftium.e(Liftium.getCountryFound)){
                 return Liftium.getCountryFound;
@@ -1106,9 +1108,11 @@ Liftium.isValidCriteria = function (t){
         }
 
 	// Don't use iframes if no xdm iframe path is set on a browser that doesn't support it
-	if (!XDM.canPostMessage() && Liftium.e(Liftium.config.xdm_iframe_path) && 
-		t["tag"].toString().match(/iframe/i)){
-		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path");
+	if (!XDM.canPostMessage() &&
+		Liftium.e(Liftium.config.xdm_iframe_path) && 
+		t["tag"].toString().match(/iframe/i) &&
+		t["always_fill"] == 1){
+		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path", "tag");
                 t['isValidCriteria'] = false;
                 return t['isValidCriteria'];
 	}
