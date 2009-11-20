@@ -52,6 +52,9 @@ if (preg_match("/xdm_iframe_path/", $msg)){
 	$emailto = false;
 }
 
+// Turn it off, too noisy to be useful.
+$mailto=false;
+
 // Create message
 $message = "$ip|Pubid:$pubid|$msg|" . @$_SERVER['HTTP_REFERER'] . "|$browser";
 
