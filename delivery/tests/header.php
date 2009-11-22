@@ -28,13 +28,13 @@ if (empty($_GET['liftium_debug'])){
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/logger/assets/skins/sam/logger.css"/>
   <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/logger/logger-min.js"></script>
 <?php } ?>
-<script><?php echo "LiftiumOptions = " . json_encode($LiftiumOptions)?></script>
-<script type="text/javascript" src="LiftiumTest.js"></script>
 <?php
 if (empty($dontCallLiftiumJs)){
 ?>
+<script><?php echo "LiftiumOptions = " . json_encode($LiftiumOptions)?></script>
 <script type="text/javascript" src="../js/Liftium.js?<?php echo mt_rand()?>"></script>
 <?php } ?>
+<script type="text/javascript" src="LiftiumTest.js"></script>
 <style type="text/css">
 .adunit {
 	border: 1px dashed black;

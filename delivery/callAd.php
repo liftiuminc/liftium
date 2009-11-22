@@ -15,7 +15,7 @@ require dirname(__FILE__) . '/../includes/Framework.php';
  * Specifically, they don't block the execution of tags properly in the correct order.
  * Use PHP to pull these together into one combined call
  */
-echo "LiftiumOptions.autoInit = false;\n";
+echo "LiftiumOptions = " . json_encode(array("pubid" => intval($_GET['pubid']), "autoInit" => false )) . ";\n";
 echo "\n/* Begin Liftium.js */\n";
 echo file_get_contents("js/Liftium.js");
 
