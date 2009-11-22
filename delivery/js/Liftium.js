@@ -984,12 +984,6 @@ Liftium.in_array = function (needle, haystack, ignoreCase){
 
 Liftium.init = function () {
 
-	if (Liftium.initCalled) {
-		Liftium.d("Liftium.init skipped because it's already been called");
-		return true;
-	} else {
-		Liftium.initCalled = true;
-	}
         Liftium.now = new Date();
         Liftium.startTime = Liftium.now.getTime();
         Liftium.debugLevel = Liftium.getRequestVal('liftium_debug', 0);
@@ -1000,6 +994,7 @@ Liftium.init = function () {
 	}
 
 	Liftium.pullConfig();
+	Liftium.pullGeo();
 	
 	Liftium.addEventListener(window, "load", Liftium.onLoadHandler);
 
@@ -1307,11 +1302,11 @@ Liftium.parseQueryString = function (qs){
 };      
 
 
+
 /* Pull the configuration data from our servers */
 Liftium.pullConfig = function (){
 
 	if (Liftium.config) {
-		Liftium.d("Liftium.pullConfig skipped because it's already been called");
 		return; 
 	}
 
@@ -1320,7 +1315,7 @@ Liftium.pullConfig = function (){
                 "v": 1.2 // versioning for config
         };
 
-	// Simulate a small delay (used by unit tests
+	// Simulate a small delay (used by unit tests)
 	if (!Liftium.e(LiftiumOptions.config_delay)){
 		p.config_delay = LiftiumOptions.config_delay;
 		p.cb = Math.random();
@@ -1334,12 +1329,16 @@ Liftium.pullConfig = function (){
         var u = Liftium.baseUrl  + 'config?' + Liftium.buildQueryString(p);
         Liftium.d("Loading config from " + u, 2);
         Liftium.loadScript(u);
+};
 
-
+/* Pull the geo data from our servers */
+Liftium.pullGeo = function (){
+	if (Liftium.geo) {
+		return; 
+	}
         Liftium.d("Loading geo data from " + Liftium.geoUrl, 3);
         Liftium.loadScript(Liftium.geoUrl);
 };
-
 
 /* Javascript equivalent of php's print_r.  */
 Liftium.print_r = function (data, level) {
@@ -1962,7 +1961,9 @@ if (window.Liftium){
 
 
 // Gentlemen, Start your optimization!
-LiftiumOptions.offline || Liftium.init();
+if (Liftium.empty(LiftiumOptions.offline) && LiftiumOptions.autoInit !== false){
+	Liftium.init();
+}
 
 // If an ad was specified in LiftiumOptions, call the ad directly
 if (LiftiumOptions && LiftiumOptions.callAd){
