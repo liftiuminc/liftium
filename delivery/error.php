@@ -13,8 +13,8 @@ if (preg_match("/Error on line #([0-9]+) of (https*:\/\/[^ ]+) :/", $msg, $match
 	$line = $match[1];
 	$url = trim($match[2]);
 } else {
-	$line = "-1";
-	$url = "UnknownUrl";
+	$line = null;
+	$url = null;
 }
 
 // Debug
