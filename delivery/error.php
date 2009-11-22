@@ -8,6 +8,7 @@ $pubid = Framework::getRequestVal("pubid", "UnknownPubid");
 $browser = Framework::getBrowser();
 $ip = Framework::getIp();
 $msg = Framework::getRequestVal("msg");
+$tag_id = Framework::getRequestVal("tag_id");
 if (preg_match("/error on line #([0-9]+) of (https*:\/\/[^ :]+)/", $msg, $match)){
 	$line = $match[1];
 	$url = trim($match[2]);
@@ -26,6 +27,7 @@ if (!empty($_GET['debug'])){
 	echo "browser = $browser\n";
 	echo "ip = $ip\n";
 	echo "msg = $msg\n";
+	echo "tag_id = $tag_id\n";
 	echo "</pre>";
 
 	phpinfo(INFO_VARIABLES);
@@ -60,9 +62,17 @@ $message = "$ip|Pubid:$pubid|$msg|" . @$_SERVER['HTTP_REFERER'] . "|$browser";
 
 // Log the message
 if ($logit) {
-	// Write to a log file
-	ini_set('error_log', '/home/tempfiles/10days/jserrors.' . @$_GET['type'] . '.' . date('Y-m-d'));
-	error_log($message);
+	$load = sys_getloadavg();
+	if ($load[0] > 5){
+		// Write to a log file
+		ini_set('error_log', '/home/tempfiles/10days/jserrors.' . @$_GET['type'] . '.' . date('Y-m-d'));
+		error_log($message);
+	} else {
+		$db = Framework::getDB("master");
+		$db->exec("INSERT INTO javascript_errors VALUES(NULL, NOW(), " . $db->quote($pubid) . "," .
+			$db->quote($tag_id) . "," . $db->quote($type) . "," . $db->quote($lang) . "," . $db->quote($browser) .
+			"," . $db->quote($ip) . "," . $db->quote($msg). ");");
+	}
 }
 
 // Send e-mail
