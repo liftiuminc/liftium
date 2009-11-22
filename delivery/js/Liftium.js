@@ -727,7 +727,7 @@ Liftium.getRequestVal = function(varName, defaultVal, qstring){
 /* Look through the list of ads in the potential chain, and find one that is sample-able */
 Liftium.getSampledAd = function(size){
         // Build up an array of the sample stats.
-        var sArray = [], total = 0, myRandom = Liftium.rand * 100;
+        var sArray = [], total = 0, myRandom = Math.random() * 100;
         for (var i = 0, l = Liftium.config.sizes[size].length; i < l; i++){
                 var sample_rate = parseFloat(Liftium.config.sizes[size][i]['sample_rate']);
                 if (Liftium.e(sample_rate)){
