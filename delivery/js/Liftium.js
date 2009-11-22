@@ -1458,6 +1458,9 @@ Liftium.reportError = function (msg, type) {
 		'pubid' : LiftiumOptions.pubid,
 		'lang' : Liftium.getBrowserLang()
 	};
+	if (type == "tag"){
+		p.tag_id = Liftium.lastTag["tag_id"];
+	}
 
 	Liftium.beaconCall(Liftium.baseUrl + "error?" + Liftium.buildQueryString(p));
 
