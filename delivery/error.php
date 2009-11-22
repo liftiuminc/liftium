@@ -68,10 +68,11 @@ if ($logit) {
 		ini_set('error_log', '/home/tempfiles/10days/jserrors.' . @$_GET['type'] . '.' . date('Y-m-d'));
 		error_log($message);
 	} else {
+		$justMsg = trim(preg_replace("/error on line #([0-9]+) of (https*:\/\/[^ :]+)/", "", $msg));
 		$db = Framework::getDB("master");
 		$db->exec("INSERT INTO javascript_errors VALUES(NULL, NOW(), " . $db->quote($pubid) . "," .
 			$db->quote($tag_id) . "," . $db->quote($type) . "," . $db->quote($lang) . "," . $db->quote($browser) .
-			"," . $db->quote($ip) . "," . $db->quote($msg). ");");
+			"," . $db->quote($ip) . "," . $db->quote($justMsg). "," . $db->quote($url) . "," . $db->quote($line) . ");");
 	}
 }
 
