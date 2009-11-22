@@ -250,6 +250,7 @@ Liftium.catchError = function (msg, url, line) {
 		if (typeof msg == "object"){
 			jsmsg = "Error object: " + Liftium.print_r(msg);
 		} else {
+			// Careful of the format here, it's processed by error.php
 			jsmsg = "Error on line #" + line + " of " + url + " : " + msg;
 		}
 
@@ -1421,6 +1422,11 @@ Liftium.reportError = function (msg, type) {
   // all hell breaks loose
   try { 
 	Liftium.d("Liftium ERROR: " + msg);
+	if (Liftium.getBrowserLang() != "en"){
+		// Sorry non english speakers
+		return;
+	}
+
 
 	// Note that the Unit tests also track the number of errors
 	if (typeof Liftium.errorCount != "undefined") {
@@ -1444,7 +1450,8 @@ Liftium.reportError = function (msg, type) {
 		"urchin",
 		"greasemonkey",
 		"Permission denied", // Ads trying to get the window location, which isn't allowed
-		"Unexpected token ILLEGAL" // Wierd Chrome error about postmessage from Google Ads. 
+		"Unexpected token ILLEGAL", // Wierd Chrome error about postmessage from Google Ads. 
+		"Access is denied" // Bad iframe access from IE
 	];
 	for (var i = 0; i < ignores.length; i++){
 		if (msg.indexOf(ignores[i]) >= 0){
@@ -1456,7 +1463,7 @@ Liftium.reportError = function (msg, type) {
 		'msg' : msg,
 		'type': type || "general",
 		'pubid' : LiftiumOptions.pubid,
-		'lang' : Liftium.getBrowserLang()
+		'lang' : "en" // hard coded for now, because we excluded above
 	};
 	if (type == "tag"){
 		p.tag_id = Liftium.lastTag["tag_id"];
