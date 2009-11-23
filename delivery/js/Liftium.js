@@ -71,6 +71,21 @@ Liftium.buildChain = function(slotname) {
         // Sort the chain. Done client side for better caching and randomness
         Liftium.config.sizes[size].sort(Liftium.chainSort);
 
+	// Forced Ad (for troubleshooting)
+	var forcedAd = Liftium.getRequestVal('liftium_tag');
+	if (!Liftium.e(forcedAd)){
+        	for (var j = 0, l2 = Liftium.config.sizes[size].length; j < l2; j++){
+                	var tf = Liftium.clone(Liftium.config.sizes[size][j]);
+			if (tf["tag_id"] == forcedAd){
+				Liftium.d("Forcing tagid#" + forcedAd + " on the front of the chain.", 1, t);
+                        	Liftium.config.sizes[size][j]['inChain'] = true;
+                        	Liftium.chain[slotname].push(tf);
+                        	networks.push(tf["network_name"] + ", #" + tf["tag_id"]);
+			}
+		}
+	}
+		
+	
 	// Build the chain
         for (var i = 0, l = Liftium.config.sizes[size].length; i < l; i++){
                 var t = Liftium.clone(Liftium.config.sizes[size][i]);
@@ -1551,9 +1566,6 @@ Liftium.sendBeacon = function (){
 
         // Pass along other goodies
         b.country = Liftium.getCountry();
-        if (!Liftium.e(window.wgUserName)){
-              b.loggedIn = true;
-        }
 
         // Timeouts
         var slotTimeouts = 0;
