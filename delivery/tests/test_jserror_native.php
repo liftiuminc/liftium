@@ -1,4 +1,4 @@
-<?php $LiftiumOptions = array("beacon_error" => false) ?>
+<?php $LiftiumOptions = array("beacon_error" => false, "offline" => true) ?>
 <?php require 'header.php';?>
 <!-- For this test, we are testing errors, so turn the default error catching off -->
 <script>window.failTestOnError = false;</script>

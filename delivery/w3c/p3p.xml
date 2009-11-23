@@ -1,0 +1,9 @@
+<!-- http://msdn.microsoft.com/en-us/library/ms537341(VS.85).aspx -->
+<META xmlns="http://www.w3.org/2002/01/P3Pv1">
+ <POLICY-REFERENCES>
+    <POLICY-REF about="full_p3p_policy.xml">
+       <INCLUDE>\*</INCLUDE>
+       <COOKIE-INCLUDE name="*" value="*" domain="*" path="*"/>
+    </POLICY-REF>
+ </POLICY-REFERENCES>
+</META>

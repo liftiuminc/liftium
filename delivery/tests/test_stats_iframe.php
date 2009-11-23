@@ -1,5 +1,5 @@
 <?php require 'header.php'?>
-This page is for testing Liftium ad stats, without iframes
+This page is for testing Liftium ad stats, with iframes
 <p>
 <script>
 // Clear the existing stats for idempotency

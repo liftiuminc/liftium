@@ -8,12 +8,13 @@ $pubid = Framework::getRequestVal("pubid", "UnknownPubid");
 $browser = Framework::getBrowser();
 $ip = Framework::getIp();
 $msg = Framework::getRequestVal("msg");
-if (preg_match("/error on line #([0-9]+) of (https*:\/\/[^ :]+)/", $msg, $match)){
+$tag_id = Framework::getRequestVal("tag_id");
+if (preg_match("/Error on line #([0-9]+) of (https*:\/\/[^ ]+) :/", $msg, $match)){
 	$line = $match[1];
 	$url = trim($match[2]);
 } else {
-	$line = "-1";
-	$url = "UnkwownUrl";
+	$line = null;
+	$url = null;
 }
 
 // Debug
@@ -26,6 +27,9 @@ if (!empty($_GET['debug'])){
 	echo "browser = $browser\n";
 	echo "ip = $ip\n";
 	echo "msg = $msg\n";
+	echo "tag_id = $tag_id\n";
+	echo "url = $url\n";
+	echo "line = $line\n";
 	echo "</pre>";
 
 	phpinfo(INFO_VARIABLES);
@@ -37,7 +41,9 @@ $emailto = array("nick@liftium.com");
 
 
 // Triage
-if ($type == "tag"){
+if (preg_match("/xdm_iframe_path/", $msg)){
+	$emailto = false;
+} else if ($type == "tag"){
 } else if ($lang != "en" ){
 	// Can't read these anyway
 	$emailto = false;
@@ -50,14 +56,26 @@ if ($type == "tag"){
 	$emailto = false;
 }
 
+// Turn it off, too noisy to be useful.
+$emailto=false;
+
 // Create message
 $message = "$ip|Pubid:$pubid|$msg|" . @$_SERVER['HTTP_REFERER'] . "|$browser";
 
 // Log the message
 if ($logit) {
-	// Write to a log file
-	ini_set('error_log', '/home/tempfiles/10days/jserrors.' . @$_GET['type'] . '.' . date('Y-m-d'));
-	error_log($message);
+	$load = sys_getloadavg();
+	if ($load[0] > 5){
+		// Write to a log file
+		ini_set('error_log', '/home/tempfiles/10days/jserrors.' . @$_GET['type'] . '.' . date('Y-m-d'));
+		error_log($message);
+	} else {
+		$justMsg = trim(preg_replace("/Error on line #([0-9]+) of (https*:\/\/[^ ]+) :/", "", $msg));
+		$db = Framework::getDB("master");
+		$db->exec("INSERT INTO javascript_errors VALUES(NULL, NOW(), " . $db->quote($pubid) . "," .
+			$db->quote($tag_id) . "," . $db->quote($type) . "," . $db->quote($lang) . "," . $db->quote($browser) .
+			"," . $db->quote($ip) . "," . $db->quote($justMsg). "," . $db->quote($url) . "," . $db->quote($line) . ");");
+	}
 }
 
 // Send e-mail

@@ -1,3 +1,4 @@
+<?php $LiftiumOptions = array("offline" => true) ?>
 <?php require 'header.php'?>
 This page is for testing Liftium.parseQueryString and Liftium.buildQueryString.
 <p>
@@ -68,6 +69,23 @@ if (nvpairs.$var1 == "val1" && nvpairs.var2 == '"val encoded"') {
 	LiftiumTest.testFailed();
 }
 if (Liftium.buildQueryString(nvpairs, ";") == "%24var1=val1;var2=%22val%20encoded%22"){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+
+// Stuff other than a string 
+nvpairs = Liftium.parseQueryString(null);
+if (typeof nvpairs == "object" && nvpairs.length == 0){
+	LiftiumTest.testPassed();
+} else {
+	LiftiumTest.testFailed();
+}
+
+
+// + 
+nvpairs = Liftium.parseQueryString("?var1=val1&var2=%22val+encoded%22");
+if (nvpairs.var1 == "val1" && nvpairs.var2 == '"val encoded"') {
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
