@@ -406,8 +406,6 @@ Liftium.debug = function (msg, level){
                 if (arguments.length > 2){
                         console.log(Liftium.print_r(Liftium.d.arguments[2]));
                 }
-        } else {
-                alert("Liftium debug: " + msg);
         }
 
         return true;
