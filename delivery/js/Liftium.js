@@ -11,7 +11,8 @@ var Liftium = {
 	chain 		: [],
 	geoUrl 		: "http://geoip.liftium.com/",
 	calledSlots 	: [],
-        rejTags         : []
+        rejTags         : [],
+	maxHops 	: 5
 };
 
 
