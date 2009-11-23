@@ -81,7 +81,7 @@ Liftium.buildChain = function(slotname) {
 
                         if (t['always_fill'] == 1){
                                 Liftium.d("Chain complete - last ad is always_fill", 2, networks);
-                                return true;
+                                break;
                         } else if (Liftium.chain[slotname].length == Liftium.maxHops - 1){
                                 // Chain is full
                                 break;
@@ -92,10 +92,12 @@ Liftium.buildChain = function(slotname) {
         }
 
         // AlwaysFill ad.
-        var gAd = Liftium.getAlwaysFillAd(size);
-	if ( gAd !== false) {
-		Liftium.chain[slotname].push(gAd);
-		networks.push("AlwaysFill: " + gAd["network_name"] + ", #" + gAd["tag_id"]);
+        if (Liftium.chain[slotname][Liftium.chain[slotname].length-1]['always_fill'] != 1){
+        	var gAd = Liftium.getAlwaysFillAd(size);
+		if ( gAd !== false) {
+			Liftium.chain[slotname].push(gAd);
+			networks.push("AlwaysFill: " + gAd["network_name"] + ", #" + gAd["tag_id"]);
+		}
 	}
 
         // Sampled ad
