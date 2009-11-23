@@ -91,6 +91,10 @@ Liftium.buildChain = function(slotname) {
 		}
         }
 
+	if (Liftium.e(Liftium.chain[slotname])){
+		return false;
+	}
+
         // AlwaysFill ad.
         if (Liftium.chain[slotname][Liftium.chain[slotname].length-1]['always_fill'] != 1){
         	var gAd = Liftium.getAlwaysFillAd(size);
@@ -1147,6 +1151,14 @@ Liftium.isValidCriteria = function (t){
                           case 'browser':
                                 if ( ! Liftium.isValidBrowser(t.criteria.browser[0])){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid browser", 8);
+                                        t['isValidCriteria'] = false;
+                                        return t['isValidCriteria'];
+                                }
+                                break;
+                          case 'domain':
+				LiftiumOptions.domain = LiftiumOptions.domain || document.domain;
+                                if ( t.criteria.domain[0] != LiftiumOptions.domain ){
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid domain", 8);
                                         t['isValidCriteria'] = false;
                                         return t['isValidCriteria'];
                                 }
