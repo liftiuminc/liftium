@@ -564,12 +564,12 @@ Liftium.getCountry = function(){
                 Liftium.d("Using liftium_country for geo targeting (" + ac + ")", 8);
         } else if (typeof Liftium.geo == "undefined") {
                 // sometimes geo isn't available because geoiplookup hasn't returned
-                Liftium.reportError("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
+                // Liftium.reportError("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
                 return "us"; // Bail here so Liftium.getCountryFound doesn't get set
         } else if (typeof Liftium.geo.country == "undefined" ) {
                 // It downloaded, but it's empty, because we were unable to determine the country
                 Liftium.d("Unable to find a country for this IP, defaulting to US");
-                ac = "us";
+                ac = "unkown";
         } else {
                 // Everything worked
                 ac = Liftium.geo.country.toLowerCase();
@@ -2001,6 +2001,6 @@ if (Liftium.empty(LiftiumOptions.offline) && LiftiumOptions.autoInit !== false){
 }
 
 // If an ad was specified in LiftiumOptions, call the ad directly
-if (LiftiumOptions && LiftiumOptions.callAd){
+if (LiftiumOptions.callAd){
 	Liftium.callAd(LiftiumOptions.callAd);
 }
