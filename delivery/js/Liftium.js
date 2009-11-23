@@ -1508,10 +1508,9 @@ Liftium.errorMessage = function (e) {
 Liftium.sendBeacon = function (){
 
 	// This is called a second time from the *un*load handler, so make sure we don't call the beacon twice.
-        if (!Liftium.e(Liftium.beaconCalled)){
+        if (!Liftium.e(Liftium.beacon)){
                 return true;
         }
-        Liftium.beaconCalled = true;
 
         // Throttle the beacon
         var throttle;
@@ -1581,6 +1580,7 @@ Liftium.sendBeacon = function (){
         } else {
 		p = { "beacon": window.JSON.stringify(b) };
         }
+	Liftium.beacon = p;
  
         Liftium.beaconCall(Liftium.baseUrl + 'beacon?' + Liftium.buildQueryString(p));
  
