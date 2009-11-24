@@ -108,6 +108,11 @@ XDM._postMessageWithIframe = function(destWin, method, args) {
 		targetOrigin = 'http://' + d;
 	}
 
+        // Special hacks for different placements of the html file 
+        if (d.match(/brighthub/)){
+                XDM.iframeUrl = "/liftium_iframe.htm";
+        }
+
 	var iframeUrl = targetOrigin + XDM.iframeUrl + '?' + XDM.serializeMessage(method, args);
 	XDM.debug("Calling iframe dispatch url: " + iframeUrl);
 	
