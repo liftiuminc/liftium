@@ -1,5 +1,5 @@
 if (typeof LiftiumInspector == "undefined"){
-	LiftiumInspector = (function (){
+	var LiftiumInspector = (function (){
 		function LiftiumInspector () {
 		}
 
@@ -28,7 +28,7 @@ if (typeof LiftiumInspector == "undefined"){
 				var slotname = ad.id; //.replace(/^Liftium_/, "");
 				if (Liftium.e(Liftium.chain[slotname])){
 					// No chain found for it the slot.
-					//continue;
+					continue;
 				}
 
 				var overlay = document.createElement("div");
@@ -39,7 +39,7 @@ if (typeof LiftiumInspector == "undefined"){
 				overlay.style.top = "0px";
 				overlay.style.border = "1px solid #000";
 				overlay.style.backgroundColor = "#fff";
-				overlay.style.opacity = 0.5;
+				overlay.style.opacity = 0.85;
 
 				var div = document.createElement("div");
 				div.appendChild(document.createTextNode("Liftium Inspector"));
