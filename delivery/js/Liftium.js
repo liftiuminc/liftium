@@ -357,6 +357,8 @@ Liftium.crossDomainMessage = function (message){
 };
 
 
+/* Set/get cookies. Borrowed from a jquery plugin. Note that options.expires is either a date object,
+ * or a number of *milli*seconds until the cookie expires */
 Liftium.cookie = function(name, value, options) {
     if (arguments.length > 1) { // name and value given, set cookie
         options = options || {};
@@ -369,6 +371,7 @@ Liftium.cookie = function(name, value, options) {
             var d;
             if (typeof options.expires == 'number') {
                 d = new Date();
+		Liftium.d("Setting cookie expire " + options.expires + " milliseconds from " + d.toUTCString(), 5);
                 d.setTime(d.getTime() + (options.expires));
             } else {
                 d = options.expires;
@@ -381,6 +384,7 @@ Liftium.cookie = function(name, value, options) {
         var path = options.path ? '; path=' + (options.path) : '';
         var domain = options.domain ? '; domain=' + (options.domain) : '';
         var secure = options.secure ? '; secure' : '';
+        Liftium.d("Set-Cookie: " + [name, '=', encodeURIComponent(value), expires, path, domain, secure].join(''), 3);
         return document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
     } else { // only name given, get cookie
         var cookieValue = null;
@@ -415,11 +419,13 @@ Liftium.debug = function (msg, level){
                         console.dir(Liftium.d.arguments[2]);
                 }
         // Yahoo logging console
+        /*
         } else if (typeof YAHOO == "object" && YAHOO.log){
                 YAHOO.log(msg, "info", "Liftium");
                 if (arguments.length > 2){
                         YAHOO.log(Liftium.print_r(Liftium.d.arguments[2]), "info", "Liftium");
                 }
+	*/
 	// Default console, available on IE 8+, FF 3+ Safari 4+
         } else if (typeof console == "object" && console.log){
                 console.log("Liftium: " + msg);
@@ -1011,10 +1017,6 @@ Liftium.in_array = function (needle, haystack, ignoreCase){
 
 Liftium.init = function () {
 
-        Liftium.now = new Date();
-        Liftium.startTime = Liftium.now.getTime();
-        Liftium.debugLevel = Liftium.getRequestVal('liftium_debug', 0);
-
 	if (Liftium.e(LiftiumOptions.pubid)){
 		Liftium.reportError("LiftiumOptions.pubid must be set", "publisher"); // TODO: provide a link to documentation
 		return false;
@@ -1532,7 +1534,7 @@ Liftium.errorMessage = function (e) {
 	if (typeof e == "object" ){
 		// For now, so I can see what the format is for all browsers
 		return Liftium.print_r(e);
-	} else if (typeof e == "string"){
+	} else {
 		return e;
 	}
 };
@@ -1678,7 +1680,7 @@ Liftium.storeTagStats = function (){
 		  // FIXME for Wikia
                   //domain: Liftium.getCookieDomain(),
                   path: "/",
-                  expires: Liftium.now.getTime() + 86400
+                  expires: 86400 * 1000 // one day from now, in milliseconds
                  }
         );
 };
@@ -2015,6 +2017,12 @@ if (window.Liftium){
         return ret;
   }; 
 } // using Liftium parse query string
+
+/* Set up */
+Liftium.now = new Date();
+Liftium.startTime = Liftium.now.getTime();
+Liftium.debugLevel = Liftium.getRequestVal('liftium_debug', 0);
+
 
 } // \if (typeof Liftium == "undefined" ) 
 
