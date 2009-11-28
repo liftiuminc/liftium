@@ -1039,6 +1039,10 @@ Liftium.init = function () {
 	  Liftium.addEventListener(window, "DOMFrameContentLoaded", Liftium.iframeOnload);
 	}
 
+	if (Liftium.getRequestVal('liftium_exclude_tag')){
+		LiftiumOptions.exclude_tags = [ Liftium.getRequestVal('liftium_exclude_tag') ];
+	}
+
 	return true;
 };
 
@@ -1123,6 +1127,15 @@ Liftium.isValidCriteria = function (t){
                 return t['isValidCriteria'];
         }
 
+	if (!Liftium.e(LiftiumOptions.exclude_tags) &&
+	     Liftium.in_array(t["tag_id"], LiftiumOptions.exclude_tags)){
+                Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
+                      " invalid: in LiftiumOptions excluded tags list", 2);
+                t['isValidCriteria'] = false;
+                return t['isValidCriteria'];
+	}
+		
+	
 	// Frequency
         if (!Liftium.e(t["freq_cap"])){
                 var a = Liftium.getTagStat(t["tag_id"], "a");
