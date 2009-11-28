@@ -702,10 +702,16 @@ Liftium.getNextTag = function(slotname){
         return Liftium.fillerAd(slotname, "No more tags left in the chain");
 };
 
+/* Do what we can to figure out the referring url.
+ * TODO: Consider if an iframe how to get the url */
+Liftium.getReferrer = function () {
+	return LiftiumOptions.referrer || document.referrer.toString();
+};
 
-Liftium.getReferringKeywords = function (referer){
+
+Liftium.getReferringKeywords = function (){
 		
-	var l = referer || document.referrer.toString(), kwords;
+	var l = Liftium.getReferrer(), kwords;
 	var qstring = l.match(/\?(.*)$/);
 	if (Liftium.e(qstring)){
 		qstring = [];

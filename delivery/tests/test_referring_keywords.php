@@ -9,25 +9,29 @@ Liftium.cookie("referringKeywords", "");
 
 <script>
 // Yahoo!
-if ( Liftium.getReferringKeywords("http://search.yahoo.com/search?p=pet+diabetes+yahoo") == "pet diabetes yahoo"){
+LiftiumOptions.referrer = "http://search.yahoo.com/search?p=pet+diabetes+yahoo";
+if ( Liftium.getReferringKeywords() == "pet diabetes yahoo"){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
 }
 // Bing
-if ( Liftium.getReferringKeywords("http://www.bing.com/search?q=pet+diabetes+bing") == "pet diabetes bing"){
+LiftiumOptions.referrer = "http://www.bing.com/search?q=pet+diabetes+bing";
+if ( Liftium.getReferringKeywords() == "pet diabetes bing"){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
 }
 // Ask
-if ( Liftium.getReferringKeywords("http://www.ask.com/web?q=pet+diabetes+ask") == "pet diabetes ask"){
+LiftiumOptions.referrer = "http://www.ask.com/web?q=pet+diabetes+ask";
+if ( Liftium.getReferringKeywords() == "pet diabetes ask"){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
 }
 // Google
-if ( Liftium.getReferringKeywords("http://www.google.com/?q=pet+diabetes+google") == "pet diabetes google"){
+LiftiumOptions.referrer = "http://www.google.com/?q=pet+diabetes+google";
+if ( Liftium.getReferringKeywords() == "pet diabetes google"){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
@@ -35,7 +39,8 @@ if ( Liftium.getReferringKeywords("http://www.google.com/?q=pet+diabetes+google"
 
 
 // Make sure that it remembered the last one with a cookie
-if ( Liftium.getReferringKeywords("blah") == "pet diabetes google"){
+LiftiumOptions.referrer = "";
+if ( Liftium.getReferringKeywords() == "pet diabetes google"){
 	LiftiumTest.testPassed();
 } else {
 	LiftiumTest.testFailed();
