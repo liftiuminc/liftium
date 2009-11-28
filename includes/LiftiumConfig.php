@@ -63,7 +63,7 @@ class LiftiumConfig{
 			tags.tag, tags.always_fill, tags.sample_rate,
 			tags.frequency_cap AS freq_cap, tags.size,
 			tags.rejection_time as rej_time, tags.tier, tags.value,
-			networks.tag_template
+			networks.tag_template, networks.pay_type
 			FROM tags
 			INNER JOIN networks ON tags.network_id = networks.id
 			WHERE tags.id = ? LIMIT 1";
@@ -94,6 +94,13 @@ class LiftiumConfig{
                         $tag_options[$row['option_name']]=$row['option_value'];
                 }
 
+
+		// Abbreviate pay_type
+		switch ($out['pay_type']){
+		  case "Per Impression" : $out['pay_type'] = "CPM"; break;
+		  case "Per Click" : $out['pay_type'] = "CPC"; break;
+		  case "Affliate" : $out['pay_type'] = "CPA"; break;
+		}
 
 		/*
 		// Get the slot names
