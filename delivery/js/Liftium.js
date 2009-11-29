@@ -1646,7 +1646,7 @@ Liftium.setAdjustedValues = function(tags){
 			reducer = 0.05;
 		}
 		// Reduce by $reducer for every attempt
-		for (var j = 0; j < attempts-1; j++){
+		for (var j = 0; j < attempts; j++){
 			avalue = avalue - (avalue * reducer);
 		}
 	
