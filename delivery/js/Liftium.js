@@ -62,11 +62,14 @@ Liftium.buildChain = function(slotname) {
         var networks = [];
         Liftium.chain[slotname] = [];
 
+
         // Do we have this slot?
         if (Liftium.e(Liftium.config.sizes[size])){
 		Liftium.reportError("Unrecognized size in Liftium: " + size, "publisher");
 		return false;
         }
+
+	Liftium.setAdjustedValues(Liftium.config.sizes[size]);
 
         // Sort the chain. Done client side for better caching and randomness
         Liftium.config.sizes[size].sort(Liftium.chainSort);
@@ -309,10 +312,12 @@ Liftium.chainSort = function(a, b){
         } else if (a_tier > b_tier){
                 return 1;
         } else {
+		/* 
                 // Same tier, sort by weighted random
-                var a_weight = Math.random() + (parseFloat(a['value']) || 0);
-                var b_weight = Math.random() + (parseFloat(b['value']) || 0);
-                return b_weight - a_weight;
+                var a_weight = Math.random() + (parseFloat(a['adjusted_value']) || 0);
+                var b_weight = Math.random() + (parseFloat(b['adjusted_value']) || 0);
+		*/
+                return b["adjusted_value"] - a["adjusted_value"];
         }
 };
 
@@ -845,12 +850,8 @@ Liftium.getSizeForSlotname = function (slotname){
 Liftium.getTagStat = function (tag_id, type){
         var stat = null;
 
-        if (Liftium.tagStats === undefined || Liftium.tagStats === null) {
-                var tagStats = Liftium.cookie("ATS");
-                if (tagStats === null) {
-                    tagStats = '';
-                }
-                Liftium.tagStats = tagStats;
+        if (Liftium.e(Liftium.tagStats)){
+		Liftium.tagStats = Liftium.getRequestVal("liftium_tag_stats", null) || Liftium.cookie("ATS") || "";
         }
 
         var statMatch = Liftium.tagStats.match(Liftium.getStatRegExp(tag_id));
@@ -1626,6 +1627,39 @@ Liftium.sendBeacon = function (){
         }
 	return true;
 };
+
+
+/* Tags lose their value for each impression, calculate an adjusted value here */
+Liftium.setAdjustedValues = function(tags){
+	var attempts, reducer, avalue;
+	for (var i = 0; i < tags.length; i++){
+		if (tags[i]["adjusted_value"]){
+			// Our work is done here
+			continue;
+		}
+
+		avalue = tags[i]["value"];
+        	attempts = Liftium.getTagStat(tags[i]["tag_id"], "a");
+		if (tags[i]["pay_type"] == "CPM"){
+			reducer = 0.2;
+		} else {
+			reducer = 0.05;
+		}
+		// Reduce by $reducer for every attempt
+		for (var j = 0; j < attempts-1; j++){
+			avalue = avalue - (avalue * reducer);
+		}
+	
+		// Never go below 15% of the original value
+		if (avalue < tags[i]["value"] * 0.15){
+			tags[i]["adjusted_value"] = tags[i]["value"] * 0.15;
+		} else {
+			tags[i]["adjusted_value"] = avalue;
+		}
+	}
+	return tags; // Not really necessary, because it modified values in place
+};
+
 
 /* Set loads/rejects for a tag. type is "l" or "r" */
 Liftium.setTagStat = function (tag_id, type){
