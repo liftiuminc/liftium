@@ -1393,7 +1393,7 @@ Liftium.pullGeo = function (){
 /* Javascript equivalent of php's print_r.  */
 Liftium.print_r = function (data, level) {
 	
-	if (data === null) { return "<<null>>"; }
+	if (data === null) { return "*null*"; }
 
         // Sanity check against too much recursion
 	level = level || 0;
@@ -1405,10 +1405,10 @@ Liftium.print_r = function (data, level) {
                 padding += "    ";
         }
 	switch (typeof data) {
-	  case "string" : return data === "" ? "<<empty string>>" : data;
-	  case "undefined" : return "<<undefined>>";
-	  case "boolean" : return data === true ? "<<true>>" : "<<false>>";
-	  case "function" : return "<<" + "function" + ">>";
+	  case "string" : return data === "" ? "*empty string*" : data;
+	  case "undefined" : return "*undefined*";
+	  case "boolean" : return data === true ? "*true*" : "*false*";
+	  case "function" : return "*function*" ;
 	  case "object" : // The fun one
 
 		var out = [];
@@ -1423,7 +1423,7 @@ Liftium.print_r = function (data, level) {
                         }
                 }
 		if (Liftium.e(out)){
-			return "<<empty object>>";
+			return "*empty object*";
 		} else {
 			return out.join("");
 		}
