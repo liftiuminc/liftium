@@ -1634,6 +1634,11 @@ Liftium.setAdjustedValues = function(tags){
 		if (tags[i]["adjusted_value"]){
 			// Our work is done here
 			continue;
+		} else if (parseInt(tags[i]["rej_time"], 10)) {
+			// For tags that have a rejection time set, the fill rate *improves*
+			// TODO: Skew this higher for more attempts
+			tags[i]["adjusted_value"] = tags[i]["value"] * 1.05;
+			continue;
 		}
 
 		avalue = tags[i]["value"];
