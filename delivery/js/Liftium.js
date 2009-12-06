@@ -313,8 +313,8 @@ Liftium.chainSort = function(a, b){
                 return 1;
         } else {
                 // Same tier, sort by weighted random
-                var a_weight = (Math.random() * parseFloat(a['adjusted_value'])) + (parseFloat(a['adjusted_value']) || 0);
-                var b_weight = (Math.random() * parseFloat(b['adjusted_value'])) + (parseFloat(b['adjusted_value']) || 0);
+                var a_weight = (Math.random() * parseFloat(a['adjusted_value']) * 0.5) + (parseFloat(a['adjusted_value']) || 0);
+                var b_weight = (Math.random() * parseFloat(b['adjusted_value']) * 0.5) + (parseFloat(b['adjusted_value']) || 0);
 		return b_weight - a_weight;
         }
 };
