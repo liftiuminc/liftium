@@ -8,11 +8,12 @@ if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
 	baseUrl		: "http://delivery.liftium.com/",
+	calledSlots 	: [], // Is this used?
 	chain 		: [],
 	geoUrl 		: "http://geoip.liftium.com/",
-	calledSlots 	: [],
-        rejTags         : [],
-	maxHops 	: 5
+	loadDelay 	: 100,
+	maxHops 	: 5,
+        rejTags         : []
 };
 
 
@@ -711,6 +712,25 @@ Liftium.getNextTag = function(slotname){
         return Liftium.fillerAd(slotname, "No more tags left in the chain");
 };
 
+
+Liftium.getPropertyCount = function (obj){
+  try {
+	if (typeof obj != "object") {
+		return 0;
+	}
+	var c = 0;
+	for (var property in obj){
+		if (obj.hasOwnProperty(property)){
+			c++;
+		}
+	}
+	return c;
+  } catch (e) {
+	return 0;
+  }
+};
+
+
 /* Do what we can to figure out the referring url.
  * TODO: Consider if an iframe how to get the url */
 Liftium.getReferrer = function () {
@@ -1060,7 +1080,8 @@ Liftium.init = function () {
  */
 Liftium.iframesLoaded = function(){
         var iframes = document.getElementsByTagName("iframe"); 
-	if (iframes.length === 0){ return true; }
+	var l = iframes.length;
+	if (l === 0){ return true; }
 
 	var b = BrowserDetect.browser;
 	if (Liftium.in_array(b, ["Firefox", "Gecko", "Mozilla"]) && Liftium.pageLoaded){
@@ -1068,15 +1089,24 @@ Liftium.iframesLoaded = function(){
 		return true;
 	} else if (Liftium.in_array(b, ["Explorer","Opera"]) && document.readyState == "complete") {
 		// We also need to check the document.readyState for each iframe
-		for (var i = 0; i < iframes.length; i++){
+		for (var i = 0; i < l; i++){
 			if (iframes[i].document.readyState != "complete"){
 				return false;
 			}
 		}
-		return true;
+		// And... their could be nested iframes, so wait at least 200 milliseconds for each slot
+		if (Liftium.loadDelay < 200){
+			return false;
+		} else {
+			return true;
+		}
 	} else { 
-		// All other browsers will send the beacon when the time runs up.
-		return false;
+		// All other browsers will send the beacon after waiting 1000 milliseconds for each iframe
+		if (Liftium.loadDelay < 1000 * l ){
+			return false;
+		} else {
+			return true;
+		}
 	}
 };
 
@@ -1300,9 +1330,8 @@ Liftium.normalizeColor = function(input){
 
 Liftium.onLoadHandler = function () {
 	Liftium.pageLoaded = true;
-	Liftium.loadDelay = Liftium.loadDelay || 100;
         if ( Liftium.iframesLoaded()) {
-		Liftium.sendBeacon();
+                Liftium.sendBeacon();
 	} else if (Liftium.loadDelay < 2500){
                 // Check again in a bit. Keep increasing the time
                 Liftium.loadDelay += Liftium.loadDelay;
