@@ -1303,7 +1303,7 @@ Liftium.onLoadHandler = function () {
 	Liftium.loadDelay = Liftium.loadDelay || 100;
         if ( Liftium.iframesLoaded()) {
 		Liftium.sendBeacon();
-	} else if (Liftium.loadDelay < 5000){
+	} else if (Liftium.loadDelay < 2500){
                 // Check again in a bit. Keep increasing the time
                 Liftium.loadDelay += Liftium.loadDelay;
                 window.setTimeout("Liftium.onLoadHandler()", Liftium.loadDelay);
