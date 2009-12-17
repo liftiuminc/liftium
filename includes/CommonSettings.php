@@ -23,7 +23,7 @@ ini_set('log_errors', true);
 
 // Misc global settings
 define('MYSQL_DATE_FORMAT', 'Y-m-d H:i:s');
-date_default_timezone_set('UTC'); // This suppresses E_STRICT notices when strtotime is called
+date_default_timezone_set('America/New_York'); // This suppresses E_STRICT notices when strtotime is called
 $IP = dirname(__FILE__) . '/';
 
 
