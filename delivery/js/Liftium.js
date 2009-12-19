@@ -222,6 +222,8 @@ Liftium._callAd = function (slotname, iframe) {
         Liftium.d("Ad #" + t["tag_id"] + " for " + t['network_name'] + " called in " + slotname);
         Liftium.d("Config = ", 6, t);
 
+	Liftium.trackEvent("tag", "attempt", t.tag_id);
+
         try { // try/catch block to isolate ad tag errors
 
                 if (!Liftium.e(iframe)){
@@ -240,6 +242,7 @@ Liftium._callAd = function (slotname, iframe) {
 		// This is probably never called, because the document.write hides it...
                 Liftium.reportError("Error loading tag #" + t.tag_id + ": " + Liftium.print_r(e), "tag");
         }
+
 
         return true;
 
@@ -1660,6 +1663,8 @@ Liftium.sendBeacon = function (){
  
         Liftium.d ("Liftium done, beacon sent");
 
+	// Track the beacons with GA
+	Liftium.trackEvent("beacon", "load", LiftiumOptions.pubid);
 
         // Call the unit tests
         if (window.LiftiumTest && typeof window.LiftiumTest.afterBeacon == "function"){
