@@ -31,7 +31,7 @@ if (empty($_GET['liftium_debug'])){
 <?php
 if (empty($dontCallLiftiumJs)){
 ?>
-<script><?php echo "LiftiumOptions = " . json_encode($LiftiumOptions)?></script>
+<script><?php echo "var LiftiumOptions = " . json_encode($LiftiumOptions)?></script>
 <script type="text/javascript" src="../js/Liftium.js?<?php echo mt_rand()?>"></script>
 <?php } ?>
 <script type="text/javascript" src="LiftiumTest.js"></script>
