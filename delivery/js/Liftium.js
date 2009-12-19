@@ -10,6 +10,7 @@ var Liftium = {
 	baseUrl		: "http://delivery.liftium.com/",
 	calledSlots 	: [], // Is this used?
 	chain 		: [],
+	eventsTracked   : 0,
 	geoUrl 		: "http://geoip.liftium.com/",
 	loadDelay 	: 100,
 	maxHops 	: 5,
@@ -32,15 +33,20 @@ Liftium.addEventListener = function(item, eventName, callback){
                 return item.addEventListener(eventName, callback, false);
         } else if (window.attachEvent){ // IE 
                 return item.attachEvent("on" + eventName, callback);
-        }
+        } else {
+		return false;
+	}
 };
 
 
-Liftium.beaconCall = function (url){
+Liftium.beaconCall = function (url, cb){
         // Create an image and call the beacon
         var img = new Image(0, 0);
         // Append a cache buster
-        img.src = url + '&cb=' + Math.random().toString().substring(2,8);
+        if (cb !== false){
+		url += '&cb=' + Math.random().toString().substring(2,8);
+	}
+        img.src = url;
 };
 
 
@@ -155,7 +161,7 @@ Liftium.buildQueryString = function(nvpairs, sep){
                 if (Liftium.e(nvpairs[name])){
                         continue;
                 }
-                out += sep + escape(name) + '=' + escape(nvpairs[name]);
+                out += sep + encodeURIComponent(name) + '=' + encodeURIComponent(nvpairs[name]);
         }
 
         return out.substring(sep.length);
@@ -740,6 +746,10 @@ Liftium.getReferrer = function () {
 };
 
 
+/* Look at the referring keywords for this page
+ * TODO: Found this snippet inside ga.js
+ * l("daum:q,eniro:search_word,naver:query,images.google:q,google:q,yahoo:p,msn:q,bing:q,aol:query,aol:encquery,lycos:query,ask:q,altavista:q,netscape:query,cnn:query,about:terms,mamma:query,alltheweb:q,voila:rdata,virgilio:qs,live:q,baidu:wd,alice:qs,yandex:text,najdi:q,aol:q,mama:query,seznam:q,search:q,wp:szukaj,onet:qt,szukacz:q,yam:k,pchome:q,kvasir:q,sesam:q,ozu:q,terra:query,mynet:q,ekolay:q,rambler:words");
+ * */
 Liftium.getReferringKeywords = function (){
 		
 	var l = Liftium.getReferrer(), kwords;
@@ -750,6 +760,7 @@ Liftium.getReferringKeywords = function (){
 		qstring = qstring[1];
 	}
 	var varNames = [ "q", "p" ];
+	
 
 	for (var i = 0; i < varNames.length; i++){
 		kwords = Liftium.getRequestVal(varNames[i], '', qstring);
@@ -1654,6 +1665,7 @@ Liftium.sendBeacon = function (){
         if (window.LiftiumTest && typeof window.LiftiumTest.afterBeacon == "function"){
                 window.LiftiumTest.afterBeacon();
         }
+
 	return true;
 };
 
@@ -1751,6 +1763,42 @@ Liftium.storeTagStats = function (){
                   expires: 86400 * 1000 // one day from now, in milliseconds
                  }
         );
+};
+
+
+/* Event tracking. Used for external verification of stats. Based on:
+ * I wanted to simply call Google's code for buildng this url, but wasn't able to 
+ * get it to work, because Google uses global variables. :(
+ */
+Liftium.trackEvent = function(category, action, label) {
+	Liftium.eventsTracked++;
+
+	var n = window.navigator;
+	var e = Liftium.eventsTracked + "(" + [category, action, label].join('*') + ")";
+	Liftium.sessionid = Liftium.sessionid || Math.round(Math.random() * 2147483647);
+	var p = {
+		utmwv:  "4.6.5", // Hardcode inside ga.js. Code version?
+		utmn:   Math.round(Math.random() * 2147483647), // Cache buster
+		utmhn:  "delivery.liftium.com", 
+		utmt:   "event",
+		utme:   e,
+		utmcs:  "UTF-8", // TODO Un-hardcode
+		utmsr:  "1024x768", // TODO Un-hardcode
+		utmsc:  "24-bit", // TODO Un-hardcode
+		utmul:  (n.language || n.systemLanguage || n.browserLanguage || n.userLanguage || "").toLowerCase(),
+		utmje:  "1", // Java enabled. TODO: Un-hardcode
+		utmfl:  "10.0 r32", // Flash Version? TODO: Un-hardcode
+		utmdt:  document.title,
+		utmhid: Liftium.sessionid,
+		utmr:   "0", // ??
+		utmp:   window.location.pathname,
+		utmac:  "UA-10292921-3"
+	};
+
+	var url = "https:" == window.location.protocol ? "https://ssl." : "http://www.";
+	url += "google-analytics.com/__utm.gif?" + Liftium.buildQueryString(p);
+
+	Liftium.beaconCall(url, false);
 };
 
 
@@ -1997,6 +2045,8 @@ XDM.listenForMessages = function(handler){
 			return window.addEventListener("message", handler, false);
 		} else if (window.attachEvent){ // IE 
 			return window.attachEvent("onmessage", handler);
+		} else {
+			return false;
 		}
 	} else {
 		// Remote iframe will execute the messages
