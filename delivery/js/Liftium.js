@@ -1781,6 +1781,8 @@ Liftium.trackEvent = function(category, action, label) {
 	var n = window.navigator;
 	var e = Liftium.eventsTracked + "(" + [category, action, label].join('*') + ")";
 	Liftium.sessionid = Liftium.sessionid || Math.round(Math.random() * 2147483647);
+
+	var c = "__utma=" + Liftium.cookie("__utma") + ';+__utmz=' + Liftium.cookie("__utmz") + ';';
 	var p = {
 		utmwv:  "4.6.5", // Hardcode inside ga.js. Code version?
 		utmn:   Math.round(Math.random() * 2147483647), // Cache buster
@@ -1797,7 +1799,8 @@ Liftium.trackEvent = function(category, action, label) {
 		utmhid: Liftium.sessionid,
 		utmr:   "0", // ??
 		utmp:   window.location.pathname,
-		utmac:  "UA-10292921-3"
+		utmac:  "UA-10292921-3",
+		utmcc:  c
 	};
 
 	var url = "https:" == window.location.protocol ? "https://ssl." : "http://www.";
@@ -1805,7 +1808,6 @@ Liftium.trackEvent = function(category, action, label) {
 
 	Liftium.beaconCall(url, false);
 };
-
 
 /* Why do we even have this lever!? Because we need to test error handling (see test_jserror.php) */
 Liftium.throwError = function () {
