@@ -166,9 +166,9 @@ class AdTag {
 		 */
 		$values = array();
 		$sql = "SELECT SQL_SMALL_RESULT /* Tell mysql to use in memory temp tables */
-			id AS tag_id,
-			(rand() * (0.1 * value)) AS weighted_random_value
-			FROM tags WHERE 1=1";
+			tags.id AS tag_id FROM tags 
+			INNER JOIN networks on tags.network_id = networks.id
+			WHERE 1=1";
 		if (!empty($criteria['name_search'])){
 			$search = '%' . $criteria['name_search'] . '%';
 			$sql .= "\n\tAND tag_name like ? ";
@@ -176,10 +176,12 @@ class AdTag {
 		}
 
 		if (!empty($criteria['enabled'])){
-			$sql .= "\n\tAND enabled = ? ";
+			$sql .= "\n\tAND tags.enabled = ? ";
 			$values[] = $criteria['enabled'];
-			$sql .= "\n\tAND network_id in (SELECT id from networks where enabled = 1)";
+			$sql .= "\n\tAND networks.enabled = ? ";
+			$values[] = $criteria['enabled'];
 		}
+
 
 		if (!empty($criteria['network_id'])){
 			$sql .= "\n\tAND network_id = ? ";
@@ -189,6 +191,11 @@ class AdTag {
 		if (!empty($criteria['pubid'])){
 			$sql .= "\n\tAND publisher_id = ? ";
 			$values[] = $criteria['pubid'];
+			if (!empty($criteria['brand_safety_level_check'])){
+				$sql .= "\n\tAND networks.brand_safety_level >=" .
+					" (SELECT brand_safety_level FROM publishers WHERE publishers.id = ? )";
+				$values[] = $criteria['pubid'];
+			}
 		}
 
 		if (!empty($criteria['size'])){
@@ -260,25 +267,6 @@ class AdTag {
 			$values[] = $criteria['target_hub'];
 		}
 
-		if (!empty($criteria['wgDBname'])){
-			$sql.= "\n\tAND (
-				tag_id NOT IN (
-				  -- No targeting for wgDBname
-				  SELECT tag_id FROM target_tag_linking
-					INNER JOIN target_value
-					ON target_tag_linking.target_value_id = target_value.target_value_id
-				  WHERE target_key_id = 4)
-				OR tag_id IN (
-				  -- This specific wgDBname is targeted
-				  SELECT tag_id FROM target_tag_linking
-					INNER JOIN target_value
-					ON target_tag_linking.target_value_id = target_value.target_value_id
-				  WHERE target_key_id = 4 AND target_keyvalue = ?
-				 )
-			       )";
-			$values[] = $criteria['wgDBname'];
-		}
-
 		// Exclude site specific tags
 		if (!empty($criteria['exclude_site_specific'])){
 			$sql.= "\n\tAND tag_id NOT IN (
@@ -298,9 +286,7 @@ class AdTag {
 
 		switch (@$criteria['sort']){
 			case 'name': $sql.= "\n\tORDER BY tag_name"; break;
-			case 'value,rand': $sql.= "\n\tORDER BY value DESC, rand()"; break;
-			case 'chain': $sql.= "\n\tORDER BY tier DESC, weighted_random_value DESC"; break;
-			case 'tier': $sql.= "\n\tORDER BY tier DESC"; break;
+			default:  $sql.= "\n\tORDER BY tier DESC, value DESC"; break;
 		}
 
 		if (intval(@$criteria['limit']) > 0 ){

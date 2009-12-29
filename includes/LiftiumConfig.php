@@ -21,6 +21,7 @@ class LiftiumConfig{
 
 		// Pull tags
 		$criteria['enabled'] = 1;
+		$criteria['brand_safety_level_check'] = true;
 		foreach ($AdTag->getSizes() as $size){
 			$criteria['size'] = $size;
 			$tags = AdTag::searchTags($criteria, false);
@@ -29,16 +30,18 @@ class LiftiumConfig{
 			}
 		}
 
-		// Pull beacon throttle
+		// Pull publisher level info
 		$dbr = Framework::getDB("slave");
-		$sql = "SELECT hoptime, beacon_throttle, xdm_iframe_path FROM publishers WHERE id = ?";
+		$sql = "SELECT hoptime, site_name, brand_safety_level,
+			beacon_throttle FROM publishers WHERE id = ?";
 		$sth = $dbr->prepare($sql);
 		$sth->execute(array($criteria['pubid']));
-		list($maxHopTime, $throttle, $xdm_iframe_path) = $sth->fetch();
+		$publisher = $sth->fetchObject();
 		unset($sth);
-		$object->maxHopTime = $maxHopTime;
-		$object->throttle = $throttle;
-		$object->xdm_iframe_path = $xdm_iframe_path;
+		$object->max_hop_time = $publisher->hoptime;
+		$object->throttle = $publisher->beacon_throttle;
+		$object->brand_safety_level = $publisher->brand_safety_level;
+		$object->site_name = $publisher->site_name;
 
 		// Store in memcache for next time
 		$cache->set($cacheKey, $object, 0, self::cacheTimeout);

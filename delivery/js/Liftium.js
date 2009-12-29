@@ -222,7 +222,9 @@ Liftium._callAd = function (slotname, iframe) {
         Liftium.d("Ad #" + t["tag_id"] + " for " + t['network_name'] + " called in " + slotname);
         Liftium.d("Config = ", 6, t);
 
-	Liftium.trackEvent("tag", "attempt", t.tag_id);
+	// Redundant for now while I troubleshoot GA
+	Liftium.trackEvent("tags/" + t.tag_id + "/attempt");
+	Liftium.trackEvent("tags", "tag", "attempt", t.tag_id);
 
         try { // try/catch block to isolate ad tag errors
 
@@ -690,7 +692,7 @@ Liftium.getNextTag = function(slotname){
         var length = Liftium.chain[slotname].length;
         var current = Liftium.chain[slotname].current = Liftium.chain[slotname].current || 0;
         
-        if ((now.getTime() - Liftium.slotTimer[slotname]) > (Liftium.config.maxHopTime || Liftium.maxHopTime)){
+        if ((now.getTime() - Liftium.slotTimer[slotname]) > (Liftium.config.max_hop_time || Liftium.maxHopTime)){
                 // Maximum fill time has been exceeded, jump to the always_fill
                 Liftium.d("Hop Time of " + Liftium.config.maxHopTime + " exceeded. Using the always_fill", 2);
                 Liftium.chain[slotname][current]['exceeded'] = true;
@@ -1085,6 +1087,9 @@ Liftium.init = function () {
 	if (Liftium.getRequestVal('liftium_exclude_tag')){
 		LiftiumOptions.exclude_tags = [ Liftium.getRequestVal('liftium_exclude_tag') ];
 	}
+
+
+	Liftium.trackEvent("init");
 
 	return true;
 };
@@ -1664,7 +1669,7 @@ Liftium.sendBeacon = function (){
         Liftium.d ("Liftium done, beacon sent");
 
 	// Track the beacons with GA
-	Liftium.trackEvent("beacon", "load", LiftiumOptions.pubid);
+	Liftium.trackEvent("beacon");
 
         // Call the unit tests
         if (window.LiftiumTest && typeof window.LiftiumTest.afterBeacon == "function"){
@@ -1775,20 +1780,18 @@ Liftium.storeTagStats = function (){
  * I wanted to simply call Google's code for buildng this url, but wasn't able to 
  * get it to work, because Google uses global variables. :(
  */
-Liftium.trackEvent = function(category, action, label) {
-	Liftium.eventsTracked++;
+Liftium.trackEvent = function(page, category, action, label) {
 
 	var n = window.navigator;
-	var e = Liftium.eventsTracked + "(" + [category, action, label].join('*') + ")";
 	Liftium.sessionid = Liftium.sessionid || Math.round(Math.random() * 2147483647);
+
+	page = '/' + LiftiumOptions.pubid + '/' + page;
 
 	var c = "__utma=" + Liftium.cookie("__utma") + ';+__utmz=' + Liftium.cookie("__utmz") + ';';
 	var p = {
 		utmwv:  "4.6.5", // Hardcode inside ga.js. Code version?
 		utmn:   Math.round(Math.random() * 2147483647), // Cache buster
-		utmhn:  "delivery.liftium.com", 
-		utmt:   "event",
-		utme:   e,
+		utmhn:  "delivery.liftium.com",
 		utmcs:  "UTF-8", // TODO Un-hardcode
 		utmsr:  "1024x768", // TODO Un-hardcode
 		utmsc:  "24-bit", // TODO Un-hardcode
@@ -1798,10 +1801,16 @@ Liftium.trackEvent = function(category, action, label) {
 		utmdt:  document.title,
 		utmhid: Liftium.sessionid,
 		utmr:   "0", // ??
-		utmp:   window.location.pathname,
+		utmp:   page,
 		utmac:  "UA-10292921-3",
 		utmcc:  c
 	};
+
+	if (typeof category != "undefined"){
+		Liftium.eventsTracked++;
+		p.utmt =  "event";
+		p.utme = Liftium.eventsTracked + "(" + [category, action, label].join('*') + ")";
+	}
 
 	var url = "https:" == window.location.protocol ? "https://ssl." : "http://www.";
 	url += "google-analytics.com/__utm.gif?" + Liftium.buildQueryString(p);
@@ -1809,10 +1818,12 @@ Liftium.trackEvent = function(category, action, label) {
 	Liftium.beaconCall(url, false);
 };
 
+
 /* Why do we even have this lever!? Because we need to test error handling (see test_jserror.php) */
 Liftium.throwError = function () {
 	return window.LiftiumthrowError.UndefinedVar;
 };
+
 
 /* Browser Detect 
 http://www.quirksmode.org/js/detect.html
