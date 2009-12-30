@@ -1781,6 +1781,10 @@ Liftium.storeTagStats = function (){
  * get it to work, because Google uses global variables. :(
  */
 Liftium.trackEvent = function(page, category, action, label) {
+	if (LiftiumOptions.pubid == 1052){
+		// Off for Brighthub
+		return;
+	}
 
 	var n = window.navigator;
 	Liftium.sessionid = Liftium.sessionid || Math.round(Math.random() * 2147483647);
