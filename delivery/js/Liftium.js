@@ -592,7 +592,7 @@ Liftium.getCountry = function(){
         } else if (typeof Liftium.geo.country == "undefined" ) {
                 // It downloaded, but it's empty, because we were unable to determine the country
                 Liftium.d("Unable to find a country for this IP, defaulting to US");
-                ac = "unkown";
+                ac = "us";
         } else {
                 // Everything worked
                 ac = Liftium.geo.country.toLowerCase();
