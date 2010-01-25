@@ -1687,7 +1687,7 @@ Liftium.setAdjustedValues = function(tags){
 		if (tags[i]["adjusted_value"]){
 			// Our work is done here
 			continue;
-		} else if (parseFloat(tags[i]["rej_time"], 10)) {
+		} else if (parseFloat(tags[i]["floor"], 10)) {
 			// Tags with floors A) get a little love and B) shouldn't be skewed down for the number of attempts
 			tags[i]["adjusted_value"] = tags[i]["value"] * 1.05;
 			continue;
