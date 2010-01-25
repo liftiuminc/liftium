@@ -1682,29 +1682,35 @@ Liftium.sendBeacon = function (){
 
 /* Tags lose their value for each impression, calculate an adjusted value here */
 Liftium.setAdjustedValues = function(tags){
-	var attempts, reducer, avalue;
+	var attempts, reducer = 0.05, avalue;
 	for (var i = 0; i < tags.length; i++){
 		if (tags[i]["adjusted_value"]){
 			// Our work is done here
 			continue;
-		} else if (parseFloat(tags[i]["floor"], 10)) {
-			// Tags with floors A) get a little love and B) shouldn't be skewed down for the number of attempts
-			tags[i]["adjusted_value"] = tags[i]["value"] * 1.05;
-			continue;
-		} else if (parseInt(tags[i]["rej_time"], 10)) {
-			// For tags that have a rejection time set, the fill rate *improves*
-			// TODO: Skew this higher for more attempts
-			tags[i]["adjusted_value"] = tags[i]["value"] * 1.05;
-			continue;
 		}
 
 		avalue = tags[i]["value"];
-        	attempts = Liftium.getTagStat(tags[i]["tag_id"], "a");
-		if (tags[i]["pay_type"] == "CPM"){
-			reducer = 0.2;
-		} else {
-			reducer = 0.05;
+		if (tags[i]["pay_type"] == "CPC"){
+			reducer += 0.20;
 		}
+
+		if (parseFloat(tags[i]["floor"], 10)) {
+			// Tags with floors A) get a little love and B) shouldn't be skewed down for the number of attempts
+			avalue = avalue * 1.01;
+		} 
+		if (parseInt(tags[i]["rej_time"], 10)) {
+			// For tags that have a rejection time set, the fill rate *improves*
+			// TODO: Skew this higher for more attempts
+			reducer = 0;
+		}
+
+		// Skew CPC higher for users in the discovery mindset
+		if (tags[i]["pay_type"] == "CPC" && !Liftium.e(Liftium.getReferringKeywords())){
+			avalue = avalue * 1.25;
+			reducer = 0;
+		}
+
+        	attempts = Liftium.getTagStat(tags[i]["tag_id"], "a");
 		// Reduce by $reducer for every attempt
 		for (var j = 0; j < attempts; j++){
 			avalue = avalue - (avalue * reducer);
