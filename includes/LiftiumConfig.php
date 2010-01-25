@@ -65,7 +65,7 @@ class LiftiumConfig{
 		  $sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
 			tags.tag, tags.always_fill, tags.sample_rate,
 			tags.frequency_cap AS freq_cap, tags.size,
-			tags.rejection_time as rej_time, tags.tier, tags.value,
+			tags.rejection_time as rej_time, tags.tier, tags.value, tags.floor,
 			networks.tag_template, networks.pay_type
 			FROM tags
 			INNER JOIN networks ON tags.network_id = networks.id
@@ -203,6 +203,13 @@ class LiftiumConfig{
 		} else {
 			return "1.0r";
 		}
+	}
+
+	static public function getLastUpdated() {
+		$db = Framework::getDB("slave");
+		$result = $db->query("SELECT UNIX_TIMESTAMP(MAX(updated_at)) as lastmod FROM tags;");
+		$row = $result->fetch();
+		return intval($row[0]);
 	}
 }
 ?>
