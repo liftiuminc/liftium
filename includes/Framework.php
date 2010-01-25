@@ -212,4 +212,59 @@ class Framework {
 		return in_array(Framework::getHostname(), $DEV_HOSTS);
 	}
 
+	/* See http://www.freesoft.org/CIE/RFC/2068/185.htm for an explanation */
+
+	static public function httpCache($mtime=null){
+		// Make it easy to disable
+		if (isset($_GET['noCache'])){
+			return;
+		}
+
+		$debug=false;
+
+		// When sessions are enabled, php puts a bunch of no-cache headers in place.
+		session_cache_limiter('none');
+
+		switch (@$_SERVER['REQUEST_METHOD']){
+			case '': return false; // Command line?
+			case 'POST': return false; // Don't use this for POST.
+		}
+
+		if (is_null($mtime)){
+			// default to the timestamp of the file
+			$mtime=filemtime($_SERVER['SCRIPT_FILENAME']);
+			$debug && header("X-httpCache-Comment: Using timestamp of {$_SERVER['SCRIPT_FILENAME']} for mtime", false);
+		} else {
+			if(!preg_match("/[0-9]+/",$mtime)) { // all numbers suggests a unix timestamp
+				$mtime=strtotime($mtime);
+				if ($mtime==-1){
+					error_log("Invalid mtime in ".  __METHOD__ ." - '$mtime' is not parseable by strtotime");
+					$debug && header("X-httpCache-Comment:  mtime in httpCache - '$mtime' is not parseable by strtotime", false);
+					return false;
+				}
+			}
+		}
+
+		$lastModified=self::httpDate($mtime);
+		header("Last-Modified: $lastModified");
+
+		if (empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])){
+			$debug && header("X-httpCache-Comment: First time here", false);
+			return; // First time
+		}
+
+		if (strtotime($lastModified) > strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])){
+			$debug && header("X-httpCache-Comment: Mod since times don't match: {$_SERVER['HTTP_IF_MODIFIED_SINCE']} != $lastModified", false);
+			return; // Times don't match, doc has changed since their last request.
+		}
+
+		// If it gets this far, nothing has changed. serve a 304 and exit.
+		header('HTTP/1.0 304 Not Modified');
+		exit;
+	}
+
+	public static function httpDate($time){
+		return gmdate('D, d M Y H:i:s \G\M\T', $time);
+	}
+
 }

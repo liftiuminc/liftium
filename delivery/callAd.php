@@ -12,7 +12,9 @@ if (empty($_GET['pubid']) || empty($_GET['slot'])){
 
 require dirname(__FILE__) . '/../includes/Framework.php';
 
+/* This causes a varnish 500 error :(
 Framework::httpCache(LiftiumConfig::getLastUpdated());
+*/
 
 /* Browsers get all flaky when code is executed through document.write
  * Specifically, they don't block the execution of tags properly in the correct order.
