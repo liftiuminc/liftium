@@ -11,6 +11,9 @@ if (empty($_GET['pubid']) || empty($_GET['slot'])){
 }
 
 require dirname(__FILE__) . '/../includes/Framework.php';
+
+Framework::httpCache(LiftiumConfig::getLastUpdated());
+
 /* Browsers get all flaky when code is executed through document.write
  * Specifically, they don't block the execution of tags properly in the correct order.
  * Use PHP to pull these together into one combined call

@@ -7,6 +7,8 @@ ini_set('html_errors', false);
 
 require dirname(__FILE__) . '/../includes/Framework.php';
 
+Framework::httpCache(LiftiumConfig::getLastUpdated());
+
 $LiftiumConfig = new LiftiumConfig();
 
 $pubid = Framework::getRequestVal("pubid", null, FILTER_VALIDATE_INT);
