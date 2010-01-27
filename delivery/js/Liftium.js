@@ -1781,6 +1781,7 @@ Liftium.setTagStat = function (tag_id, type){
         Liftium.tagStats = Liftium.tagStats.replace(/^,/, ''); // Strip off first comma
 
         Liftium.d("Tag Stats After Set = " + Liftium.tagStats, 6);
+	Liftium.storeTagStats();
 };
 
 
