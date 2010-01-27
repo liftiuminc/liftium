@@ -299,7 +299,7 @@ class AdTag {
 		}
 
 		if (!empty($_GET['debug'])){
-			echo "<xmp>" . $sql . "</xmp>";
+			echo "<xmp>" . $sql . ", " . print_r($values, true) . "</xmp>";
 		}
 		$out = array();
 		$sth = $dbr->prepare($sql);

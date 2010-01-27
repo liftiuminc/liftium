@@ -3,7 +3,7 @@ This page is for testing Liftium ad stats, with iframes
 <p>
 <script>
 // Clear the existing stats for idempotency
-Liftium.tagStats = '';
+Liftium.tagStats = 'z';
 </script>
 <!-- sample page -->
 <div id="slot1" class="adunit" style="width:468px; height: 60px;">

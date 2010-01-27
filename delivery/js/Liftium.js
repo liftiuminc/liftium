@@ -965,6 +965,8 @@ Liftium.hop = function (slotname){
 	}
         Liftium.d("Liftium.hop() called for " + slotname);
 
+	Liftium.markLastAdAsRejected(slotname);
+
         return Liftium._callAd(slotname);
 };
 // Some networks let you hop with a javascript function and that's it (VideoEgg)
@@ -986,6 +988,8 @@ Liftium.iframeHop = function(iframeUrl){
 			break;
 		}
 	}
+	Liftium.markLastAdAsRejected(slotname);
+
         if ( Liftium.e(slotname)){
 		Liftium.reportError("Unable to find iframe for " + iframeUrl);
 	} else {
@@ -1310,6 +1314,7 @@ Liftium.markChain = function (slotname){
 	}
         for (var i = 0, len = Liftium.chain[slotname].length; i < len; i++){
 		if (i < Liftium.chain[slotname].current){
+			// This is now redundant with 
 			Liftium.chain[slotname][i]["rejected"] = true;
 		} else if (i == Liftium.chain[slotname].current){
 			Liftium.chain[slotname][i]["loaded"] = true;
@@ -1317,6 +1322,13 @@ Liftium.markChain = function (slotname){
 		}
 	}	
 	return i;
+};
+
+
+Liftium.markLastAdAsRejected = function (slotname){
+	var i = Liftium.chain[slotname].current;
+	Liftium.chain[slotname][i]["rejected"] = true;
+	Liftium.setTagStat(Liftium.chain[slotname][i]['tag_id'], "r");
 };
 
 
@@ -1504,7 +1516,8 @@ Liftium.recordEvents = function(slotname){
                 } else if (! Liftium.e(t['rejected'])){
                         e += ',r' + t['tag_id'] + 'pl' + loads;
                         Liftium.d("Recording Reject for " + t["network_name"] + ", #" + t["tag_id"] + " in " + slotname, 5);
-                        Liftium.setTagStat(t['tag_id'], "r");
+			// Now done in markLastAdAsRejected
+                        // Liftium.setTagStat(t['tag_id'], "r");
                         continue;
 
                 }

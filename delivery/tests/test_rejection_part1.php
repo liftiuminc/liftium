@@ -5,7 +5,7 @@ Clear tag stats and do initial fill: first tag will hop, second will always fill
 <p>
 <script>
 // Clear the existing stats for idempotency
-Liftium.tagStats = '';
+Liftium.tagStats = 'z';
 </script>
 <!-- sample page -->
 <div id="slot1" class="adunit" style="width: 300px; height: 250px;">
