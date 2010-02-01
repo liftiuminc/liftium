@@ -16,6 +16,10 @@ body {
 </style>
 <script><?php echo "LiftiumOptions = " . json_encode(array('pubid'=> $_GET['pubid']))?></script>
 <script src="/js/Liftium.js"></script>
+<script>
+// Tell Google to use the referring url 
+google_page_url = document.referrer;
+</script>
 </head>
 <body>
 <script>Liftium.callAd("<?php echo htmlspecialchars($_GET['size'])?>");</script>
