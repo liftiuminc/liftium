@@ -266,7 +266,7 @@ function XDM_onload (){
 	window.XDM.send(top, "Liftium.iframeHop", [window.location]);
 }
 if ( top != self && !self.Liftium ) {
-	if (document.referrer.match(/dashboard.liftium.com/)){
+	if (document.referrer && document.referrer.match(/dashboard.liftium.com/)){
 		document.write("<h1>Tag called hop.js</h1>");
 	} else {
 		// Tell the top window to hop 
