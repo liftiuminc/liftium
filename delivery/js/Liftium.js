@@ -717,7 +717,7 @@ Liftium.getNextTag = function(slotname){
         }
 
         // Rut roh.
-        Liftium.reportError("No more tags left in the chain", "chain");
+        Liftium.reportError("No more tags left in the chain - " + slotname, "chain");
 	// Return a PSA. Note: Do NOT insert the garaunteed fill here. 
 	// If it happens to hop due to a misconfiguration, you'll create a 
 	// never ending loop. Or so I've been told. ;)
