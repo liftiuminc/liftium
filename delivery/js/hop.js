@@ -266,11 +266,16 @@ function XDM_onload (){
 	window.XDM.send(top, "Liftium.iframeHop", [window.location]);
 }
 if ( top != self && !self.Liftium ) {
-	// Tell the top window to hop 
-	if (self.attachEvent){
-		self.attachEvent("onload",XDM_onload); // Use onload for IE, which won't let you append to body until it's complete	
+	if (document.referrer.match(/dashboard.liftium.com/)){
+		document.write("<h1>Tag called hop.js</h1>");
 	} else {
-		XDM_onload();
+		// Tell the top window to hop 
+		if (self.attachEvent){
+			// Use onload for IE, which won't let you append to body until it's complete	
+			self.attachEvent("onload",XDM_onload);
+		} else {
+			XDM_onload();
+		}
 	}
 } else {
 	// not in an iframe, call the next ad
