@@ -747,7 +747,7 @@ Liftium.getPropertyCount = function (obj){
 /* Do what we can to figure out the referring url.
  * TODO: Consider if an iframe how to get the url */
 Liftium.getReferrer = function () {
-	return LiftiumOptions.referrer || document.referrer.toString();
+	return LiftiumOptions.referrer || document.referrer;
 };
 
 
