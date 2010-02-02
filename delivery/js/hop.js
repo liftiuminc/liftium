@@ -20,7 +20,7 @@
 
 var XDM = {
 	allowedMethods : [],
-	debugOn	   : false, // Print debug messages to console.log
+	debugOn	   : true, // Print debug messages to console.log
 
 	// These options only needed for the iframe based method,
 	// for browsers that don't support postMessage
@@ -263,7 +263,7 @@ if (window.Liftium){
 
 /********* Start of real hop.js ***************/
 function XDM_onload (){
-	window.XDM.send(top, "Liftium.iframeHop", [window.location]);
+	XDM.send(top, "Liftium.iframeHop", [window.location]);
 }
 if ( top != self && !self.Liftium ) {
 	if (document.referrer && document.referrer.match(/dashboard.liftium.com/)){
