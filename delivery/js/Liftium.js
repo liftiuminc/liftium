@@ -690,7 +690,7 @@ Liftium.getNextTag = function(slotname){
         var now = new Date();
 
         var length = Liftium.chain[slotname].length;
-        var current = Liftium.chain[slotname].current = Liftium.chain[slotname].current || 0;
+        var current = Liftium.chain[slotname].current || 0;
         
         if ((now.getTime() - Liftium.slotTimer[slotname]) > (Liftium.config.max_hop_time || Liftium.maxHopTime)){
                 // Maximum fill time has been exceeded, jump to the always_fill
