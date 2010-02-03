@@ -18,7 +18,7 @@
 
 var XDM = {
 	allowedMethods : [],
-	debugOn	   : false, // Print debug messages to console.log
+	debugOn	   : true, // Print debug messages to console.log
 
 	// These options only needed for the iframe based method,
 	// for browsers that don't support postMessage
