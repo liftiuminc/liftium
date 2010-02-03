@@ -726,6 +726,24 @@ Liftium.getNextTag = function(slotname){
 };
 
 
+Liftium.getPagesSinceSearch = function (){
+	var kwords = Liftium.getReferringKeywords();
+	if (Liftium.e(kwords)){
+		// None, direct traffic
+		return null;
+	}
+
+	var pagesSince = Liftium.cookie("Lps");
+	if (Liftium.e(pagesSince)){
+		pagesSince = 1;
+	} else {
+		pagesSince++;
+	}
+	Liftium.cookie("Lps", pagesSince);
+	return null;
+};
+
+
 Liftium.getPropertyCount = function (obj){
   try {
 	if (typeof obj != "object") {
@@ -764,7 +782,7 @@ Liftium.getReferringKeywords = function (){
 	} else {
 		qstring = qstring[1];
 	}
-	var varNames = [ "q", "p" ];
+	var varNames = [ "q", "p", "query" ];
 	
 
 	for (var i = 0; i < varNames.length; i++){
@@ -774,9 +792,9 @@ Liftium.getReferringKeywords = function (){
 		}
 	}
 
-	var kwordsCookie = Liftium.cookie("referringKeywords");
+	var kwordsCookie = Liftium.cookie("Lrk");
 	if (!Liftium.e(kwords)){
-		Liftium.cookie("referringKeywords", kwords);	
+		Liftium.cookie("Lrk", kwords);	
 		return kwords;
 	} else if (!Liftium.e(kwordsCookie)){
 		return kwordsCookie;
