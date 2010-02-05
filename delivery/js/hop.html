@@ -1,0 +1,20 @@
+<html>
+<body>
+</body>
+<script src="/js/XDM.js"></script>
+<script>
+if (window.location.search) {
+       XDM.send(top, "Liftium.iframeHop", [window.location.search]);
+} else if ( parent != top ) {
+        // In a nested iframe
+        if (XDM.canPostMessage()){
+                XDM.send(top, "Liftium.iframeHop", [document.referrer]);
+        } else {
+                document.write("<!-- From hop.html: Stuck in an iframe in an HTML 4 browser -->");
+        }
+} else {
+        // In a normal iframe,
+        XDM.send(top, "Liftium.iframeHop", [document.referrer]);
+}
+</script>
+</html>
