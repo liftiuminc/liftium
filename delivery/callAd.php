@@ -13,7 +13,7 @@ if (empty($_GET['pubid']) || empty($_GET['slot'])){
 require dirname(__FILE__) . '/../includes/Framework.php';
 
 /* This causes a varnish 500 error :( */
-if (!empty($_GET['nick'])){ // Turn it on via url so I can troubleshoot
+if ($_GET['pubid'] == 1052){ // Turn it on just for brighthub so I can troubleshoot
 	Framework::httpCache(LiftiumConfig::getLastUpdated());
 }
 
