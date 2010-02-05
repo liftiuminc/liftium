@@ -7,10 +7,7 @@ ini_set('html_errors', false);
 
 require dirname(__FILE__) . '/../includes/Framework.php';
 
-/* This causes a varnish error :( */
-if ($_GET['pubid'] == 1){
-	Framework::httpCache(LiftiumConfig::getLastUpdated());
-}
+Framework::httpCache(LiftiumConfig::getLastUpdated());
 
 $LiftiumConfig = new LiftiumConfig();
 
