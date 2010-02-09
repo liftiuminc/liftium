@@ -143,7 +143,7 @@ Liftium.buildChain = function(slotname) {
 
 	// Clear the slotname now that we've built the slot, so it doesn't get passed
 	// to the next tag.
-	LiftiumOptions.slot = null;
+	LiftiumOptions.placement = null;
 
         Liftium.d("Chain for " + slotname + " = ", 3, networks);
         return true;
@@ -1261,9 +1261,9 @@ Liftium.isValidCriteria = function (t){
 					return false;
                                 }
                                 break;
-                          case 'slot':
-                                if (t.criteria.slot[0] != LiftiumOptions.slot ){
-                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid slot", 8);
+                          case 'placement':
+                                if (t.criteria.placement[0] != LiftiumOptions.placement ){
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid placement", 8);
 					return false;
                                 }
                                 break;
