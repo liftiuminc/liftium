@@ -508,6 +508,10 @@ Liftium.fillerAd = function(size, message){
                 tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa1" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/728x90_thinklocal.gif" width="728" height="90" border="0" alt="Public Service Announcement"/></a>';
 	} else if (size.match(/160x600/)){
 		tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0" alt="Public Service Announcement"/></a>';
+	} else {
+		// No PSA to display for this size. 
+		// Note that this text is specifically referenced in unit tests
+		tag += '<span style="color:#C0C0C0">No available ads</span>';
 	}
 	return {tag_id: 'psa', network_name: "Internal Error PSA", tag: tag, size: size};
 };
