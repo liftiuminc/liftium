@@ -141,6 +141,9 @@ Liftium.buildChain = function(slotname) {
                 networks.push("Sampled: " + sampledAd["network_name"] + ", #" + sampledAd["tag_id"]);
         }
 
+	// Clear the slotname now that we've built the slot, so it doesn't get passed
+	// to the next tag.
+	LiftiumOptions.slot = null;
 
         Liftium.d("Chain for " + slotname + " = ", 3, networks);
         return true;
@@ -1190,33 +1193,20 @@ Liftium.isValidCountry = function (countryList){
 };
 
 /* Does the criteria match for this tag? */
-// TODO: Refactor returns to use one step "return t['isValidCriteria'] = false;"
 Liftium.isValidCriteria = function (t){
-        if (Liftium.in_array(t['tag_id'], Liftium.rejTags)){
-                Liftium.d("Ad #" + t["tag_id"] + " rejected because of already rejected on this page", 3, Liftium.rejTags);
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
-        }
 
         // For ads that have a frequency cap, don't load them more than once per page
         if (!Liftium.e(t["inChain"]) && !Liftium.e(t["freq_cap"])) {
                 Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                         " invalid: it has a freq cap and is already in another chain", 3);
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
-        }
-
-	// We've already checked this one
-        if (!Liftium.e(t['isValidCriteria'])){
-                return t['isValidCriteria'];
+		return false;
         }
 
 	if (!Liftium.e(LiftiumOptions.exclude_tags) &&
 	     Liftium.in_array(t["tag_id"], LiftiumOptions.exclude_tags)){
                 Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                       " invalid: in LiftiumOptions excluded tags list", 2);
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
+		return false;
 	}
 		
 	
@@ -1227,8 +1217,7 @@ Liftium.isValidCriteria = function (t){
                         Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                                 " invalid: " + a + " attempts is >= freq_cap of " +
                                 t["freq_cap"], 3);
-                        t['isValidCriteria'] = false;
-                        return t['isValidCriteria'];
+			return false;
                 }
 
         }
@@ -1244,8 +1233,7 @@ Liftium.isValidCriteria = function (t){
                                 Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                                         " invalid:  tag was rejected sooner than rej_time of " +
                                         t["rej_time"], 3);
-                                t['isValidCriteria'] = false;
-                                return t['isValidCriteria'];
+				return false;
                         }
                 }
 
@@ -1257,23 +1245,26 @@ Liftium.isValidCriteria = function (t){
                           case 'country':
                                 if ( ! Liftium.isValidCountry(t.criteria.country)){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid country", 8);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
                                 }
                                 break;
                           case 'browser':
                                 if ( ! Liftium.isValidBrowser(t.criteria.browser[0])){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid browser", 8);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
                                 }
                                 break;
                           case 'domain':
 				LiftiumOptions.domain = LiftiumOptions.domain || document.domain;
                                 if ( t.criteria.domain[0] != LiftiumOptions.domain ){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid domain", 8);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
+                                }
+                                break;
+                          case 'slot':
+                                if (t.criteria.slot[0] != LiftiumOptions.slot ){
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid slot", 8);
+					return false;
                                 }
                                 break;
                           default:
@@ -1283,8 +1274,7 @@ Liftium.isValidCriteria = function (t){
                                 if (! Liftium.in_array(Liftium.getPageVar(key), list)){
 
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " not found in ", 8, list);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
                                 }
 				*/
 				
@@ -1299,14 +1289,12 @@ Liftium.isValidCriteria = function (t){
 		t["tag"].toString().match(/iframe/i) &&
 		t["always_fill"] != 1){
 		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path. tagid #" + t["tag_id"], "tag");
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
+		return false;
 	}
 
         // All criteria passed 
         Liftium.d("Targeting criteria passed for tag #" + t["tag_id"], 8);
-        t['isValidCriteria'] = true;
-        return t['isValidCriteria'];
+	return true;
 
 };
 
