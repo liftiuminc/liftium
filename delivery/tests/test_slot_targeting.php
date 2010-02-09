@@ -22,7 +22,7 @@ This ad should be tag #131, because it's slot is blank
 </div>
 <script>
 Liftium._("slot1").innerHTML.match(/Targetted to slot1/) ?  LiftiumTest.testPassed() : LiftiumTest.testFailed();
-Liftium._("slot2").innerHTML.match(/NO available ads/) ?  LiftiumTest.testPassed() : LiftiumTest.testFailed();
+Liftium._("slot2").innerHTML.match(/No available ads/) ?  LiftiumTest.testPassed() : LiftiumTest.testFailed();
 Liftium._("slot3").innerHTML.match(/NOT targetted to a slot/) ?  LiftiumTest.testPassed() : LiftiumTest.testFailed();
 </script>
 
