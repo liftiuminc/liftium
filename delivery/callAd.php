@@ -19,7 +19,7 @@ Framework::httpCache(LiftiumConfig::getLastUpdated());
  * Use PHP to pull these together into one combined call
  */
 ?>
-LiftiumOptions = LiftiumOptions || {};
+var LiftiumOptions = window.LiftiumOptions || {};
 LiftiumOptions.pubid = <?php echo intval($_GET['pubid'])?>;
 LiftiumOptions.autoInit = false;
 <?php
