@@ -695,11 +695,11 @@ Liftium.getNextTag = function(slotname){
 	// \suspenders
 
         var now = new Date();
-
         var length = Liftium.chain[slotname].length;
         var current = Liftium.chain[slotname].current || 0;
+	Liftium.maxHopTime = Liftium.maxHopTime || parseInt(Liftium.config.max_hop_time, 10) || 1500;
         
-        if ((now.getTime() - Liftium.slotTimer[slotname]) > (Liftium.config.max_hop_time || Liftium.maxHopTime)){
+        if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
                 // Maximum fill time has been exceeded, jump to the always_fill
                 Liftium.d("Hop Time of " + Liftium.config.maxHopTime + " exceeded. Using the always_fill", 2);
                 Liftium.chain[slotname][current]['exceeded'] = true;
