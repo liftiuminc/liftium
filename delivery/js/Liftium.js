@@ -14,7 +14,8 @@ var Liftium = {
 	geoUrl 		: "http://geoip.liftium.com/",
 	loadDelay 	: 100,
 	maxHops 	: 5,
-        rejTags         : []
+        rejTags         : [],
+	slotTimeouts    : 0
 };
 
 
@@ -701,8 +702,9 @@ Liftium.getNextTag = function(slotname){
         
         if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
                 // Maximum fill time has been exceeded, jump to the always_fill
-                Liftium.d("Hop Time of " + Liftium.config.maxHopTime + " exceeded. Using the always_fill", 2);
-                Liftium.chain[slotname][current]['exceeded'] = true;
+                Liftium.d("Liftium.config.max_hop_time=" + Liftium.config.max_hop_time, 2);
+                Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
+		Liftium.slotTimeouts++;
                 
                 // Return the always_fill
                 var lastOne = length - 1;
@@ -1667,19 +1669,8 @@ Liftium.sendBeacon = function (){
         // Pass along other goodies
         b.country = Liftium.getCountry();
 
-        // Timeouts
-        var slotTimeouts = 0;
-        for (var s in Liftium.slotTimer){
-              if (typeof Liftium.slotTimer[s] == "function"){
-                      // Prototype js library overwrites the array handler and adds crap. EVIL.
-                      continue;
-              }
-              if (Liftium.slotTimer[s] == "exceeded"){
-                      slotTimeouts++;
-              }
-        }
-        if (slotTimeouts > 0) {
-                b.slotTimeouts = slotTimeouts;
+        if (Liftium.slotTimeouts > 0) {
+                b.slotTimeouts = Liftium.slotTimeouts;
         }
 
         Liftium.d ("Beacon: ", 7, b);
