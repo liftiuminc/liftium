@@ -208,7 +208,7 @@ Liftium._callAd = function (slotname, iframe) {
 	Liftium.d("Calling ad for " + slotname, 1);
         var t = Liftium.getNextTag(slotname);
 	if (t === false) {
-		Liftium.fillerAd(slotname, "getNextTag returned false");
+		t = Liftium.fillerAd(slotname, "getNextTag returned false");
 		if (iframe) {
 			Liftium.clearPreviousIframes(slotname);
 			// TODO write PSA in iframe
