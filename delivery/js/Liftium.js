@@ -630,7 +630,7 @@ Liftium.getBrowserLang = function () {
 
 /* When an ad does a document.write and we are already passed that point on the page,
  * we need to call it in an lframe (document.write can only be executed inline)
- * We handle this by calling the iframe from Athena. This function returns the iframe url */
+ * We handle this by calling the iframe from Liftium. This function returns the iframe url */
 Liftium.getIframeUrl = function(slotname, tag) {
 
         // Check to see if the tag is already an iframe. 
@@ -1013,13 +1013,20 @@ Liftium.iframeHop = function(iframeUrl){
 			break;
 		}
 	}
-	Liftium.markLastAdAsRejected(slotname);
+
+        if ( Liftium.e(slotname) && len == 1){
+		// The url doesn't match anymore (probably a redirect or #),
+		// but we got lucky, there is only one iframe on the page
+		slotname = Liftium.getSlotnameFromElement(iframes[0]);
+	}
 
         if ( Liftium.e(slotname)){
 		Liftium.reportError("Unable to find iframe for " + iframeUrl);
-	} else {
-		Liftium._callAd(slotname, true);
+		return;
 	}
+
+	Liftium.markLastAdAsRejected(slotname);
+	Liftium._callAd(slotname, true);
 };
 
 
