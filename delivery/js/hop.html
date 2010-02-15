@@ -3,9 +3,7 @@
 </body>
 <script src="/js/XDM.js"></script>
 <script>
-if (window.location.search) {
-       XDM.send(top, "Liftium.iframeHop", [window.location.search]);
-} else if ( parent != top ) {
+if ( parent != top ) {
         // In a nested iframe
         if (XDM.canPostMessage()){
                 XDM.send(top, "Liftium.iframeHop", [document.referrer]);
@@ -14,7 +12,7 @@ if (window.location.search) {
         }
 } else {
         // In a normal iframe,
-        XDM.send(top, "Liftium.iframeHop", [document.referrer]);
+        XDM.send(top, "Liftium.iframeHop", [document.location]);
 }
 </script>
 </html>
