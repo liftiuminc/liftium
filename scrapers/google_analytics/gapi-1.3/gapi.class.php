@@ -489,6 +489,7 @@ class gapi
     {
       $get_variables = null;
     }
+	echo $get_variables;
     
     curl_setopt($ch, CURLOPT_URL, $url . $get_variables);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -772,6 +773,11 @@ class gapiReportEntry
    * @return Array
    */
   public function getDimesions()
+  {
+    return $this->dimensions;
+  }
+  /* Really?! */
+  public function getDimensions()
   {
     return $this->dimensions;
   }
