@@ -14,7 +14,8 @@ var Liftium = {
 	geoUrl 		: "http://geoip.liftium.com/",
 	loadDelay 	: 100,
 	maxHops 	: 5,
-        rejTags         : []
+        rejTags         : [],
+	slotTimeouts    : 0
 };
 
 
@@ -141,6 +142,9 @@ Liftium.buildChain = function(slotname) {
                 networks.push("Sampled: " + sampledAd["network_name"] + ", #" + sampledAd["tag_id"]);
         }
 
+	// Clear the slotname now that we've built the slot, so it doesn't get passed
+	// to the next tag.
+	LiftiumOptions.placement = null;
 
         Liftium.d("Chain for " + slotname + " = ", 3, networks);
         return true;
@@ -205,7 +209,7 @@ Liftium._callAd = function (slotname, iframe) {
 	Liftium.d("Calling ad for " + slotname, 1);
         var t = Liftium.getNextTag(slotname);
 	if (t === false) {
-		Liftium.fillerAd(slotname, "getNextTag returned false");
+		t = Liftium.fillerAd(slotname, "getNextTag returned false");
 		if (iframe) {
 			Liftium.clearPreviousIframes(slotname);
 			// TODO write PSA in iframe
@@ -508,6 +512,10 @@ Liftium.fillerAd = function(size, message){
                 tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa1" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/728x90_thinklocal.gif" width="728" height="90" border="0" alt="Public Service Announcement"/></a>';
 	} else if (size.match(/160x600/)){
 		tag += '<a href="http://www.peacecorps.gov/psa/webbanners/click?cid=psa14" target="_blank"><img src="http://www.peacecorps.gov/images/webbanners/full/160x600_legacy.gif" width="160" height="600" border="0" alt="Public Service Announcement"/></a>';
+	} else {
+		// No PSA to display for this size. 
+		// Note that this text is specifically referenced in unit tests
+		tag += '<span style="color:#C0C0C0">No available ads</span>';
 	}
 	return {tag_id: 'psa', network_name: "Internal Error PSA", tag: tag, size: size};
 };
@@ -623,7 +631,7 @@ Liftium.getBrowserLang = function () {
 
 /* When an ad does a document.write and we are already passed that point on the page,
  * we need to call it in an lframe (document.write can only be executed inline)
- * We handle this by calling the iframe from Athena. This function returns the iframe url */
+ * We handle this by calling the iframe from Liftium. This function returns the iframe url */
 Liftium.getIframeUrl = function(slotname, tag) {
 
         // Check to see if the tag is already an iframe. 
@@ -688,14 +696,15 @@ Liftium.getNextTag = function(slotname){
 	// \suspenders
 
         var now = new Date();
-
         var length = Liftium.chain[slotname].length;
         var current = Liftium.chain[slotname].current || 0;
+	Liftium.maxHopTime = Liftium.maxHopTime || parseInt(Liftium.config.max_hop_time, 10) || 1500;
         
-        if ((now.getTime() - Liftium.slotTimer[slotname]) > (Liftium.config.max_hop_time || Liftium.maxHopTime)){
+        if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
                 // Maximum fill time has been exceeded, jump to the always_fill
-                Liftium.d("Hop Time of " + Liftium.config.maxHopTime + " exceeded. Using the always_fill", 2);
-                Liftium.chain[slotname][current]['exceeded'] = true;
+                Liftium.d("Liftium.config.max_hop_time=" + Liftium.config.max_hop_time, 2);
+                Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
+		Liftium.slotTimeouts++;
                 
                 // Return the always_fill
                 var lastOne = length - 1;
@@ -1006,13 +1015,20 @@ Liftium.iframeHop = function(iframeUrl){
 			break;
 		}
 	}
-	Liftium.markLastAdAsRejected(slotname);
+
+        if ( Liftium.e(slotname) && len == 1){
+		// The url doesn't match anymore (probably a redirect or #),
+		// but we got lucky, there is only one iframe on the page
+		slotname = Liftium.getSlotnameFromElement(iframes[0]);
+	}
 
         if ( Liftium.e(slotname)){
 		Liftium.reportError("Unable to find iframe for " + iframeUrl);
-	} else {
-		Liftium._callAd(slotname, true);
+		return;
 	}
+
+	Liftium.markLastAdAsRejected(slotname);
+	Liftium._callAd(slotname, true);
 };
 
 
@@ -1186,33 +1202,20 @@ Liftium.isValidCountry = function (countryList){
 };
 
 /* Does the criteria match for this tag? */
-// TODO: Refactor returns to use one step "return t['isValidCriteria'] = false;"
 Liftium.isValidCriteria = function (t){
-        if (Liftium.in_array(t['tag_id'], Liftium.rejTags)){
-                Liftium.d("Ad #" + t["tag_id"] + " rejected because of already rejected on this page", 3, Liftium.rejTags);
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
-        }
 
         // For ads that have a frequency cap, don't load them more than once per page
         if (!Liftium.e(t["inChain"]) && !Liftium.e(t["freq_cap"])) {
                 Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                         " invalid: it has a freq cap and is already in another chain", 3);
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
-        }
-
-	// We've already checked this one
-        if (!Liftium.e(t['isValidCriteria'])){
-                return t['isValidCriteria'];
+		return false;
         }
 
 	if (!Liftium.e(LiftiumOptions.exclude_tags) &&
 	     Liftium.in_array(t["tag_id"], LiftiumOptions.exclude_tags)){
                 Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                       " invalid: in LiftiumOptions excluded tags list", 2);
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
+		return false;
 	}
 		
 	
@@ -1223,8 +1226,7 @@ Liftium.isValidCriteria = function (t){
                         Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                                 " invalid: " + a + " attempts is >= freq_cap of " +
                                 t["freq_cap"], 3);
-                        t['isValidCriteria'] = false;
-                        return t['isValidCriteria'];
+			return false;
                 }
 
         }
@@ -1240,8 +1242,7 @@ Liftium.isValidCriteria = function (t){
                                 Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
                                         " invalid:  tag was rejected sooner than rej_time of " +
                                         t["rej_time"], 3);
-                                t['isValidCriteria'] = false;
-                                return t['isValidCriteria'];
+				return false;
                         }
                 }
 
@@ -1253,23 +1254,26 @@ Liftium.isValidCriteria = function (t){
                           case 'country':
                                 if ( ! Liftium.isValidCountry(t.criteria.country)){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid country", 8);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
                                 }
                                 break;
                           case 'browser':
                                 if ( ! Liftium.isValidBrowser(t.criteria.browser[0])){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid browser", 8);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
                                 }
                                 break;
                           case 'domain':
 				LiftiumOptions.domain = LiftiumOptions.domain || document.domain;
                                 if ( t.criteria.domain[0] != LiftiumOptions.domain ){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid domain", 8);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
+                                }
+                                break;
+                          case 'placement':
+                                if (t.criteria.placement[0] != LiftiumOptions.placement ){
+                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid placement", 8);
+					return false;
                                 }
                                 break;
                           default:
@@ -1279,8 +1283,7 @@ Liftium.isValidCriteria = function (t){
                                 if (! Liftium.in_array(Liftium.getPageVar(key), list)){
 
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " not found in ", 8, list);
-                                        t['isValidCriteria'] = false;
-                                        return t['isValidCriteria'];
+					return false;
                                 }
 				*/
 				
@@ -1295,14 +1298,12 @@ Liftium.isValidCriteria = function (t){
 		t["tag"].toString().match(/iframe/i) &&
 		t["always_fill"] != 1){
 		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path. tagid #" + t["tag_id"], "tag");
-                t['isValidCriteria'] = false;
-                return t['isValidCriteria'];
+		return false;
 	}
 
         // All criteria passed 
         Liftium.d("Targeting criteria passed for tag #" + t["tag_id"], 8);
-        t['isValidCriteria'] = true;
-        return t['isValidCriteria'];
+	return true;
 
 };
 
@@ -1668,19 +1669,8 @@ Liftium.sendBeacon = function (){
         // Pass along other goodies
         b.country = Liftium.getCountry();
 
-        // Timeouts
-        var slotTimeouts = 0;
-        for (var s in Liftium.slotTimer){
-              if (typeof Liftium.slotTimer[s] == "function"){
-                      // Prototype js library overwrites the array handler and adds crap. EVIL.
-                      continue;
-              }
-              if (Liftium.slotTimer[s] == "exceeded"){
-                      slotTimeouts++;
-              }
-        }
-        if (slotTimeouts > 0) {
-                b.slotTimeouts = slotTimeouts;
+        if (Liftium.slotTimeouts > 0) {
+                b.slotTimeouts = Liftium.slotTimeouts;
         }
 
         Liftium.d ("Beacon: ", 7, b);
@@ -1959,7 +1949,7 @@ Liftium.loadInspector = function () {
 
 var XDM = {
 	allowedMethods : [],
-	debugOn	   : true, // Print debug messages to console.log
+	debugOn	   : false, // Print debug messages to console.log
 
 	// These options only needed for the iframe based method,
 	// for browsers that don't support postMessage
