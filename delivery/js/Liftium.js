@@ -1821,6 +1821,8 @@ Liftium.storeTagStats = function (){
 /* Event tracking. Used for external verification of stats. Based on:
  * I wanted to simply call Google's code for buildng this url, but wasn't able to 
  * get it to work, because Google uses global variables. :(
+ * TODO: Make sure I guessed correctly
+ * http://code.google.com/apis/analytics/docs/tracking/gaTrackingTroubleshooting.html
  */
 Liftium.trackEvent = function(page, category, action, label) {
 	if (LiftiumOptions.pubid == 1052){

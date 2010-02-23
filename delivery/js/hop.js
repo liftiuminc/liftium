@@ -267,7 +267,7 @@ function XDM_onload (){
 }
 if ( top != self && !self.Liftium ) {
 	if (document.referrer && document.referrer.match(/dashboard.liftium.com/)){
-		document.write("<h1>Tag called hop.js</h1>");
+		document.write("<h2>Tag called hop.js. Don't worry Jennie, this is fine. It just means that the network issued the backup tag, and I decided to show you this message instead of the next ad in the chain.</h2>");
 	} else {
 		// Tell the top window to hop 
 		if (self.attachEvent){
