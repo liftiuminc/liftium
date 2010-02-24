@@ -1719,11 +1719,6 @@ Liftium.setAdjustedValues = function(tags){
 			// Tags with floors A) get a little love and B) shouldn't be skewed down for the number of attempts
 			avalue = avalue * 1.01;
 		} 
-		if (parseInt(tags[i]["rej_time"], 10)) {
-			// For tags that have a rejection time set, the fill rate *improves*
-			// TODO: Skew this higher for more attempts
-			reducer = 0;
-		}
 
 		// Skew CPC higher for users in the discovery mindset
 		if (tags[i]["pay_type"] == "CPC" && !Liftium.e(Liftium.getReferringKeywords())){
