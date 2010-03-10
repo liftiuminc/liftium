@@ -73,7 +73,7 @@ class LiftiumConfig{
 			tags.tag, tags.always_fill, tags.sample_rate,
 			tags.frequency_cap AS freq_cap, tags.size,
 			tags.rejection_time as rej_time, tags.tier, tags.value, tags.floor,
-			networks.tag_template, networks.pay_type
+			networks.tag_template, networks.pay_type, tags.max_daily_impressions
 			FROM tags
 			INNER JOIN networks ON tags.network_id = networks.id
 			WHERE tags.id = ? LIMIT 1";
