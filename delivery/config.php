@@ -14,7 +14,7 @@ $LiftiumConfig = new LiftiumConfig();
 $pubid = Framework::getRequestVal("pubid", null, FILTER_VALIDATE_INT);
 if (empty($pubid)){
 	echo "/*";
-	trigger_error("Missing pubid from " . @$_SERVER['HTTP_REFERER'], E_USER_WARNING);
+	trigger_error("Missing or invalid pubid from " . @$_SERVER['HTTP_REFERER'], E_USER_WARNING);
 	echo "*/";
 	$config = array('error'=>"Missing pubid");
 } else {

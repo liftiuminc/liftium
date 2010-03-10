@@ -26,7 +26,14 @@ class LiftiumConfig{
 			$criteria['size'] = $size;
 			$tags = AdTag::searchTags($criteria, false);
 			foreach($tags as $tag_id){
-				$object->sizes[$size][] = $this->loadTagFromId($tag_id);
+				$tag = $this->loadTagFromId($tag_id);
+				if (AdTag::isUnderDailyLimit($tag_id, @$tag['max_daily_impressions'])){
+					$object->sizes[$size][] = $tag;
+				} else {
+					if (!empty($_GET['debug'])){
+						echo "tag #$tag_id skipped because it's over daily limit";
+					}
+				}
 			}
 		}
 
@@ -105,19 +112,6 @@ class LiftiumConfig{
 		  case "Affliate" : $out['pay_type'] = "CPA"; break;
 		}
 
-		/*
-		// Get the slot names
-		$sql = "SELECT slot FROM ad_slot
-			INNER JOIN tag_slot_linking ON ad_slot.as_id = tag_slot_linking.as_id
-			WHERE tag_slot_linking.tag_id = ?";
-		$sth = $dbr->prepare($sql);
-		$sth->execute(array($tag_id));
-		$out['slotnames'] = Array();
-		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
-			$out['slotnames'][] = $row['slot'];
-		}
-		*/
-
 		// If the tag exists already, pass it through the expander 
 		if (!empty($out['tag'])){
 			$out['tag'] = AdTag::expandMacros($out['tag'], $tag_options);
@@ -138,12 +132,11 @@ class LiftiumConfig{
 		}
 
 		// Make the 'tag' smaller. Someday: Pack the javascript
-		// Cheap and easy: Remove the leading/trailing white space. That's never needed.
+		// Cheap and easy: Remove the leading white space. That's never needed.
 		$out['tag'] = preg_replace('/^[ \t]+/m', '', $out['tag']);
 
 		// Get the Targeting criteria
 		$out['criteria'] = TargetingCriteria::getCriteriaForTag($tag_id);
-
 
 		if (!empty($_GET['debug'])){
 			print_r($out);

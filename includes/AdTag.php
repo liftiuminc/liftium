@@ -388,5 +388,30 @@ class AdTag {
 		}
 	}
 	
+        static public function isUnderDailyLimit($tag_id, $limit){
+                if (empty($limit)){
+                        return true;
+                }
+                $dbr = Framework::getDB("slave");
+                static $sth;
+                if (empty($sth)){
+			// Only prepare the statement once
+			$sth = $dbr->prepare("SELECT SUM(attempts) AS attempts FROM fills_minute
+				WHERE tag_id = ? AND minute >= ?");
+                }
+                $sth->execute(array($tag_id, date('Y-m-d')));
+                $out = array();
+                while($row = $sth->fetch(PDO::FETCH_ASSOC)){
+                        if (intval($row['attempts']) <= intval($limit)){
+                                return true;
+                        } else {
+                                return false;
+                        }
+                }
+
+                // Something went wrong
+                return true;
+        }
+
 }
 
