@@ -1,19 +1,36 @@
 /* Ad Network Optimizer written in Javascript */
 
-// LiftiumOptions is where the publisher sets up the ad call.
+
+/* LiftiumOptions is where the publisher sets up the ad call.
+ * params:
+ * pubid - (required) - Liftium Publisher id
+ * maxHops - the maximum size of the chain (default is 5)
+ * baseUrl - the prefix url for the config and beacon services (default http://delivery.liftium.com)
+ * geoUrl - the url to pull the geo targeting data from (default http://geoip.liftium.com/)
+ * callAd - call this size of an ad once the Liftium code is loaded (without a separate call)
+ * offline - disable ads
+ * placement - the placement of the ad, for targeting 
+ * referrer - use this for the referrer instead of document.referrer (used in unit tests)
+ * exclude_tags - for this page, skip these specific tag ids
+ * domain - use this for the domain instead of document.domain (used in unit tests)
+ * config_delay - simulate a slow loading config (used in unit tests)
+ * error_beacon - turn on/off the error beacon reporting (set to false to turn off)
+ * google_* - pass these options to the Google AdSense tag. example, google_hints
+ * kv_* - User defined key values that can be targeted
+ */
 // If it's not set, define it as an empty object. 
 var LiftiumOptions = LiftiumOptions || {}; 
+
 
 if (typeof Liftium == "undefined" ) { // No need to do this twice
 
 var Liftium = {
-	baseUrl		: "http://delivery.liftium.com/",
-	calledSlots 	: [], // Is this used?
+	baseUrl		: LiftiumOptions.baseUrl || "http://delivery.liftium.com/",
 	chain 		: [],
 	eventsTracked   : 0,
-	geoUrl 		: "http://geoip.liftium.com/",
+	geoUrl 		: LiftiumOptions.geoUrl || "http://geoip.liftium.com/",
 	loadDelay 	: 100,
-	maxHops 	: 5,
+	maxHops 	: LiftiumOptions.maxHops || 5,
         rejTags         : [],
 	slotTimeouts    : 0
 };
@@ -1277,15 +1294,13 @@ Liftium.isValidCriteria = function (t){
                                 }
                                 break;
                           default:
-				/* TODO support arbitrary key values 
-                                // If it is not predefined, assume it is a page var.
-                                var list = eval("t.criteria." + key);
-                                if (! Liftium.in_array(Liftium.getPageVar(key), list)){
-
-                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " not found in ", 8, list);
-					return false;
+				// Arbitrary key values passed as LiftiumOptions that start with kv_
+				if (key.match(/^kv_/)){
+					if (t.criteria[key] != LiftiumOptions[key]){
+                                        	Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " does not match", 8);
+						return false;
+					}
                                 }
-				*/
 				
                                 break; // Shouldn't be necessary, but silences a jslint error
                         }
@@ -1485,9 +1500,9 @@ Liftium.print_r = function (data, level) {
                 padding += "    ";
         }
 	switch (typeof data) {
-	  case "string" : return data === "" ? "*empty string*" : data;
+	  case "string" : return data === "" ? "*empty string*" : '"' + data + '"';
 	  case "undefined" : return "*undefined*";
-	  case "boolean" : return data === true ? "*true*" : "*false*";
+	  case "boolean" : return data === true ? "*boolean true*" : "*boolean false*";
 	  case "function" : return "*function*" ;
 	  case "object" : // The fun one
 
@@ -1810,10 +1825,6 @@ Liftium.storeTagStats = function (){
  * http://code.google.com/apis/analytics/docs/tracking/gaTrackingTroubleshooting.html
  */
 Liftium.trackEvent = function(page, category, action, label) {
-	if (LiftiumOptions.pubid == 1052){
-		// Off for Brighthub
-		return;
-	}
 
 	var n = window.navigator;
 	Liftium.sessionid = Liftium.sessionid || Math.round(Math.random() * 2147483647);
