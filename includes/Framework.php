@@ -4,37 +4,23 @@ require dirname(__FILE__) . '/CommonSettings.php';
 // F U Symfony
 class Framework {
 
-	// I'd like to see a SERVICECLASS variable here instead of hard coded hostnames. Later.
-
 	static public function getDB ($connType = "master"){
-		global $DEV_HOSTS;
-		if (in_array(self::getHostname(), $DEV_HOSTS)){
-			$masterhost = 'localhost';
-			$slavehosts = array('localhost');
-			$username = 'liftiumdev';
-			$password = 'monkey';
-			$dbname = "liftium_dev_delivery";
-		} else {
-			$masterhost = 'masterdb';
-			$slavehosts = array('masterdb', 'slavedb1');
-			$username = 'liftiumprod';
-			$password = 'gorilla';
-			$dbname = "liftium";
-		}
+		// shortcut
+		$c = $GLOBALS['CONFIG']['db'];
 
 		// Randomly choose between slave hosts
-		shuffle($slavehosts);
-		$slavehost = $slavehosts[0];
+		shuffle($c['slavehosts']);
+		$slavehost = $c['slavehosts'][0];
 
 		switch ($connType){
-		  case 'master': $dsn = "mysql:dbname=$dbname;host=$masterhost"; break;
-		  case 'slave': $dsn = "mysql:dbname=$dbname;host=$slavehost"; break;
+		  case 'master': $dsn = "mysql:dbname={$c['dbname']};host={$c['masterhost']}"; break;
+		  case 'slave': $dsn = "mysql:dbname={$c['dbname']};host=$slavehost}"; break;
 		  default: return false;
 		}
 
 		static $cons;
 		if (empty($cons[$connType])){
-			$cons[$connType] = new PDO($dsn, $username, $password);
+			$cons[$connType] = new PDO($dsn, $c['username'], $c['password']);
 			$cons[$connType]->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
 			$cons[$connType]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 		}
@@ -213,7 +199,6 @@ class Framework {
 	}
 
 	/* See http://www.freesoft.org/CIE/RFC/2068/185.htm for an explanation */
-
 	static public function httpCache($mtime=null){
 		// Make it easy to disable
 		if (isset($_GET['noCache'])){

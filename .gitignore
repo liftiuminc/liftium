@@ -9,3 +9,4 @@ dev_mysql.log
 test_mysql.log
 development.log
 */cache/*
+LocalSettings.php

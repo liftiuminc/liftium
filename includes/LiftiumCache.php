@@ -10,14 +10,8 @@ class LiftiumCache extends Memcache {
 
                 $Cache = new LiftiumCache();
                 
-                global $DEV_HOSTS;
-                if (in_array(Framework::getHostname(), $DEV_HOSTS)){
-                        $Cache->pconnect('localhost', 11211) || error_log('Error connecting to memcached');
-                } else {
-                        $Cache->pconnect('memcached1', 11211) || error_log('Error connecting to memcached');
-                        ### disabled memcached2 for now, because the ruby & php libraries are using different
-                        ### hashing strategies. See FB 118 for details. -Jos
-                        #$Cache->pconnect('memcached2', 11211) || error_log('Error connecting to memcached');
+		foreach($GLOBALS['CONFIG']['memcached'] as $c){
+                        $Cache->pconnect($c['host'], $c['port']) || trigger_error("Error connecting to memcached:" . print_r($c, true), E_USER_WARNING);
                 }
 
                 return $Cache;
