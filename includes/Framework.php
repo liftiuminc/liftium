@@ -14,7 +14,7 @@ class Framework {
 
 		switch ($connType){
 		  case 'master': $dsn = "mysql:dbname={$c['dbname']};host={$c['masterhost']}"; break;
-		  case 'slave': $dsn = "mysql:dbname={$c['dbname']};host=$slavehost}"; break;
+		  case 'slave': $dsn = "mysql:dbname={$c['dbname']};host=$slavehost"; break;
 		  default: return false;
 		}
 
