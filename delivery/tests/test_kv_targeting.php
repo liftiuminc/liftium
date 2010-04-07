@@ -11,7 +11,7 @@ This ad should be tag #150, because it is hub=gaming.
 <p>
 This ad should be tag #151, because it is hub=entertainment
 <div id="slotz" class="adunit" style="width:300px; height: 250px;">
-	<script>LiftiumOptions.placement = 'entertainment'</script>
+	<script>LiftiumOptions.kv_hub = 'entertainment'</script>
         <script>Liftium.callAd("300x250")</script>
 </div>
 <script>

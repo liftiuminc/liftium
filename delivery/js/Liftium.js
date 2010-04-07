@@ -487,25 +487,22 @@ Liftium.dec2hex = function(d){
 };
 
 
-/* Emulate php's empty(). Thanks to:
- * http://kevin.vanzonneveld.net/techblog/article/javascript_equivalent_for_phps_empty/
- * Nick wrote: added the check for number that is NaN
- */
+/* Emulate php's empty(). */
 Liftium.empty = function ( v ) {
-    if (typeof v === "undefined" ||
-	v === "" ||
-        v === 0 ||
-        v === null ||
-        v === false ||
-        (typeof v === "number" && isNaN(v))){
-        return true;
-    } else if (typeof v === 'object') {
+    if (typeof v === 'object') {
         for (var key in v) {
               return false;
         }
         return true;
+    } else {
+	return  v === undefined ||
+		v === "" ||
+		v === 0 ||
+		v === null ||
+		v === false ||
+		(typeof v === "number" && isNaN(v)) || 
+		false; // Everything else
     }
-    return false;
 };
 Liftium.e = Liftium.empty; // Shortcut to make the Javascript smaller
 
