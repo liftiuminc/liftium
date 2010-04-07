@@ -39,25 +39,6 @@ class AdTag {
 		*/
 	}
 
-	public function getCurrentSizes($tag_id = null){
-		if (is_null($tag_id)){
-			$tag_id = $this->tag_id;
-		}
-
-		$dbr = Framework::getDB("slave");
-		$sql = "SELECT DISTINCT size FROM ad_slot
-			INNER JOIN tag_slot_linking ON ad_slot.as_id = tag_slot_linking.as_id
-				AND tag_slot_linking.tag_id = ?";
-		$sth = $dbr->prepare($sql);
-		$sth->execute(array($tag_id));
-		$out = array();
-		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
-			$out[] = $row['size'];
-		}
-
-		return $out;
-	}
-
 	public function getSizes(){
 		$out = array();
 
@@ -71,26 +52,6 @@ class AdTag {
 
 		return $out;
 	}
-
-	public static function getSlots(){
-		$excludedSizes = array('200x75', '125x125');
-
-		$out = array();
-
-		$dbr = Framework::getDB("slave");
-		$sql = "SELECT slot, size FROM ad_slot WHERE default_enabled = 1
-			AND size NOT IN (" . implode(", ", array_fill('?', count($excludedSizes))) . ")
-			AND skin='monaco' ORDER BY size, slot";
-		$sth = $dbr->prepare($sql);
-		$sth->execute($excludedSizes);
-		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
-			$out[$row['slot']] = $row['size'];
-		}
-
-		return $out;
-	}
-
-
 
 
 	private function saveSlots(){
@@ -274,14 +235,6 @@ class AdTag {
 					INNER JOIN target_value
 					ON target_tag_linking.target_value_id = target_value.target_value_id
 				  WHERE target_key_id IN (3,4))";
-		}
-
-		if (!empty($criteria['slotname'])){
-			$sql.= "\n\tAND tag_id IN (
-				  SELECT DISTINCT tag_id FROM tag_slot_linking
-					INNER JOIN ad_slot ON tag_slot_linking.as_id = ad_slot.as_id
-					 AND ad_slot.slot = ?)";
-			$values[] = $criteria['slotname'];
 		}
 
 		switch (@$criteria['sort']){
