@@ -185,7 +185,7 @@ class LiftiumConfig{
 	}
 
 	public static function clearCache(){
-		trigger_error("Cache not implented", E_USER_WARNING);
+		trigger_error("clear cache not implented", E_USER_WARNING);
 		//file_get_contents("http://athena-ads.wikia.com/athena/config/?purge=1&cb=" . mt_rand());
 	}
 
