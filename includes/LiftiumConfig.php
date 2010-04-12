@@ -45,10 +45,12 @@ class LiftiumConfig{
 		$sth->execute(array($criteria['pubid']));
 		$publisher = $sth->fetchObject();
 		unset($sth);
-		$object->max_hop_time = $publisher->hoptime;
-		$object->throttle = $publisher->beacon_throttle;
-		$object->brand_safety_level = $publisher->brand_safety_level;
-		$object->site_name = $publisher->site_name;
+		if (!empty($publisher)){
+			$object->max_hop_time = $publisher->hoptime;
+			$object->throttle = $publisher->beacon_throttle;
+			$object->brand_safety_level = $publisher->brand_safety_level;
+			$object->site_name = $publisher->site_name;
+		}
 
 		// Store in memcache for next time
 		$cache->set($cacheKey, $object, 0, self::cacheTimeout);
@@ -122,7 +124,7 @@ class LiftiumConfig{
 		} else {
 			$class = AdNetwork::getNetworkClass($out['network_id']);
 			if ($class === false){
-				$msg = "Error finding Network Class and no tag for tagid #{$out['tag_id']}";
+				$msg = "No tag template, network class or tag for tagid #{$out['tag_id']}";
 				trigger_error($msg, E_USER_WARNING);
 				$out['tag'] = $msg;
 			} else {
