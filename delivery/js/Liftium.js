@@ -266,9 +266,7 @@ Liftium._callAd = function (slotname, iframe) {
                 Liftium.reportError("Error loading tag #" + t.tag_id + ": " + Liftium.print_r(e), "tag");
         }
 
-
         return true;
-
 };
 
 
@@ -300,6 +298,15 @@ Liftium.callIframeAd = function(slotname, tag, adIframe){
         }
 
 };
+
+
+Liftium.injectIframeAd = function (slotname, iframeElement){
+	Liftium.d("Calling injectIframeAd for " + slotname, 1);
+        var t = Liftium.getNextTag(slotname);
+        var iframeUrl = Liftium.getIframeUrl(slotname, t);
+	iframeElement.src = iframeUrl;
+};
+
 
 /* Handle Javascript errors with window.onerror */
 Liftium.catchError = function (msg, url, line) {
@@ -559,6 +566,11 @@ Liftium.getAdColor = function (type){
      Liftium.d("Error in Liftium.getAdColor: " + e.message);
      return null;
   }
+};
+
+
+Liftium.getPageVar = function(name, defaultVal){
+	return LiftiumOptions['kv_' + name] || defaultVal || '';
 };
 
 
@@ -1752,6 +1764,11 @@ Liftium.setAdjustedValues = function(tags){
 		}
 	}
 	return tags; // Not really necessary, because it modified values in place
+};
+
+
+Liftium.setPageVar = function(name, value){
+	LiftiumOptions['kv_' + name] = value;
 };
 
 
