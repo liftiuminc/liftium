@@ -133,9 +133,8 @@ class LiftiumConfig{
 			}
 		}
 
-		// Make the 'tag' smaller. Someday: Pack the javascript
-		// Cheap and easy: Remove the leading white space. That's never needed.
-		$out['tag'] = preg_replace('/^[ \t]+/m', '', $out['tag']);
+		// Make the tag smaller
+		$out['tag'] = self::packTag($out['tag']);
 
 		// Get the Targeting criteria
 		$out['criteria'] = TargetingCriteria::getCriteriaForTag($tag_id);
@@ -205,6 +204,16 @@ class LiftiumConfig{
 		$result = $db->query("SELECT UNIX_TIMESTAMP(MAX(updated_at)) as lastmod FROM tags;");
 		$row = $result->fetch();
 		return intval($row[0]);
+	}
+
+
+	// Make the tag smaller. Someday: Pack the javascript
+	static public function packTag($tag) {
+		// Cheap and easy: Remove the leading white space. That's never needed.
+		$out = preg_replace('/^[ \t]+/m', '', $tag);
+		// Cheap and easy: strip excess space
+		$out = preg_replace('/\s+/', ' ', $tag);
+		return $out;
 	}
 }
 ?>

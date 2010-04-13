@@ -1,20 +1,23 @@
 <?php
+$origdb = "liftium_orig";
+$destdb = "liftium_dev_delivery";
 require_once '../includes/Framework.php';
 $db = Framework::getDB("master");
 ?>
+USE <?php echo $destdb ?>;
 TRUNCATE TABLE publishers; 
 INSERT INTO publishers VALUES (999, 'Wikia', 'http://www.wikia.com/', 3, 2700, NOW(), NOW(), 1, '/liftium_iframe.html', NULL, 1, '', '', NULL);
 
 INSERT IGNORE INTO users VALUES (42, 'nick@liftium.com', 1, 1, 'a5182110acf4a2224c7361fb2ff237e63c8583b2907463fed895c73bbef11cb2981cd74ce9857e9d98cf6212a661915c3dc5a79ba731e28ac286341d7052d7aa', '5TdqNuHG4dBtTppTJjEv', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NOW(), NOW(), 'Pacific Time (US & Canada)', 1);
 
 TRUNCATE TABLE ad_formats; 
-INSERT INTO ad_formats SELECT * from liftium.ad_formats;
+INSERT INTO ad_formats SELECT * from <?php echo $origdb ?>.ad_formats;
 
 TRUNCATE TABLE networks; 
-INSERT INTO networks SELECT * from liftium.networks;
+INSERT INTO networks SELECT * from <?php echo $origdb ?>.networks;
 
 TRUNCATE TABLE network_tag_options; 
-INSERT INTO network_tag_options SELECT * from liftium.network_tag_options;
+INSERT INTO network_tag_options SELECT * from <?php echo $origdb ?>.network_tag_options;
 
 CREATE TABLE IF NOT EXISTS network_map (athena_id int, liftium_id int);
 TRUNCATE TABLE network_map; 
@@ -40,7 +43,9 @@ INSERT INTO network_map VALUES
 	(42, 111), /* Olive */
 	(44, 46), /* VIdeoEGG */
 	(47, 5), /* Adsdaq = context web */
-	(48, 96); /* Technorati */
+	(48, 96), /* Technorati */
+	(52, 115), /* Barons */
+	(53, 84); /* Vibrant */
 
 TRUNCATE TABLE tags; 
 TRUNCATE TABLE tag_options; 
@@ -102,13 +107,13 @@ function getSize($tagid){
 	}
 }
 
-$db->query("USE liftiumdev;");
+$db->query("USE $destdb;");
 $st = $db->prepare("SELECT tag.*, network_map.liftium_id
 	FROM athena.tag
 	LEFT OUTER JOIN network_map ON tag.network_id = network_map.athena_id
 	WHERE enabled = 'Yes' AND
 	network_id IN (SELECT network_id from athena.network where enabled='Yes')
-	AND network_id NOT IN (45,30,46,31)");
+	AND network_id NOT IN (45,30,46,31,49,50,51)");
 $st->execute(); 
 
 $sto = $db->prepare("SELECT * FROM athena.tag_option WHERE tag_id = ?");
@@ -122,6 +127,7 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		exit;
 	}
 
+	$size = getSize($row['tag_id']);
 	echo "INSERT INTO tags VALUES(" . $tagid . "," .
 		$db->quote($row['tag_name']) . "," .
 		$db->quote($row['liftium_id']) . "," .
@@ -133,7 +139,7 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		$db->quote(getTier($row['tier'])) . "," .
 		$db->quote($row['freq_cap']) . "," .
 		$db->quote(empty($row['rej_cap']) ? $row['rej_time'] : 42) . "," .
-		$db->quote(getSize($row['tag_id'])) . "," .
+		$db->quote($size) . "," .
 		$db->quote($row['tag']) . "," . 
 		"NOW(), NOW(), 'No', NULL, NULL" .
 	");\n";
@@ -144,6 +150,36 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		$name = $optionrow['option_name'];
 		echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, " . $db->quote($name) . "," . $db->quote($optionrow['option_value']) . ");\n";
 	}
+	switch($row['liftium_id']){
+		case '6':
+		  switch ($size){
+		    case '728x90': $id = 435; break;
+		    case '300x250': $id = 391; break;
+		    case '160x600': $id = 774; break;
+		    case '120x600': $id = 436; break;
+		    default: echo "Unrecognized size for GAO ($size)";
+		  } 
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'id', '$id');\n";
+		  break;
+		case '106':
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'section', '415419');\n";
+		  break;
+		case '1':
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'pubid', 'pub-4086838842346968');\n";
+		  break;
+		case '4':
+		  switch ($size){
+		    case '300x250': $zs= '3330305f323530';break;
+		    case '160x600': $zs= '3136305f363030';break;
+		    case '728x90': $zs= '3732385f3930';break;
+		    default: echo "Unrecognized size for AdBrite ($size)";
+	  	  }
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'zs', '$zs');\n";
+		  break;
+
+	}
+	
+
 
 	foreach (getTargets($row['tag_id']) as $name => $value){
 		echo "\tINSERT INTO tag_targets VALUES (NULL, $tagid, " . $db->quote($name) . "," .
@@ -154,6 +190,16 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		
 }
 ?>
+-- we called it accountid instead of sid
+UPDATE networks SET tag_template='<script src="http://media.fastclick.net/w/get.media?sid=%@sid@%&m=%height%&tp=%@width@%&d=j&t=n"></script>' where id=45;
+
+-- Set up dart's tag template
+UPDATE networks SET tag_template='<script>
+var creative = AthenaDART.callAd(LiftiumOptions.placement, "%@size@%");
+document.write(creative);
+</script>' where id=104;
+
+
 UPDATE tags set sample_rate = NULL where sample_rate = 0;
 UPDATE tags set frequency_cap = NULL where frequency_cap = 0;
 UPDATE tags set rejection_time = NULL where rejection_time = 0;
