@@ -300,8 +300,10 @@ Liftium.callIframeAd = function(slotname, tag, adIframe){
 };
 
 
-Liftium.injectIframeAd = function (slotname, iframeElement){
-	Liftium.d("Calling injectIframeAd for " + slotname, 1);
+Liftium.callInjectedIframeAd = function (sizeOrSlot, iframeElement){
+	Liftium.d("Calling injected Iframe Ad for " + slotname, 1);
+
+	var slotname = Liftium.getContainingDivId(iframeElement); 
         var t = Liftium.getNextTag(slotname);
         var iframeUrl = Liftium.getIframeUrl(slotname, t);
 	iframeElement.src = iframeUrl;
@@ -566,6 +568,22 @@ Liftium.getAdColor = function (type){
      Liftium.d("Error in Liftium.getAdColor: " + e.message);
      return null;
   }
+};
+
+
+/* For the supplied element, return the id of the containing div */
+Liftium.getContainingDivId = function(element){
+	// Walk up the dom and find which div it's in 
+	var tempElement = element, tries = 0;
+	while(tempElement && tries < 10){
+		if (tempElement.tagName == "DIV" && tempElement.id){
+			return tempElement.id;
+		} else {
+			tempElement = tempElement.parentNode;
+		}
+		tries++;
+	}
+	return false;
 };
 
 
@@ -978,14 +996,8 @@ Liftium.getTagStat = function (tag_id, type){
 
 Liftium.getUniqueSlotname = function(sizeOrSlot) {
 	Liftium.slotnames = Liftium.slotnames || [];
-
-	var s = "Liftium_" + sizeOrSlot;
-	if (Liftium.in_array(s, Liftium.slotnames)){
-		// This size already called on the page, so make up a new one.
-		s += "_" + Math.random().toString().substring(3,9);
-	}
+	var s = "Liftium_" + sizeOrSlot + '_' + Liftium.slotnames.length;
 	Liftium.slotnames.push(s);
-
 	return s;
 };
 
