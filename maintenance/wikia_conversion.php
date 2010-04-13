@@ -127,6 +127,7 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		exit;
 	}
 
+	$size = getSize($row['tag_id']);
 	echo "INSERT INTO tags VALUES(" . $tagid . "," .
 		$db->quote($row['tag_name']) . "," .
 		$db->quote($row['liftium_id']) . "," .
@@ -138,7 +139,7 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		$db->quote(getTier($row['tier'])) . "," .
 		$db->quote($row['freq_cap']) . "," .
 		$db->quote(empty($row['rej_cap']) ? $row['rej_time'] : 42) . "," .
-		$db->quote(getSize($row['tag_id'])) . "," .
+		$db->quote($size) . "," .
 		$db->quote($row['tag']) . "," . 
 		"NOW(), NOW(), 'No', NULL, NULL" .
 	");\n";
@@ -149,6 +150,36 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		$name = $optionrow['option_name'];
 		echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, " . $db->quote($name) . "," . $db->quote($optionrow['option_value']) . ");\n";
 	}
+	switch($row['liftium_id']){
+		case '6':
+		  switch ($size){
+		    case '728x90': $id = 435; break;
+		    case '300x250': $id = 391; break;
+		    case '160x600': $id = 774; break;
+		    case '120x600': $id = 436; break;
+		    default: echo "Unrecognized size for GAO ($size)";
+		  } 
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'id', '$id');\n";
+		  break;
+		case '106':
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'section', '415419');\n";
+		  break;
+		case '1':
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'pubid', 'pub-4086838842346968');\n";
+		  break;
+		case '4':
+		  switch ($size){
+		    case '300x250': $zs= '3330305f323530';break;
+		    case '160x600': $zs= '3136305f363030';break;
+		    case '728x90': $zs= '3732385f3930';break;
+		    default: echo "Unrecognized size for AdBrite ($size)";
+	  	  }
+		  echo "\tINSERT INTO tag_options VALUES(NULL, $tagid, 'zs', '$zs');\n";
+		  break;
+
+	}
+	
+
 
 	foreach (getTargets($row['tag_id']) as $name => $value){
 		echo "\tINSERT INTO tag_targets VALUES (NULL, $tagid, " . $db->quote($name) . "," .
