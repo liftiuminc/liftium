@@ -211,8 +211,6 @@ class LiftiumConfig{
 	static public function packTag($tag) {
 		// Cheap and easy: Remove the leading white space. That's never needed.
 		$out = preg_replace('/^[ \t]+/m', '', $tag);
-		// Cheap and easy: strip excess space
-		$out = preg_replace('/\s+/', ' ', $tag);
 		return $out;
 	}
 }
