@@ -266,8 +266,8 @@ function XDM_onload (){
 	XDM.send(top, "Liftium.iframeHop", [window.location]);
 }
 if ( top != self && !self.Liftium ) {
-	if (document.referrer && document.referrer.match(/dashboard.liftium.com/)){
-		document.write("<h2>Tag called hop.js. Don't worry Jennie, this is fine. It just means that the network issued the backup tag, and I decided to show you this message instead of the next ad in the chain.</h2>");
+	if (document.referrer && document.referrer.match(/(dashboard.liftium.com|liftium.wikia-inc.com)/)){
+		document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
 	} else {
 		// Tell the top window to hop 
 		if (self.attachEvent){
