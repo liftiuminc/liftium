@@ -1,6 +1,6 @@
 <?php
 $origdb = "liftium_orig";
-$destdb = "liftium_dev_delivery";
+$destdb = "liftium";
 require_once '../includes/Framework.php';
 $db = Framework::getDB("master");
 ?>
@@ -117,6 +117,9 @@ $st = $db->prepare("SELECT tag.*, network_map.liftium_id
 $st->execute(); 
 
 $sto = $db->prepare("SELECT * FROM athena.tag_option WHERE tag_id = ?");
+$stp = $db->prepare("SELECT slot FROM athena.tag_slot_linking AS t
+                        INNER JOIN athena.ad_slot AS a ON a.as_id = t.as_id
+                         WHERE tag_id = ?");
 
 
 $tagid=0;
@@ -185,6 +188,19 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 		echo "\tINSERT INTO tag_targets VALUES (NULL, $tagid, " . $db->quote($name) . "," .
 			$db->quote(implode(',', $value)) . ");\n"; 
 	}
+
+
+	// Get slot names
+	$stp->execute(array($row['tag_id'])); 
+	$placements = array();
+	while($placementrow = $stp->fetch(PDO::FETCH_ASSOC)){
+		$placements[] = $placementrow['slot'];
+	}
+
+	if (!empty($placements)){
+		  echo "\tINSERT INTO tag_targets VALUES (NULL, $tagid, 'placement', '" . implode(',', $placements) . "');\n"; 
+	}
+	
 
 	echo "\n";	
 		
