@@ -8,7 +8,10 @@
  * See AdProviderDART.php for more info
  */ 
 
-var Liftium = window.Liftium; /* Hack to avoid jslint errors */
+// Scope variables if you are in an iframe
+var Liftium = window.Liftium || top.Liftium; 
+var LiftiumOptions = window.LiftiumOptions || top.LiftiumOptions; 
+var ProviderValues = window.ProviderValues || top.ProviderValues; 
 
 var LiftiumDART = {
 	sites : {
@@ -206,7 +209,7 @@ LiftiumDART.getAllDartKeyvalues = function (slotname){
 		LiftiumDART.getArticleKV() +
 		'pos=' + slotname + ';'; 
 	out = out.replace(/@@WIKIA_AQ@@/, Athena.getMinuteTargeting());
-	out = out.replace(/@@WIKIA_PROVIDER_VALUES@@/, window.ProviderValues.string);
+	out = out.replace(/@@WIKIA_PROVIDER_VALUES@@/, ProviderValues.string || "");
 	return out;
 };
 
@@ -216,9 +219,12 @@ if (! window.Athena) {
 	now : new Date(),
 	definedInsideWikiajs : true	
   };
-  Athena.getMinutesSinceMidnight = function(){
-	  return (Athena.now.getHours() * 60) + Athena.now.getMinutes();
+
+  /* Target based on the minute of the hour */
+  Athena.getMinuteTargeting = function (){
+        return Athena.now.getMinutes() % 15;
   };
+
 }
 
 

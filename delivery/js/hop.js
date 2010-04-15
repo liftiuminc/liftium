@@ -266,7 +266,7 @@ function XDM_onload (){
 	XDM.send(top, "Liftium.iframeHop", [window.location]);
 }
 if ( top != self && !self.Liftium ) {
-	if (document.referrer && document.referrer.match(/(dashboard.liftium.com|liftium.wikia-inc.com)/)){
+	if (document.referrer && document.referrer.match(/(liftium.com|liftium.wikia-inc.com)/)){
 		document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
 	} else {
 		// Tell the top window to hop 
