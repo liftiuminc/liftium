@@ -211,9 +211,16 @@ UPDATE networks SET tag_template='<script src="http://media.fastclick.net/w/get.
 
 -- Set up dart's tag template
 UPDATE networks SET tag_template='<script>
-var creative = AthenaDART.callAd(LiftiumOptions.placement, "%@size@%");
+var creative = LiftiumDART.callAd(LiftiumOptions.placement, "%@size@%");
 document.write(creative);
 </script>' where id=104;
+
+-- PNL
+INSERT INTO publisher_network_logins SELECT NULL, liftium_id, 999, webui_username,
+	 webui_password, now(), now() FROM Athena.network
+	INNER JOIN network_map ON athena.network.network_id = network_map.athena_id
+	WHERE webui_username !='' AND webui_password !='' AND network_id !=27;
+
 
 
 UPDATE tags set sample_rate = NULL where sample_rate = 0;
