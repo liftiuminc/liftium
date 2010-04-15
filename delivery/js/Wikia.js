@@ -12,6 +12,7 @@
 var Liftium = window.Liftium || top.Liftium; 
 var LiftiumOptions = window.LiftiumOptions || top.LiftiumOptions; 
 var ProviderValues = window.ProviderValues || top.ProviderValues; 
+var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;  
 
 var LiftiumDART = {
 	sites : {
@@ -224,6 +225,9 @@ if (! window.Athena) {
   Athena.getMinuteTargeting = function (){
         return Athena.now.getMinutes() % 15;
   };
+
+  Athena.getPageVar = Liftium.getPageVar;
+  Athena.setPageVar = Liftium.setPageVar;
 
 }
 
