@@ -1309,7 +1309,7 @@ Liftium.isValidCriteria = function (t){
                                 }
                                 break;
                           case 'placement':
-                                if (t.criteria.placement[0] != LiftiumOptions.placement ){
+                                if (!Liftium.in_array(LiftiumOptions.placement, t.criteria.placement)){
                                         Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid placement", 8);
 					return false;
                                 }
