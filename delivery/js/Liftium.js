@@ -301,7 +301,7 @@ Liftium.callIframeAd = function(slotname, tag, adIframe){
 
 
 Liftium.callInjectedIframeAd = function (sizeOrSlot, iframeElement){
-	Liftium.d("Calling injected Iframe Ad for " + slotname, 1);
+	Liftium.d("Calling injected Iframe Ad for " + sizeOrSlot, 1);
 
 	var slotname = Liftium.getContainingDivId(iframeElement); 
         var t = Liftium.getNextTag(slotname);
