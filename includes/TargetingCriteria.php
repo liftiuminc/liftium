@@ -3,11 +3,14 @@
 class TargetingCriteria {
 
 	public static function getCriteriaForTag($tag_id){
-                $dbr = Framework::getDB("slave");
 
-		$sql = "SELECT id, key_value, key_name FROM tag_targets WHERE tag_id = ?";
+		static $dbr, $sth;
+		if (empty($sth)){
+                	$dbr = Framework::getDB("slave");
+			$sql = "SELECT id, key_value, key_name FROM tag_targets WHERE tag_id = ?";
+			$sth = $dbr->prepare($sql);
+		}
 
-		$sth = $dbr->prepare($sql);
 		$sth->execute(array($tag_id));
 		$out = array();
 		while($row = $sth->fetch(PDO::FETCH_ASSOC)){
