@@ -988,7 +988,7 @@ Liftium.getTagStat = function (tag_id, type){
                 stat = parseInt(stat, 10); // convert to number for numerical comparison
         }
 
-        Liftium.d("Stats for " + tag_id + " type " + type + " = " + stat, 7);
+        Liftium.d("Stats for " + tag_id + " type " + type + " = " + stat, 9);
         return stat;
 };
 
