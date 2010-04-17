@@ -958,7 +958,7 @@ Liftium.getTagStat = function (tag_id, type){
         var stat = null;
 
         if (Liftium.e(Liftium.tagStats)){
-		Liftium.tagStats = Liftium.getRequestVal("liftium_tag_stats", null) || Liftium.cookie("ATS") || "";
+		Liftium.tagStats = Liftium.getRequestVal("liftium_tag_stats", null) || Liftium.cookie("LTS") || "";
         }
 
         var statMatch = Liftium.tagStats.match(Liftium.getStatRegExp(tag_id));
@@ -1064,6 +1064,7 @@ Liftium.iframeHop = function(iframeUrl){
 		Liftium.reportError("Unable to find iframe for " + iframeUrl);
 		return;
 	}
+	Liftium.d("slotname is " + slotname + " in iframeHop", 3);
 
 	Liftium.markLastAdAsRejected(slotname);
 	Liftium._callAd(slotname, true);
@@ -1835,7 +1836,7 @@ Liftium.setTagStat = function (tag_id, type){
  */
 Liftium.storeTagStats = function (){
         Liftium.d("Stored Tag Stats = " + Liftium.tagStats, 4);
-        Liftium.cookie("ATS", Liftium.tagStats, {
+        Liftium.cookie("LTS", Liftium.tagStats, {
 		  // FIXME for Wikia
                   //domain: Liftium.getCookieDomain(),
                   path: "/",
