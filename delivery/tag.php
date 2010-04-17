@@ -17,8 +17,16 @@ body {
 }
 </style>
 </head>
+<script>
+LiftiumOptions = LiftiumOptions || top.LiftiumOptions;
+Liftium = Liftium || top.Liftium;
+</script>
 <body>
 <?php
+if ($data['network_name'] == 'DART'){
+	echo "<script src='/js/Wikia.js?1'></script>\n";
+	echo "<script>ProviderValues = ProviderValues || top.ProviderValues;</script>\n";
+}
 echo "<!-- Begin Tag #{$_GET['tag_id']} -->\n";
 echo $data['tag'];
 ?>
