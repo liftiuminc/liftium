@@ -1225,7 +1225,7 @@ Liftium.isValidCountry = function (countryList){
 
         var ac = Liftium.getCountry();
 
-        Liftium.d("Checking if " + ac + " is in:", 8, countryList);
+        Liftium.d("Checking if '" + ac + "' is in:", 8, countryList);
 
         if (Liftium.in_array("row", countryList, true) &&
                   !Liftium.in_array(ac, ['us','uk','ca'])){
@@ -1319,7 +1319,7 @@ Liftium.isValidCriteria = function (t){
 				// Arbitrary key values passed as LiftiumOptions that start with kv_
 				if (key.match(/^kv_/)){
 					if (t.criteria[key] != LiftiumOptions[key]){
-                                        	Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " does not match", 8);
+                                        	Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " does not match: " + t.criteria[key], 8);
 						return false;
 					}
                                 }
