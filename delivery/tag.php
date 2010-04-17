@@ -24,7 +24,7 @@ var Liftium = window.Liftium || top.Liftium;
 <body>
 <?php
 if ($data['network_name'] == 'DART'){
-	echo "<script src='/js/Wikia.js?1'></script>\n";
+	echo "<script src='http://liftium.wikia.com/js/Wikia.js?1'></script>\n";
 	echo "<script>var ProviderValues = window.ProviderValues || top.ProviderValues;</script>\n";
 }
 echo "<!-- Begin Tag #{$_GET['tag_id']} -->\n";
