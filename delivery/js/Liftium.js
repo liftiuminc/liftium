@@ -1318,7 +1318,7 @@ Liftium.isValidCriteria = function (t){
                           default:
 				// Arbitrary key values passed as LiftiumOptions that start with kv_
 				if (key.match(/^kv_/)){
-					if (t.criteria[key] != LiftiumOptions[key]){
+					if (!Liftium.in_array(LiftiumOptions[key], t.criteria[key])){
                                         	Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " does not match: " + t.criteria[key], 8);
 						return false;
 					}
