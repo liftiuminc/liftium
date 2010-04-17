@@ -1049,7 +1049,7 @@ Liftium.iframeHop = function(iframeUrl){
 		// IE doesn't prepend the host name if you call a local iframe
 		if (iframeUrl.indexOf(iframes[i].src) >=  0){
 			// Found match
-			slotname = Liftium.getSlotnameFromElement(iframes[i]);
+			slotname = Liftium.getContainingDivId(iframes[i]); 
 			break;
 		}
 	}
@@ -1057,7 +1057,7 @@ Liftium.iframeHop = function(iframeUrl){
         if ( Liftium.e(slotname) && len == 1){
 		// The url doesn't match anymore (probably a redirect or #),
 		// but we got lucky, there is only one iframe on the page
-		slotname = Liftium.getSlotnameFromElement(iframes[0]);
+		slotname = Liftium.getContainingDivId(iframes[0]); 
 	}
 
         if ( Liftium.e(slotname)){
