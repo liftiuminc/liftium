@@ -69,8 +69,8 @@ class LiftiumConfig{
 
 		// Cache miss, get from DB
 		$dbr = Framework::getDB("slave");
-		static $sth;
-		if (empty($sth)){
+		static $sth_t;
+		if (empty($sth_t)){
 		  $sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
 			tags.tag, tags.always_fill, tags.sample_rate,
 			tags.frequency_cap AS freq_cap, tags.size,
