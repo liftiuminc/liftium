@@ -136,6 +136,7 @@ Liftium.buildChain = function(slotname) {
         }
 
 	if (Liftium.e(Liftium.chain[slotname])){
+                Liftium.reportError("Error building chain for " + slotname + ".  No matching tags?");
 		return false;
 	}
 
@@ -1366,7 +1367,7 @@ Liftium.loadScript = function(url, noblock) {
 Liftium.markChain = function (slotname){
         Liftium.d("Marking chain for " + slotname, 5);
 	if (Liftium.e(Liftium.chain[slotname])){
-		Liftium.debug("Skiping Marking chain, chain was empty");
+		Liftium.debug("Skipping Marking chain, chain was empty");
 		return false;
 	}
         for (var i = 0, len = Liftium.chain[slotname].length; i < len; i++){
