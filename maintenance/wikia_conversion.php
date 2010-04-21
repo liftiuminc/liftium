@@ -107,6 +107,22 @@ function getSize($tagid){
 	}
 }
 
+function getSizesAndSlots($tagid){
+	static $stt;
+	if (empty($stt)){
+		global $db;
+		$stt = $db->prepare("SELECT size, slot FROM athena.ad_slot
+			INNER JOIN athena.tag_slot_linking ON athena.tag_slot_linking.as_id=athena.ad_slot.as_id
+			INNER JOIN athena.tag ON athena.tag_slot_linking.tag_id = athena.tag.tag_id and athena.tag.tag_id=?;");
+	}
+	$out = array();
+	$stt->execute(array($tagid)); 
+	while($row = $stt->fetch(PDO::FETCH_ASSOC)){
+		$out[$row['size']][] = $row['slotname'];
+	}
+	return $out;
+}
+
 $db->query("USE $destdb;");
 $st = $db->prepare("SELECT tag.*, network_map.liftium_id
 	FROM athena.tag
@@ -124,13 +140,15 @@ $stp = $db->prepare("SELECT slot FROM athena.tag_slot_linking AS t
 
 $tagid=0;
 while($row = $st->fetch(PDO::FETCH_ASSOC)){
-	$tagid++; 
-	if (empty($row['liftium_id'])){
-		echo "/* No Network id found for {$row['network_id']}*/\n";
-		exit;
-	}
+  $tagid++; 
+  if (empty($row['liftium_id'])){
+	echo "/* No Network id found for {$row['network_id']}*/\n";
+	exit;
+  }
 
-	$size = getSize($row['tag_id']);
+  $sizesAndSlots = getSizesAndSlots($tagid);
+
+  foreach ($sizesAndSlots as $size => $slots) {
 	echo "INSERT INTO tags VALUES(" . $tagid . "," .
 		$db->quote($row['tag_name']) . "," .
 		$db->quote($row['liftium_id']) . "," .
@@ -190,19 +208,13 @@ while($row = $st->fetch(PDO::FETCH_ASSOC)){
 	}
 
 
-	// Get slot names
-	$stp->execute(array($row['tag_id'])); 
-	$placements = array();
-	while($placementrow = $stp->fetch(PDO::FETCH_ASSOC)){
-		$placements[] = $placementrow['slot'];
-	}
-
-	if (!empty($placements)){
-		  echo "\tINSERT INTO tag_targets VALUES (NULL, $tagid, 'placement', '" . implode(',', $placements) . "');\n"; 
+	if (!empty($slots)){
+		  echo "\tINSERT INTO tag_targets VALUES (NULL, $tagid, 'placement', '" . implode(',', $slots) . "');\n"; 
 	}
 	
 
 	echo "\n";	
+  }
 		
 }
 ?>
