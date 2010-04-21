@@ -216,7 +216,8 @@ XDM.executeMessage = function(serializedMessage){
 		XDM.debug("Evaluating " + code);
 		return eval(code);
 	} else {
-		throw("Invalid method: " + nvpairs["method"]);
+                XDM.debug("Invalid method from XDM: " + nvpairs["method"]);
+                return false;
 	}
 };
 
