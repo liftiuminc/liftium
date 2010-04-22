@@ -9,10 +9,11 @@
  */ 
 
 // Scope variables if you are in an iframe
-var Liftium = window.Liftium || top.Liftium; 
-var LiftiumOptions = window.LiftiumOptions || top.LiftiumOptions; 
+var Liftium = window.Liftium;
+try {
 var ProviderValues = window.ProviderValues || top.ProviderValues; 
 var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;  
+} catch (e) { } 
 
 var LiftiumDART = {
 	random: Math.random(), // The random number should be generated once and the same for all

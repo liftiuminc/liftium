@@ -22,7 +22,7 @@
 var LiftiumOptions = LiftiumOptions || {}; 
 
 
-if (typeof Liftium == "undefined" ) { // No need to do this twice
+if (! window.Liftium ) { // No need to do this twice
 
 var Liftium = {
 	baseUrl		: LiftiumOptions.baseUrl || "http://delivery.liftium.com/",
@@ -104,11 +104,11 @@ Liftium.buildChain = function(slotname) {
 	if (!Liftium.e(forcedAd)){
         	for (var j = 0, l2 = Liftium.config.sizes[size].length; j < l2; j++){
                 	var tf = Liftium.clone(Liftium.config.sizes[size][j]);
-			if (tf["tag_id"] == forcedAd){
-				Liftium.d("Forcing tagid#" + forcedAd + " on the front of the chain.", 1, t);
-                        	Liftium.config.sizes[size][j]['inChain'] = true;
+			if (tf.tag_id == forcedAd){
+				Liftium.d("Forcing tagid#" + forcedAd + " on the front of the chain.", 1, tf);
+                        	Liftium.config.sizes[size][j].inChain = true;
                         	Liftium.chain[slotname].push(tf);
-                        	networks.push(tf["network_name"] + ", #" + tf["tag_id"]);
+                        	networks.push(tf.network_name + ", #" + tf.tag_id);
 			}
 		}
 	}
