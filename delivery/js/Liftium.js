@@ -105,7 +105,7 @@ Liftium.buildChain = function(slotname) {
 		for (var j = 0, l2 = Liftium.config.sizes[size].length; j < l2; j++){
 			var tf = Liftium.clone(Liftium.config.sizes[size][j]);
 			if (tf.tag_id == forcedAd){
-				Liftium.d("Forcing tagid#" + forcedAd + " on the front of the chain.", 1, tf);
+				Liftium.d("Forcing tagid #" + forcedAd + " on the front of the chain.", 1, tf);
 				Liftium.config.sizes[size][j].inChain = true;
 				Liftium.chain[slotname].push(tf);
 				networks.push(tf.network_name + ", #" + tf.tag_id);
