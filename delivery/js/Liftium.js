@@ -119,11 +119,11 @@ Liftium.buildChain = function(slotname) {
                 var t = Liftium.clone(Liftium.config.sizes[size][i]);
 
                 if (Liftium.isValidCriteria(t)){
-                        Liftium.config.sizes[size][i]['inChain'] = true;
+                        Liftium.config.sizes[size][i].inChain = true;
                         Liftium.chain[slotname].push(t);
-                        networks.push(t["network_name"] + ", #" + t["tag_id"]);
+                        networks.push(t.network_name + ", #" + t.tag_id);
 
-                        if (t['always_fill'] == 1){
+                        if (t.always_fill == 1){
                                 Liftium.d("Chain complete - last ad is always_fill", 2, networks);
                                 break;
                         } else if (Liftium.chain[slotname].length == Liftium.maxHops - 1){
@@ -131,7 +131,7 @@ Liftium.buildChain = function(slotname) {
                                 break;
                         }
                 } else {
-			Liftium.rejTags.push(t["tag_id"]);
+			Liftium.rejTags.push(t.tag_id);
 		}
         }
 
@@ -141,23 +141,23 @@ Liftium.buildChain = function(slotname) {
 	}
 
         // AlwaysFill ad.
-        if (Liftium.chain[slotname][Liftium.chain[slotname].length-1]['always_fill'] != 1){
+        if (Liftium.chain[slotname][Liftium.chain[slotname].length-1].always_fill != 1){
         	var gAd = Liftium.getAlwaysFillAd(size);
 		if ( gAd !== false) {
 			Liftium.chain[slotname].push(gAd);
-			networks.push("AlwaysFill: " + gAd["network_name"] + ", #" + gAd["tag_id"]);
+			networks.push("AlwaysFill: " + gAd.network_name + ", #" + gAd.tag_id);
 		}
 	}
 
         // Sampled ad
         var sampledAd = Liftium.getSampledAd(size);
         // Business rule: Don't do sampling if a tier 1 ad is present (exclusive)
-        if (sampledAd !== false && Liftium.isValidCriteria(sampledAd) && Liftium.chain[slotname][0]['tier'] != "1"){
+        if (sampledAd !== false && Liftium.isValidCriteria(sampledAd) && Liftium.chain[slotname][0].tier != "1"){
                 // HACK: No easy way to put an element on to the beginning of an array in javascript, so reverse/push/reverse
                 Liftium.chain[slotname].reverse();
                 Liftium.chain[slotname].push(sampledAd);
                 Liftium.chain[slotname].reverse();
-                networks.push("Sampled: " + sampledAd["network_name"] + ", #" + sampledAd["tag_id"]);
+                networks.push("Sampled: " + sampledAd.network_name + ", #" + sampledAd.tag_id);
         }
 
 	// Clear the slotname now that we've built the slot, so it doesn't get passed
@@ -241,7 +241,7 @@ Liftium._callAd = function (slotname, iframe) {
 	// Network Options
 	Liftium.handleNetworkOptions(t);
 
-        Liftium.d("Ad #" + t["tag_id"] + " for " + t['network_name'] + " called in " + slotname);
+        Liftium.d("Ad #" + t.tag_id + " for " + t.network_name + " called in " + slotname);
         Liftium.d("Config = ", 6, t);
 
 	// Redundant for now while I troubleshoot GA
@@ -256,10 +256,10 @@ Liftium._callAd = function (slotname, iframe) {
                         Liftium.callIframeAd(slotname, t);
                 } else {
 			// Capture the current tag for error handling
-			Liftium.d("Tag :" + t["tag"], 5);
+			Liftium.d("Tag :" + t.tag, 5);
                         Liftium.lastTag = t;
 			Liftium.lastSlot = slotname;
-                        document.write(t["tag"]);
+                        document.write(t.tag);
                         Liftium.lastTag = null;
                 }
         } catch (e) {
@@ -285,7 +285,7 @@ Liftium.callIframeAd = function(slotname, tag, adIframe){
         } else {
                 // Otherwise, create one and append it to load dive
                 adIframe = document.createElement("iframe");
-                var s = tag["size"].split("x");
+                var s = tag.size.split("x");
                 adIframe.src = iframeUrl;
                 adIframe.width = s[0];
                 adIframe.height = s[1];
@@ -294,7 +294,7 @@ Liftium.callIframeAd = function(slotname, tag, adIframe){
                 adIframe.marginHeight = 0;
                 adIframe.marginWidth = 0;
                 adIframe.allowTransparency = true; // For IE
-                adIframe.id = slotname + '_' + tag["tag_id"];
+                adIframe.id = slotname + '_' + tag.tag_id;
 		Liftium._(slotname).appendChild(adIframe);
         }
 
@@ -348,16 +348,16 @@ Liftium.catchError = function (msg, url, line) {
  * But we also want to favor the higher paying ads
  */
 Liftium.chainSort = function(a, b){
-        var a_tier = parseInt(a['tier'], 10) || 0;
-        var b_tier = parseInt(b['tier'], 10) || 0;
+        var a_tier = parseInt(a.tier, 10) || 0;
+        var b_tier = parseInt(b.tier, 10) || 0;
         if (a_tier < b_tier){
                 return -1;
         } else if (a_tier > b_tier){
                 return 1;
         } else {
                 // Same tier, sort by weighted random
-                var a_value= parseFloat(a['adjusted_value']) || 0;
-                var b_value = parseFloat(b['adjusted_value']) || 0;
+                var a_value= parseFloat(a.adjusted_value) || 0;
+                var b_value = parseFloat(b.adjusted_value) || 0;
 		var a_weight = a_value + (a_value * Math.random() * 0.75);
 		var b_weight = b_value + (b_value * Math.random() * 0.75);
 		return b_weight - a_weight;
@@ -616,7 +616,7 @@ Liftium.getAlwaysFillAd = function(size){
         for (var i = 0, l = Liftium.config.sizes[size].length; i < l; i++){
                 var t = Liftium.config.sizes[size][i];
 
-                if (t['always_fill'] == 1 && Liftium.isValidCriteria(t)){
+                if (t.always_fill == 1 && Liftium.isValidCriteria(t)){
                         return Liftium.clone(t);
                 }
         }
@@ -680,19 +680,13 @@ Liftium.getBrowserLang = function () {
 Liftium.getIframeUrl = function(slotname, tag) {
 
         // Check to see if the tag is already an iframe. 
-        var m = tag["tag"].match(/<iframe[\s\S]+src="([^"]+)"/), iframeUrl;
+        var m = tag.tag.match(/<iframe[\s\S]+src="([^"]+)"/), iframeUrl;
 
         if ( m !== null ){
                 iframeUrl = m[1].replace(/&amp;/g, "&");
                 Liftium.d("Found iframe in tag, using " + iframeUrl, 3);
-	/* Nick wrote: Do we need this? 
-        // Handle noad.gif here so it doesn't get called by iframe 
-        } else if (tag["network_name"] == "No Ad"){
-                Liftium.d("Using about:blank for 'No Ad' to avoid iframe", 3);
-                iframeUrl = "about:blank";
-	*/
         } else {
-                var p = { "tag_id": tag["tag_id"], "size": tag["size"], "slotname": slotname};
+                var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname};
                 iframeUrl = Liftium.baseUrl + "tag/?" + Liftium.buildQueryString(p);
                 Liftium.d("No iframe found in tag, using " + iframeUrl, 3);
         }
@@ -754,15 +748,15 @@ Liftium.getNextTag = function(slotname){
                 // Return the always_fill
                 var lastOne = length - 1;
                 Liftium.chain[slotname].current = lastOne;
-                Liftium.chain[slotname][lastOne]['started'] = now.getTime();
+                Liftium.chain[slotname][lastOne].started = now.getTime();
                 return Liftium.chain[slotname][lastOne];
         } else {
                 for (var i = current, l = length; i < l; i++){
-                        if (!Liftium.e(Liftium.chain[slotname][i]['started'])){
+                        if (!Liftium.e(Liftium.chain[slotname][i].started)){
                                 continue;
                         } else {
                                 // Win nah!
-                                Liftium.chain[slotname][i]['started'] = now.getTime();
+                                Liftium.chain[slotname][i].started = now.getTime();
                                 Liftium.chain[slotname].current = i;
                                 return Liftium.chain[slotname][i];
                         }
@@ -874,13 +868,13 @@ Liftium.getSampledAd = function(size){
         // Build up an array of the sample stats.
         var sArray = [], total = 0, myRandom = Math.random() * 100;
         for (var i = 0, l = Liftium.config.sizes[size].length; i < l; i++){
-                var sample_rate = parseFloat(Liftium.config.sizes[size][i]['sample_rate']);
+                var sample_rate = parseFloat(Liftium.config.sizes[size][i].sample_rate);
                 if (Liftium.e(sample_rate)){
                         continue;
                 }
                 total += sample_rate;
 
-                Liftium.d("Sample Rate for " + Liftium.config.sizes[size][i]['tag_id'] + " is " + sample_rate, 7);
+                Liftium.d("Sample Rate for " + Liftium.config.sizes[size][i].tag_id + " is " + sample_rate, 7);
                 sArray.push( { "upper_bound": total, "index": i });
 
         }
@@ -888,8 +882,8 @@ Liftium.getSampledAd = function(size){
 
         // Now check to see if the random number is in sArray
         for (var j = 0, l2 = sArray.length; j < l2; j++){
-                if (myRandom < sArray[j]["upper_bound"]){
-                        var f = sArray[j]["index"];
+                if (myRandom < sArray[j].upper_bound){
+                        var f = sArray[j].index;
                         return Liftium.clone(Liftium.config.sizes[size][f]);
                 }
         }
@@ -1245,74 +1239,74 @@ Liftium.isValidCountry = function (countryList){
 Liftium.isValidCriteria = function (t){
 
         // For ads that have a frequency cap, don't load them more than once per page
-        if (!Liftium.e(t["inChain"]) && !Liftium.e(t["freq_cap"])) {
-                Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
+        if (!Liftium.e(t.inChain) && !Liftium.e(t.freq_cap)) {
+                Liftium.d("Ad #" + t.tag_id + " from " + t.network_name +
                         " invalid: it has a freq cap and is already in another chain", 3);
 		return false;
         }
 
 	if (!Liftium.e(LiftiumOptions.exclude_tags) &&
-	     Liftium.in_array(t["tag_id"], LiftiumOptions.exclude_tags)){
-                Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
+	     Liftium.in_array(t.tag_id, LiftiumOptions.exclude_tags)){
+                Liftium.d("Ad #" + t.tag_id + " from " + t.network_name +
                       " invalid: in LiftiumOptions excluded tags list", 2);
 		return false;
 	}
 		
 	
 	// Frequency
-        if (!Liftium.e(t["freq_cap"])){
-                var a = Liftium.getTagStat(t["tag_id"], "a");
-                if (a >= parseInt(t["freq_cap"], 10)){
-                        Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
+        if (!Liftium.e(t.freq_cap)){
+                var a = Liftium.getTagStat(t.tag_id, "a");
+                if (a >= parseInt(t.freq_cap, 10)){
+                        Liftium.d("Ad #" + t.tag_id + " from " + t.network_name +
                                 " invalid: " + a + " attempts is >= freq_cap of " +
-                                t["freq_cap"], 3);
+                                t.freq_cap, 3);
 			return false;
                 }
 
         }
 
         // Rejection time
-        if (!Liftium.e(t["rej_time"])){
-                var elapsedMinutes = Liftium.getMinutesSinceReject(t["tag_id"]);
+        if (!Liftium.e(t.rej_time)){
+                var elapsedMinutes = Liftium.getMinutesSinceReject(t.tag_id);
 
                 if (elapsedMinutes !== null){
-                        Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
-                                        " rej_time = " + t["rej_time"] + " elapsed = " + elapsedMinutes, 7);
-                        if (elapsedMinutes < parseInt(t["rej_time"], 10)){
-                                Liftium.d("Ad #" + t["tag_id"] + " from " + t["network_name"] +
+                        Liftium.d("Ad #" + t.tag_id + " from " + t.network_name +
+                                        " rej_time = " + t.rej_time + " elapsed = " + elapsedMinutes, 7);
+                        if (elapsedMinutes < parseInt(t.rej_time, 10)){
+                                Liftium.d("Ad #" + t.tag_id + " from " + t.network_name +
                                         " invalid:  tag was rejected sooner than rej_time of " +
-                                        t["rej_time"], 3);
+                                        t.rej_time, 3);
 				return false;
                         }
                 }
 
         }
 
-        if (!Liftium.e(t['criteria'])){
+        if (!Liftium.e(t.criteria)){
                 for (var key in t.criteria){
                         switch (key){
                           case 'country':
                                 if ( ! Liftium.isValidCountry(t.criteria.country)){
-                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid country", 8);
+                                        Liftium.d("Ad #" + t.tag_id + " rejected because of Invalid country", 8);
 					return false;
                                 }
                                 break;
                           case 'browser':
                                 if ( ! Liftium.isValidBrowser(t.criteria.browser[0])){
-                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid browser", 8);
+                                        Liftium.d("Ad #" + t.tag_id + " rejected because of Invalid browser", 8);
 					return false;
                                 }
                                 break;
                           case 'domain':
 				LiftiumOptions.domain = LiftiumOptions.domain || document.domain;
                                 if ( t.criteria.domain[0] != LiftiumOptions.domain ){
-                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid domain", 8);
+                                        Liftium.d("Ad #" + t.tag_id + " rejected because of Invalid domain", 8);
 					return false;
                                 }
                                 break;
                           case 'placement':
                                 if (!Liftium.in_array(LiftiumOptions.placement, t.criteria.placement)){
-                                        Liftium.d("Ad #" + t["tag_id"] + " rejected because of Invalid placement (" + LiftiumOptions.placement + ")", 8, t.criteria.placement);
+                                        Liftium.d("Ad #" + t.tag_id + " rejected because of Invalid placement (" + LiftiumOptions.placement + ")", 8, t.criteria.placement);
 
 					return false;
                                 }
@@ -1321,7 +1315,7 @@ Liftium.isValidCriteria = function (t){
 				// Arbitrary key values passed as LiftiumOptions that start with kv_
 				if (key.match(/^kv_/)){
 					if (!Liftium.in_array(LiftiumOptions[key], t.criteria[key])){
-                                        	Liftium.d("Ad #" + t["tag_id"] + " rejected because " + key + " does not match: " + t.criteria[key], 8);
+                                        	Liftium.d("Ad #" + t.tag_id + " rejected because " + key + " does not match: " + t.criteria[key], 8);
 						return false;
 					}
                                 }
@@ -1334,14 +1328,14 @@ Liftium.isValidCriteria = function (t){
 	// Don't use iframes if no xdm iframe path is set on a browser that doesn't support it
 	if (!XDM.canPostMessage() &&
 		Liftium.e(Liftium.config.xdm_iframe_path) && 
-		t["tag"].toString().match(/iframe/i) &&
-		t["always_fill"] != 1){
-		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path. tagid #" + t["tag_id"], "tag");
+		t.tag.toString().match(/iframe/i) &&
+		t.always_fill != 1){
+		Liftium.reportError("Iframe called on HTML 4 browser for publisher without a xdm_iframe_path. tagid #" + t.tag_id, "tag");
 		return false;
 	}
 
         // All criteria passed 
-        Liftium.d("Targeting criteria passed for tag #" + t["tag_id"], 8);
+        Liftium.d("Targeting criteria passed for tag #" + t.tag_id, 8);
 	return true;
 
 };
@@ -1373,9 +1367,9 @@ Liftium.markChain = function (slotname){
         for (var i = 0, len = Liftium.chain[slotname].length; i < len; i++){
 		if (i < Liftium.chain[slotname].current){
 			// This is now redundant with 
-			Liftium.chain[slotname][i]["rejected"] = true;
+			Liftium.chain[slotname][i].rejected = true;
 		} else if (i == Liftium.chain[slotname].current){
-			Liftium.chain[slotname][i]["loaded"] = true;
+			Liftium.chain[slotname][i].loaded = true;
 			break;
 		}
 	}	
@@ -1385,8 +1379,8 @@ Liftium.markChain = function (slotname){
 
 Liftium.markLastAdAsRejected = function (slotname){
 	var i = Liftium.chain[slotname].current;
-	Liftium.chain[slotname][i]["rejected"] = true;
-	Liftium.setTagStat(Liftium.chain[slotname][i]['tag_id'], "r");
+	Liftium.chain[slotname][i].rejected = true;
+	Liftium.setTagStat(Liftium.chain[slotname][i].tag_id, "r");
 };
 
 
@@ -1557,25 +1551,23 @@ Liftium.recordEvents = function(slotname){
         var e = '';
         for (var i = 0, l = Liftium.chain[slotname].length; i < l; i++){
                 var t = Liftium.chain[slotname][i];
-                if ( Liftium.e(t['started'])){
+                if ( Liftium.e(t.started)){
                         // There can't be a load or a reject if it wasn't started.
                         continue;
                 }
 
-                var loads = Liftium.getTagStat(t['tag_id'], "l");
+                var loads = Liftium.getTagStat(t.tag_id, "l");
 
                 // Load
-                if (!Liftium.e(Liftium.chain[slotname][i]['loaded'])){
-                        Liftium.d("Recording Load for " + t["network_name"] + ", #" + t["tag_id"] + " in " + slotname, 4);
-                        Liftium.setTagStat(t['tag_id'], "l");
-                        e += ',l' + t['tag_id'] + 'pl' + loads;
+                if (!Liftium.e(Liftium.chain[slotname][i].loaded)){
+                        Liftium.d("Recording Load for " + t.network_name + ", #" + t.tag_id + " in " + slotname, 4);
+                        Liftium.setTagStat(t.tag_id, "l");
+                        e += ',l' + t.tag_id + 'pl' + loads;
 
                 // Reject
-                } else if (! Liftium.e(t['rejected'])){
-                        e += ',r' + t['tag_id'] + 'pl' + loads;
-                        Liftium.d("Recording Reject for " + t["network_name"] + ", #" + t["tag_id"] + " in " + slotname, 5);
-			// Now done in markLastAdAsRejected
-                        // Liftium.setTagStat(t['tag_id'], "r");
+                } else if (! Liftium.e(t.rejected)){
+                        e += ',r' + t.tag_id + 'pl' + loads;
+                        Liftium.d("Recording Reject for " + t.network_name + ", #" + t.tag_id + " in " + slotname, 5);
                         continue;
 
                 }
@@ -1635,7 +1627,7 @@ Liftium.reportError = function (msg, type) {
 		'lang' : "en" // hard coded for now, because we excluded above
 	};
 	if (type == "tag"){
-		p.tag_id = Liftium.lastTag["tag_id"];
+		p.tag_id = Liftium.lastTag.tag_id;
 	}
 
 	Liftium.beaconCall(Liftium.baseUrl + "error?" + Liftium.buildQueryString(p));
@@ -1744,38 +1736,38 @@ Liftium.sendBeacon = function (){
 Liftium.setAdjustedValues = function(tags){
 	var attempts, reducer = 0.05, avalue;
 	for (var i = 0; i < tags.length; i++){
-		if (tags[i]["adjusted_value"]){
+		if (tags[i].adjusted_value){
 			// Our work is done here
 			continue;
 		}
 
-		avalue = tags[i]["value"];
-		if (tags[i]["pay_type"] == "CPC"){
+		avalue = tags[i].value;
+		if (tags[i].pay_type == "CPC"){
 			reducer += 0.20;
 		}
 
-		if (parseFloat(tags[i]["floor"], 10)) {
+		if (parseFloat(tags[i].floor, 10)) {
 			// Tags with floors A) get a little love and B) shouldn't be skewed down for the number of attempts
 			avalue = avalue * 1.01;
 		} 
 
 		// Skew CPC higher for users in the discovery mindset
-		if (tags[i]["pay_type"] == "CPC" && !Liftium.e(Liftium.getReferringKeywords())){
+		if (tags[i].pay_type == "CPC" && !Liftium.e(Liftium.getReferringKeywords())){
 			avalue = avalue * 1.25;
 			reducer = 0;
 		}
 
-        	attempts = Liftium.getTagStat(tags[i]["tag_id"], "a");
+        	attempts = Liftium.getTagStat(tags[i].tag_id, "a");
 		// Reduce by $reducer for every attempt
 		for (var j = 0; j < attempts; j++){
 			avalue = avalue - (avalue * reducer);
 		}
 	
 		// Never go below 15% of the original value
-		if (avalue < tags[i]["value"] * 0.15){
-			tags[i]["adjusted_value"] = tags[i]["value"] * 0.15;
+		if (avalue < tags[i].value * 0.15){
+			tags[i].adjusted_value = tags[i].value * 0.15;
 		} else {
-			tags[i]["adjusted_value"] = avalue;
+			tags[i].adjusted_value = avalue;
 		}
 	}
 	return tags; // Not really necessary, because it modified values in place
