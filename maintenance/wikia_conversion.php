@@ -118,7 +118,7 @@ function getSizesAndSlots($tagid){
 	$out = array();
 	$stt->execute(array($tagid)); 
 	while($row = $stt->fetch(PDO::FETCH_ASSOC)){
-		$out[$row['size']][] = $row['slotname'];
+		$out[$row['size']][] = $row['slot'];
 	}
 	return $out;
 }
@@ -140,15 +140,15 @@ $stp = $db->prepare("SELECT slot FROM athena.tag_slot_linking AS t
 
 $tagid=0;
 while($row = $st->fetch(PDO::FETCH_ASSOC)){
-  $tagid++; 
   if (empty($row['liftium_id'])){
 	echo "/* No Network id found for {$row['network_id']}*/\n";
 	exit;
   }
 
-  $sizesAndSlots = getSizesAndSlots($tagid);
+  $sizesAndSlots = getSizesAndSlots($row['tag_id']);
 
   foreach ($sizesAndSlots as $size => $slots) {
+  	$tagid++; 
 	echo "INSERT INTO tags VALUES(" . $tagid . "," .
 		$db->quote($row['tag_name']) . "," .
 		$db->quote($row['liftium_id']) . "," .
