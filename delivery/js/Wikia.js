@@ -15,6 +15,7 @@ var ProviderValues = window.ProviderValues || top.ProviderValues;
 var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;  
 
 var LiftiumDART = {
+	random: Math.random(), // The random number should be generated once and the same for all
 	sites : {
 	  'Auto' : 'wka.auto',
 	  'Creative' : 'wka.crea',
@@ -102,9 +103,8 @@ LiftiumDART.getUrl = function(slotname, size, network_options, iframe) {
 		LiftiumDART.getTileKV(slotname) +
                 'mtfIFPath=/extensions/wikia/AdEngine/;' +  // http://www.google.com/support/richmedia/bin/answer.py?hl=en&answer=117857
 
-		"ord=@@WIKIA_RANDOM@@?";
+		"ord=" + LiftiumDART.random;
 
-	url = url.replace(/@@WIKIA_RANDOM@@/, Math.random());
 	Liftium.d("Dart URL = " + url, 4);
 	return url;
 };
