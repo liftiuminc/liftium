@@ -2,7 +2,7 @@
 require_once dirname(__FILE__) . '/../includes/Framework.php';
 
 $dbw = Framework::getDB("master");
-$flagfile = dirname(__FILE__) . '/rotator.lastrun';
+$flagfile = '/tmp/liftium.rotator.lastrun';
 if (file_exists($flagfile)){
         // Don't reload anything more than we have to
         $min_date = date(MYSQL_DATE_FORMAT, filemtime($flagfile) - 3600);
@@ -29,4 +29,3 @@ $dbw->exec("DELETE FROM fills_hour WHERE hour < " . $dbw->quote(date(MYSQL_DATE_
 $dbw->exec("DELETE FROM fills_day WHERE day < " . $dbw->quote(date(MYSQL_DATE_FORMAT, strtotime('-1 year'))));
 
 touch($flagfile);
-

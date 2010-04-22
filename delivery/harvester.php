@@ -12,17 +12,6 @@ $dbw = Framework::getDB("master");
 $maxBack = 2;
 $now = time();
 
-/*
-CREATE TABLE IF NOT EXISTS fills_minute (
-        tag_id smallint unsigned not null,
-        minute datetime,
-        attempts int unsigned default 0,
-        loads int unsigned default 0,
-        rejects int unsigned default 0,
-        PRIMARY KEY (tag_id, minute)
-) ENGINE=InnoDB;
-*/
-
 foreach ($activeTags as $tag){
         echo "Gathering stats for {$tag->tag_name}\n";
 
@@ -64,7 +53,3 @@ foreach ($activeTags as $tag){
 }
 echo "Done";
 ?>
-
-
-
-
