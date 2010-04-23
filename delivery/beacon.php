@@ -1,5 +1,7 @@
 <?php
 require dirname(__FILE__) . '/../includes/Framework.php';
+header('Cache-Control: private, s-maxage=0, max-age=0, must-revalidate'); // For varnish
+
 if (empty($_GET['beacon'])){
 	$beacon = array();
 	$beacon['events'] = $_GET['events'];
