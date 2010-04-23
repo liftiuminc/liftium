@@ -1,4 +1,8 @@
-<?php $LiftiumOptions=array("pubid" => 1046); ?>
+<?php $LiftiumOptions=array(
+	"pubid" => 1046, 
+	//"geoUrl" => "http://geoiplookup.wikia.com/"
+	//"geoUrl" => "http://badurl"
+); ?>
 <?php require 'header.php'?>
 This page is for testing geotargeting. There are two ads that run. If you are in the us,
 it should figure that out, and return the us ad in the chain for 200x200. Otherwise,

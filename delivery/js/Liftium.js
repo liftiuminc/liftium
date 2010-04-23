@@ -619,29 +619,23 @@ Liftium.getAlwaysFillAd = function(size){
 };
 
 
-/* Get the users country
- * FIXME: Return "unknown" instead of "us" on error
- * */
+/* Get the users country */
 Liftium.getCountry = function(){
 	if (!Liftium.e(Liftium.getCountryFound)){
 		return Liftium.getCountryFound;
 	}
 
-	var ac;
+	var ac, geo = Liftium.geo || window.Geo || { country: "unknown"} ;
 	if (!Liftium.e(Liftium.getRequestVal('liftium_country'))){
 		ac = Liftium.getRequestVal('liftium_country');
 		Liftium.d("Using liftium_country for geo targeting (" + ac + ")", 8);
-	} else if (typeof Liftium.geo == "undefined") {
-		// sometimes geo isn't available because geoiplookup hasn't returned
-		// Liftium.reportError("Geo country not downloaded properly, defaulting to US for now", "geoiplookup");
-		return "us"; // Bail here so Liftium.getCountryFound doesn't get set
-	} else if (typeof Liftium.geo.country == "undefined" ) {
+	} else if (Liftium.e(geo.country)) {
 		// It downloaded, but it's empty, because we were unable to determine the country
 		Liftium.d("Unable to find a country for this IP, defaulting to US");
-		ac = "us";
+		return "unknown"; // Bail here so Liftium.getCountryFound doesn't get set
 	} else {
 		// Everything worked
-		ac = Liftium.geo.country.toLowerCase();
+		ac = geo.country.toLowerCase();
 	}
 
 	if (ac === "gb"){
