@@ -160,10 +160,6 @@ Liftium.buildChain = function(slotname) {
 		networks.push("Sampled: " + sampledAd.network_name + ", #" + sampledAd.tag_id);
 	}
 
-	// Clear the slotname now that we've built the slot, so it doesn't get passed
-	// to the next tag.
-	LiftiumOptions.placement = null;
-
 	Liftium.d("Chain for " + slotname + " = ", 3, networks);
 	return true;
 };
