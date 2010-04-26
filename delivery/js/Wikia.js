@@ -11,7 +11,7 @@
 // Scope variables if you are in an iframe
 var Liftium = window.Liftium;
 try {
-var ProviderValues = window.ProviderValues || top.ProviderValues; 
+var ProviderValues = window.ProviderValues || top.ProviderValues || {};
 var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;  
 } catch (e) { } 
 
