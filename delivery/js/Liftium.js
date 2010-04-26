@@ -673,7 +673,7 @@ Liftium.getIframeUrl = function(slotname, tag) {
 		iframeUrl = m[1].replace(/&amp;/g, "&");
 		Liftium.d("Found iframe in tag, using " + iframeUrl, 3);
 	} else {
-		var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname};
+		var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname, "placement": LiftiumOptions.placement};
 		iframeUrl = Liftium.baseUrl + "tag/?" + Liftium.buildQueryString(p);
 		Liftium.d("No iframe found in tag, using " + iframeUrl, 3);
 	}
