@@ -1594,6 +1594,7 @@ Liftium.reportError = function (msg, type) {
 		"Script error.", // This is when a user pushes "Stop"
 		"GA_googleFillSlot is not defined", // They probably have AdBlock on.
 		"translate.google",
+		"COMSCORE",
 		"quantserve",
 		"urchin",
 		"greasemonkey",
