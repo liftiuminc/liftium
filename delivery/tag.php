@@ -30,10 +30,10 @@ if (top != self && document.referrer.toString().indexOf(document.domain) > -1){
 }
 </script>
 <body>
-<?php
-if ($data['network_name'] == 'DART'){
-        echo "<script src='http://liftium.wikia.com/js/Wikia.js'></script>\n";
-}
+<?php if ($data['network_name'] == 'DART'){ ?>
+<script src='http://liftium.wikia.com/js/Wikia.js'></script>
+<script>LiftiumDART.placement = "<?php echo addslashes(@$_GET['placement'])?>";</script>
+<?php } 
 echo "<!-- Begin Tag #{$_GET['tag_id']} -->\n";
 echo $data['tag'];
 ?>
