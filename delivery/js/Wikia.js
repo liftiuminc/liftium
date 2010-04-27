@@ -12,7 +12,6 @@
 var Liftium = window.Liftium;
 try {
 var ProviderValues = window.ProviderValues || top.ProviderValues || {};
-var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;  
 } catch (e) { } 
 
 var LiftiumDART = {
@@ -111,11 +110,14 @@ LiftiumDART.getUrl = function(slotname, size, network_options, iframe) {
 };
 
 LiftiumDART.getAdType = function(iframe){
+	return 'adi';
+	/*
 	if (iframe) {
 		return 'adi';
 	} else {
 		return 'adj';
 	}
+	*/
 };
 
 LiftiumDART.getDARTSite = function(hub){
