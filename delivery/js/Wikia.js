@@ -138,7 +138,7 @@ LiftiumDART.getZone1 = function(dbname){
 
 // Page type, ie, "home" or "article"
 LiftiumDART.getZone2 = function(){
-	if(Liftium.getPageVar('isMainPage') == 'true') {
+	if(Liftium.getPageVar('isMainPage') === true) {
 		return 'home';
 	} else {
 		return 'article';
@@ -203,7 +203,7 @@ LiftiumDART.getDomainKV = function (hostname){
 
 
 LiftiumDART.getAllDartKeyvalues = function (slotname){
-	var out = 's0=' + LiftiumDART.getDARTSite(Liftium.getPageVar('hub')).replace(/wka\./, '') + ';' +
+	var out = 's0=' + LiftiumDART.getDARTSite(Liftium.getPageVar('Hub')).replace(/wka\./, '') + ';' +
 		's1=' + LiftiumDART.getZone1(Liftium.getPageVar('wgDBname')) + ';' +
 		's2=' + LiftiumDART.getZone2() + ';' +
 		'@@WIKIA_PROVIDER_VALUES@@' +
