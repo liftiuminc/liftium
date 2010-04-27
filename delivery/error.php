@@ -71,15 +71,15 @@ if ($logit) {
 		error_log($message);
 	} else {
 		$justMsg = trim(preg_replace("/Error on line #([0-9]+) of (https*:\/\/[^ ]+) :/", "", $msg));
+		$db = Framework::getDB("master");
 		$sql = "INSERT INTO javascript_errors VALUES(NULL, NOW(), " . 
 				$db->quote($pubid) . "," . $db->quote($tag_id) . "," .
 				$db->quote($type) . "," . $db->quote($lang) . "," . 
 				$db->quote($browser) . "," . $db->quote($ip) . "," .
 				$db->quote($justMsg). "," . $db->quote($url) . "," .
 				$db->quote($line) . ");\n";
-		file_put_contents('/home/tempfiles/10days/jserrors.sql.' . date('Y-m-d'), $sql, FILE_APPENDs);
+		file_put_contents('/home/tempfiles/10days/jserrors.sql.' . date('Y-m-d'), $sql, FILE_APPEND);
 		/*  Too much strain for Wikia, load them in bulk once an hour
-		$db = Framework::getDB("master");
 		$db->exec($sql);
 		*/
 	}
