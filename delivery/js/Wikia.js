@@ -95,7 +95,7 @@ LiftiumDART.getUrl = function(slotname, size, network_options, iframe) {
         }
 	var url = 'http://ad.doubleclick.net/' + 
 		LiftiumDART.getAdType(iframe) + '/' +
-		LiftiumDART.getDARTSite(Liftium.getPageVar('hub')) + '/' +
+		LiftiumDART.getDARTSite(Liftium.getPageVar('Hub')) + '/' +
 		LiftiumDART.getZone1(Liftium.getPageVar('wgDBname')) + '/' +
 		LiftiumDART.getZone2() + ';' +
 		LiftiumDART.getAllDartKeyvalues(slotname) + 
