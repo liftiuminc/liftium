@@ -16,7 +16,7 @@ var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;
 } catch (e) { } 
 
 var LiftiumDART = {
-	random: Math.random(), // The random number should be generated once and the same for all
+	random: Math.round(Math.random() * 23456787654), // The random number should be generated once and the same for all
 	sites : {
 	  'Auto' : 'wka.auto',
 	  'Creative' : 'wka.crea',
