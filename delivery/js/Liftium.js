@@ -87,6 +87,9 @@ Liftium.buildChain = function(slotname) {
 	var networks = [];
 	Liftium.chain[slotname] = [];
 
+	// 1x1 is the same thing as 0x0
+	if (size == "1x1") { size = "0x0"; }
+
 
 	// Do we have this slot?
 	if (Liftium.e(Liftium.config.sizes[size])){
