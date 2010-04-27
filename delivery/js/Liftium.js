@@ -171,10 +171,6 @@ Liftium.buildChain = function(slotname) {
 		networks.push("Sampled: " + sampledAd.network_name + ", #" + sampledAd.tag_id);
 	}
 
-	// Clear the slotname now that we've built the slot, so it doesn't get passed
-	// to the next tag.
-	LiftiumOptions.placement = null;
-
 	Liftium.d("Chain for " + slotname + " = ", 3, networks);
 	return true;
 };
@@ -683,8 +679,12 @@ Liftium.getIframeUrl = function(slotname, tag) {
 	if ( m !== null ){
 		iframeUrl = m[1].replace(/&amp;/g, "&");
 		Liftium.d("Found iframe in tag, using " + iframeUrl, 3);
+        // Handle "No Ad" here so it doesn't get called by iframe 
+        } else if (tag["network_name"] == "No Ad"){
+                Liftium.d("Using about:blank for 'No Ad' to avoid iframe", 3);
+                iframeUrl = "about:blank";
 	} else {
-		var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname};
+		var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname, "placement": LiftiumOptions.placement};
 		iframeUrl = Liftium.baseUrl + "tag/?" + Liftium.buildQueryString(p);
 		Liftium.d("No iframe found in tag, using " + iframeUrl, 3);
 	}
@@ -1605,6 +1605,7 @@ Liftium.reportError = function (msg, type) {
 		"Script error.", // This is when a user pushes "Stop"
 		"GA_googleFillSlot is not defined", // They probably have AdBlock on.
 		"translate.google",
+		"COMSCORE",
 		"quantserve",
 		"urchin",
 		"greasemonkey",
@@ -2058,11 +2059,6 @@ XDM._postMessageWithIframe = function(destWin, method, args) {
 		return false;
 	} else {
 		targetOrigin = 'http://' + d;
-	}
-
-	// Special hacks for different placements of the html file 
-	if (d.match(/brighthub/)){
-		XDM.iframeUrl = "/liftium_iframe.htm";
 	}
 
 	var iframeUrl = targetOrigin + XDM.iframeUrl + '?' + XDM.serializeMessage(method, args);

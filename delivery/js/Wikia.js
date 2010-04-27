@@ -11,12 +11,12 @@
 // Scope variables if you are in an iframe
 var Liftium = window.Liftium;
 try {
-var ProviderValues = window.ProviderValues || top.ProviderValues; 
+var ProviderValues = window.ProviderValues || top.ProviderValues || {};
 var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;  
 } catch (e) { } 
 
 var LiftiumDART = {
-	random: Math.random(), // The random number should be generated once and the same for all
+	random: Math.round(Math.random() * 23456787654), // The random number should be generated once and the same for all
 	sites : {
 	  'Auto' : 'wka.auto',
 	  'Creative' : 'wka.crea',
@@ -95,7 +95,7 @@ LiftiumDART.getUrl = function(slotname, size, network_options, iframe) {
         }
 	var url = 'http://ad.doubleclick.net/' + 
 		LiftiumDART.getAdType(iframe) + '/' +
-		LiftiumDART.getDARTSite(Liftium.getPageVar('hub')) + '/' +
+		LiftiumDART.getDARTSite(Liftium.getPageVar('Hub')) + '/' +
 		LiftiumDART.getZone1(Liftium.getPageVar('wgDBname')) + '/' +
 		LiftiumDART.getZone2() + ';' +
 		LiftiumDART.getAllDartKeyvalues(slotname) + 
@@ -138,7 +138,7 @@ LiftiumDART.getZone1 = function(dbname){
 
 // Page type, ie, "home" or "article"
 LiftiumDART.getZone2 = function(){
-	if(Liftium.getPageVar('isMainPage') == 'true') {
+	if(Liftium.getPageVar('isMainPage') === true) {
 		return 'home';
 	} else {
 		return 'article';
@@ -203,7 +203,7 @@ LiftiumDART.getDomainKV = function (hostname){
 
 
 LiftiumDART.getAllDartKeyvalues = function (slotname){
-	var out = 's0=' + LiftiumDART.getDARTSite(Liftium.getPageVar('hub')).replace(/wka\./, '') + ';' +
+	var out = 's0=' + LiftiumDART.getDARTSite(Liftium.getPageVar('Hub')).replace(/wka\./, '') + ';' +
 		's1=' + LiftiumDART.getZone1(Liftium.getPageVar('wgDBname')) + ';' +
 		's2=' + LiftiumDART.getZone2() + ';' +
 		'@@WIKIA_PROVIDER_VALUES@@' +
