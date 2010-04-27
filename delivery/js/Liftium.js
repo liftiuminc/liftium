@@ -118,6 +118,17 @@ Liftium.buildChain = function(slotname) {
 	for (var i = 0, l = Liftium.config.sizes[size].length; i < l; i++){
 		var t = Liftium.clone(Liftium.config.sizes[size][i]);
 
+		// HACK: Don't call DART more than once in the same chain
+		// TODO: make this a network option
+		if (t.network_name == "DART" ) {
+			for (var k = 0; k < Liftium.chain[slotname].length; k++){
+				if (Liftium.chain[slotname][k].network_name == t.network_name) {
+					Liftium.d("Ad #" + t.tag_id + " skipped - network already in the chain", 2);
+					continue;
+				}
+			}
+		}
+
 		if (Liftium.isValidCriteria(t)){
 			Liftium.config.sizes[size][i].inChain = true;
 			Liftium.chain[slotname].push(t);
