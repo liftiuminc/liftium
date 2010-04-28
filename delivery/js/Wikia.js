@@ -304,8 +304,8 @@ AdsInContent.putAdsInContent = function(htmlContainer) {
 			}
                         loadDiv.insertAfter(selector);
 
+			Liftium.placement = slotConfig.name;
 			var t = Liftium.getNextTag(lslot);
-			window.LiftiumOptions.placement = slotConfig.name;
 			Liftium.callIframeAd(lslot, t);
 
                 	if (numAdsServed >= AdsInContent.adsPerPage){

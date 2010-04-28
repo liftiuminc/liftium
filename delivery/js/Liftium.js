@@ -88,8 +88,9 @@ Liftium.buildChain = function(slotname) {
 	Liftium.chain[slotname] = [];
 
 	// Store the placement
-	Liftium.chain[slotname].placement = LiftiumOptions.placement;
+	Liftium.chain[slotname].placement = Liftium.placement || LiftiumOptions.placement;
 	LiftiumOptions.placement = null;
+	Liftium.placement = null;
 
 	// 1x1 is the same thing as 0x0
 	if (size == "1x1") { size = "0x0"; }
@@ -152,7 +153,7 @@ Liftium.buildChain = function(slotname) {
 		}
 	}
 
-	if (Liftium.e(Liftium.chain[slotname])){
+	if (Liftium.chain[slotname].length === 0){
 		Liftium.reportError("Error building chain for " + slotname + ".  No matching tags?");
 		return false;
 	}
