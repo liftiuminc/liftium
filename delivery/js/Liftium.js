@@ -442,7 +442,7 @@ Liftium.cookie = function(name, value, options) {
 	var path = options.path ? '; path=' + (options.path) : '';
 	var domain = options.domain ? '; domain=' + (options.domain) : '';
 	var secure = options.secure ? '; secure' : '';
-	Liftium.d("Set-Cookie: " + [name, '=', encodeURIComponent(value), expires, path, domain, secure].join(''), 3);
+	Liftium.d("Set-Cookie: " + [name, '=', encodeURIComponent(value), expires, path, domain, secure].join(''), 6);
 	document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
 	return true;
     } else { // only name given, get cookie
@@ -1834,7 +1834,7 @@ Liftium.setTagStat = function (tag_id, type){
  * Keep this as small as possible! 
  */
 Liftium.storeTagStats = function (){
-	Liftium.d("Stored Tag Stats = " + Liftium.tagStats, 4);
+	Liftium.d("Stored Tag Stats = " + Liftium.tagStats, 6);
 	Liftium.cookie("LTS", Liftium.tagStats, {
 		  // FIXME for Wikia
 		  //domain: Liftium.getCookieDomain(),
@@ -2112,15 +2112,11 @@ XDM.canPostMessage = function(){
 };
 
 
-if (window.Liftium){
-  XDM.debug = window.Liftium.debug;
-} else {
-  XDM.debug = function(msg){
+XDM.debug = function(msg){
 	if (XDM.debugOn && typeof console != "undefined" && typeof console.log != "undefined"){
 		console.log("XDM debug: " +  msg);
 	}
-  };
-}
+};
 
 
 XDM.listenForMessages = function(handler){
