@@ -767,7 +767,7 @@ Liftium.getNextTag = function(slotname){
 	}
 
 	// Rut roh.
-	Liftium.reportError("No more tags left in the chain - " + slotname + ":" + Liftium.print_r(Liftium.chain[slotname]), "chain");
+	Liftium.reportError("No more tags left in the chain - " + slotname + " Last ad in the chain marked as always fill but actually hopped? :" + Liftium.print_r(Liftium.chain[slotname]), "chain");
 	// Return a PSA. Note: Do NOT insert the garaunteed fill here. 
 	// If it happens to hop due to a misconfiguration, you'll create a 
 	// never ending loop. Or so I've been told. ;)
