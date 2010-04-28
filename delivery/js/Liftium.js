@@ -219,12 +219,9 @@ Liftium.callAd = function (sizeOrSlot, iframe) {
 		return false;
 	}
 
-	// Now that config has downloaded, set up the XDM config.
-	XDM.iframeUrl = Liftium.config.xdm_iframe_path;
-
 	// Write out a _load div and call the ad
 	var slotname = Liftium.getUniqueSlotname(sizeOrSlot); 
-	document.write('<div id="' + slotname + '" style="position: relative">');
+	document.write('<div id="' + slotname + '">');
 	Liftium._callAd(slotname);
 	document.write("</div>");
 	return true;

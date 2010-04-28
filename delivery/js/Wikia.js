@@ -252,23 +252,12 @@ var AdsInContent = {
 
 AdsInContent.putAdsInContent = function(htmlContainer) {
 	AdsInContent.called = true;
-	if (Athena.$(htmlContainer) === null){
+	if (Liftium._(htmlContainer) === null){
 		// This isn't going to work out. Probably called on the wrong page
 		return false;
 	} 
-	if (typeof window.AthenaConfigLoaded != "function" || typeof window.Geo == "undefined" ){
-		// Give enough time for config to load
-		if (AdsInContent.numTries > AdsInContent.maxTries){
-			throw("AdsInContent: Giving up waiting for config."); 
-		} else {
-			AdsInContent.numTries++;
-			Athena.d("Waiting another 500 milliseconds for config to load", 3);
-			window.setTimeout('AdsInContent.putAdsInContent("' + htmlContainer + '");', 500);
-			return false;
-		}
-	} 
 
-	var html = Athena.$(htmlContainer).innerHTML;
+	var html = Liftium._(htmlContainer).innerHTML;
         var numAdsServed = 0, lengthSince = 600, slotname;
 	// Note that IE converts all tags to upper case when you call innerHTML, so regexp required
 	var sections = html.split(/<\/H2>/i);
@@ -282,7 +271,7 @@ AdsInContent.putAdsInContent = function(htmlContainer) {
 		var sectionWidth = $(selector).width();
 
                 if (lengthSince < AdsInContent.spaceBetweenAds ) { 
-			Athena.d("AdsInContent: Section skipped, " + lengthSince + " pixels since last ad", 5);
+			Liftium.d("AdsInContent: Section skipped, " + lengthSince + " pixels since last ad", 5);
                         lengthSince += sectionHeight;
 
 		} else {
@@ -295,12 +284,13 @@ AdsInContent.putAdsInContent = function(htmlContainer) {
 				
 			// Display an ad
                         numAdsServed++;
-			Athena.d("AdsInContent: Calling ad in section " + (i+1) + " with " + Athena.print_r(slotConfig), 3);
+			Liftium.d("AdsInContent: Calling ad in section " + (i+1) + " with " + Liftium.print_r(slotConfig), 3);
                         lengthSince = sectionHeight;
 
+			var lslot =  Liftium.getUniqueSlotname(slotConfig.size);
                         // Create div, apply styles, and insert into the DOM using jQuery
 
-                        var loadDiv = $('<div id="' + slotConfig.name + '_load"></div>');
+                        var loadDiv = $('<div id="' + lslot + '"></div>');
 			for (var style in slotConfig.styles ){
 				if (typeof slotConfig.styles[style] == "function"){
 					// Prototype js library overwrites the array handler and adds crap. EVIL.
@@ -314,7 +304,8 @@ AdsInContent.putAdsInContent = function(htmlContainer) {
 			}
                         loadDiv.insertAfter(selector);
 
-                        Athena.callAd(slotConfig.name, true);
+			var t = Liftium.getNextTag(lslot);
+			Liftium.callIframeAd(lslot, t);
 
                 	if (numAdsServed >= AdsInContent.adsPerPage){
                        		break;
@@ -334,9 +325,11 @@ AdsInContent.getSlotConfig = function(sectionHtml, adNum, sectionWidth){
 	if (sectionHtml.match(/(<table|wikia-gallery)/i) || sectionHtml.length < 1000 ){
 		s.name = "INCONTENT_LEADERBOARD_" + adNum;
 		s.type = "leaderboard";
+		s.size = "728x90";
 	} else {
 		s.name = "INCONTENT_BOXAD_" + adNum;
 		s.type = "boxad";
+		s.size = "300x250";
 
 		// If there is a bulleted list, put boxad on the right. 
 		// Otherwise, alternate left/right
@@ -346,8 +339,6 @@ AdsInContent.getSlotConfig = function(sectionHtml, adNum, sectionWidth){
 			s.pos = "left";
 		}
 
-		//s.pos = "left";
-		//Athena.d("Left-aligned ad forced via wgForceInContentAdsLeft", 5);
 	}
 
 	// Set styles
@@ -381,7 +372,7 @@ AdsInContent.getSlotConfig = function(sectionHtml, adNum, sectionWidth){
 	}
 
 	if (parseInt(s.styles.width.replace('px', ''), 10) + 100 > sectionWidth) {
-		Athena.d("Section skipped, " + sectionWidth + " pixels not wide enough for ad", 5);
+		Liftium.d("Section skipped, " + sectionWidth + " pixels not wide enough for ad", 5);
 		return false;
 	}
 	
