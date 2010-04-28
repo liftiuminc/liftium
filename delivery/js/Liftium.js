@@ -1040,26 +1040,26 @@ Liftium.iframeHop = function(iframeUrl){
 	var slotname;
 
 	// Go through all the irames to find the matching src
-	var iframes = document.getElementsByTagName("iframe");
+	var iframes = document.getElementsByTagName("iframe"), found = false;
 	for (var i = 0, len = iframes.length; i < len; i++){
 		// IE doesn't prepend the host name if you call a local iframe
 		if (iframeUrl.indexOf(iframes[i].src) >=  0){
+			found = true;
 			// Found match
 			slotname = Liftium.getContainingDivId(iframes[i]); 
+			if (Liftium.e(slotname)) {
+				Liftium.reportError("Unable to determine slotname from iframe " + iframeUrl);
+				return;
+			}
 			break;
 		}
 	}
 
-	if ( Liftium.e(slotname) && len == 1){
-		// The url doesn't match anymore (probably a redirect or #),
-		// but we got lucky, there is only one iframe on the page
-		slotname = Liftium.getContainingDivId(iframes[0]); 
-	}
-
-	if ( Liftium.e(slotname)){
+	if ( ! found ){
 		Liftium.reportError("Unable to find iframe for " + iframeUrl);
 		return;
 	}
+
 	Liftium.d("slotname is " + slotname + " in iframeHop", 3);
 
 	Liftium.markLastAdAsRejected(slotname);
