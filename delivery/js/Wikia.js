@@ -305,6 +305,7 @@ AdsInContent.putAdsInContent = function(htmlContainer) {
                         loadDiv.insertAfter(selector);
 
 			var t = Liftium.getNextTag(lslot);
+			window.LiftiumOptions.placement = slotConfig.name;
 			Liftium.callIframeAd(lslot, t);
 
                 	if (numAdsServed >= AdsInContent.adsPerPage){
