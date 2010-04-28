@@ -246,10 +246,12 @@ var AdsInContent = {
 	numTries 	: 0,
 	numAdsServed 	: 0,
 	maxTries 	: 20,
-	adsPerPage 	: 1
+	adsPerPage 	: 1,
+	called 		: false
 };
 
 AdsInContent.putAdsInContent = function(htmlContainer) {
+	AdsInContent.called = true;
 	if (Athena.$(htmlContainer) === null){
 		// This isn't going to work out. Probably called on the wrong page
 		return false;
@@ -391,6 +393,12 @@ AdsInContent.getPixelHeight = function(sectionHtml){
 	// Crude stub for now
 	return Math.floor(sectionHtml.length/7);
 };
+
+// Call Ads In Content
+if (! AdsInContent.called && ! wgIsMainpage ) {
+	window.setTimeout('AdsInContent.putAdsInContent("bodyContent");', 300);
+}
+
 
 
 /************************************************************************
@@ -691,4 +699,3 @@ var ve_alternate = function(div){
         div.style.display = "none";
 	Athena.hop();
 };
-
