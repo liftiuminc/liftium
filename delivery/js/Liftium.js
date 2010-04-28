@@ -689,7 +689,7 @@ Liftium.getIframeUrl = function(slotname, tag) {
 	} else {
 		var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname, "placement": Liftium.chain[slotname].placement};
 		iframeUrl = Liftium.baseUrl + "tag/?" + Liftium.buildQueryString(p);
-		Liftium.d("No iframe found in tag, using " + iframeUrl, 3);
+		Liftium.d("No iframe found in tag, using " + iframeUrl, 4);
 	}
 	return iframeUrl;
 };
@@ -742,7 +742,7 @@ Liftium.getNextTag = function(slotname){
 	
 	if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
 		// Maximum fill time has been exceeded, jump to the always_fill
-		Liftium.d("Liftium.config.max_hop_time=" + Liftium.config.max_hop_time, 2);
+		Liftium.d("Liftium.config.max_hop_time=" + Liftium.config.max_hop_time, 5);
 		Liftium.d("Hop Time of " + Liftium.maxHopTime + " exceeded. Using the always_fill", 2);
 		Liftium.slotTimeouts++;
 		
@@ -2182,10 +2182,7 @@ XDM.executeMessage = function(serializedMessage){
 /* This code looks at the supplied query string and parses it.
  * It returns an associative array of url decoded name value pairs
  */
-if (window.Liftium){
-  XDM.parseQueryString = window.Liftium.parseQueryString;
-} else {
-  XDM.parseQueryString = function (qs){
+XDM.parseQueryString = function (qs){
 	var ret = [];
 	if (typeof qs != "string") { return ret; }
 
@@ -2214,8 +2211,7 @@ if (window.Liftium){
 	}
 
 	return ret;
-  }; 
-} // using Liftium parse query string
+}; 
 
 /* Set up */
 Liftium.now = new Date();

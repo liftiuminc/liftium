@@ -155,15 +155,11 @@ XDM.canPostMessage = function(){
 };
 
 
-if (window.Liftium){
-  XDM.debug = window.Liftium.debug;
-} else {
-  XDM.debug = function(msg){
+XDM.debug = function(msg){
         if (XDM.debugOn && typeof console != "undefined" && typeof console.log != "undefined"){
                 console.log("XDM debug: " +  msg);
         }
-  };
-}
+};
 
 
 XDM.listenForMessages = function(handler){
@@ -227,10 +223,7 @@ XDM.executeMessage = function(serializedMessage){
 /* This code looks at the supplied query string and parses it.
  * It returns an associative array of url decoded name value pairs
  */
-if (window.Liftium){
-  XDM.parseQueryString = window.Liftium.parseQueryString;
-} else {
-  XDM.parseQueryString = function (qs){
+XDM.parseQueryString = function (qs){
         var ret = [];
         if (typeof qs != "string") { return ret; }
 
@@ -259,12 +252,16 @@ if (window.Liftium){
         }
 
         return ret;
-  }; 
-} // using Liftium parse query string
+}; 
 
 /********* Start of real hop.js ***************/
 function XDM_onload (){
-	XDM.send(top, "Liftium.iframeHop", [window.location]);
+	if (top == window.parent ){
+		XDM.send(top, "Liftium.iframeHop", [window.location]);
+	} else {
+		// Nested iframe
+		XDM.send(top, "Liftium.iframeHop", [document.referrer]);
+	}
 }
 if ( top != self ) {
 	if (document.referrer && document.referrer.match(/(liftium.com|liftium.wikia-inc.com)/)){
