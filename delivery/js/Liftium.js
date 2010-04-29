@@ -1041,7 +1041,7 @@ Liftium.iframeHop = function(iframeUrl){
 	var slotname;
 
 	// Go through all the irames to find the matching src
-	var iframes = document.getElementsByTagName("iframe"), found = false;
+	var iframes = document.getElementsByTagName("iframe"), found = false, srcs=[];
 	for (var i = 0, len = iframes.length; i < len; i++){
 		// IE doesn't prepend the host name if you call a local iframe
 		if (iframeUrl.indexOf(iframes[i].src) >=  0){
@@ -1054,10 +1054,11 @@ Liftium.iframeHop = function(iframeUrl){
 			}
 			break;
 		}
+		srcs.push(iframes[i].src);
 	}
 
 	if ( ! found ){
-		Liftium.reportError("Unable to find iframe for " + iframeUrl);
+		Liftium.reportError("Unable to find iframe for " + iframeUrl, "in : " + srcs.join(", "));
 		return;
 	}
 
