@@ -21,6 +21,7 @@ Framework::httpCache(LiftiumConfig::getLastUpdated());
 ?>
 var LiftiumOptions = window.LiftiumOptions || {};
 LiftiumOptions.pubid = <?php echo intval($_GET['pubid'])?>;
+LiftiumOptions.placement = "<?php echo htmlspecialchars(@$_GET['placement'])?>" || null;
 LiftiumOptions.autoInit = false;
 <?php
 echo "\n/* Begin Liftium.js */\n";
