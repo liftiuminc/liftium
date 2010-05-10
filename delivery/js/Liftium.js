@@ -27,11 +27,14 @@ if (! window.Liftium ) { // No need to do this twice
 var Liftium = {
 	baseUrl		: LiftiumOptions.baseUrl || "http://delivery.liftium.com/",
 	chain		: [],
+	currents 	: [],
 	eventsTracked	: 0,
 	geoUrl		: LiftiumOptions.geoUrl || "http://geoip.liftium.com/",
 	loadDelay	: 100,
 	maxHops		: LiftiumOptions.maxHops || 5,
+	slotHops	: [],
 	rejTags		: [],
+	slotPlacements 	: [],
 	slotTimeouts	: 0
 };
 
@@ -88,7 +91,7 @@ Liftium.buildChain = function(slotname) {
 	Liftium.chain[slotname] = [];
 
 	// Store the placement
-	Liftium.chain[slotname].placement = Liftium.placement || LiftiumOptions.placement;
+	Liftium.slotPlacements[slotname] = Liftium.placement || LiftiumOptions.placement;
 	LiftiumOptions.placement = null;
 	Liftium.placement = null;
 
@@ -727,9 +730,9 @@ Liftium.getNextTag = function(slotname){
 	}
 
 	// Belt and suspenders to prevent too many hops
-	Liftium.chain[slotname].numHops = Liftium.chain[slotname].numHops || 0;
-	Liftium.chain[slotname].numHops++;
-	if (Liftium.chain[slotname].numHops > 10){
+	Liftium.slotHops[slotname] = Liftium.slotHops[slotname] || 0;
+	Liftium.slotHops[slotname]++;
+	if (Liftium.slotHops[slotname] > 10){
 		Liftium.reportError("Maximum number of hops exceeded: 10", "chain");
 		return false;
 	}
@@ -738,7 +741,7 @@ Liftium.getNextTag = function(slotname){
 
 	var now = new Date();
 	var length = Liftium.chain[slotname].length;
-	var current = Liftium.chain[slotname].current || 0;
+	var current = Liftium.currents[slotname] || 0;
 	Liftium.maxHopTime = Liftium.maxHopTime || parseInt(Liftium.config.max_hop_time, 10) || 1500;
 	
 	if ((now.getTime() - Liftium.slotTimer[slotname]) > Liftium.maxHopTime){
@@ -749,7 +752,7 @@ Liftium.getNextTag = function(slotname){
 		
 		// Return the always_fill
 		var lastOne = length - 1;
-		Liftium.chain[slotname].current = lastOne;
+		Liftium.currents[slotname] = lastOne;
 		Liftium.chain[slotname][lastOne].started = now.getTime();
 		return Liftium.chain[slotname][lastOne];
 	} else {
@@ -759,7 +762,7 @@ Liftium.getNextTag = function(slotname){
 			} else {
 				// Win nah!
 				Liftium.chain[slotname][i].started = now.getTime();
-				Liftium.chain[slotname].current = i;
+				Liftium.currents[slotname] = i;
 				return Liftium.chain[slotname][i];
 			}
 
@@ -1315,8 +1318,8 @@ Liftium.isValidCriteria = function (t, slotname){
 				}
 				break;
 			  case 'placement':
-				if (!Liftium.in_array(Liftium.chain[slotname].placement, t.criteria.placement)){
-					Liftium.d(rejmsg + "Invalid placement (" + Liftium.chain[slotname].placement + ")", 6, t.criteria.placement);
+				if (!Liftium.in_array(Liftium.slotPlacements[slotname], t.criteria.placement)){
+					Liftium.d(rejmsg + "Invalid placement (" + Liftium.slotPlacements[slotname] + ")", 6, t.criteria.placement);
 
 					return false;
 				}
@@ -1375,9 +1378,9 @@ Liftium.markChain = function (slotname){
 		return false;
 	}
 	for (var i = 0, len = Liftium.chain[slotname].length; i < len; i++){
-		if (i < Liftium.chain[slotname].current){
+		if (i < Liftium.currents[slotname]){
 			Liftium.chain[slotname][i].rejected = true;
-		} else if (i == Liftium.chain[slotname].current){
+		} else if (i == Liftium.currents[slotname]){
 			Liftium.chain[slotname][i].loaded = true;
 			break;
 		}
@@ -1387,7 +1390,7 @@ Liftium.markChain = function (slotname){
 
 
 Liftium.markLastAdAsRejected = function (slotname){
-	var i = Liftium.chain[slotname].current;
+	var i = Liftium.currents[slotname];
 	Liftium.chain[slotname][i].rejected = true;
 	Liftium.setTagStat(Liftium.chain[slotname][i].tag_id, "r");
 };
