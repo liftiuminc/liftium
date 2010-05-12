@@ -133,7 +133,7 @@ Liftium.buildChain = function(slotname) {
 		// TODO: make this a network option
 		if (t.network_name == "DART" ) {
 			if ( Liftium.isNetworkInChain(t.network_name, slotname)){
-				Liftium.d("Ad #" + t.tag_id + " skipped - network already in the chain", 2);
+				Liftium.d("Ad #" + t.tag_id + " skipped - network already in the chain", 5);
 				continue;
 			}
 		}
@@ -692,7 +692,7 @@ Liftium.getIframeUrl = function(slotname, tag) {
                 iframeUrl = "about:blank";
         // Special case for DART.
         } else if (tag.network_name == "DART"){
-                iframeUrl = window.LiftiumDART.getUrl(slotname, tag.size, tag.network_options, true);
+                iframeUrl = window.LiftiumDART.getUrl(Liftium.slotPlacements[slotname], tag.size, tag.network_options, true);
 	} else {
 		var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname, "placement": Liftium.slotPlacements[slotname]};
 		iframeUrl = Liftium.baseUrl + "tag/?" + Liftium.buildQueryString(p);
@@ -1394,6 +1394,7 @@ Liftium.markChain = function (slotname){
 
 Liftium.markLastAdAsRejected = function (slotname){
 	var i = Liftium.currents[slotname];
+	Liftium.d("Marking last ad as rejected for " + slotname + " with " + i, 3);
 	Liftium.chain[slotname][i].rejected = true;
 	Liftium.setTagStat(Liftium.chain[slotname][i].tag_id, "r");
 };
