@@ -1049,18 +1049,23 @@ Liftium.iframeHop = function(iframeUrl){
 	// Go through all the irames to find the matching src
 	var iframes = document.getElementsByTagName("iframe"), found = false, srcs=[];
 	for (var i = 0, len = iframes.length; i < len; i++){
+		/* IMPORTANT: getElementsByTagName returns a dynamic object.
+		 * Capture the specific iframe here, don't reference it with index,
+		 * because it will change
+		 */
+		var myframe = iframes[i];
 		// IE doesn't prepend the host name if you call a local iframe
-		if (iframeUrl.indexOf(iframes[i].src) >=  0){
+		if (iframeUrl.indexOf(myframe.src) >=  0){
 			found = true;
 			// Found match
-			slotname = Liftium.getContainingDivId(iframes[i]); 
+			slotname = Liftium.getContainingDivId(myframe); 
 			if (Liftium.e(slotname)) {
 				Liftium.reportError("Unable to determine slotname from iframe " + iframeUrl);
 				return;
 			}
 			break;
 		}
-		srcs.push(iframes[i].src);
+		srcs.push(myframe.src);
 	}
 
 	if ( ! found ){
@@ -1962,7 +1967,7 @@ BrowserDetect.init();
 
 // Load the Inspector code.
 Liftium.loadInspector = function () {
-	var d = document.getElementById("LiftiumInspectorScript");
+	var d = Liftium._("LiftiumInspectorScript");
 	if (Liftium.e(d)) {
 		var s = Liftium.loadScript(Liftium.baseUrl + "js/Inspector.js?r=" + Math.random().toString().substring(2,8), true);
 		s.id = "LiftiumInspectorScript";
