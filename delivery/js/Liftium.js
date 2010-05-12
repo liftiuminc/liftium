@@ -687,9 +687,12 @@ Liftium.getIframeUrl = function(slotname, tag) {
 		iframeUrl = m[1].replace(/&amp;/g, "&");
 		Liftium.d("Found iframe in tag, using " + iframeUrl, 3);
         // Handle "No Ad" here so it doesn't get called by iframe 
-        } else if (tag["network_name"] == "No Ad"){
+        } else if (tag.network_name == "No Ad"){
                 Liftium.d("Using about:blank for 'No Ad' to avoid iframe", 3);
                 iframeUrl = "about:blank";
+        // Special case for DART.
+        } else if (tag.network_name == "DART"){
+                iframeUrl = window.LiftiumDART.getUrl(slotname, tag.size, tag.network_options, true);
 	} else {
 		var p = { "tag_id": tag.tag_id, "size": tag.size, "slotname": slotname, "placement": Liftium.slotPlacements[slotname]};
 		iframeUrl = Liftium.baseUrl + "tag/?" + Liftium.buildQueryString(p);
