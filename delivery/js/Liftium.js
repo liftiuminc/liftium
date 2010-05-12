@@ -1053,12 +1053,21 @@ Liftium.iframeHop = function(iframeUrl){
 		 * Capture the specific iframe here, don't reference it with index,
 		 * because it will change
 		 */
-		var myframe = iframes[i];
+		var id = Math.random();
+		if (!iframes[i].id){
+			iframes[i].id = id;
+		} else {
+			id = iframes[i].id;
+		}
+		var myframe = Liftium._(id);
+
 		// IE doesn't prepend the host name if you call a local iframe
 		if (iframeUrl.indexOf(myframe.src) >=  0){
 			found = true;
+			Liftium.debug("found iframe match, #" + i, 3);
 			// Found match
 			slotname = Liftium.getContainingDivId(myframe); 
+			Liftium.debug("Slotname from containing div is " + slotname, 3);
 			if (Liftium.e(slotname)) {
 				Liftium.reportError("Unable to determine slotname from iframe " + iframeUrl);
 				return;
