@@ -1217,8 +1217,8 @@ Liftium.iframesLoaded = function(){
 			return true;
 		}
 	} else { 
-		// All other browsers will send the beacon after waiting 1000 milliseconds for each iframe
-		if (Liftium.loadDelay < 1000 * l ){
+		// All other browsers will send the beacon after waiting 1000 milliseconds for each slot
+		if (Liftium.loadDelay < 1000 * Liftium.slotnames.length ){
 			return false;
 		} else {
 			return true;
