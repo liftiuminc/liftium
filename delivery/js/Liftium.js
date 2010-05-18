@@ -1199,31 +1199,27 @@ Liftium.iframesLoaded = function(){
 	var l = iframes.length;
 	if (l === 0){ return true; }
 
-	var b = BrowserDetect.browser;
-	if (Liftium.in_array(b, ["Firefox", "Gecko", "Mozilla"]) && Liftium.pageLoaded){
-		// Firefox/Seamonkey/Camino - no document.readyState, but load event is *after* iframes
-		return true;
-	} else if (Liftium.in_array(b, ["Explorer","Opera"]) && document.readyState == "complete") {
-		// We also need to check the document.readyState for each iframe
-		for (var i = 0; i < l; i++){
-			if (iframes[i].document.readyState != "complete"){
+	for (var i = 0; i < l; i++){
+		if (iframes[i].contentDocument) {
+			// W3C
+			if (iframes[i].contentDocument.readyState != "complete") {
 				return false;
 			}
-		}
-		// And... their could be nested iframes, so wait at least 200 milliseconds for each slot
-		if (Liftium.loadDelay < 200){
-			return false;
+		} else if (iframes[i].document && iframes[i].document.readyState) {
+			// IE
+			if (iframes[i].document.readyState != "complete") {
+				return false;
+			}
 		} else {
-			return true;
-		}
-	} else { 
-		// All other browsers will send the beacon after waiting 1000 milliseconds for each slot
-		if (Liftium.loadDelay < 1000 * Liftium.slotnames.length ){
-			return false;
-		} else {
-			return true;
+			// All other browsers will send the beacon after waiting 3000 milliseconds 
+			if (Liftium.loadDelay < 3000 ){
+				return false;
+			} else {
+				return true;
+			}
 		}
 	}
+	return true;
 };
 
 
