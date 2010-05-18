@@ -1544,7 +1544,7 @@ Liftium.print_r = function (data, level) {
 		padding += "	";
 	}
 	switch (typeof data) {
-	  case "string" : return data === "" ? "*empty string*" : '"' + data + '"';
+	  case "string" : return data === "" ? "*empty string*" : data; 
 	  case "undefined" : return "*undefined*";
 	  case "boolean" : return data === true ? "*boolean true*" : "*boolean false*";
 	  case "function" : return "*function*" ;
