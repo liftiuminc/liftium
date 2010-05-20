@@ -387,7 +387,7 @@ AdsInContent.getPixelHeight = function(sectionHtml){
 };
 
 // Call Ads In Content
-if (top == self && ! AdsInContent.called && ! wgIsMainpage ) {
+if (top == self && wgEnableAdsInContent && wgIsArticle && (wgNamespaceNumber != 6) && ! AdsInContent.called && ! wgIsMainpage ) {
 	window.setTimeout('AdsInContent.putAdsInContent("bodyContent");', 300);
 }
 
