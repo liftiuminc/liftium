@@ -17,6 +17,7 @@ body {
 }
 </style>
 </head>
+<body>
 <script>
 if (top != self && document.referrer.toString().indexOf(document.domain) > -1){
   // In an iframe and the parent window can be referenced
@@ -29,7 +30,6 @@ if (top != self && document.referrer.toString().indexOf(document.domain) > -1){
   document.write("<script src='http://liftium.wikia.com/js/Liftium.js'><\/script>");
 }
 </script>
-<body>
 <?php if ($data['network_name'] == 'DART'){ ?>
 <script src='http://liftium.wikia.com/js/Wikia.js'></script>
 <script>LiftiumDART.placement = "<?php echo addslashes(@$_GET['placement'])?>";</script>
