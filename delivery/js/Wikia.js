@@ -138,8 +138,8 @@ LiftiumDART.getZone1 = function(dbname){
 
 // Page type, ie, "home" or "article"
 LiftiumDART.getZone2 = function(){
-	if(Liftium.getPageVar('isMainPage') === true) {
-		return 'home';
+	if (!Liftium.e(Liftium.getPageVar('page_type'))) {
+		return Liftium.getPageVar('page_type');
 	} else {
 		return 'article';
 	}
