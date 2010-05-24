@@ -6,7 +6,13 @@
 if ( parent != top ) {
         // In a nested iframe
         if (XDM.canPostMessage()){
+		if (location.search) {
+                	XDM.send(top, "Liftium.iframeHop", [document.location.search.substring(1).replace("http//", "http://")]);
+		} else {
+
                 XDM.send(top, "Liftium.iframeHop", [document.referrer]);
+
+		}
         } else {
                 document.write("<!-- From hop.html: Stuck in an iframe in an HTML 4 browser -->");
         }
