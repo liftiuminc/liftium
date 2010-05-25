@@ -1395,7 +1395,7 @@ Liftium.markChain = function (slotname){
 		return false;
 	}
 	for (var i = 0, len = Liftium.chain[slotname].length; i < len; i++){
-		if (i < Liftium.currents[slotname]){
+		if (i < Liftium.currents[slotname] && Liftium.chain[slotname][i].started){
 			Liftium.chain[slotname][i].rejected = true;
 		} else if (i == Liftium.currents[slotname]){
 			Liftium.chain[slotname][i].loaded = true;
