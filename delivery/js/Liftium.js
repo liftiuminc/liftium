@@ -1368,10 +1368,22 @@ Liftium.isValidCriteria = function (t, slotname){
 		return false;
 	}
 
+	// Tag is valid, check pacing
+	if (!Liftium.e(t.pacing) && !Liftium.isValidPacing(t)){
+		Liftium.d(rejmsg + " - pacing criteria not met (" + t.pacing + ")", 5);
+		return false;
+	}
+
 	// All criteria passed 
 	Liftium.d("Targeting criteria passed for tag #" + t.tag_id, 6);
 	return true;
 
+};
+
+
+/* Pacing allows for tags to be throttled. If the tag is valid, it will be in the chain x percent of the time */
+Liftium.isValidPacing = function(tag){
+	return (Math.random() * 100) < tag.pacing;
 };
 
 
