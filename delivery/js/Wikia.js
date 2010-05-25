@@ -304,7 +304,7 @@ AdsInContent.putAdsInContent = function(htmlContainer) {
 			}
                         loadDiv.insertAfter(selector);
 
-			Liftium.placement = slotConfig.name;
+			window.LiftiumPlacement = slotConfig.name;
 			var t = Liftium.getNextTag(lslot);
 			Liftium.callIframeAd(lslot, t);
 
@@ -387,7 +387,7 @@ AdsInContent.getPixelHeight = function(sectionHtml){
 };
 
 // Call Ads In Content
-if (top == self && wgEnableAdsInContent && wgIsArticle && (wgNamespaceNumber != 6) && ! AdsInContent.called && ! wgIsMainpage ) {
+if (top == self && window.wgEnableAdsInContent && window.wgIsArticle && (window.wgNamespaceNumber != 6) && ! AdsInContent.called && ! window.wgIsMainpage ) {
 	window.setTimeout('AdsInContent.putAdsInContent("bodyContent");', 300);
 }
 

@@ -30,9 +30,9 @@ if (top != self && document.referrer.toString().indexOf(document.domain) > -1){
   document.write("<script src='http://liftium.wikia.com/js/Liftium.js'><\/script>");
 }
 </script>
+<script>window.LiftiumPlacement = "<?php echo addslashes(@$_GET['placement'])?>";</script>
 <?php if ($data['network_name'] == 'DART'){ ?>
 <script src='http://liftium.wikia.com/js/Wikia.js'></script>
-<script>LiftiumDART.placement = "<?php echo addslashes(@$_GET['placement'])?>";</script>
 <?php } 
 echo "<!-- Begin Tag #{$_GET['tag_id']} -->\n";
 echo $data['tag'];

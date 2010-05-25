@@ -90,10 +90,14 @@ Liftium.buildChain = function(slotname) {
 	var networks = [];
 	Liftium.chain[slotname] = [];
 
-	// Store the placement
-	Liftium.slotPlacements[slotname] = Liftium.placement || LiftiumOptions.placement;
-	LiftiumOptions.placement = null;
-	Liftium.placement = null;
+	// Store the placement, clear the source 
+	if (window.LiftiumPlacement) {
+		Liftium.slotPlacements[slotname] = window.LiftiumPlacement;
+		window.LiftiumPlacement = null;
+	} else {
+		Liftium.slotPlacements[slotname] = LiftiumOptions.placement;
+		LiftiumOptions.placement = null;
+	}
 
 	// 1x1 is the same thing as 0x0
 	if (size == "1x1") { size = "0x0"; }
