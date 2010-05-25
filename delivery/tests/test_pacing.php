@@ -10,7 +10,7 @@ try {
   var sampleSuccess = 0, sampleFalse = 0;
 
   for (var i = 0; i < tries; i++){
-	  if (Liftium.isValidPacing(Liftium.config["300x250"][0])){
+	  if (Liftium.isValidPacing(Liftium.config.sizes["300x250"][0])){
 		  sampleSuccess++;
 	  } else {
 		  sampleFalse++;

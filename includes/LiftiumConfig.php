@@ -73,7 +73,7 @@ class LiftiumConfig{
 		if (empty($sth_t)){
 		  $sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
 			tags.tag, tags.always_fill, tags.sample_rate,
-			tags.frequency_cap AS freq_cap, tags.size,
+			tags.frequency_cap AS freq_cap, tags.size, tags.pacing,
 			tags.rejection_time as rej_time, tags.tier, tags.value, tags.floor,
 			networks.tag_template, networks.pay_type, tags.max_daily_impressions
 			FROM tags
