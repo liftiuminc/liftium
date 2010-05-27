@@ -353,7 +353,8 @@ class JavaScriptPacker {
 		$params = implode(',', $params);
 		
 		// the whole thing
-		return 'eval(' . $unpack . '(' . $params . "))\n";
+		// Add 3 extra spaces to thwart http://jsbeautifier.org/ :)
+		return 'eval(   ' . $unpack . '(' . $params . "))\n";
 	}
 	
 	private $buffer;
