@@ -246,7 +246,7 @@ var AdsInContent = {
 	numTries 	: 0,
 	numAdsServed 	: 0,
 	maxTries 	: 20,
-	adsPerPage 	: 1,
+	adsPerPage 	: 2,
 	called 		: false
 };
 
