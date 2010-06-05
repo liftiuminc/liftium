@@ -14,8 +14,8 @@ $dbw->exec("REPLACE INTO fills_hour SELECT tag_id,
         DATE_FORMAT(minute, '%Y-%m-%d %H:00:00') AS hour,
         SUM(attempts) AS attempts, SUM(loads) AS loads,
         SUM(rejects) AS rejects FROM fills_minute WHERE
-        minute > " . $dbw->quote($min_date) .
-        " GROUP BY hour, tag_id;");
+        minute >= DATE_FORMAT(" . $dbw->quote($min_date) . 
+        ", '%Y-%m-%d %H:00:00') GROUP BY hour, tag_id;");
 
 $dbw->exec("REPLACE INTO fills_day SELECT tag_id,
         DATE_FORMAT(hour, '%Y-%m-%d') AS day,

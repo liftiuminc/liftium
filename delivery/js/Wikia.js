@@ -99,6 +99,7 @@ LiftiumDART.getUrl = function(slotname, size, network_options, iframe) {
 		LiftiumDART.getZone1(Liftium.getPageVar('wgDBname')) + '/' +
 		LiftiumDART.getZone2() + ';' +
 		LiftiumDART.getAllDartKeyvalues(slotname) + 
+		LiftiumDART.getTitle() +
 		LiftiumDART.getDcoptKV(slotname) +
 		"sz=" + size + ';' +
 		LiftiumDART.getTileKV(slotname) +
@@ -178,6 +179,14 @@ LiftiumDART.getArticleKV = function(){
 	}
 };
 
+LiftiumDART.getTitle = function(){
+	if (!Liftium.e(wgPageName)) {
+		return "wpage=" + wgPageName + ";";
+	} else {
+		return "";
+	}
+};
+
 
 LiftiumDART.getDomainKV = function (hostname){
 	var lhost, pieces, sld='', np;
@@ -246,7 +255,7 @@ var AdsInContent = {
 	numTries 	: 0,
 	numAdsServed 	: 0,
 	maxTries 	: 20,
-	adsPerPage 	: 1,
+	adsPerPage 	: 2,
 	called 		: false
 };
 
