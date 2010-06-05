@@ -99,6 +99,7 @@ LiftiumDART.getUrl = function(slotname, size, network_options, iframe) {
 		LiftiumDART.getZone1(Liftium.getPageVar('wgDBname')) + '/' +
 		LiftiumDART.getZone2() + ';' +
 		LiftiumDART.getAllDartKeyvalues(slotname) + 
+		LiftiumDART.getTitle() +
 		LiftiumDART.getDcoptKV(slotname) +
 		"sz=" + size + ';' +
 		LiftiumDART.getTileKV(slotname) +
@@ -175,6 +176,14 @@ LiftiumDART.getArticleKV = function(){
 		return "artid=" + Liftium.getPageVar('article_id') + ';';
 	} else {
 		return '';
+	}
+};
+
+LiftiumDART.getTitle = function(){
+	if (!Liftium.e(wgPageName)) {
+		return "wpage=" + wgPageName + ";";
+	} else {
+		return "";
 	}
 };
 
