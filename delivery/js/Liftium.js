@@ -67,6 +67,10 @@ Liftium.beaconCall = function (url, cb){
 	if (cb !== false){
 		url += '&cb=' + Math.random().toString().substring(2,8);
 	}
+	if (url.length > 1000){
+		Liftium.d("Truncating beacon call url to 1000 characters");
+		url = url.substring(0,1000);
+	}
 	img.src = url;
 };
 
