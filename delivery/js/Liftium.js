@@ -313,6 +313,18 @@ Liftium.callIframeAd = function(slotname, tag, adIframe){
 		adIframe.marginWidth = 0;
 		adIframe.allowTransparency = true; // For IE
 		adIframe.id = slotname + '_' + tag.tag_id;
+
+		// expandable slots via in-tag magic phrase
+		// eg. 300x250 with <!-- FORCE 600x250 IFRAME -->
+		var fs = tag.tag.match(/FORCE [0-9]+x[0-9]+ IFRAME/);
+		if (fs) {
+			fs = fs[0].match(/[0-9]+x[0-9]+/);
+			fs = fs[0].split("x");
+			Liftium.d("Forced size " + fs[0] + "x" + fs[1] + " for " + slotname, 3);
+			adIframe.width = fs[0];
+			adIframe.height = fs[1];
+		}
+
 		Liftium._(slotname).appendChild(adIframe);
 	}
 
