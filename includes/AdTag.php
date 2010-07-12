@@ -225,6 +225,10 @@ class AdTag {
 			$values[] = date('Y-m-d H:i:00', $criteria['minute']);
 		}
 
+		if (!empty($_GET['debug'])){
+			echo "AdTag::getFillStats(): $sql"; print_r($values);
+		}
+
 		$placeholder = array('attempts'=>0, 'rejects'=>0, 'loads'=>0, 'fill_rate'=>0);
 		$sth = $dbr->prepare($sql);
 		$sth->execute($values);
