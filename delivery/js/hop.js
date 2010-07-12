@@ -264,7 +264,7 @@ function XDM_onload (){
 	}
 }
 if ( top != self ) {
-	if (document.referrer && document.referrer.match(/(liftium.com|liftium.wikia-inc.com)/)){
+	if (document.referrer && document.referrer.match(/(liftium.com|liftium.wikia-inc.com|dashboard.huddler.com)/)){
 		document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
 	} else {
 		// Tell the top window to hop 
