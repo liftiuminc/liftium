@@ -19,6 +19,9 @@ $CONFIG['memcached'] = array(
 	)
 );
 
+$CONFIG['delivery_url'] = "http://delivery.liftium.com";
+$CONFIG['geoip_url'] = "http://geoip.liftium.com";
+
 // Different settings if on a dev box
 $DEV_HOSTS = array("localhost", "your.dev.server");
 if (Framework::isDev()){
