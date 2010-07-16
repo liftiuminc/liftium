@@ -55,7 +55,7 @@ XDM.send = function (destWin, method, args){
 
 
 XDM.getDestinationDomain = function(destWin){
-	if (destWin == top){
+	if (destWin == window.parent){
 		// Pull domain from referrer. 
 		if (document.referrer.toString() !== ''){
 			var m = document.referrer.toString().match(/https*:\/\/([^\/]+)/);
@@ -261,8 +261,6 @@ function XDM_onload (){
 	} else {
 		// Nested iframe
 		XDM.send(top, "Liftium.iframeHop", [document.referrer]);
-		// We're not sure if Liftium is in the top window, or the parent, so try both
-		XDM.send(window.parent, "Liftium.iframeHop", window.location);
 	}
 }
 
