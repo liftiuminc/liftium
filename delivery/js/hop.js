@@ -261,24 +261,25 @@ function XDM_onload (){
 	} else {
 		// Nested iframe
 		XDM.send(top, "Liftium.iframeHop", [document.referrer]);
+		// We're not sure if Liftium is in the top window, or the parent, so try both
+		XDM.send(window.parent, "Liftium.iframeHop", window.location);
 	}
 }
 
 if (top != self && document.referrer && document.referrer.match(/(liftium.com|liftium.wikia-inc.com|dashboard.huddler.com)/)){
 	document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
 } else {
-	if (top != self && document.referrer.toString().indexOf(document.domain) > -1){
-		// In an iframe on the same domain, use XDM to bust out.
-		// Tell the top window to hop 
+	if (window.Liftium && window.Liftium.chain){
+		// Hop right here.
+		window.Liftium.debug("Liftium.hop() called from hop.js", 3);
+		window.Liftium.hop();
+	} else {
+		// In an iframe, use XDM to bust out.
 		if (self.attachEvent){
 			// Use onload for IE, which won't let you append to body until it's complete	
 			self.attachEvent("onload",XDM_onload);
 		} else {
 			XDM_onload();
 		}
-	} else {
-		// Hop right here.
-		window.Liftium.debug("Liftium.hop() called from hop.js", 3);
-		window.Liftium.hop();
 	}
 } 
