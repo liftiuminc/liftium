@@ -777,6 +777,7 @@ Liftium.getNextTag = function(slotname){
 		var lastOne = length - 1;
 		Liftium.currents[slotname] = lastOne;
 		Liftium.chain[slotname][lastOne].started = now.getTime();
+		Liftium.setTagStat(Liftium.chain[slotname][lastOne].tag_id, "a");
 		return Liftium.chain[slotname][lastOne];
 	} else {
 		for (var i = current, l = length; i < l; i++){
@@ -786,6 +787,7 @@ Liftium.getNextTag = function(slotname){
 				// Win nah!
 				Liftium.chain[slotname][i].started = now.getTime();
 				Liftium.currents[slotname] = i;
+				Liftium.setTagStat(Liftium.chain[slotname][i].tag_id, "a");
 				return Liftium.chain[slotname][i];
 			}
 
@@ -948,7 +950,7 @@ Liftium.getSlotnameFromElement = function(element){
  * $lastrejecttime -- minutes since midnight of the last reject
  */
 Liftium.getStatRegExp = function(tag_id){
-	return new RegExp(Liftium.now.getDay() + '_' + tag_id + 'l([0-9]+)r*([0-9]*)m*([0-9]*)' );
+	return new RegExp(Liftium.now.getDay() + '_' + tag_id + 'l([0-9]+)a([0-9]+)r*([0-9]*)m*([0-9]*)' );
 };
 
 
@@ -987,16 +989,14 @@ Liftium.getTagStat = function (tag_id, type){
 	var statMatch = Liftium.tagStats.match(Liftium.getStatRegExp(tag_id));
 	if (!Liftium.e(statMatch)){
 		var len = statMatch.length;
-		if (type === "l" && len >= 2){
+		if (type === "l" && len >= 3){
 			stat = statMatch[1];
-		} else if (type === "r" && len >= 3){
+		} else if (type === "a" && len >= 4){
 			stat = statMatch[2];
-		} else if (type === "m" && len >= 4){
+		} else if (type === "r" && len >= 5){
 			stat = statMatch[3];
-		} else if (type === "a"){
-			var l = parseInt(statMatch[1], 0) || 0;
-			var r = parseInt(statMatch[2], 0) || 0;
-			stat = l + r; // attempts are loads + rejects
+		} else if (type === "m" && len >= 6){
+			stat = statMatch[4];
 		}
 	}
 
@@ -1853,6 +1853,7 @@ Liftium.setTagStat = function (tag_id, type){
 	// Get the current stats and rebuild
 	var loads = Liftium.getTagStat(tag_id, "l");
 	var rejects = Liftium.getTagStat(tag_id, "r");
+	var attempts = Liftium.getTagStat(tag_id, "a");
 	var rejectMinutes = 0;
 
 	if (type === "l"){
@@ -1861,13 +1862,17 @@ Liftium.setTagStat = function (tag_id, type){
 	} else if (type === "r"){
 		rejects++;
 		rejectMinutes = Liftium.getMinutesSinceMidnight();
+	} else if (type === "a"){
+		attempts++;
+		rejectMinutes = Liftium.getTagStat(tag_id, "m") || 0;
 	}
 
 	// Tack on the rejects/rejectMinutes
 	var piece = Liftium.now.getDay() + '_' + tag_id + "l" + loads;
+	piece += "a" + attempts;
 	if (rejects > 0){
-		piece = piece + "r" + rejects;
-		piece = piece + "m" + rejectMinutes;
+		piece += "r" + rejects;
+		piece += "m" + rejectMinutes;
 	}
 
 	var ts = Liftium.tagStats.replace(Liftium.getStatRegExp(tag_id), piece);
@@ -1890,7 +1895,7 @@ Liftium.setTagStat = function (tag_id, type){
  */
 Liftium.storeTagStats = function (){
 	Liftium.d("Stored Tag Stats = " + Liftium.tagStats, 6);
-	Liftium.cookie("LTS", Liftium.tagStats, {
+	Liftium.cookie("LTS2", Liftium.tagStats, {
 		  // FIXME for Wikia
 		  //domain: Liftium.getCookieDomain(),
 		  path: "/",
