@@ -1572,7 +1572,7 @@ Liftium.print_r = function (data, level) {
 
 	// Sanity check against too much recursion
 	level = level || 0;
-	if (level > 6) { return false; }
+	if (level > 3) { return false; }
 
 	//The padding given at the beginning of the line.
 	var padding = '';
