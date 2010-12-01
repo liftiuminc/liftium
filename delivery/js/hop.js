@@ -65,7 +65,12 @@ XDM.getDestinationDomain = function(destWin){
 			return false;
 		}
 	} else {
-		return destWin.location.hostname;
+		try {
+			// Won't work if it's on a different domain 
+			return destWin.location.hostname;
+		} catch(e) {
+			return false;
+		}
 	}
 };
 
