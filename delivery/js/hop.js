@@ -77,13 +77,7 @@ XDM.getDestinationDomain = function(destWin){
 
 XDM._postMessage = function(destWin, method, args) {
 	XDM.debug("Sending message using postMessage()");
-	var d = XDM.getDestinationDomain(destWin), targetOrigin;
-	if (d === false){
-		targetOrigin = '*';
-	} else {
-		targetOrigin = 'http://' + d;
-	}
-	
+	var targetOrigin = '*';
 
 	var msg = XDM.serializeMessage(method, args);
 	
@@ -205,16 +199,12 @@ XDM.executeMessage = function(serializedMessage){
 			}
 		}
 
-		// Why hard code this? To prevent stupid shit.
-		if (functionArgs.length > 0){
-			code += '("' + functionArgs.join('","') + '");';
-		} else {
-                	code += "();";
-		}
-		if (top != self ){
-			nvpairs.destWin = nvpairs.destWin || "top";
-			code = nvpairs.destWin + "." + code;
-		}
+                if (functionArgs.length > 0){
+                        code += '("' + functionArgs.join('","') + '");';
+                } else {
+                        code += "();";
+                }
+
 
 		XDM.debug("Evaluating " + code);
 		return eval(code);
@@ -261,15 +251,10 @@ XDM.parseQueryString = function (qs){
 
 /********* Start of real hop.js ***************/
 function XDM_onload (){
-	if (top == window.parent ){
-		XDM.send(top, "Liftium.iframeHop", [window.location]);
-	} else {
-		// Nested iframe
-		XDM.send(top, "Liftium.iframeHop", [document.referrer]);
-	}
+	XDM.send(window.parent, "Liftium.iframeHop", [window.location]);
 }
 
-if (top != self && document.referrer && document.referrer.match(/(liftium.com|liftium.wikia-inc.com|dashboard.huddler.com)/)){
+if (top != self && document.referrer && document.referrer.match(/(liftium.wikia-inc.com|dashboard.huddler.com)/)){
 	document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
 } else {
 	if (window.Liftium && window.Liftium.chain){

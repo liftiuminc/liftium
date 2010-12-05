@@ -70,13 +70,7 @@ XDM.getDestinationDomain = function(destWin){
 
 XDM._postMessage = function(destWin, method, args) {
 	XDM.debug("Sending message using postMessage()");
-	var d = XDM.getDestinationDomain(destWin), targetOrigin;
-	if (d === false){
-		targetOrigin = '*';
-	} else {
-		targetOrigin = 'http://' + d;
-	}
-	
+	var targetOrigin = '*';
 
 	var msg = XDM.serializeMessage(method, args);
 	
@@ -198,15 +192,10 @@ XDM.executeMessage = function(serializedMessage){
 			}
 		}
 
-		// Why hard code this? To prevent stupid shit.
 		if (functionArgs.length > 0){
 			code += '("' + functionArgs.join('","') + '");';
 		} else {
                 	code += "();";
-		}
-		if (top != self ){
-			nvpairs.destWin = nvpairs.destWin || "top";
-			code = nvpairs.destWin + "." + code;
 		}
 
 		XDM.debug("Evaluating " + code);

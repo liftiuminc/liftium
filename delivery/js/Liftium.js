@@ -2219,15 +2219,10 @@ XDM.executeMessage = function(serializedMessage){
 			}
 		}
 
-		// Why hard code this? To prevent stupid shit.
 		if (functionArgs.length > 0){
 			code += '("' + functionArgs.join('","') + '");';
 		} else {
 			code += "();";
-		}
-		if (top != self ){
-			nvpairs.destWin = nvpairs.destWin || "top";
-			code = nvpairs.destWin + "." + code;
 		}
 
 		XDM.debug("Evaluating " + code);
