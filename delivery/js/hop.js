@@ -257,8 +257,9 @@ function XDM_onload (){
 if (top != self && document.referrer && document.referrer.match(/(liftium.wikia-inc.com|dashboard.huddler.com)/)){
 	document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
 } else {
-	if (window.Liftium && window.Liftium.chain){
-		// Hop right here.
+        if (window.Liftium && window.Liftium.chain && window.Liftium.lastSlot){
+		// Hop right here. Note that we also require Liftium.lastSlot because
+		// /tag may include Liftium without setting it up
 		window.Liftium.debug("Liftium.hop() called from hop.js", 3);
 		window.Liftium.hop();
 	} else {
