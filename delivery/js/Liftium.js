@@ -983,7 +983,7 @@ Liftium.getTagStat = function (tag_id, type){
 	var stat = null;
 
 	if (Liftium.e(Liftium.tagStats)){
-		Liftium.tagStats = Liftium.getRequestVal("liftium_tag_stats", null) || Liftium.cookie("LTS") || "";
+		Liftium.tagStats = Liftium.getRequestVal("liftium_tag_stats", null) || Liftium.getEngine().set("LTS3") || "";
 	}
 
 	var statMatch = Liftium.tagStats.match(Liftium.getStatRegExp(tag_id));
@@ -1913,13 +1913,7 @@ Liftium.setTagStat = function (tag_id, type){
  */
 Liftium.storeTagStats = function (){
 	Liftium.d("Stored Tag Stats = " + Liftium.tagStats, 6);
-	Liftium.cookie("LTS2", Liftium.tagStats, {
-		  // FIXME for Wikia
-		  //domain: Liftium.getCookieDomain(),
-		  path: "/",
-		  expires: 86400 * 1000 // one day from now, in milliseconds
-		 }
-	);
+	Liftium.getEngine().set("LTS3", Liftium.tagStats, 86400);
 };
 
 /* Client side storage library. Uses HTML 5's storage engine when available, cookies as a fallback,
