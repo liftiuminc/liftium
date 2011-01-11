@@ -418,7 +418,7 @@ Liftium.clearPreviousIframes = function(slotname){
  * object, then it passes by reference.
  * Yes, I could have extended object prototype, but I hate it when people do that */
 Liftium.clone = function (obj){
-	if (typeof obj == "object"){
+	if (typeof obj == "object" && obj !== null){
 		var t = new obj.constructor();
 		for(var key in obj) {
 			t[key] = Liftium.clone(obj[key]);
