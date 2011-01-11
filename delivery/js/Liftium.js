@@ -1403,6 +1403,24 @@ Liftium.isValidPacing = function(tag){
 };
 
 
+/* For the supplied object, return an object with an array of keys, and an associated list of values
+ * Why not just use for(var name in obj) ... you ask? Because the various javascript frameworks override
+ * the underlying prototypes of these and add functions that interfere with normal looping
+ */
+Liftium.keyValues = function(obj) {
+	var keys = [], values = [];
+	for (var n in obj) {
+		if (typeof obj[n] == "function"){
+			// Dirty lil whore!
+			continue;
+		}
+		keys.push(n);
+		values.push(obj[n]);
+	}
+	return {"keys": keys, "values": values};
+};
+
+
 /* Load the supplied url inside a script tag  */
 Liftium.loadScript = function(url, noblock) {
 	if (typeof noblock == "undefined"){
@@ -1904,6 +1922,295 @@ Liftium.storeTagStats = function (){
 	);
 };
 
+/* Client side storage library. Uses HTML 5's storage engine when available, cookies as a fallback,
+ * and finally an in memory page only version if cookies are not enabled.
+ * See https://www.assembla.com/wiki/show/krux_interchange/Client_Side_Storage
+ *
+ * Others engines could be added including flash, Internet Explorer's userData, and webkit's sqllite
+ *
+ * Usage:
+ * var storage = Liftium.Storage.getEngine();
+ *
+ * set it
+ * storage.set(key, value); 
+ *
+ * later...
+ * storage.get(key); 
+ *
+ * Shortcut:
+ * Liftium.Storage.getEngine().get(key); 
+ *
+ * --------------------------------------------------------------------------------------*/
+
+
+Liftium.Storage = {
+	availableEngines: []
+};
+
+
+/* Factory. Figure out which storage engine to use and return it */
+Liftium.Storage.getEngine = function () {
+	for (var i = 0; i < Liftium.Storage.availableEngines.length; i++){
+		if (Liftium.Storage.availableEngines[i].isSupported()){
+			return Liftium.Storage.availableEngines[i];
+		}
+	}
+	Liftium.d("No Supported storage engines", -2);
+	return false;
+};
+
+
+/* Store expiration meta data for the value. Format:
+ * if there is an expiration
+ * 	value|epochExp
+ * else 
+ * 	value| 
+ */
+Liftium.Storage.buildValue = function(value, expires){
+	if (expires) {
+		// Note the conversion from seconds to milliseconds
+		return value + "|" + ((new Date).getTime() + (expires*1000));
+	} else {
+		return value + "|";
+	}
+};
+
+
+/* Return the value from the data  stored in the format in buildValue.
+ * If it's expired, return null 
+ */
+Liftium.Storage.getValue = function(data){
+	if (data === null) {
+		return data;
+	}
+	var m = data.match(/\|([0-9]+)$/);
+	if (m) {
+		if ((new Date).getTime() > m[1]){
+			return null;
+		} else {
+			return data.replace(/\|[0-9]+$/, '');
+		}	
+	} else {
+		// No expiry, just strip off the last pipe
+		return data.replace(/\|$/, '');
+	}
+};
+
+
+Liftium.Storage.expunge = function(engine) {
+	var keys = engine.keyList();
+	for (var i = 0; i < keys.length; i++) {
+		if (engine.get(keys[i]) === null){
+			engine.del(keys[i]);
+		}	
+	}
+};
+
+
+/* ----------------- Storage Engines ---------------------- */
+/* New engines must include the following methods:
+ * get(key)
+ * set(key, value, expires = never)
+ * del(key)
+ * inc(key, expires = never)
+ * count()
+ * clear()
+ * keyList()
+ *
+ * And the following properties
+ * name (name of the storage engine). Must be unique
+ */
+
+/* --- HTML 5 --- */
+Liftium.Storage.HTML5 = { "name": "HTML5" };
+
+Liftium.Storage.HTML5.isSupported = function(key){
+/* TODO: Investigate this hack for Firefox 2/3
+ * if (typeof localStorage == "undefined" && typeof globalStorage != "undefined")
+ * const localStorage = globalStorage[location.hostname];
+ */
+	if (window.localStorage){
+		// HTML 5 supported
+		Liftium.d("HTML 5 storage engine supported", 6);
+		Liftium.addEventListener(window, "load", function() {Liftium.Storage.expunge(Liftium.Storage.HTML5);}); 
+		return true;
+	} else {
+		Liftium.d("HTML 5 storage engine not supported", 5);
+		return false;
+	}
+};
+
+
+Liftium.Storage.HTML5.get = function(key) {
+	return Liftium.Storage.getValue(window.localStorage.getItem(key));
+};
+
+
+Liftium.Storage.HTML5.set = function(key, value, expires){
+	return window.localStorage.setItem(key, Liftium.Storage.buildValue(Liftium.toS(value), expires));
+};
+
+
+Liftium.Storage.HTML5.del = function(key){
+	return window.localStorage.removeItem(key);
+};
+
+
+Liftium.Storage.HTML5.inc = function(key, expires){
+	var c = Liftium.Storage.HTML5.get(key) || 0;
+	c++;
+	Liftium.Storage.HTML5.set(key, c, expires);
+	return c;
+};
+
+
+Liftium.Storage.HTML5.count = function(){
+	return window.localStorage.length;
+};
+
+
+Liftium.Storage.HTML5.clear = function(){
+	return window.localStorage.clear();
+};
+
+
+Liftium.Storage.HTML5.keyList = function(){
+	var o = [];
+	for (var i = 0; i < window.localStorage.length; i++) {
+		o.push(window.localStorage.key(i));
+	}
+	return o;
+};
+
+// Register the engine 
+Liftium.Storage.availableEngines.push(Liftium.Storage.HTML5);
+
+/* --- Cookies--- */
+
+Liftium.Storage.Cookies = {
+	name: "Cookies",
+	cookieName:	"KRUXS",
+	cookieExpires: 	60*60*24*30
+};
+
+Liftium.Storage.Cookies.isSupported = function(key){
+	if (navigator.cookieEnabled) {
+		Liftium.d("Storage: cookies enabled", 6);
+		Liftium.addEventListener(window, "load", function() {Liftium.Storage.expunge(Liftium.Storage.Cookies);}); 
+		return true;
+	} else {
+		Liftium.d("Storage: cookies not enabled", 4);
+		return false;
+	}
+};
+
+Liftium.Storage.Cookies.get = function(key) {
+	var data = Liftium.Storage.Cookies._getData();
+	if (typeof data[key] != "undefined"){
+		return Liftium.Storage.getValue(data[key]);
+	} else {
+		return null;
+	}
+};
+
+Liftium.Storage.Cookies.set = function(key, value, expires){
+	var data = Liftium.Storage.Cookies._getData();
+	data[key] = Liftium.Storage.buildValue(Liftium.toS(value), expires);
+	Liftium.cookie(Liftium.Storage.Cookies.cookieName, Liftium.buildQueryString(data));
+};
+
+
+Liftium.Storage.Cookies.del = function(key){
+	var data = Liftium.Storage.Cookies._getData(), out={};
+	for (var name in data) {
+		if (name != key){
+			out[name] = data[name];	
+		}
+	}
+	Liftium.cookie(Liftium.Storage.Cookies.cookieName, Liftium.buildQueryString(out));
+};
+
+
+Liftium.Storage.Cookies.inc = function(key, expires){
+	var c = Liftium.Storage.Cookies.get(key) || 0;
+	c++;
+	return Liftium.Storage.Cookies.set(key, c, expires);
+};
+
+
+Liftium.Storage.Cookies.count = function(){
+	return Liftium.keyValues(Liftium.Storage.Cookies._getData()).keys.length;
+};
+
+
+Liftium.Storage.Cookies.clear = function(){
+	Liftium.cookie(Liftium.Storage.Cookies.cookieName, null);
+};
+
+
+Liftium.Storage.Cookies.keyList = function(){
+	var o = [];
+	for (var key in Liftium.Storage.Cookies._getData()) {
+		o.push(key);
+	}
+	return o;
+};
+
+
+Liftium.Storage.Cookies._getData = function (){
+	var cookie = Liftium.cookie(Liftium.Storage.Cookies.cookieName);
+	if (cookie === null){
+		return {};
+	} else {
+		return Liftium.parseQueryString(cookie);
+	}
+};
+
+// Register the engine 
+Liftium.Storage.availableEngines.push(Liftium.Storage.Cookies);
+
+/* --- Dummy (if they have an html 4 or lower browser, and cookies turned off--- */
+Liftium.Storage.Dummy = {
+	name: "Dummy",
+	store: {}
+};
+Liftium.Storage.Dummy.isSupported = function(){return true;};
+Liftium.Storage.Dummy.set = function(key, value, expires){ Liftium.Storage.Dummy.store[key] = Liftium.Storage.buildValue(Liftium.toS(value), expires); };
+Liftium.Storage.Dummy.get = function(key){
+	if (Liftium.Storage.Dummy.store[key] !== undefined) {
+		return Liftium.Storage.getValue(Liftium.Storage.Dummy.store[key]);
+	} else {
+		return null;
+	}
+};
+Liftium.Storage.Dummy.del = function(key){
+	var out = {};
+        for (var name in Liftium.Storage.Dummy.store) {
+                if (name != key){
+                        out[name] = Liftium.Storage.Dummy.store[name];
+                }
+        }
+	Liftium.Storage.Dummy.store = out;
+};
+Liftium.Storage.Dummy.inc = function(key, expires){ 
+	var val = Liftium.Storage.Dummy.get(key) || 0;
+	val++;
+	Liftium.Storage.Dummy.set(key, val, expires);
+};
+Liftium.Storage.Dummy.count = function(){ return Liftium.keyValues(Liftium.Storage.Dummy.store).keys.length;};
+Liftium.Storage.Dummy.clear = function(){ Liftium.Storage.Dummy.store = {}; };
+
+Liftium.Storage.Dummy.keyList = function(){
+	var o = [];
+	for (var key in Liftium.Storage.Dummy.store) {
+		o.push(key);
+	}
+	return o;
+};
+
+// Register the engine 
+Liftium.Storage.availableEngines.push(Liftium.Storage.Dummy);
+
 
 /* Event tracking. Used for external verification of stats. Based on:
  * I wanted to simply call Google's code for buildng this url, but wasn't able to 
@@ -1953,6 +2260,24 @@ Liftium.trackEvent = function(page, category, action, label) {
 /* Why do we even have this lever!? Because we need to test error handling (see test_jserror.php) */
 Liftium.throwError = function () {
 	return window.LiftiumthrowError.UndefinedVar;
+};
+
+/* For the supplied object, convert it to string. Functionality that goes beyond toString():
+ * .toString() doesn't work on null and undefined
+ * we use JSON encoding if the browser supports it
+ */
+Liftium.toS = function (value){
+        if (value === null) {
+                return "null";
+        } else if (typeof value == "object"){
+                if (window.JSON){
+                        return window.JSON.stringify(value);
+                } else {
+                        return value.toString();
+                }
+        } else {
+                return "" + value;
+        }
 };
 
 
