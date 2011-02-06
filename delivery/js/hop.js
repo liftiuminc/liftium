@@ -252,6 +252,10 @@ XDM.parseQueryString = function (qs){
 /********* Start of real hop.js ***************/
 function XDM_onload (){
 	XDM.send(window.parent, "Liftium.iframeHop", [window.location]);
+	if (window.parent.parent != top ) {
+		// This is in a nested iframe. Try one more level up
+		XDM.send(window.parent.parent, "Liftium.iframeHop", [document.referrer]);
+	}
 }
 
 if (top != self && document.referrer && document.referrer.match(/(liftium.wikia-inc.com|dashboard.huddler.com)/)){
