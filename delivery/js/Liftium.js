@@ -1848,6 +1848,11 @@ Liftium.setAdjustedValues = function(tags){
 		} else {
 			tags[i].adjusted_value = avalue;
 		}
+
+		// Never go below the floor
+		if (avalue < parseFlaot(tags[i].floor, 10)){
+			tags[i].adjusted_value = tags[i].floor;
+		}
 	}
 	return tags; // Not really necessary, because it modified values in place
 };
