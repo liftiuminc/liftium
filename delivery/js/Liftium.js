@@ -1247,6 +1247,17 @@ Liftium.iframesLoaded = function(){
 };
 
 
+/* From http://detectmobilebrowser.com */
+Liftium.isMobile = function() {
+    var a = (navigator.userAgent || navigator.vendor || window.opera).toLowerCase();
+    if (a.match(/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/)){
+        return true;
+    } else {
+        return false;
+    }
+};
+
+
 /* Check to see if the user is using the right browser */
 Liftium.isValidBrowser = function (browser){
 	var obv = BrowserDetect.OS + " " + BrowserDetect.browser + " " + BrowserDetect.version;
