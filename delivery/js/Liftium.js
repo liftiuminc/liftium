@@ -25,11 +25,11 @@ var LiftiumOptions = LiftiumOptions || {};
 if (! window.Liftium ) { // No need to do this twice
 
 var Liftium = {
-	baseUrl		: LiftiumOptions.baseUrl || "http://delivery.liftium.com/",
+	baseUrl		: LiftiumOptions.baseUrl || "http://delivery.importantmedia.org/",
 	chain		: [],
 	currents 	: [],
 	eventsTracked	: 0,
-	geoUrl		: LiftiumOptions.geoUrl || "http://geoip.liftium.com/",
+	geoUrl		: LiftiumOptions.geoUrl || "http://geoip.huddler.com/",
 	loadDelay	: 100,
 	maxHops		: LiftiumOptions.maxHops || 5,
 	slotHops	: [],
@@ -1670,6 +1670,8 @@ Liftium.recordEvents = function(slotname){
 
 
 Liftium.reportError = function (msg, type) {
+    // Disabled
+    return;
   // wrapped in a try catch block because if this function is reporting an error,
   // all hell breaks loose
   try { 
@@ -2412,7 +2414,7 @@ XDM.send = function (destWin, method, args){
 
 
 XDM.getDestinationDomain = function(destWin){
-	if (destWin == top){
+	if (destWin == window.parent){
 		// Pull domain from referrer. 
 		if (document.referrer.toString() !== ''){
 			var m = document.referrer.toString().match(/https*:\/\/([^\/]+)/);
@@ -2531,14 +2533,18 @@ XDM.listenForMessages = function(handler){
 
 
 XDM.isAllowedMethod = function(method){
-	var found = false;
-	for (var i = 0; i < XDM.allowedMethods.length; i++){
-		if (method.toString() === XDM.allowedMethods[i]){
-			found = true;
-			break;
-		}
-	}
-	return found;
+    if (typeof method == "undefined") {
+        return false;
+    }
+
+    var found = false;
+    for (var i = 0; i < XDM.allowedMethods.length; i++){
+        if (method.toString() === XDM.allowedMethods[i]){
+            found = true;
+            break;
+        }
+    }
+    return found;
 };
 
 
