@@ -14,7 +14,7 @@ body {
 	margin: 0px;
 }
 </style>
-<script><?php echo "LiftiumOptions = " . json_encode(array('pubid'=> $_GET['pubid'], 'placement' => @$_GET['placement']))?></script>
+<script><?php echo "LiftiumOptions = " . json_encode(array('pubid'=> $_GET['pubid']))?></script>
 <script src="/js/Liftium.js"></script>
 <script>
 // Tell Google to use the referring url 

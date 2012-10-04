@@ -120,6 +120,8 @@ class AdTag {
 	}
 
 	static public function searchTags($criteria=array(), $objects = true){
+		global $HIGH_VALUE_COUNTRIES;
+
 		$dbr = Framework::getDB("slave");
 		/* The idea behind weighted_random_value is that we want to sort items
 		 * within the same tier randomly (to take advantage of cream skimming)
@@ -128,8 +130,8 @@ class AdTag {
 		$values = array();
 		$sql = "SELECT SQL_SMALL_RESULT /* Tell mysql to use in memory temp tables */
 			tags.id AS tag_id FROM tags 
-			INNER JOIN networks on tags.network_id = networks.id
-			WHERE 1=1";
+			INNER JOIN networks on tags.network_id = networks.id ";
+		$sql .= "WHERE 1=1";
 		if (!empty($criteria['name_search'])){
 			$search = '%' . $criteria['name_search'] . '%';
 			$sql .= "\n\tAND tag_name like ? ";
@@ -168,7 +170,6 @@ class AdTag {
 			$sql .= "\n\tAND auto_update_ecpm = ? ";
 			$values[] = $criteria['auto_update_ecpm'];
 		}
-
 
 		switch (@$criteria['sort']){
 			case 'name': $sql.= "\n\tORDER BY tag_name"; break;
@@ -223,10 +224,6 @@ class AdTag {
 		} else if (!empty($criteria['minute'])){
 			$sql.= " AND minute = ?";
 			$values[] = date('Y-m-d H:i:00', $criteria['minute']);
-		}
-
-		if (!empty($_GET['debug'])){
-			echo "AdTag::getFillStats(): $sql"; print_r($values);
 		}
 
 		$placeholder = array('attempts'=>0, 'rejects'=>0, 'loads'=>0, 'fill_rate'=>0);
