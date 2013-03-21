@@ -40,7 +40,7 @@ if ($format == 'text'){
 	print_r($config);
 } else {
 	header('Content-Type: application/x-javascript');
-    echo 'Liftium.config = ' . json_encode($config) . ';';
+    echo 'Liftium.config = ' . json_encode($config) . '; Liftium.servedBy = ' . json_encode(gethostname()) . ';';
 
     // esi or inline call? -- all servers should have a local geoipd.
     // disabled for now, as there's a requirement to compress this

@@ -55,7 +55,7 @@ XDM.send = function (destWin, method, args){
 
 
 XDM.getDestinationDomain = function(destWin){
-	if (destWin == window.parent){
+	if (destWin == top){
 		// Pull domain from referrer. 
 		if (document.referrer.toString() !== ''){
 			var m = document.referrer.toString().match(/https*:\/\/([^\/]+)/);
@@ -65,19 +65,20 @@ XDM.getDestinationDomain = function(destWin){
 			return false;
 		}
 	} else {
-		try {
-			// Won't work if it's on a different domain 
-			return destWin.location.hostname;
-		} catch(e) {
-			return false;
-		}
+		return destWin.location.hostname;
 	}
 };
 
 
 XDM._postMessage = function(destWin, method, args) {
 	XDM.debug("Sending message using postMessage()");
-	var targetOrigin = '*';
+	var d = XDM.getDestinationDomain(destWin), targetOrigin;
+	if (d === false){
+		targetOrigin = '*';
+	} else {
+		targetOrigin = 'http://' + d;
+	}
+	
 
 	var msg = XDM.serializeMessage(method, args);
 	
@@ -199,12 +200,16 @@ XDM.executeMessage = function(serializedMessage){
 			}
 		}
 
-                if (functionArgs.length > 0){
-                        code += '("' + functionArgs.join('","') + '");';
-                } else {
-                        code += "();";
-                }
-
+		// Why hard code this? To prevent stupid shit.
+		if (functionArgs.length > 0){
+			code += '("' + functionArgs.join('","') + '");';
+		} else {
+                	code += "();";
+		}
+		if (top != self ){
+			nvpairs.destWin = nvpairs.destWin || "top";
+			code = nvpairs.destWin + "." + code;
+		}
 
 		XDM.debug("Evaluating " + code);
 		return eval(code);
@@ -251,23 +256,18 @@ XDM.parseQueryString = function (qs){
 
 /********* Start of real hop.js ***************/
 function XDM_onload (){
-	XDM.send(window.parent, "Liftium.iframeHop", [window.location]);
-	if (window.parent.parent != top ) {
-		// This is in a nested iframe. Try one more level up
-		XDM.send(window.parent.parent, "Liftium.iframeHop", [document.referrer]);
+	if (top == window.parent ){
+		XDM.send(top, "Liftium.iframeHop", [window.location]);
+	} else {
+		// Nested iframe
+		XDM.send(top, "Liftium.iframeHop", [document.referrer]);
 	}
 }
-
-if (top != self && document.referrer && document.referrer.match(/(liftium.wikia-inc.com|dashboard.huddler.com)/)){
-	document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
-} else {
-        if (window.Liftium && window.Liftium.chain && window.Liftium.lastSlot){
-		// Hop right here. Note that we also require Liftium.lastSlot because
-		// /tag may include Liftium without setting it up
-		window.Liftium.debug("Liftium.hop() called from hop.js", 3);
-		window.Liftium.hop();
+if ( top != self ) {
+	if (document.referrer && document.referrer.match(/(liftium.com|liftium.wikia-inc.com)/)){
+		document.write("<h3>Tag successfully called Liftium's hop.js. On the live site, it would have called the next ad in the chain.</h3>");
 	} else {
-		// In an iframe, use XDM to bust out.
+		// Tell the top window to hop 
 		if (self.attachEvent){
 			// Use onload for IE, which won't let you append to body until it's complete	
 			self.attachEvent("onload",XDM_onload);
@@ -275,4 +275,9 @@ if (top != self && document.referrer && document.referrer.match(/(liftium.wikia-
 			XDM_onload();
 		}
 	}
-} 
+} else {
+	// not in an iframe, call the next ad
+	window.Liftium.debug("Liftium.hop() called from hop.js", 3);
+	window.Liftium.hop();
+}
+

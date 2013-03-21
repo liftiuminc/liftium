@@ -1,12 +1,2 @@
-*.sqlite3
-deploy.rb
-.*.swp
-schema.rb
-test.log
-production.log
-live.log
-dev_mysql.log
-test_mysql.log
-development.log
-*/cache/*
-LocalSettings.php
+*.swp
+LocalSettings-thisbox.php
