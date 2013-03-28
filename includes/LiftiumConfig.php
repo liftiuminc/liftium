@@ -45,7 +45,7 @@ class LiftiumConfig{
 					}
 				}
 
-				if (AdTag::isUnderDailyLimit($tag_id, @$tag['max_daily_impressions'])){
+				if (AdTag::isUnderDailyLimit($tag, @$tag['max_daily_impressions'])){
 					$object->sizes[$size][] = $tag;
 				} else {
 					if (!empty($_GET['debug'])){
@@ -90,7 +90,7 @@ class LiftiumConfig{
 		static $sth_t;
 		if (empty($sth_t)){
 		  $sql = "SELECT networks.network_name, tags.id AS tag_id, tags.tag_name, tags.network_id,
-			tags.tag, tags.always_fill, tags.sample_rate,
+			tags.tag, tags.always_fill, tags.sample_rate, tags.publisher_id,
 			tags.frequency_cap AS freq_cap, tags.size, tags.pacing,
 			tags.rejection_time as rej_time, tags.tier, tags.value, tags.floor,
 			networks.tag_template, networks.pay_type, tags.max_daily_impressions
