@@ -40,9 +40,9 @@ $CONFIG['memcached'] = $a2;
 // Define dev boxes
 $DEV_HOSTS = array("localhost", "test-liftium");
 
-#if (file_exists(dirname(__FILE__) . '/LocalSettings-thisbox.php')){
-#	include dirname(__FILE__) . '/LocalSettings-thisbox.php';
-#}
+if (file_exists(dirname(__FILE__) . '/LocalSettings-thisbox.php')){
+	include dirname(__FILE__) . '/LocalSettings-thisbox.php';
+}
 
 // Different settings if on a dev box
 if (Framework::isDev()){
