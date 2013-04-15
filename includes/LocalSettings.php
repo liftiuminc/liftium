@@ -1,48 +1,30 @@
 <?php
-
-$localconf = yaml_parse_file( "/usr/wikia/docroot/Settings.yml" );
-
 $CONFIG['db'] = array(
-	'masterhost' => '10.8.42.24',
-	'slavehosts' => array('10.8.42.24'/*, '10.8.40.24'*/),
+	'masterhost' => 'liftium-s4',
+	'slavehosts' => array('liftium-s4','liftium-s5'),
 	'username' => 'rails_dashboard',
-	'password' => 'Peshduk0',
+	'password' => 'Zy9X5arf',
 	'dbname' => "liftium"
 );
 
 $CONFIG['memcached'] = array(
 	// Array of memcached hosts
         '0' => array(
-                'host' => '10.8.42.24',
+                'host' => 'liftium-s4',
                 'port' => '11211',
         ),
         '1' => array(
-                'host' => '10.8.40.24',
+                'host' => 'liftium-s5',
                 'port' => '11211',
         ),
 );
 
-$CONFIG['db'] = $localconf[ "wgLiftiumDBServers" ];
-$CONFIG['memcached'] = $localconf[ "wgLiftiumMemCachedServers" ];
-
-$a = $CONFIG['memcached'];
-$a2 = array();
-foreach ($a as $line) {
-        if (!is_array($line)) {
-                $line2 = explode(':', $line);
-                $a2[] = array('host' => $line2[0], 'port' => $line2[1]);
-        } else {
-                $a2[] = $line;
-        }
-}
-$CONFIG['memcached'] = $a2;
-
 // Define dev boxes
 $DEV_HOSTS = array("localhost", "test-liftium");
 
-#if (file_exists(dirname(__FILE__) . '/LocalSettings-thisbox.php')){
-#	include dirname(__FILE__) . '/LocalSettings-thisbox.php';
-#}
+if (file_exists(dirname(__FILE__) . '/LocalSettings-thisbox.php')){
+	include dirname(__FILE__) . '/LocalSettings-thisbox.php';
+}
 
 // Different settings if on a dev box
 if (Framework::isDev()){
