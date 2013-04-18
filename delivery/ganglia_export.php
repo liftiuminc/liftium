@@ -15,7 +15,7 @@ function getUrlList(){
 	$networks = AdNetwork::searchNetworks(array('enabled'=>1));
 	$base = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['SCRIPT_NAME']}";
 	foreach($networks as $network){
-		echo "$base?list_type=network&network_id=" . $network->network_id . "&" . mt_rand() . "\n";
+		echo "$base?list_type=network&network_id=" . $network->network_id . "\n";
 	}
 //	echo "$base?list_type=browser_fills&network_id=browsers\n";
 	

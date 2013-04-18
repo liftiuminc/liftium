@@ -11,7 +11,6 @@
 // Scope variables if you are in an iframe
 var Liftium = window.Liftium;
 try {
-var ProviderValues = window.ProviderValues || top.ProviderValues || {};
 var wgIsMainpage = window.wgIsMainpage || top.wgIsMainpage || false;  
 } catch (e) { } 
 
@@ -67,10 +66,12 @@ var LiftiumDART = {
 	   'INVISIBLE_1': {'tile':10, 'loc': "invisible"},
 	   'INVISIBLE_2': {'tile':11, 'loc': "invisible"},
 	   'HOME_INVISIBLE_TOP': {'tile':12, 'loc': "invisible"},
-	   'INVISIBLE_TOP': {'tile':13, 'loc': "invisible"}
+	   'INVISIBLE_TOP': {'tile':13, 'loc': "invisible"},
+	   'TEST_TOP_RIGHT_BOXAD': {'tile': 1, 'loc': "top"},
+	   'TEST_HOME_TOP_RIGHT_BOXAD': {'tile': 1, 'loc': "top"} 
 	},
 	sizeconfig : {
-	   '300x250':'300x250,300x600',
+	   '300x250':'300x250',
 	   '600x250':'600x250,300x250',
 	   '728x90':'728x90,468x60',
 	   '160x600':'160x600,120x600',
@@ -89,27 +90,89 @@ LiftiumDART.callAd = function (slotname, size, network_options){
 
 
 LiftiumDART.getUrl = function(slotname, size, network_options, iframe) {
+var url2 = AdConfig.DART.getUrl(slotname, size, true, 'Liftium');
+Liftium.d("AdConfig.DART.getUrl(" + slotname + ", " + size + ", true, 'Liftium')", 1);
+Liftium.d("Dart URL2= " + url2, 1);
+
 	// Hack for dart sizes 
         if (LiftiumDART.sizeconfig[size]){
                 size = LiftiumDART.sizeconfig[size];
         }
-	var url = 'http://ad.doubleclick.net/' + 
+	var url = 'http://' +
+		LiftiumDART.getSubdomain() +
+		'.doubleclick.net/' + 
 		LiftiumDART.getAdType(iframe) + '/' +
 		LiftiumDART.getDARTSite(Liftium.getPageVar('Hub')) + '/' +
 		LiftiumDART.getZone1(Liftium.getPageVar('wgDBname')) + '/' +
 		LiftiumDART.getZone2() + ';' +
 		LiftiumDART.getAllDartKeyvalues(slotname) + 
+		LiftiumDART.getResolution() + 
+		LiftiumDART.getPrefooterStatus() + 
 		LiftiumDART.getTitle() +
+		"lang=" + Liftium.getPageVar('cont_lang', 'unknown') + ";" + 
+		LiftiumDART.getQuantcastSegmentKV() +
+		LiftiumDART.getImpressionCount(slotname) + 
 		LiftiumDART.getDcoptKV(slotname) +
+                'mtfIFPath=/extensions/wikia/AdEngine/;' +  // http://www.google.com/support/richmedia/bin/answer.py?hl=en&answer=117857, http://www.google.com/support/richmedia/bin/answer.py?hl=en&answer=117427
+		"src=liftium;" +
 		"sz=" + size + ';' +
+		"mtfInline=true;" +	// http://www.google.com/support/richmedia/bin/answer.py?hl=en&answer=182220
 		LiftiumDART.getTileKV(slotname) +
-                'mtfIFPath=/extensions/wikia/AdEngine/;' +  // http://www.google.com/support/richmedia/bin/answer.py?hl=en&answer=117857
 
 		"ord=" + LiftiumDART.random;
 
 	Liftium.d("Dart URL = " + url, 4);
+return url2;
 	return url;
 };
+
+LiftiumDART.getSubdomain = function() {
+	var subdomain = 'ad';
+
+	if (!Liftium.e(Liftium.geo.continent)) {
+		switch (Liftium.geo.continent) {
+			case 'AF':
+			case 'EU':
+				subdomain = 'ad-emea';
+				break;
+			case 'AS':
+				Liftium.d('country: ' + Liftium.getCountry().toUpperCase(), 4);
+				switch (Liftium.getCountry().toUpperCase()) {
+					// Middle East
+					case 'AE':
+					case 'CY':
+					case 'BH':
+					case 'IL':
+					case 'IQ':
+					case 'IR':
+					case 'JO':
+					case 'KW':
+					case 'LB':
+					case 'OM':
+					case 'PS':
+					case 'QA':
+					case 'SA':
+					case 'SY':
+					case 'TR':
+					case 'YE':
+						subdomain = 'ad-emea';
+						break;
+					default:
+						subdomain = 'ad-apac';
+				}
+				break;
+			case 'OC':
+				subdomain = 'ad-apac';
+				break;
+			case 'NA':
+			case 'SA':
+			default:
+				subdomain = 'ad';
+		}
+	}
+
+	return subdomain;
+}
 
 LiftiumDART.getAdType = function(iframe){
 	if (iframe) {
@@ -203,13 +266,93 @@ LiftiumDART.getDomainKV = function (hostname){
 	}
 
 	if (sld !== ''){
-		return 'dmn=' + sld.replace(/\./g, '_') + ';';
+		return 'dmn=' + sld.replace(/\./g, '') + ';';
 	} else {
 		return '';
 	}
 
 };
 
+
+LiftiumDART.getQuantcastSegmentKV = function (){
+	var COOKIE_NAME = 'qcseg';
+	var kv = '';
+	if (typeof(wgIntegrateQuantcastSegments) === 'undefined' || Liftium.e(wgIntegrateQuantcastSegments)) {
+		return kv;
+	}
+	if (!Liftium.e(Liftium.cookie(COOKIE_NAME))) {
+	try {
+		var qc = eval("(" + Liftium.cookie(COOKIE_NAME) + ")");
+		if (!Liftium.e(qc) && !Liftium.e(qc.segments)) {
+			for (var i in qc.segments) {
+				kv += 'qcseg=' + qc.segments[i].id + ';';
+			}
+		}
+	} catch (e) {
+	}
+	}
+
+	return kv;
+};
+
+LiftiumDART.getImpressionCount = function (slotname) {
+	// return key-value only if impression cookie exists
+
+	if (Liftium.e(Liftium.adDriverNumCall)) {
+		Liftium.d('Loading AdDriver data from cookie');
+		var cookie = Liftium.cookie('adDriverNumAllCall');
+		if (!Liftium.e(cookie)) {
+			Liftium.adDriverNumCall = eval('(' + cookie + ')');
+			Liftium.d('AdDriver data loaded:', 7, Liftium.AdDriverNumCall);
+		}
+	}
+
+	if (!Liftium.e(Liftium.adDriverNumCall)) {
+		for (var i=0; i < Liftium.adDriverNumCall.length; i++) {
+			if (Liftium.adDriverNumCall[i].slotname == slotname) {
+				// check cookie expiration
+				if (parseInt(Liftium.adDriverNumCall[i].ts) + window.wgAdDriverCookieLifetime*3600000 > Liftium.now.getTime()) {  // wgAdDriverCookieLifetime in hours, convert to msec
+					var num = parseInt(Liftium.adDriverNumCall[i].num);
+					return 'impct=' + num + ';';
+				}
+			}
+		}
+	}
+
+	return '';
+}
+
+LiftiumDART.getResolution = function () {
+	if (Liftium.e(LiftiumDART.width) || Liftium.e(LiftiumDART.height)) {
+		LiftiumDART.width = document.documentElement.clientWidth || document.body.clientWidth;
+		LiftiumDART.height = document.documentElement.clientHeight || document.body.clientHeight;
+		Liftium.d("resolution: " + LiftiumDART.width + "x" + LiftiumDART.height, 7);
+		// Liftium.trackEvent(["resolution", LiftiumDART.width + "x" + LiftiumDART.height]);
+	}
+	if (LiftiumDART.width > 1024) {
+		return 'dis=large;';
+	} else {
+		return '';
+	}
+};
+
+LiftiumDART.getPrefooterStatus = function () {
+	if (Liftium.e(LiftiumDART.hasprefooters)) {
+		if (typeof AdEngine != "undefined") {
+			if (AdEngine.isSlotDisplayableOnCurrentPage("PREFOOTER_LEFT_BOXAD")) {
+				LiftiumDART.hasprefooters = "yes";
+			} else {
+				LiftiumDART.hasprefooters = "no";
+			}
+		} else {
+			LiftiumDART.hasprefooters = "unknown";
+		}
+	}
+	Liftium.d("has prefooters: " + LiftiumDART.hasprefooters, 7);
+
+	return "hasp=" + LiftiumDART.hasprefooters + ";";
+
+};
 
 LiftiumDART.getAllDartKeyvalues = function (slotname){
 	var out = 's0=' + LiftiumDART.getDARTSite(Liftium.getPageVar('Hub')).replace(/wka\./, '') + ';' +
@@ -218,9 +361,14 @@ LiftiumDART.getAllDartKeyvalues = function (slotname){
 		'@@WIKIA_PROVIDER_VALUES@@' +
 		LiftiumDART.getLocKv(slotname) +
 		LiftiumDART.getArticleKV() +
+		LiftiumDART.getDomainKV(Liftium.getPageVar('domain')) +
 		'pos=' + slotname + ';'; 
 	out = out.replace(/@@WIKIA_AQ@@/, Athena.getMinuteTargeting());
-	out = out.replace(/@@WIKIA_PROVIDER_VALUES@@/, ProviderValues.string || "");
+
+	var d = Liftium.getPageVar('dart', '');
+	if (!Liftium.e(d)) {
+		out = out.replace(/@@WIKIA_PROVIDER_VALUES@@/, d + ';');
+	}
 	return out;
 };
 
@@ -255,7 +403,7 @@ var AdsInContent = {
 	numTries 	: 0,
 	numAdsServed 	: 0,
 	maxTries 	: 20,
-	adsPerPage 	: 2,
+	adsPerPage 	: 0,
 	called 		: false
 };
 
@@ -265,6 +413,17 @@ AdsInContent.putAdsInContent = function(htmlContainer) {
 		// This isn't going to work out. Probably called on the wrong page
 		return false;
 	} 
+	if (!Liftium.e(wgEnableAdsInContent)) {
+		AdsInContent.adsPerPage = parseInt(wgEnableAdsInContent);
+		Liftium.d("AdsInContent: adsPerPage set to " + AdsInContent.adsPerPage, 5);
+		if (isNaN(AdsInContent.adsPerPage)) {
+			AdsInContent.adsPerPage = 0;
+		}
+	}
+	if (AdsInContent.adsPerPage == 0) {
+		Liftium.d("AdsInContent: adsPerPage is " + AdsInContent.adsPerPage + ", bailing out", 3);
+		return false;
+	}
 
 	var html = Liftium._(htmlContainer).innerHTML;
         var numAdsServed = 0, lengthSince = 600, slotname;
@@ -399,6 +558,129 @@ AdsInContent.getPixelHeight = function(sectionHtml){
 if (top == self && window.wgEnableAdsInContent && window.wgIsArticle && (window.wgNamespaceNumber != 6) && ! AdsInContent.called && ! window.wgIsMainpage ) {
 	window.setTimeout('AdsInContent.putAdsInContent("bodyContent");', 300);
 }
+
+// AdsInContent2 a.k.a. AIC2
+var AIC2 = {
+	called          : false,
+	startPosition   : 0,
+	stopPosition    : 0,
+	magicNumber     : 400,
+	visible         : false
+};
+		
+AIC2.init = function() {
+	Liftium.d("AIC2: init", 5);
+	AIC2.called = true;
+
+// FIXME
+if ($("#WikiaMainContent").width() != 680) {
+	Liftium.d("AIC2: non standard width, bailing out", 3);
+	return;
+}
+
+	if (!AIC2.checkStartStopPosition()) return;
+
+	if (AIC2.startPosition + AIC2.magicNumber < AIC2.stopPosition) {
+		Liftium.d("AIC2: page long enough", 7);
+		$('#WikiaFooter').prepend('<div id="INCONTENT_BOXAD_1" class="noprint" style="height: 250px; width: 300px; position: fixed; bottom: 30px; left: 50%; margin-left: 190px;"><div id="Liftium_300x250_99"><iframe width="300" height="250" id="INCONTENT_BOXAD_1_iframe" class="" noresize="true" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" style="border:none" target="_blank"></iframe></div></div><!-- END SLOTNAME: INCONTENT_BOXAD_1 -->');
+		
+		if (!AIC2.checkFooterAd()) {
+			$(window).bind("scroll.AIC2", AIC2.onScroll);
+		}
+	} else {
+		Liftium.d("AIC2: page too short", 3);
+	}
+};
+
+AIC2.checkStartStopPosition = function() {
+	Liftium.d("AIC2: check start/stop position", 7);
+
+	try {
+		var startPosition = parseInt($('#WikiaRail').offset().top) + parseInt($('#WikiaRail').height());
+		var stopPosition = parseInt($("#WikiaArticleCategories").offset().top) - parseInt($(window).height());
+	} catch (e) {
+		// bail out - missing elements, broken dom, erroneous cast...
+		return false;
+	}
+
+	Liftium.d("AIC2: start/stop old/new", 7, [AIC2.startPosition, AIC2.stopPosition, startPosition, stopPosition]);
+
+	// first time here (AIC2.init, most likely) - set up and proceed
+	if (!AIC2.startPosition && !AIC2.stopPosition) {
+		AIC2.startPosition = startPosition;
+		AIC2.stopPosition = stopPosition;
+		Liftium.d("AIC2: start/stop position set up", 7);
+		return true;
+	}
+
+	// numbers are correct - continue
+	// actually, height/offset varries a bit on each scroll, allow for some wiggle room
+	if (AIC2.isAlmostEqual(AIC2.startPosition, startPosition) && AIC2.isAlmostEqual(AIC2.stopPosition, stopPosition)) {
+		Liftium.d("AIC2: start/stop position correct", 7);
+		return true;
+	}
+
+	// numbers don't match - fix and skip a beat
+	AIC2.startPosition = startPosition;
+	AIC2.stopPosition = stopPosition;
+	Liftium.d("AIC2: start/stop position fixed", 5);
+	return false;
+};
+
+AIC2.isAlmostEqual = function(a, b) {
+	if (a == b) return true;
+	if (b - 3 < a && a < b + 3) return true;
+	
+	return false;
+};
+
+AIC2.onScroll = function() {
+	Liftium.d("AIC2: onScroll", 9);
+		
+	if (($(window).scrollTop() > AIC2.startPosition) && ($(window).scrollTop() < AIC2.stopPosition)) {
+		if (!AIC2.visible) {
+			Liftium.d("AIC2.showAd", 5);
+			if (!AIC2.checkStartStopPosition()) return;
+			if (!AIC2.checkFooterAd()) {
+				if ($('#INCONTENT_BOXAD_1').hasClass('wikia-ad') == false) {
+					LiftiumOptions.placement = "INCONTENT_BOXAD_1";
+					Liftium.callInjectedIframeAd("300x250", document.getElementById("INCONTENT_BOXAD_1_iframe"));
+					$('#INCONTENT_BOXAD_1').addClass('wikia-ad');
+				}
+				$('#INCONTENT_BOXAD_1').css('position','fixed');
+				$('#INCONTENT_BOXAD_1').css('bottom','30px');
+				$('#INCONTENT_BOXAD_1').slideDown();
+				
+				AIC2.visible = true;
+			}
+		}
+	} else {
+		if (AIC2.visible) {
+			Liftium.d("AIC2.hideAd", 5);
+			$('#INCONTENT_BOXAD_1').slideUp();
+			
+			AIC2.visible = false;
+		}
+	}
+};
+
+AIC2.checkFooterAd = function() {
+	Liftium.d("AIC2: footer ad detection", 7);
+	if ($(".wikia_anchor_ad").length) {
+		Liftium.d("AIC2: footer ad detected, bailing out", 3);
+		$(window).unbind("scroll.AIC2");
+		return true;
+	} else {
+		Liftium.d("AIC2: footer ad not detected, proceeding", 7);
+		return false;
+	}
+};
+
+/* rt#141687
+if (top == self && window.wgEnableAdsInContent && window.wgIsArticle && (window.wgNamespaceNumber != 6) && ! AIC2.called && ! window.wgIsMainpage ) {
+	wgAfterContentAndJS.push(function(){AIC2.init();});
+}
+*/
 
 
 

@@ -1,0 +1,30 @@
+---
+wgWikiaBotUsers:
+  bot:
+    username: WikiaBot
+    password: FaQayastU4aw
+  staff:
+    username: WikiaStaff
+    password: FaQayastU4aw
+wgMemCachedServers:
+- 10.8.32.19:11000
+- 10.8.34.19:11000
+- 10.8.32.20:11000
+- 10.8.34.20:11000
+wgTheSchwartzSecretToken: 96f88bbd2acbd05b02fd751c5e8c0da8a73e8ab3
+wgHTTPProxy: 127.0.0.1:6081
+wgRedisServers:
+- 10.8.34.21:6379
+wgLiftiumMemCachedServers:
+- host: 10.8.42.24:11211       
+- host: 10.8.40.24:11211       
+wgLiftiumDBServers:
+  masterhost: 10.8.42.24
+  username: rails_dashboard
+  password: Zy9X5arf
+  dbname: liftium
+  slavehosts:
+  - 10.8.42.24
+wgDBadminuser: wikia_root
+wgDBadminpassword: aTie8io9
+...

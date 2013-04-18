@@ -6,6 +6,7 @@ class LiftiumConfig{
 	const cacheTimeout_tag = 30;
 
 	public function getConfig($criteria = array()){
+		global $HIGH_VALUE_COUNTRIES;
 
 		$cache = LiftiumCache::getInstance();
 		$AdTag = new AdTag();
@@ -22,12 +23,29 @@ class LiftiumConfig{
 		// Pull tags
 		$criteria['enabled'] = 1;
 		$criteria['brand_safety_level_check'] = true;
+		if (!empty($criteria['country'])) {
+			$criteria['country'] = strtolower($criteria['country']);
+			if ($criteria['country'] == 'gb') {
+				$criteria['country'] = 'uk';
+			}
+		}
 		foreach ($AdTag->getSizes() as $size){
 			$criteria['size'] = $size;
 			$tags = AdTag::searchTags($criteria, false);
 			foreach($tags as $tag_id){
 				$tag = $this->loadTagFromId($tag_id);
-				if (AdTag::isUnderDailyLimit($tag_id, @$tag['max_daily_impressions'])){
+				// country filtering: include country-specific tags, 
+				// ROW tags (if applicable) and global tags
+				if (!empty($criteria['country'])) {
+					if (!empty($tag['criteria']['country'])
+					&& !in_array($criteria['country'], $tag['criteria']['country'])
+					&& (in_array($criteria['country'], $HIGH_VALUE_COUNTRIES) || !in_array('row', $tag['criteria']['country'])) 
+					) { 
+						continue;
+					}
+				}
+
+				if (AdTag::isUnderDailyLimit($tag, @$tag['max_daily_impressions'])){
 					$object->sizes[$size][] = $tag;
 				} else {
 					if (!empty($_GET['debug'])){
@@ -71,8 +89,8 @@ class LiftiumConfig{
 		$dbr = Framework::getDB("slave");
 		static $sth_t;
 		if (empty($sth_t)){
-		  $sql = "SELECT networks.network_name, tags.id AS tag_id, tags.network_id,
-			tags.tag, tags.always_fill, tags.sample_rate,
+		  $sql = "SELECT networks.network_name, tags.id AS tag_id, tags.tag_name, tags.network_id,
+			tags.tag, tags.always_fill, tags.sample_rate, tags.publisher_id,
 			tags.frequency_cap AS freq_cap, tags.size, tags.pacing,
 			tags.rejection_time as rej_time, tags.tier, tags.value, tags.floor,
 			networks.tag_template, networks.pay_type, tags.max_daily_impressions

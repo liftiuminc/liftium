@@ -5,7 +5,7 @@ class AdTag {
 	public $tag_id;
 	public $tag_name, $notes, $enabled, $network_id, $estimated_cpm, $threshold, $tier,
 		$value, $tag, $guaranteed_fill, $sample_rate, $freq_cap, $rej_cap, $rej_time,
-		$auto_update_ecpm, $reported_ecpm, $reported_date;
+		$auto_update_ecpm, $reported_ecpm, $reported_date, $publisher_id;
 	public $as_ids = null, $options = null;
 
 
@@ -120,6 +120,8 @@ class AdTag {
 	}
 
 	static public function searchTags($criteria=array(), $objects = true){
+		global $HIGH_VALUE_COUNTRIES;
+
 		$dbr = Framework::getDB("slave");
 		/* The idea behind weighted_random_value is that we want to sort items
 		 * within the same tier randomly (to take advantage of cream skimming)
@@ -128,8 +130,8 @@ class AdTag {
 		$values = array();
 		$sql = "SELECT SQL_SMALL_RESULT /* Tell mysql to use in memory temp tables */
 			tags.id AS tag_id FROM tags 
-			INNER JOIN networks on tags.network_id = networks.id
-			WHERE 1=1";
+			INNER JOIN networks on tags.network_id = networks.id ";
+		$sql .= "WHERE 1=1";
 		if (!empty($criteria['name_search'])){
 			$search = '%' . $criteria['name_search'] . '%';
 			$sql .= "\n\tAND tag_name like ? ";
@@ -168,7 +170,6 @@ class AdTag {
 			$sql .= "\n\tAND auto_update_ecpm = ? ";
 			$values[] = $criteria['auto_update_ecpm'];
 		}
-
 
 		switch (@$criteria['sort']){
 			case 'name': $sql.= "\n\tORDER BY tag_name"; break;
@@ -225,10 +226,6 @@ class AdTag {
 			$values[] = date('Y-m-d H:i:00', $criteria['minute']);
 		}
 
-		if (!empty($_GET['debug'])){
-			echo "AdTag::getFillStats(): $sql"; print_r($values);
-		}
-
 		$placeholder = array('attempts'=>0, 'rejects'=>0, 'loads'=>0, 'fill_rate'=>0);
 		$sth = $dbr->prepare($sql);
 		$sth->execute($values);
@@ -278,29 +275,38 @@ class AdTag {
 		}
 	}
 	
-        static public function isUnderDailyLimit($tag_id, $limit){
+        static public function isUnderDailyLimit($tag, $limit){
                 if (empty($limit)){
-                        return true;
-                }
-                $dbr = Framework::getDB("slave");
-                static $sth;
-                if (empty($sth)){
-			// Only prepare the statement once
-			$sth = $dbr->prepare("SELECT SUM(attempts) AS attempts FROM fills_minute
-				WHERE tag_id = ? AND minute >= ?");
-                }
-                $sth->execute(array($tag_id, date('Y-m-d')));
-                $out = array();
-                while($row = $sth->fetch(PDO::FETCH_ASSOC)){
-                        if (intval($row['attempts']) <= intval($limit)){
-                                return true;
-                        } else {
-                                return false;
-                        }
+                    return true;
                 }
 
-                // Something went wrong
-                return true;
+                static $pacingCache = null;
+                if ($pacingCache === null) {
+                    // Batch the sql statements together and cache them.
+                    // This means one sql statements per request instead of one per tag
+                    $pacingCache = array();
+                    $dbr = Framework::getDB("slave");
+
+                    // Pull the list of tags for this publisher
+                    $criteria = array();
+                    $criteria['enabled'] = 1;
+                    $criteria['pubid'] = $tag['publisher_id'];
+                    $criteria['brand_safety_level_check'] = true;
+                    $tagIds = AdTag::searchTags($criteria, false);
+
+                    $sth = $dbr->prepare("SELECT tag_id, SUM(attempts) AS attempts
+                        FROM fills_minute WHERE tag_id IN (" . implode(",", $tagIds) . ") AND minute >= ? GROUP BY tag_id");
+                    $sth->execute(array(date('Y-m-d')));
+                    while($row = $sth->fetch(PDO::FETCH_ASSOC)){
+                        $pacingCache[$row['tag_id']] = intval($row['attempts']);
+                    }
+                }
+
+                if (!empty($pacingCache[$tag['tag_id']]) && $pacingCache[$tag['tag_id']] >= intval($limit)){
+                    return false;
+                } else {
+                    return true;
+                }
         }
 
 }

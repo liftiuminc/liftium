@@ -27,10 +27,15 @@ LiftiumOptions.autoInit = false;
 echo "\n/* Begin Liftium.js */\n";
 echo file_get_contents("js/Liftium.js");
 
-echo "\n/* Begin {$CONFIG['geoip_url']} */\n";
-echo file_get_contents($CONFIG['geoip_url'] . "?" . Framework::getIP());
+echo "\n/* Begin geoip.liftium.com */\n";
+echo file_get_contents("http://geoip.liftium.com/?" . Framework::getIP());
 
-$u = $CONFIG['delivery_url'] . "/config?" . http_build_query(array('pubid'=> intval($_GET['pubid']), 'v' => 1.2));
+if (Framework::isDev()){
+	$u = "http://" . $_SERVER['HTTP_HOST'];
+} else { 
+	$u = "http://delivery.liftium.com";
+}
+$u .= "/config?" . http_build_query(array('pubid'=> intval($_GET['pubid']), 'v' => 1.2));
 
 echo "\n/* Begin $u */\n";
 echo file_get_contents($u);
